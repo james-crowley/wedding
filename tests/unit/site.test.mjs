@@ -17,11 +17,18 @@ test('portable build is deterministic, bundled and checksummed', async () => {
     assert.deepEqual(first.manifest, second.manifest);
     assert.equal(first.manifest.htmlSha256, createHash('sha256').update(html).digest('hex'));
     assert.ok(html.startsWith('<!doctype html>'));
+    assert.match(html, /data:font\/woff2;base64,/);
+    assert.match(html, /SIL OPEN FONT LICENSE/);
     assert.match(html, /allow-scripts allow-downloads/);
     assert.match(html, /Lakeside Estate/);
     assert.doesNotMatch(html, /__VENUE_MODEL__|__THREE_BUNDLE__|__FRAME_HTML__|\/(?:Users|home)\/[^/]+\//);
     assert.ok((await stat(join(first.outDir, 'licenses/THREE-LICENSE.txt'))).size > 100);
     await stat(join(first.outDir, '.nojekyll'));
+    for (const name of ['raleway-latin', 'allura-wordmark']) {
+      await stat(join(first.outDir, 'licenses', name + '-OFL.txt'));
+      const font = await readFile(join(projectRoot, 'vendor/fonts', name + '.woff2'));
+      assert.equal(font.subarray(0, 4).toString(), 'wOF2');
+    }
   } finally { await rm(temp, { recursive: true, force: true }); }
 });
 

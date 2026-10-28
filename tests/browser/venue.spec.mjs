@@ -16,6 +16,12 @@ test.afterEach(async ({ page }) => expect(page.__venueErrors).toEqual([]));
 
 test('renders a real WebGL canvas without external requests', async ({ page }, info) => {
   const app = page.frameLocator('#codex-visualization');
+  const fonts = await app.locator('body').evaluate(async () => {
+    await document.fonts.ready;
+    return [...document.fonts].filter(font => font.family.includes('Studio')).map(font => ({ family: font.family, status: font.status }));
+  });
+  expect(fonts).toHaveLength(2);
+  expect(fonts.every(font => font.status === 'loaded')).toBe(true);
   await expect(app.locator('#lp-canvas')).toBeVisible();
   expect(await app.locator('#lp-canvas').evaluate(canvas => {
     const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');

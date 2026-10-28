@@ -31,6 +31,8 @@ Edit the source, then rebuild. Do not edit `dist/`; it is generated. The page sh
 
 ## Designing the space
 
+The Lakeside-inspired interface uses pale sage, white surfaces, fine rules, an Allura wordmark and Raleway controls. Both open-license fonts are bundled for offline use; notices and license terms are included in the HTML and build output.
+
 The visualization is the main workspace, with camera/navigation controls beneath it and a separate design panel. Four coordinated looks provide a starting palette; all individual colors and arrangements remain editable.
 
 - **Layout:** guest capacity, per-row offsets, table removal, bar/photo-booth sides, cupcake presentation, dance floor sizes and checkerboard/solid/concrete/wood finishes.

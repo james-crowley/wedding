@@ -149,4 +149,7 @@ test('decor color swatches and flower choices persist after reloading', async ({
   await expect(app.locator('[data-design="flowerC"]')).toHaveValue('#ad829a');
   await expect(app.locator('[data-design="flowerStyle"]')).toHaveValue('anemones');
   await expect(app.locator('[data-design="napkinStyle"]')).toHaveValue('gathered');
+  await page.setViewportSize({ width: 390, height: 900 });
+  expect(await app.locator('body').evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)).toBe(false);
+  expect(await app.locator('#lp-settings-tabs').evaluate(nav => [...nav.children].some(tab => tab.scrollWidth > tab.clientWidth + 1))).toBe(false);
 });

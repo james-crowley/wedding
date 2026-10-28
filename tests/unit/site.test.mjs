@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, mkdtemp, rm, stat } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -8,6 +8,7 @@ import { parse } from 'yaml';
 import { build, projectRoot, escapeAttribute } from '../../scripts/build.mjs';
 import { deploymentPlan } from '../../scripts/deploy-pages.mjs';
 
+describe('Site and deployment invariants', () => {
 test('portable build is deterministic, bundled and checksummed', async () => {
   const temp = await mkdtemp(join(projectRoot, '.build-check-'));
   try {
@@ -80,4 +81,5 @@ test('publication refuses PRs, unverified artifacts and missing credentials', ()
   assert.throws(() => deploymentPlan({ ...env, SSH_AUTH_SOCK: '' }, manifest), /SSH key/);
   assert.throws(() => deploymentPlan({ ...env, GH_PAGES_SSH_FINGERPRINT: '../key' }, manifest), /SSH key/);
   assert.throws(() => deploymentPlan({ ...env, GITHUB_REPOSITORY: '../venue' }, manifest), /owner\/repository/);
+});
 });

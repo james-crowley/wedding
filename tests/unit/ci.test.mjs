@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { mkdtemp, writeFile, rm, readFile } from 'node:fs/promises';
@@ -9,6 +9,7 @@ import { projectRoot } from '../../scripts/build.mjs';
 import { SHARDS, classifyChanges, changedFiles } from '../../scripts/ci-plan.mjs';
 import { specs, verifyResults, verifyProof, selectShardReceipts } from '../../scripts/ci-browser.mjs';
 
+describe('CI selection and shard integrity', () => {
 const collect = shard => {
   const args = [join(projectRoot, 'node_modules/playwright/cli.js'), 'test', '--list', '--reporter=json', ...shard ? [`--shard=${shard}/${SHARDS}`] : []];
   const r = spawnSync(process.execPath, args, { cwd: projectRoot, encoding: 'utf8' });assert.equal(r.status, 0, r.stderr);
@@ -79,4 +80,11 @@ test('rerun reports use unique attempts and select one matching artifact per sha
   candidates.push(candidate(0,2),candidate(1,3,{htmlSha256:'wrong'}));
   const selected=selectShardReceipts(candidates,manifest);assert.equal(selected.length,SHARDS);assert.equal(selected[0].receipt.completedAt,2);assert.equal(selected[1].receipt.completedAt,1);
   assert.throws(()=>selectShardReceipts(candidates.filter(c=>c.receipt.index!==2),manifest),/Missing matching receipt/);
+});
+test('unit JUnit suites use the structure required by CircleCI', () => {
+  const env={...process.env};delete env.NODE_TEST_CONTEXT;
+  const result=spawnSync(process.execPath,['--input-type=module','--test-reporter=junit','-'],{env,input:"import {describe,it} from 'node:test';describe('sample',()=>it('passes',()=>{}));",encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);assert.match(result.stdout,/<testsuites>\s*<testsuite\b/);assert.doesNotMatch(result.stdout,/<testsuites>\s*<testcase\b/);
+});
+
 });

@@ -1,0 +1,62 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile, mkdtemp, rm, stat } from 'node:fs/promises';
+import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { Script } from 'node:vm';
+import { parse } from 'yaml';
+import { build, projectRoot, escapeAttribute } from '../../scripts/build.mjs';
+import { deploymentPlan } from '../../scripts/deploy-pages.mjs';
+
+test('portable build is deterministic, bundled and checksummed', async () => {
+  const temp = await mkdtemp(join(projectRoot, '.build-check-'));
+  try {
+    const first = await build({ outDir: join(temp, 'first'), commit: 'a'.repeat(40) });
+    const second = await build({ outDir: join(temp, 'second'), commit: 'a'.repeat(40) });
+    const html = await readFile(join(first.outDir, 'index.html'), 'utf8');
+    assert.deepEqual(first.manifest, second.manifest);
+    assert.equal(first.manifest.htmlSha256, createHash('sha256').update(html).digest('hex'));
+    assert.ok(html.startsWith('<!doctype html>'));
+    assert.match(html, /allow-scripts allow-downloads/);
+    assert.match(html, /Wedding pavilion/);
+    assert.doesNotMatch(html, /__VENUE_MODEL__|__THREE_BUNDLE__|__FRAME_HTML__|\/(?:Users|home)\/[^/]+\//);
+    assert.ok((await stat(join(first.outDir, 'licenses/THREE-LICENSE.txt'))).size > 100);
+    await stat(join(first.outDir, '.nojekyll'));
+  } finally { await rm(temp, { recursive: true, force: true }); }
+});
+
+test('attribute escaping protects the embedded document', () => assert.equal(escapeAttribute('<&">'), '&lt;&amp;&quot;&gt;'));
+
+test('model scripts parse and literal control IDs exist exactly once', async () => {
+  const source = await readFile(join(projectRoot, 'src/model.html'), 'utf8');
+  for (const [, script] of source.matchAll(/<script>([\s\S]*?)<\/script>/g)) new Script(script);
+  const ids = [...source.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const [, id] of source.matchAll(/\$\('([^']+)'\)/g)) assert.ok(ids.includes(id), `Missing control: ${id}`);
+});
+
+test('CircleCI only deploys tested main builds, in a serial group', async () => {
+  const config = parse(await readFile(join(projectRoot, '.circleci/config.yml'), 'utf8'));
+  const jobs = config.workflows['build-test-publish'].jobs;
+  const deploy = jobs.find(j => j['publish-pages'])['publish-pages'];
+  assert.deepEqual(deploy.requires, ['build-and-test']);
+  assert.equal(deploy.filters.branches.only, 'main');
+  assert.equal(deploy.context, 'wedding-pages');
+  assert.ok(deploy['serial-group']);
+  const publisher = config.jobs['publish-pages'];
+  assert.deepEqual(publisher.steps.find(step => step.add_ssh_keys).add_ssh_keys.fingerprints, [publisher.environment.GH_PAGES_SSH_FINGERPRINT]);
+  const pkg = JSON.parse(await readFile(join(projectRoot, 'package.json'), 'utf8'));
+  assert.ok(config.executors.browser.docker[0].image.includes(`v${pkg.devDependencies['@playwright/test']}-`));
+});
+
+test('publication refuses PRs, unverified artifacts and missing credentials', () => {
+  const sha = 'a'.repeat(40), manifest = { project: 'wedding-planner', commit: sha };
+  const env = { CIRCLE_BRANCH: 'main', CIRCLE_SHA1: sha, GITHUB_REPOSITORY: 'example/venue', GH_PAGES_SSH_FINGERPRINT: 'ab:'.repeat(15) + 'ab', SSH_AUTH_SOCK: '/tmp/test-agent' };
+  assert.equal(deploymentPlan(env, manifest).branch, 'gh-pages');
+  assert.ok(deploymentPlan({ ...env, CIRCLE_BRANCH: 'feature' }, manifest).skip);
+  assert.ok(deploymentPlan({ ...env, CIRCLE_PULL_REQUEST: 'https://example.test/pr/1' }, manifest).skip);
+  assert.throws(() => deploymentPlan(env, { ...manifest, commit: 'b'.repeat(40) }), /tested source/);
+  assert.throws(() => deploymentPlan({ ...env, SSH_AUTH_SOCK: '' }, manifest), /SSH key/);
+  assert.throws(() => deploymentPlan({ ...env, GH_PAGES_SSH_FINGERPRINT: '../key' }, manifest), /SSH key/);
+  assert.throws(() => deploymentPlan({ ...env, GITHUB_REPOSITORY: '../venue' }, manifest), /owner\/repository/);
+});

@@ -1,0 +1,21 @@
+{
+  "name": "wedding-planner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test:unit": "node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=test-results/unit.xml tests/unit/*.test.mjs",
+    "test:browser": "playwright test",
+    "test": "npm run build && npm run test:unit && npm run test:browser",
+    "deploy": "node scripts/deploy-pages.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "yaml": "2.9.1"
+  }
+}

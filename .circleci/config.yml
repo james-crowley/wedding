@@ -1,0 +1,74 @@
+version: 2.1
+
+executors:
+  browser:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.64.1-noble
+    resource_class: medium
+    environment:
+      CI: "true"
+
+jobs:
+  build-and-test:
+    executor: browser
+    steps:
+      - checkout
+      - run:
+          name: Install locked development dependencies
+          command: npm ci
+      - run:
+          name: Build the standalone static site
+          command: npm run build
+      - run:
+          name: Check build, source and pipeline invariants
+          command: npm run test:unit
+      - run:
+          name: Exercise WebGL rendering and interactive controls
+          command: npm run test:browser
+          no_output_timeout: 10m
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: dist
+          destination: site
+      - store_artifacts:
+          path: playwright-report
+          destination: browser-report
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  publish-pages:
+    executor: browser
+    environment:
+      GH_PAGES_SSH_FINGERPRINT: "73:b4:47:ae:8d:1f:44:f4:26:49:d0:e9:bf:65:e1:23"
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "73:b4:47:ae:8d:1f:44:f4:26:49:d0:e9:bf:65:e1:23"
+      - attach_workspace:
+          at: .
+      - run:
+          name: Publish the tested build to GitHub Pages
+          command: node scripts/deploy-pages.mjs
+
+workflows:
+  build-test-publish:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              ignore: gh-pages
+      - publish-pages:
+          context: wedding-pages
+          serial-group: << pipeline.project.slug >>/github-pages
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: main

@@ -54,7 +54,11 @@ test('CircleCI only deploys tested main builds, in a serial group', async () => 
   const config = parse(await readFile(join(projectRoot, '.circleci/config.yml'), 'utf8'));
   const jobs = config.workflows['build-test-publish'].jobs;
   const deploy = jobs.find(j => j['publish-pages'])['publish-pages'];
-  assert.deepEqual(deploy.requires, ['build-and-test']);
+  assert.deepEqual(deploy.requires, ['verify-browser-tests']);
+  assert.deepEqual(jobs.find(j => j['verify-browser-tests'])['verify-browser-tests'].requires, ['browser-tests']);
+  assert.deepEqual(jobs.find(j => j['browser-tests'])['browser-tests'].requires, ['build-and-unit']);
+  assert.equal(config.jobs['browser-tests'].parallelism, 4);
+  for (const job of ['build-and-unit', 'browser-tests', 'verify-browser-tests']) assert.equal(jobs.find(j => j[job])[job].filters.branches.ignore, 'gh-pages');
   assert.equal(deploy.filters.branches.only, 'main');
   assert.equal(deploy.context, 'wedding-pages');
   assert.ok(deploy['serial-group']);

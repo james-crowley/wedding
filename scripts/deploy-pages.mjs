@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { projectRoot } from './build.mjs';
+import { verifyProof } from './ci-browser.mjs';
 
 export function deploymentPlan(env, manifest) {
   if (env.CIRCLE_BRANCH !== 'main') return { skip: 'Only main publishes.' };
@@ -22,6 +23,8 @@ async function publish() {
   const manifest = JSON.parse(await readFile(join(dist, 'build-info.json'), 'utf8'));
   const plan = deploymentPlan(process.env, manifest);
   if (plan.skip) { console.log(plan.skip); return; }
+  const proof = JSON.parse(await readFile(join(projectRoot, '.ci/browser-proof.json'), 'utf8'));
+  verifyProof(manifest, proof);
   const html = await readFile(join(dist, 'index.html'));
   if (createHash('sha256').update(html).digest('hex') !== manifest.htmlSha256) throw new Error('Built HTML checksum does not match its manifest');
   const allowed = new Set(['index.html', '.nojekyll', 'build-info.json', 'licenses']);

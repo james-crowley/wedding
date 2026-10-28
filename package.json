@@ -12,7 +12,8 @@
     "test:unit": "node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=test-results/unit.xml tests/unit/*.test.mjs",
     "test:browser": "playwright test",
     "test": "npm run build && npm run test:unit && npm run test:browser",
-    "deploy": "node scripts/deploy-pages.mjs"
+    "deploy": "node scripts/deploy-pages.mjs",
+    "test:changed": "node scripts/test-changed.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

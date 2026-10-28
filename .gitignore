@@ -6,3 +6,6 @@ playwright-report/
 .env.*
 .DS_Store
 .build-check-*/
+.ci/
+ci-shards/
+blob-report/

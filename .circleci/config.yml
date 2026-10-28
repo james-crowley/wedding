@@ -9,28 +9,64 @@ executors:
       CI: "true"
 
 jobs:
-  build-and-test:
+  build-and-unit:
     executor: browser
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-pw1641-{{ arch }}-{{ checksum "package-lock.json" }}
+            - v1-npm-pw1641-{{ arch }}-
       - run:
-          name: Install locked development dependencies
-          command: npm ci
+          name: Install locked dependencies using the npm download cache
+          command: npm ci --prefer-offline --no-audit --fund=false
+      - save_cache:
+          key: v1-npm-pw1641-{{ arch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
       - run:
-          name: Build the standalone static site
+          name: Classify changes against the published source or PR merge base
+          command: node scripts/ci-plan.mjs prepare
+      - run:
+          name: Build the standalone static site once
           command: npm run build
       - run:
-          name: Check build, source and pipeline invariants
+          name: Check build, source, splitting and publication invariants
           command: npm run test:unit
       - run:
-          name: Exercise WebGL rendering and interactive controls
-          command: npm run test:browser
-          no_output_timeout: 10m
+          name: Collect the required browser test inventory
+          command: node scripts/ci-browser.mjs list
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: dist
           destination: site
+      - store_artifacts:
+          path: .ci
+          destination: ci-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - node_modules
+            - .ci
+
+  browser-tests:
+    executor: browser
+    parallelism: 4
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Skip browsers for verified documentation-only changes
+          command: node scripts/ci-plan.mjs halt-if-docs
+      - run:
+          name: Run this browser shard with one WebGL worker
+          command: node scripts/ci-browser.mjs run
+          no_output_timeout: 10m
+      - store_test_results:
+          path: test-results
       - store_artifacts:
           path: playwright-report
           destination: browser-report
@@ -40,7 +76,32 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - dist
+            - ci-shards
+
+  verify-browser-tests:
+    executor: browser
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Skip report merging for documentation-only changes
+          command: node scripts/ci-plan.mjs halt-if-docs
+      - run:
+          name: Merge reports and require every collected test to pass
+          command: node scripts/ci-browser.mjs merge
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: playwright-report
+          destination: combined-browser-report
+      - store_artifacts:
+          path: .ci/browser-proof.json
+          destination: browser-proof.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .ci/browser-proof.json
 
   publish-pages:
     executor: browser
@@ -48,19 +109,34 @@ jobs:
       GH_PAGES_SSH_FINGERPRINT: "73:b4:47:ae:8d:1f:44:f4:26:49:d0:e9:bf:65:e1:23"
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "73:b4:47:ae:8d:1f:44:f4:26:49:d0:e9:bf:65:e1:23"
       - attach_workspace:
           at: .
       - run:
-          name: Publish the tested build to GitHub Pages
+          name: Skip publication when only documentation changed
+          command: node scripts/ci-plan.mjs halt-if-docs
+      - add_ssh_keys:
+          fingerprints:
+            - "73:b4:47:ae:8d:1f:44:f4:26:49:d0:e9:bf:65:e1:23"
+      - run:
+          name: Publish the exact build validated by all browser shards
           command: node scripts/deploy-pages.mjs
 
 workflows:
   build-test-publish:
     jobs:
-      - build-and-test:
+      - build-and-unit:
+          filters:
+            branches:
+              ignore: gh-pages
+      - browser-tests:
+          requires:
+            - build-and-unit
+          filters:
+            branches:
+              ignore: gh-pages
+      - verify-browser-tests:
+          requires:
+            - browser-tests
           filters:
             branches:
               ignore: gh-pages
@@ -68,7 +144,7 @@ workflows:
           context: wedding-pages
           serial-group: << pipeline.project.slug >>/github-pages
           requires:
-            - build-and-test
+            - verify-browser-tests
           filters:
             branches:
               only: main

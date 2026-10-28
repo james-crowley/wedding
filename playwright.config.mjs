@@ -6,10 +6,12 @@ export default defineConfig({
   outputDir: './test-results/browser-artifacts',
   // Software WebGL on shared CI CPUs takes longer than a desktop GPU.
   timeout: 180_000,
-  globalTimeout: 40 * 60_000,
+  // CI runs one quarter of the matrix per container; a local full run includes
+  // all controls and combinations and needs a larger overall budget.
+  globalTimeout: (process.env.CI ? 40 : 120) * 60_000,
   expect: { timeout: 15_000 },
   fullyParallel: true,
-  workers: 1,
+  workers: process.env.CI ? 1 : 2,
   retries: process.env.CI ? 1 : 0,
   // A retry provides a trace for diagnosis, not permission to publish an
   // intermittently broken renderer.

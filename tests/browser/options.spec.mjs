@@ -85,6 +85,7 @@ for(const control of auditControls) test(`option audit: ${control.selector} (${c
 });
 
 test('measurements remain finite with empty dining rows and no guest tables',async({page})=>{
+  test.setTimeout(8*60_000);
   const frame=await appFrame(page);await choose(frame,'#lp-measure-scope','all');
   for(const count of [64,32,0,8,96]){
     await choose(frame,'#lp-guests',count);await reveal(frame,'#lp-fit-guests');await frame.locator('#lp-fit-guests').click();

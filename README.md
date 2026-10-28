@@ -101,6 +101,8 @@ The large option matrix uses a smaller canvas and shadow-map resolution while re
 
 CI retries collect diagnostic traces, but a flaky result now fails the publication gate even if its retry passes. The broader matrix increases test duration; the timing comparison below describes the earlier 13-case suite.
 
+Local full runs use two workers and a two-hour overall ceiling; CI uses one worker per shard and a 40-minute ceiling per shard. Per-case timeouts still detect stalled interactions. Use `npm run test:browser -- --workers=1` on a machine with limited memory.
+
 ### Measured workflow times
 
 Complete CircleCI workflow times on October 28, 2026, including environment startup, reports and publication:

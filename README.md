@@ -83,6 +83,24 @@ The Playwright package and Docker image are pinned to the same version. Browser 
 
 Four parallel containers reduce elapsed time rather than the total number of browser checks. If the account queues containers, the speedup will be smaller. No build-output or passing-test-result cache is used to authorize deployment.
 
+### Option and rendering validation
+
+The original interaction tests are supplemented by a source-derived control inventory and a browser option matrix. Adding a new form control or dropdown choice automatically adds coverage; the runtime DOM must match that inventory. Identified buttons must belong to an exercised action workflow.
+
+| Coverage | What runs |
+| --- | --- |
+| 108 form controls | Every dropdown choice; both checkbox states; numeric minima, maxima, empty and out-of-range values; black, white and accent colors for every color field |
+| Generated choices | Every table toggle, furniture selection, tour stop, guest table and seat choice; valid and invalid layout-file imports |
+| Palette and themes | Every coordinating swatch applied to all 11 color targets; every look card; repeated rapid theme/color/numeric bursts and reload persistence |
+| Risk combinations | All 84 arbor shape/dressing/location pairs, 64 flower/arrangement pairs and 42 vase/candle pairs |
+| Navigation and actions | Every identified button, responsive/light/dark layouts, walking upstairs/downstairs, double-tap/Shift sprint, release, Escape, focus loss and stale-key expiry |
+
+Each matrix step waits for pending decor refreshes and checks a real WebGL render, console and uncaught errors, context loss, finite scene/instance/camera data and nonblank pixels. An audit self-check deliberately introduces invalid geometry and clears the canvas to prove these detectors fail. Repeated style switches must retain the existing property geometry and settle at a bounded geometry/texture count.
+
+The large option matrix uses a smaller canvas and shadow-map resolution while retaining production geometry, materials, shaders and real software WebGL. The original interaction suite uses normal rendering quality. Reports attach the exact checked values and stress-run resource samples. Coverage is Chromium; it does not certify every GPU/browser or the full Cartesian product of every setting. Color inputs use representative extremes and accents, rather than all 16 million RGB values.
+
+CI retries collect diagnostic traces, but a flaky result now fails the publication gate even if its retry passes. The broader matrix increases test duration; the timing comparison below describes the earlier 13-case suite.
+
 ### Measured workflow times
 
 Complete CircleCI workflow times on October 28, 2026, including environment startup, reports and publication:

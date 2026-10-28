@@ -6,11 +6,14 @@ export default defineConfig({
   outputDir: './test-results/browser-artifacts',
   // Software WebGL on shared CI CPUs takes longer than a desktop GPU.
   timeout: 180_000,
-  globalTimeout: 25 * 60_000,
+  globalTimeout: 40 * 60_000,
   expect: { timeout: 15_000 },
   fullyParallel: true,
   workers: 1,
   retries: process.env.CI ? 1 : 0,
+  // A retry provides a trace for diagnosis, not permission to publish an
+  // intermittently broken renderer.
+  failOnFlakyTests: Boolean(process.env.CI),
   forbidOnly: Boolean(process.env.CI),
   reporter: [['list'], ['junit', { outputFile: 'test-results/browser.xml' }], ['html', { outputFolder: 'playwright-report', open: 'never' }], ...process.env.CI_SHARD_REPORT_DIR ? [['blob', { outputDir: process.env.CI_SHARD_REPORT_DIR }]] : []],
   use: {

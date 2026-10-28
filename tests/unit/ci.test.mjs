@@ -55,6 +55,8 @@ test('merged validation rejects missing, duplicate, skipped, failed and partial-
   assert.throws(()=>verifyResults(report([passing('one'),passing('two')]),[{id:'one',projects:['','firefox']},expected[1]]),/project coverage/);
   assert.throws(()=>verifyResults({...report(expected.map(t=>passing(t.id))),errors:[{message:'runner crashed'}]},expected),/runner/);
   assert.throws(()=>verifyResults(report([]),[]),/nonempty/);
+  const flaky=passing('two');flaky.tests[0].status='flaky';flaky.tests[0].results=[{status:'failed'},{status:'passed'}];
+  assert.throws(()=>verifyResults(report([passing('one'),flaky]),expected),/consistently/);
 });
 test('browser proof is bound to the current commit and built HTML', () => {
   const manifest={commit:'a'.repeat(40),htmlSha256:'b'.repeat(64)};

@@ -19,7 +19,7 @@ export function verifyResults(report, expected) {
     seen.add(spec.id);
     const projects = spec.tests?.map(test => test.projectId || '').sort();
     if (JSON.stringify(projects) !== JSON.stringify([...expectedById.get(spec.id).projects].sort())) throw new Error('Incomplete project coverage');
-    if (!spec.tests?.length || spec.tests.some(test => test.expectedStatus !== 'passed' || !['expected', 'flaky'].includes(test.status) || test.results?.at(-1)?.status !== 'passed')) throw new Error(`Browser test did not pass: ${spec.title}`);
+    if (!spec.tests?.length || spec.tests.some(test => test.expectedStatus !== 'passed' || test.status !== 'expected' || test.results?.at(-1)?.status !== 'passed')) throw new Error(`Browser test did not pass consistently: ${spec.title}`);
   }
   if (seen.size !== wanted.size) throw new Error(`Incomplete browser coverage: ${seen.size}/${wanted.size} tests`);
   return seen.size;

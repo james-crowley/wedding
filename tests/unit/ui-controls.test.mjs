@@ -5,6 +5,7 @@ import { controls,controlInventory } from '../../scripts/ui-controls.mjs';
 describe('UI option coverage inventory',()=>{
   it('covers every form control, including each declared choice and numeric boundaries',()=>{
     assert.ok(controls.length>=108);
+    assert.deepEqual(controls.filter(c=>c.type==='file').map(c=>c.selector),['#lp-load'],'New file inputs require a dedicated import workflow');
     for(const c of controls){
       assert.ok(['select','checkbox','number','color','file'].includes(c.type),`New control type needs audit support: ${c.type}`);
       if(c.type==='number'){assert.ok(Number.isFinite(Number(c.min)));assert.ok(Number.isFinite(Number(c.max)));assert.ok(c.values.includes(''));assert.ok(c.values.includes(c.min));assert.ok(c.values.includes(c.max));}

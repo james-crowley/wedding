@@ -103,8 +103,8 @@ test('conditional controls disable and re-enable with their visual dependencies'
   }
   await pick(frame,design('candleStyle'),'votive');await expect(frame.locator(design('candleHeight'))).toBeDisabled();await expect(frame.locator(design('candleHeight'))).toHaveValue('3');
   await frame.locator('#lp-view').selectOption('seat');await expose(frame,'#lp-seat-table');await frame.locator('#lp-seat-table').selectOption('couple');
-  await expect(frame.locator('#lp-seat-side')).toBeDisabled();await expect(frame.locator('#lp-seat-look option[value="couple"]')).toBeDisabled();
+  await expect(frame.locator('#lp-seat-side')).toBeDisabled();await expect(frame.locator('#lp-seat-look option[value="couple"]')).toHaveAttribute('disabled','');
   await frame.locator('#lp-seat-table').selectOption('table-1');await expect(frame.locator('#lp-seat-side')).toBeEnabled();
-  await frame.locator('#lp-view').selectOption('plan');await expect(frame.locator('#lp-roof')).toBeDisabled();await healthy(frame,'Plan controls');
-  await frame.locator('#lp-view').selectOption('tour');for(const id of ['lp-roof','lp-context','lp-action'])await expect(frame.locator('#'+id)).toBeDisabled();await healthy(frame,'Tour controls');
+  await frame.locator('#lp-view').selectOption('plan');await expect(frame.locator('#lp-roof')).toBeDisabled();await health(frame,'Plan controls');
+  await frame.locator('#lp-view').selectOption('tour');for(const id of ['lp-roof','lp-context','lp-action'])await expect(frame.locator('#'+id)).toBeDisabled();await health(frame,'Tour controls');
 });

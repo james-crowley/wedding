@@ -3,7 +3,6 @@ import { controls } from '../../scripts/ui-controls.mjs';
 import { installRenderAudit, renderHealth } from './render-audit.mjs';
 
 const auditControls=controls.filter(c=>c.type!=='file');
-const dynamic=['#lp-seat-table','#lp-seat-place','#lp-tour-stop','#lp-object'];
 const noDraw=['#lp-walk-speed','#lp-tour-speed','#lp-color-target'];
 
 async function appFrame(page) { return page.frames().find(frame=>frame.parentFrame()===page.mainFrame()); }
@@ -33,15 +32,20 @@ async function choose(frame,selector,value) {
   else {await el.fill(String(value));await el.press('Tab');}
   // Design changes are debounced for 100 ms. Wait for the actual render, not an
   // arbitrary screenshot delay or merely the changed value in the form.
-  const custom=selector==='[data-design="look"]'&&value==='custom';
   const changed=await frame.evaluate(()=>window.__renderAudit.frames)>before;
-  if(!changed&&!noDraw.includes(selector)&&!custom&&type!=='checkbox')await expect.poll(()=>frame.evaluate(()=>window.__renderAudit.frames),{message:`No new frame after ${selector}=${value}`}).toBeGreaterThan(before);
+  if(!changed&&!noDraw.includes(selector)&&type!=='checkbox')await expect.poll(()=>frame.evaluate(()=>window.__renderAudit.frames),{message:`No new frame after ${selector}=${value}`}).toBeGreaterThan(before);
   await healthy(frame,`${selector}=${value}`,selector==='#lp-eye');
+  if(type==='select'||type==='color')await expect(el).toHaveValue(String(value));
+  if(type==='checkbox')await expect(el).toBeChecked({checked:value});
+  if(type==='number'){
+    const validity=await el.evaluate(el=>({valid:el.checkValidity(),value:Number(el.value),min:Number(el.min),max:Number(el.max)}));
+    expect(validity.valid,`${selector} must display its normalized value after commit`).toBe(true);
+    expect(Number.isFinite(validity.value)).toBe(true);expect(validity.value).toBeGreaterThanOrEqual(validity.min);expect(validity.value).toBeLessThanOrEqual(validity.max);
+    expect(validity.value,`${selector} must apply the selected value, clamped to its declared bounds`).toBe(Math.max(validity.min,Math.min(validity.max,Number(value))));
+  }
   // At 200 ft, a horizontal walking camera legitimately sees only sky. Prove
   // recovery using a known camera instead of calling that a broken renderer.
   if(selector==='#lp-eye'){await frame.locator('#lp-reset-camera').click();await healthy(frame,'Return from altitude to overview');}
-  if(type==='select'||type==='color')await expect(el).toHaveValue(String(value));
-  if(type==='checkbox')await expect(el).toBeChecked({checked:value});
 }
 
 test.beforeEach(async({page})=>{
@@ -69,7 +73,11 @@ for(const control of auditControls) test(`option audit: ${control.selector} (${c
   }
   await reveal(frame,selector);
   let values=control.values;
-  if(dynamic.includes(selector))values=await frame.locator(selector).locator('option').evaluateAll(els=>els.map(el=>el.value));
+  if(control.type==='select'){
+    values=await frame.locator(selector).locator('option').evaluateAll(els=>els.map(el=>el.value));
+    expect(values.length,`No live choices collected for ${selector}`).toBeGreaterThan(0);
+    for(const declared of control.values)expect(values,`${selector} lost a declared choice`).toContain(declared);
+  }
   // Seat selection starts on the couple's two seats; guest tables expose four.
   if(selector==='#lp-seat-place'){await choose(frame,'#lp-seat-table','table-1');values=['1','2','3','4'];}
   for(const value of values)await test.step(`${selector} → ${JSON.stringify(value)}`,()=>choose(frame,selector,value));

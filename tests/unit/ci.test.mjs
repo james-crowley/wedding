@@ -8,6 +8,7 @@ import { parse } from 'yaml';
 import { projectRoot } from '../../scripts/build.mjs';
 import { SHARDS, classifyChanges, changedFiles } from '../../scripts/ci-plan.mjs';
 import { specs, verifyResults, verifyProof, selectShardReceipts } from '../../scripts/ci-browser.mjs';
+import { runConcurrent } from '../../scripts/check-static.mjs';
 
 describe('CI selection and shard integrity', () => {
 const collect = shard => {
@@ -71,6 +72,28 @@ test('npm cache, single installation and test-gated artifacts are wired together
   const publisher=c.jobs['publish-pages'];assert.ok(publisher.steps.findIndex(s=>s.run?.command.includes('halt-if-docs'))<publisher.steps.findIndex(s=>s.add_ssh_keys));
   assert.deepEqual(c.jobs['verify-browser-tests'].steps.find(s=>s.persist_to_workspace).persist_to_workspace.paths,['.ci/browser-proof.json']);
   assert.match(await readFile(join(projectRoot,'scripts/deploy-pages.mjs'),'utf8'),/verifyProof\(manifest, proof\)/);
+  const checks=build.steps.find(s=>s.run?.command.includes('check:static'));
+  assert.equal(checks.run.command,'npm run check:static -- --inventory');
+  assert.ok(build.steps.indexOf(checks)<build.steps.findIndex(s=>s.persist_to_workspace));
+});
+
+test('independent checks overlap without waiting for a production build', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'wedding-parallel-'));
+  try {
+    const code="const fs=require('node:fs');fs.writeFileSync(process.argv[1],'ready');const deadline=Date.now()+5000;const timer=setInterval(()=>{if(fs.existsSync(process.argv[2]))clearInterval(timer);else if(Date.now()>deadline)process.exit(1);},10);";
+    await runConcurrent([0,1].map(i=>({name:`check ${i}`,command:process.execPath,args:['-e',code,join(dir,String(i)),join(dir,String(1-i))]})),{stdio:'ignore'});
+  } finally { await rm(dir,{recursive:true,force:true}); }
+});
+test('parallel checks propagate failures and wait for the other processes', async () => {
+  const dir=await mkdtemp(join(tmpdir(),'wedding-parallel-failure-')),marker=join(dir,'finished');
+  try {
+    await assert.rejects(runConcurrent([
+      {name:'Broken build',command:process.execPath,args:['-e','process.exit(7)']},
+      {name:'Other check',command:process.execPath,args:['-e',"setTimeout(()=>require('node:fs').writeFileSync(process.argv[1],'done'),30)",marker]}
+    ],{stdio:'ignore'}),/Broken build failed \(7\)/);
+    assert.equal(await readFile(marker,'utf8'),'done');
+    await assert.rejects(runConcurrent([{name:'Missing executable',command:join(dir,'missing')}],{stdio:'ignore'}),/Missing executable/);
+  } finally { await rm(dir,{recursive:true,force:true}); }
 });
 
 test('rerun reports use unique attempts and select one matching artifact per shard', () => {

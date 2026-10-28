@@ -11,7 +11,8 @@
     "serve": "node scripts/serve.mjs",
     "test:unit": "node --test --test-reporter=spec --test-reporter-destination=stdout --test-reporter=junit --test-reporter-destination=test-results/unit.xml tests/unit/*.test.mjs",
     "test:browser": "playwright test",
-    "test": "npm run build && npm run test:unit && npm run test:browser",
+    "check:static": "node scripts/check-static.mjs",
+    "test": "npm run check:static && npm run test:browser",
     "deploy": "node scripts/deploy-pages.mjs",
     "test:changed": "node scripts/test-changed.mjs"
   },

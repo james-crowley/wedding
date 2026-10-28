@@ -28,14 +28,8 @@ jobs:
           name: Classify changes against the published source or PR merge base
           command: node scripts/ci-plan.mjs prepare
       - run:
-          name: Build the standalone static site once
-          command: npm run build
-      - run:
-          name: Check build, source, splitting and publication invariants
-          command: npm run test:unit
-      - run:
-          name: Collect the required browser test inventory
-          command: node scripts/ci-browser.mjs list
+          name: Build, unit-test and collect browser inventory concurrently
+          command: npm run check:static -- --inventory
       - store_test_results:
           path: test-results
       - store_artifacts:

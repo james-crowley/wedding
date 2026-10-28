@@ -51,9 +51,14 @@ Saved v1–v8 layouts migrate to v9. Existing seating, table positions, styling 
 
 ```mermaid
 flowchart LR
-  Push[Push or pull request] --> Build[Build standalone HTML]
-  Build --> Unit[Source and pipeline tests]
-  Unit --> Split[4 browser shards · 1 worker each]
+  Push[Push or pull request] --> Install[Install once · classify changes]
+  Install --> Build[Build standalone HTML]
+  Install --> Unit[Source and pipeline tests]
+  Install --> Inventory[Collect browser test inventory]
+  Build --> Ready[All three checks pass]
+  Unit --> Ready
+  Inventory --> Ready
+  Ready --> Split[4 browser shards · 1 worker each]
   Split --> Merge[Merge reports · verify complete coverage]
   Merge --> Artifacts[Combined report and validation receipt]
   Merge --> Main{main branch?}
@@ -67,7 +72,7 @@ The Playwright package and Docker image are pinned to the same version. Browser 
 
 ### Speed and change selection
 
-- **Build once:** `build-and-unit` installs with `npm ci`, builds the site, runs unit checks and records the expected browser inventory. Its workspace supplies the exact output and installed dependencies to all later jobs.
+- **Build once, check concurrently:** after one `npm ci`, `build-and-unit` builds the site, runs unit checks and collects browser inventory at the same time. Unit build checks use isolated temporary directories; collection does not launch browsers or read the build. All three must finish successfully before the exact output and installed dependencies are shared with browser jobs. `npm run check:static` also overlaps build and unit checks locally; `npm test` waits for both before launching browsers.
 - **Cache downloads:** a versioned, architecture/Playwright/lockfile-keyed npm download cache supports `npm ci --prefer-offline`. Only the build job writes it. Installed dependencies are passed through the workflow workspace, not restored from a cross-run installed-environment cache. Browser binaries already come with the pinned Playwright image.
 - **Trace on retry:** CI records a trace on the first retry instead of recording and discarding a trace for every passing first attempt. Screenshots and shard reports remain available on failure. Local full runs retain failure traces; `--trace=on` is available for explicit debugging.
 - **Documentation fast path:** only `README.md` and Markdown files under `docs/` can skip browser jobs and publication. Build/unit checks still run. Main compares against the source commit recorded on `gh-pages`, covering multi-commit pushes and previously failed app builds. Other branches use their merge base with main. Missing history, failed fetching, unknown files or changes to source/tests/dependencies/CI all select the full suite. This is not a cached-test-pass bypass.

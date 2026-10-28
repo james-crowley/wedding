@@ -2,6 +2,8 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/browser',
+  // Keep browser cleanup from deleting the earlier unit-test report.
+  outputDir: './test-results/browser-artifacts',
   // Software WebGL on shared CI CPUs takes longer than a desktop GPU.
   timeout: 120_000,
   globalTimeout: 15 * 60_000,

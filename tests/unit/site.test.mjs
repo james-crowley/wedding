@@ -55,6 +55,8 @@ test('CircleCI only deploys tested main builds, in a serial group', async () => 
   assert.deepEqual(publisher.steps.find(step => step.add_ssh_keys).add_ssh_keys.fingerprints, [publisher.environment.GH_PAGES_SSH_FINGERPRINT]);
   const pkg = JSON.parse(await readFile(join(projectRoot, 'package.json'), 'utf8'));
   assert.ok(config.executors.browser.docker[0].image.includes(`v${pkg.devDependencies['@playwright/test']}-`));
+  const browserConfig = await readFile(join(projectRoot, 'playwright.config.mjs'), 'utf8');
+  assert.match(browserConfig, /outputDir: '\.\/test-results\/browser-artifacts'/);
 });
 
 test('publication refuses PRs, unverified artifacts and missing credentials', () => {

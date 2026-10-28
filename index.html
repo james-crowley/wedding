@@ -1829,7 +1829,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     &lt;label class=&quot;form-label&quot;&gt;Show dimensions&lt;select class=&quot;form-select&quot; id=&quot;lp-measure-scope&quot;&gt;&lt;option value=&quot;sections&quot;&gt;Sections and aisles&lt;/option&gt;&lt;option value=&quot;overall&quot;&gt;Overall pavilion&lt;/option&gt;&lt;option value=&quot;selected&quot;&gt;Selected furniture&lt;/option&gt;&lt;option value=&quot;all&quot;&gt;All dimensions&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
   &lt;/div&gt;
   &lt;button class=&quot;btn btn-ghost btn-block&quot; id=&quot;lp-resize&quot; type=&quot;button&quot; aria-label=&quot;Drag to resize the 3D view vertically, or use up and down arrows&quot;&gt;↕ Drag to resize view&lt;/button&gt;
-  &lt;div class=&quot;text-small&quot; id=&quot;lp-nav-hint&quot;&gt;W/A/S/D moves from any view · Drag to look while walking · Esc stops movement&lt;/div&gt;
+  &lt;div class=&quot;text-small&quot; id=&quot;lp-nav-hint&quot;&gt;W/A/S/D or ↑/↓ moves · Double-tap and hold W or ↑ to sprint · Shift also sprints · Drag to look · Esc stops movement&lt;/div&gt;
   &lt;div class=&quot;viz-controls&quot;&gt;&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; id=&quot;lp-tour-start&quot;&gt;Start guided tour&lt;/button&gt;&lt;span class=&quot;text-small&quot;&gt;A floating camera tour of your current layout and decor&lt;/span&gt;&lt;/div&gt;
   &lt;div id=&quot;lp-tour-controls&quot; hidden&gt;
     &lt;div class=&quot;viz-controls&quot;&gt;
@@ -2277,7 +2277,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
     function restoreNavigation(raw){navigation={height:n(raw&amp;&amp;raw.height,680,360,1200),speed:raw&amp;&amp;[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8};stage.style.height=navigation.height+'px';}
     function normalizeSeat(s){return {table:s.table==='couple'||/^table-(?:[1-9]|1[0-2])$/.test(s.table)?s.table:'couple',side:Number(s.side)===-1?-1:1,place:Math.round(n(s.place,1,1,4)),look:['across','couple','dance','lake','house'].includes(s.look)?s.look:'across',eye:n(s.eye,3.8,3.2,4.5),yaw:n(s.yaw,0,-100,100),pitch:n(s.pitch,-.04,-1.2,1.2)};}
-    function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5)};}
+    function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5),surface:Number.isFinite(w.surface)?n(w.surface,0,-30,60):null};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
     let lastPublished='';const publishedStates=new Set();
     function saveState(){if(window.openai&amp;&amp;window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,seat,tour,navigation}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size&gt;32)publishedStates.delete(publishedStates.values().next().value);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=&gt;{});}}
@@ -2828,12 +2828,18 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       if(z&gt;118)y-=Math.min(1.8,(z-118)*.16);
       return y;
     }
-    function walkingHeight(x,z){
+    function walkingHeight(x,z,previousSurface=null){
       if(Math.abs(x)&lt;45&amp;&amp;Math.abs(z)&lt;20)return 0;
       if(x&gt;=-32&amp;&amp;x&lt;=-25&amp;&amp;z&gt;=-71.9&amp;&amp;z&lt;=-68.1)return config.houseRise+8-4*(-25-x)/7;
       if(x&gt;=-36.8&amp;&amp;x&lt;=-32&amp;&amp;z&gt;=-73&amp;&amp;z&lt;=-67)return config.houseRise+4;
       if(x&gt;=-36.4&amp;&amp;x&lt;=-32.4&amp;&amp;z&gt;=-67&amp;&amp;z&lt;=-60)return config.houseRise+4*(-60-z)/7;
       if(x&gt;=-36.4&amp;&amp;x&lt;=-32.4&amp;&amp;z&gt;=-80&amp;&amp;z&lt;=-73)return config.houseRise+4*(z+80)/7;
+      // Follow the stair exit onto the porch and main living floor. Retain the
+      // current support height so walking underneath still uses the lower patio.
+      const porch=Math.abs(x)&lt;=25&amp;&amp;z&gt;=-77.25&amp;&amp;z&lt;=-64.2;
+      const living=Math.abs(x)&lt;=21.75&amp;&amp;z&gt;=-102.75&amp;&amp;z&lt;=-77.25;
+      const upper=config.houseRise+(living?8.16:8.05);
+      if((porch||living)&amp;&amp;Number.isFinite(previousSurface)&amp;&amp;previousSurface&gt;=upper-1.1)return upper;
       if(Math.abs(x)&lt;27.5&amp;&amp;z&gt;=-73&amp;&amp;z&lt;=-59)return config.houseRise;
       return gradeHeight(x,z)+.08;
     }
@@ -3195,7 +3201,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const action=$('lp-action').value,o=selectedObject();
       if(activeView==='seat')$('lp-selection').textContent='Seated perspective · drag to look · W/A/S/D to stand and move · choose another table above';
       else if(activeView==='tour')$('lp-selection').textContent='Drag the scene to pause and look around · Resume recenters the camera · Take control here switches to walking · Roof and site are shown during the tour';
-      else if(activeView==='walk')$('lp-selection').textContent='Camera height '+walk.y.toFixed(2)+' ft · drag to look · W/A/S/D to move · R/F to rise/lower · Esc stops';
+      else if(activeView==='walk')$('lp-selection').textContent='Camera height '+walk.y.toFixed(2)+' ft · drag to look · W/A/S/D to move · double-tap and hold W or ↑ to sprint · R/F to rise/lower · Esc stops';
       else if(action==='move')$('lp-selection').textContent=o.userData.name+' · drag to move'+(/^table-/.test(o.userData.id)?' · chairs move with the table':'');
       else if(action==='measure')$('lp-selection').textContent=measurementPoints.length===2?'Distance in model: '+measurementPoints[0].distanceTo(measurementPoints[1]).toFixed(2)+' ft · choose another point to start a new measurement.':measurementPoints.length===1?'Choose the second point on the ground.':'Choose two ground points to measure straight-line distance.';
       else $('lp-selection').textContent='Drag to rotate · Scroll or pinch to zoom · Right-drag to pan';
@@ -3389,7 +3395,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         walkCamera.rotateY(tourLook.yaw);walkCamera.rotateX(tourLook.pitch);walkCamera.updateMatrixWorld();return;
       }
       if(activeView==='walk'){
-        const eye=walkingHeight(walk.x,walk.z)+walk.y;walkCamera.position.set(walk.x,eye,walk.z);const cp=Math.cos(walk.pitch);walkCamera.lookAt(walk.x+Math.sin(walk.yaw)*cp,eye+Math.sin(walk.pitch),walk.z-Math.cos(walk.yaw)*cp);walkCamera.updateMatrixWorld();return;
+        walk.surface=walkingHeight(walk.x,walk.z,walk.surface);const eye=walk.surface+walk.y;walkCamera.position.set(walk.x,eye,walk.z);const cp=Math.cos(walk.pitch);walkCamera.lookAt(walk.x+Math.sin(walk.yaw)*cp,eye+Math.sin(walk.pitch),walk.z-Math.cos(walk.yaw)*cp);walkCamera.updateMatrixWorld();return;
       }
       target.fromArray(orbit.target);const s=Math.sin(orbit.polar);camera.position.set(target.x+orbit.distance*s*Math.sin(orbit.azimuth),Math.max(.25,target.y+orbit.distance*Math.cos(orbit.polar)),target.z+orbit.distance*s*Math.cos(orbit.azimuth));camera.lookAt(target);camera.updateMatrixWorld();
     }
@@ -3493,20 +3499,22 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     function moveWalker(forward,side,turn){
       walk.yaw+=turn;walk.x=n(walk.x+Math.sin(walk.yaw)*forward+Math.cos(walk.yaw)*side,0,-110,110);walk.z=n(walk.z-Math.cos(walk.yaw)*forward+Math.sin(walk.yaw)*side,-16,-145,220);
     }
-    const held=new Set(),lastKeyAt=new Map(),pointerHeld=new Set();let walkFrame=0,lastWalk=0;
+    const held=new Set(),lastKeyAt=new Map(),pointerHeld=new Set(),forwardTapAt=new Map(),sprintKeys=new Set();let walkFrame=0,lastWalk=0;
     function walkTick(time){
-      for(const key of held)if(!pointerHeld.has(key)&amp;&amp;time-(lastKeyAt.get(key)||0)&gt;1100)held.delete(key);
+      for(const key of held)if(!pointerHeld.has(key)&amp;&amp;time-(lastKeyAt.get(key)||0)&gt;1100){held.delete(key);sprintKeys.delete(key);forwardTapAt.delete(key);}
       if(activeView!=='walk'||!held.size){walkFrame=0;return;}const dt=Math.min((time-lastWalk)/1000,.05);lastWalk=time;
       let f=0,s=0,t=0;if(held.has('w')||held.has('arrowup'))f++;if(held.has('s')||held.has('arrowdown'))f--;if(held.has('a'))s--;if(held.has('d'))s++;if(held.has('q')||held.has('arrowleft'))t--;if(held.has('e')||held.has('arrowright'))t++;
-      const length=Math.hypot(f,s)||1,speed=navigation.speed*(held.has('shift')?2:1);moveWalker(f/length*speed*dt,s/length*speed*dt,t*1.4*dt);
+      const sprinting=held.has('shift')||(f&gt;0&amp;&amp;['w','arrowup'].some(key=&gt;held.has(key)&amp;&amp;sprintKeys.has(key)));
+      const length=Math.hypot(f,s)||1,speed=navigation.speed*(sprinting?2:1);moveWalker(f/length*speed*dt,s/length*speed*dt,t*1.4*dt);
       if(held.has('r'))walk.y=n(walk.y+speed*dt,5.5,3,200);if(held.has('f'))walk.y=n(walk.y-speed*dt,5.5,3,200);
       draw();walkFrame=requestAnimationFrame(walkTick);
     }
     function beginWalking(key){held.add(key);if(!walkFrame){lastWalk=performance.now();walkFrame=requestAnimationFrame(walkTick);}}
-    function stopWalking(){held.clear();lastKeyAt.clear();pointerHeld.clear();if(walkFrame)cancelAnimationFrame(walkFrame);walkFrame=0;}
+    function stopWalking(){held.clear();lastKeyAt.clear();pointerHeld.clear();forwardTapAt.clear();sprintKeys.clear();if(walkFrame)cancelAnimationFrame(walkFrame);walkFrame=0;}
     function takeManualControl(){
       const fromSeat=activeView==='seat';stopWalking();pauseTour(false);cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3());
-      const next={x:p.x,z:p.z,y:fromSeat?5.5:n(p.y-walkingHeight(p.x,p.z),5.5,3,200),yaw:Math.hypot(direction.x,direction.z)&lt;.02?Math.PI:Math.atan2(direction.x,-direction.z),pitch:Math.asin(n(direction.y,0,-1,1))};
+      const surface=walkingHeight(p.x,p.z,p.y-5.5);
+      const next={x:p.x,z:p.z,y:fromSeat?5.5:n(p.y-surface,5.5,3,200),surface,yaw:Math.hypot(direction.x,direction.z)&lt;.02?Math.PI:Math.atan2(direction.x,-direction.z),pitch:Math.asin(n(direction.y,0,-1,1))};
       restoreProjection('walk');walk=normalizeWalk(next);applyAppearance();syncControls();selectionText();draw();
     }
     window.addEventListener('keydown',e=&gt;{
@@ -3514,9 +3522,14 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)||e.target.isContentEditable||e.metaKey||e.ctrlKey||e.altKey)return;
       if(key==='shift'){held.add(key);lastKeyAt.set(key,performance.now());return;}
       if(!['w','a','s','d','q','e','r','f','arrowup','arrowdown','arrowleft','arrowright'].includes(key))return;
-      e.preventDefault();if(activeView!=='walk')takeManualControl();if(e.shiftKey){held.add('shift');lastKeyAt.set('shift',performance.now());}else held.delete('shift');lastKeyAt.set(key,performance.now());beginWalking(key);
+      e.preventDefault();if(activeView!=='walk')takeManualControl();const now=performance.now();
+      if(['w','arrowup'].includes(key)&amp;&amp;!e.repeat&amp;&amp;!held.has(key)){
+        const previous=forwardTapAt.get(key);if(previous!==undefined&amp;&amp;now-previous&lt;=300)sprintKeys.add(key);else sprintKeys.delete(key);
+        forwardTapAt.set(key,now);
+      }
+      if(e.shiftKey){held.add('shift');lastKeyAt.set('shift',now);}else held.delete('shift');lastKeyAt.set(key,now);beginWalking(key);
     });
-    window.addEventListener('keyup',e=&gt;{const key=e.key.toLowerCase();if(held.has(key)){held.delete(key);lastKeyAt.delete(key);$('lp-eye').value=walk.y.toFixed(2);selectionText();saveState();}},true);
+    window.addEventListener('keyup',e=&gt;{const key=e.key.toLowerCase();sprintKeys.delete(key);if(held.has(key)){held.delete(key);lastKeyAt.delete(key);$('lp-eye').value=walk.y.toFixed(2);selectionText();saveState();}},true);
     window.addEventListener('blur',()=&gt;{stopWalking();pauseTour();});document.addEventListener('visibilitychange',()=&gt;{if(document.hidden){stopWalking();pauseTour();}});
     const tourOption=document.createElement('option');tourOption.value='tour';tourOption.textContent='Guided camera tour';$('lp-view').appendChild(tourOption);
     tourTimeline().filter(f=&gt;f.name).forEach((f,i)=&gt;{const option=document.createElement('option');option.value=String(i);option.textContent=(i+1)+'. '+f.name;$('lp-tour-stop').appendChild(option);});

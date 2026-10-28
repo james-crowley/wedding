@@ -106,3 +106,47 @@ test('guided tour respects reduced motion and supports jumping', async ({ page }
   await app.locator('#lp-tour-control').click();
   await expect(app.locator('#lp-view')).toHaveValue('walk');
 });
+
+test('coordinated decor looks render without changing the floor plan', async ({ page }) => {
+  test.setTimeout(180_000);
+  const app = page.frameLocator('#codex-visualization');
+  await app.locator('#lp-view').selectOption('table');
+  await app.locator('#lp-tab-decor').click();
+  const initial = await app.locator('body').evaluate(() => window.openai.widgetState.modelContent);
+  for (const [look, flower, arrangement] of [['ivoryPlum','mixed','mixed'],['plumGarden','dahlias','low'],['blueMeadow','delphinium','meadow'],['pistachio','roses','bud']]) {
+    await app.locator('[data-design="look"]').selectOption(look);
+    await expect(app.locator('[data-design="flowerStyle"]')).toHaveValue(flower);
+    await expect(app.locator('[data-design="arrangement"]')).toHaveValue(arrangement);
+    await expect(app.locator('#lp-capacity')).toContainText('96 guest seats');
+    const state = await app.locator('body').evaluate(() => window.openai.widgetState.modelContent);
+    expect(state.design.trailingGreenery).toBe(true);
+    expect(state.design.glassware).not.toBe('none');
+    for (const key of ['layout','length','width','danceWidth','danceDepth','disabledTables','positions']) expect(state[key]).toEqual(initial[key]);
+  }
+  await expect(app.locator('#lp-style-summary')).toContainText('votives');
+  await app.locator('#lp-style-candles summary').click();
+  await expect(app.locator('[data-design="candleHeight"]')).toBeDisabled();
+  await expect(app.locator('[data-design="candleHeight"]')).toHaveValue('3');
+});
+
+test('decor color swatches and flower choices persist after reloading', async ({ page }, info) => {
+  test.setTimeout(180_000);
+  const app = page.frameLocator('#codex-visualization');
+  await app.locator('#lp-tab-decor').click();
+  await app.locator('[data-design="look"]').selectOption('ivoryPlum');
+  await app.locator('#lp-color-target').selectOption('flowerC');
+  await app.getByRole('button', { name: 'Mauve #ad829a', exact: true }).click();
+  await expect(app.locator('[data-design="flowerC"]')).toHaveValue('#ad829a');
+  await expect(app.getByRole('button', { name: 'Mauve #ad829a', exact: true })).toHaveAttribute('aria-pressed','true');
+  await app.locator('#lp-style-flowers summary').click();
+  await app.locator('[data-design="flowerStyle"]').selectOption('anemones');
+  await app.locator('#lp-focus-table').click();
+  await info.attach('styled-table', { body: await app.locator('#lp-stage').screenshot(), contentType: 'image/png' });
+  await page.reload();
+  await expect(app.locator('#lp-loading')).toBeHidden({ timeout: 45_000 });
+  await app.locator('#lp-tab-decor').click();
+  await expect(app.locator('[data-design="look"]')).toHaveValue('custom');
+  await expect(app.locator('[data-design="flowerC"]')).toHaveValue('#ad829a');
+  await expect(app.locator('[data-design="flowerStyle"]')).toHaveValue('anemones');
+  await expect(app.locator('[data-design="napkinStyle"]')).toHaveValue('gathered');
+});

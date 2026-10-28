@@ -107,30 +107,49 @@
   <details class="lp-details" id="lp-design-tables" open>
     <summary class="cursor-interaction">Table styling</summary>
     <div class="viz-controls">
-      <label class="form-label">Starting look<select class="form-select" data-design="look"><option value="photo">Your photo reference</option><option value="garden">Soft garden</option><option value="blue">Blue and ivory</option><option value="wine">Burgundy and gold</option><option value="minimal">Minimal ivory</option><option value="custom">Custom</option></select></label>
+      <label class="form-label">Starting look<select class="form-select" data-design="look"><option value="photo">Original table reference</option><option value="ivoryPlum">Ivory, dusty blue & plum</option><option value="pistachio">Pistachio & champagne</option><option value="plumGarden">Plum garden & antique gold</option><option value="blueMeadow">Blue & ivory meadow</option><option value="garden">Soft garden</option><option value="blue">Blue and ivory</option><option value="wine">Burgundy and gold</option><option value="minimal">Minimal ivory</option><option value="custom">Custom</option></select></label>
+    </div>
+    <div class="viz-controls"><label class="form-label">Apply a color to<select class="form-select" id="lp-color-target"><option value="napkinColor">Napkins</option><option value="clothColor">Tablecloths</option><option value="runnerColor">Runners</option><option value="flowerA">Main flowers</option><option value="flowerB">Second flowers</option><option value="flowerC">Accent flowers</option><option value="greeneryColor">Greenery</option><option value="candleColor">Candles</option><option value="arborFabricColor">Arbor fabric</option><option value="sofaColor">Sofas</option><option value="glassColor">Goblets</option></select></label><button class="btn" type="button" id="lp-focus-table">View styled table</button></div>
+    <div class="viz-row" id="lp-palette-swatches" role="group" aria-label="Coordinating color swatches"></div>
+    <div class="text-small" id="lp-style-summary" role="status" aria-live="polite"></div>
+    <details class="lp-details" id="lp-style-linens"><summary class="cursor-interaction">Linens & napkins</summary><div class="viz-controls">
       <label class="form-label">Tablecloth color<input class="form-control form-control-color" type="color" data-design="clothColor"></label>
       <label class="form-label">Tablecloth fabric<select class="form-select" data-design="clothFinish"><option value="linen">Woven linen</option><option value="satin">Satin</option></select></label>
       <label class="form-label">Runner<select class="form-select" data-design="runnerStyle"><option value="lace">Crochet lace</option><option value="gauze">Soft gauze</option><option value="satin">Satin ribbon</option><option value="none">No runner</option></select></label>
       <label class="form-label">Runner color<input class="form-control form-control-color" type="color" data-design="runnerColor"></label>
       <label class="form-label">Runner width (in)<input class="form-control" type="number" min="6" max="18" step="1" data-design="runnerWidth"></label>
+      <label class="form-label">Napkin styling<select class="form-select" data-design="napkinStyle"><option value="none">No napkins shown</option><option value="folded">Folded rectangle</option><option value="gathered">Soft gathered fold</option><option value="draped">Draped over the edge</option></select></label>
+      <label class="form-label">Napkin color<input class="form-control form-control-color" type="color" data-design="napkinColor"></label>
+      <label class="form-label">Glassware<select class="form-select" data-design="glassware"><option value="none">No glassware shown</option><option value="clear">Clear wine goblets</option><option value="tinted">Colored goblets</option><option value="ribbed">Ribbed vintage goblets</option></select></label>
+      <label class="form-label">Goblet tint<input class="form-control form-control-color" type="color" data-design="glassColor"></label>
+    </div></details>
+    <details class="lp-details" id="lp-style-flowers"><summary class="cursor-interaction">Flowers & vases</summary><div class="viz-controls">
       <label class="form-label">Greenery<select class="form-select" data-design="greenery"><option value="lush">Lush garland</option><option value="light">Light sprigs</option><option value="none">No greenery</option></select></label>
       <label class="form-label">Greenery color<input class="form-control form-control-color" type="color" data-design="greeneryColor"></label>
-      <label class="form-label">Flower style<select class="form-select" data-design="flowerStyle"><option value="mixed">Reference mixed blooms</option><option value="roses">Roses</option><option value="hydrangea">Hydrangea clusters</option><option value="wildflower">Airy wildflowers</option><option value="none">No flowers</option></select></label>
+      <label class="form-check"><input class="form-check-input" type="checkbox" data-design="trailingGreenery"><span class="form-check-label">Trailing amaranthus / vines</span></label>
+      <label class="form-label">Arrangement<select class="form-select" data-design="arrangement"><option value="mixed">Low flowers + bud vases</option><option value="bud">Bud vases only</option><option value="low">Low clusters only</option><option value="meadow">Meadow along the runner</option></select></label>
+      <label class="form-label">Flower style<select class="form-select" data-design="flowerStyle"><option value="mixed">Mixed garden blooms</option><option value="roses">Layered roses</option><option value="dahlias">Dahlia-inspired blooms</option><option value="anemones">Dark-center anemones</option><option value="orchids">Orchid-inspired sprays</option><option value="delphinium">Delphinium-style spires</option><option value="hydrangea">Hydrangea clusters</option><option value="wildflower">Airy wildflowers</option><option value="none">No flowers</option></select></label>
       <label class="form-label">Flower fullness<select class="form-select" data-design="flowerDensity"><option value="0.6">Light</option><option value="1">Reference</option><option value="1.6">Lush</option></select></label>
       <label class="form-label">Main flower color<input class="form-control form-control-color" type="color" data-design="flowerA"></label>
       <label class="form-label">Second flower color<input class="form-control form-control-color" type="color" data-design="flowerB"></label>
       <label class="form-label">Accent flower color<input class="form-control form-control-color" type="color" data-design="flowerC"></label>
-      <label class="form-label">Vases<select class="form-select" data-design="vaseStyle"><option value="cut">Patterned glass</option><option value="smooth">Smooth glass</option><option value="amber">Tinted glass</option><option value="ceramic">Ceramic</option><option value="none">No vases</option></select></label>
+      <label class="form-label">Flower centers<input class="form-control form-control-color" type="color" data-design="flowerCenter"></label>
+      <label class="form-label">Vases<select class="form-select" data-design="vaseStyle"><option value="cut">Patterned glass</option><option value="smooth">Smooth glass</option><option value="bottle">Narrow glass bottles</option><option value="compote">Footed metal bowls</option><option value="amber">Tinted glass</option><option value="ceramic">Ceramic</option><option value="none">No vases</option></select></label>
       <label class="form-label">Vases per table<input class="form-control" type="number" min="0" max="5" step="1" data-design="vaseCount"></label>
-      <label class="form-label">Vase height (in)<input class="form-control" type="number" min="6" max="18" step="1" data-design="vaseHeight"></label>
+      <label class="form-label">Vase height (in)<input class="form-control" type="number" min="4" max="18" step="1" data-design="vaseHeight"></label>
+      <label class="form-label">Stems per vase<input class="form-control" type="number" min="1" max="5" step="1" data-design="stemsPerVase"></label>
+      <label class="form-label">Flower height above tabletop (in)<input class="form-control" type="number" min="12" max="36" step="1" data-design="flowerHeight"></label>
       <label class="form-label">Vase color / tint<input class="form-control form-control-color" type="color" data-design="vaseColor"></label>
-      <label class="form-label">Candles<select class="form-select" data-design="candleStyle"><option value="taper">Tapers in holders</option><option value="pillar">Pillar candles</option><option value="hurricane">Glass hurricanes</option><option value="none">No candles</option></select></label>
+    </div></details>
+    <details class="lp-details" id="lp-style-candles"><summary class="cursor-interaction">Candles & metal finishes</summary><div class="viz-controls">
+      <label class="form-label">Candles<select class="form-select" data-design="candleStyle"><option value="taper">Tapers in holders</option><option value="enclosedTaper">Tapers in tall glass sleeves</option><option value="pillar">Pillar candles</option><option value="hurricane">Glass hurricanes</option><option value="votive">Low glass votives</option><option value="none">No candles</option></select></label>
       <label class="form-label">Candles per table<input class="form-control" type="number" min="0" max="5" step="1" data-design="candleCount"></label>
-      <label class="form-label">Candle height (in)<input class="form-control" type="number" min="6" max="18" step="1" data-design="candleHeight"></label>
+      <label class="form-label">Candle height (in; votives fixed at 3)<input class="form-control" type="number" min="3" max="18" step="1" data-design="candleHeight"></label>
       <label class="form-label">Candle color<input class="form-control form-control-color" type="color" data-design="candleColor"></label>
       <label class="form-label">Holders and chargers<select class="form-select" data-design="metalFinish"><option value="gold">Gold</option><option value="silver">Silver</option><option value="black">Black</option></select></label>
       <label class="form-check"><input class="form-check-input" type="checkbox" data-design="chargers"><span class="form-check-label">Chargers</span></label>
     </div>
+    </details>
     <div class="text-small">Styling applies to all guest tables and the couple’s table in both layouts.</div>
   </details>
   <details class="lp-details" id="lp-design-arbors">
@@ -138,10 +157,10 @@
     <div class="viz-controls">
       <label class="form-label">Couple’s arbor<select class="form-select" data-design="indoorArbor"><option value="timber">Timber pergola</option><option value="frame">Simple rectangle</option><option value="triangle">Triangle</option><option value="hoop">Round hoop</option><option value="hexagon">Hexagon</option><option value="none">None</option></select></label>
       <label class="form-label">Couple’s arbor color<input class="form-control form-control-color" type="color" data-design="indoorArborColor"></label>
-      <label class="form-label">Couple’s arbor dressing<select class="form-select" data-design="indoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="drape">Fabric and flowers</option></select></label>
+      <label class="form-label">Couple’s arbor dressing<select class="form-select" data-design="indoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
       <label class="form-label">Ceremony arbor<select class="form-select" data-design="outdoorArbor"><option value="timber">Timber pergola</option><option value="frame">Simple rectangle</option><option value="triangle">Triangle</option><option value="hoop">Round hoop</option><option value="hexagon">Hexagon</option><option value="none">None</option></select></label>
       <label class="form-label">Ceremony arbor color<input class="form-control form-control-color" type="color" data-design="outdoorArborColor"></label>
-      <label class="form-label">Ceremony arbor dressing<select class="form-select" data-design="outdoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="drape">Fabric and flowers</option></select></label>
+      <label class="form-label">Ceremony arbor dressing<select class="form-select" data-design="outdoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
       <label class="form-label">Arbor fabric color<input class="form-control form-control-color" type="color" data-design="arborFabricColor"></label>
     </div>
     <div class="text-small">Arbor florals use the table flower colors. Designs and dimensions are planning concepts.</div>
@@ -227,6 +246,8 @@
     const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas');
     const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:11,deckWidth:32,deckDepth:38,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none'};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
+    Object.assign(DESIGN_DEFAULTS,{napkinStyle:'none',napkinColor:'#62314c',glassware:'none',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
+    const COLOR_SWATCHES=[['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
     const designFields=[...root.querySelectorAll('[data-design]')];
     let config={...PLAN_DEFAULTS,schema:'venue-pavilion-v8',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
     let navigation={height:680,speed:8};
@@ -302,18 +323,23 @@
         else if(el.tagName==='SELECT'){if([...el.options].some(o=>o.value===String(value)))out[key]=typeof out[key]==='number'?Number(value):value;}
         else if(el.type==='number')out[key]=n(value,out[key],Number(el.min),Number(el.max));
       }
-      for(const key of ['vaseCount','candleCount'])out[key]=Math.round(out[key]);
+      for(const key of ['vaseCount','candleCount','stemsPerVase'])out[key]=Math.round(out[key]);
       return out;
     }
     function applyLook(name){
       const looks={
         photo:{},
+        ivoryPlum:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#dfc9aa',napkinStyle:'gathered',napkinColor:'#62314c',greenery:'light',greeneryColor:'#566447',flowerStyle:'mixed',flowerA:'#f4eddd',flowerB:'#829db5',flowerC:'#62314c',flowerCenter:'#665249',arrangement:'mixed',vaseStyle:'cut',vaseCount:5,vaseHeight:8,stemsPerVase:3,flowerHeight:19,candleStyle:'taper',candleCount:4,candleColor:'#f4eddd',indoorArborDecor:'drape',outdoorArborDecor:'florals',arborFabricColor:'#dfc9aa',sofaStyle:'classic',sofaColor:'#f4eddd'},
+        pistachio:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#a9b48c',napkinStyle:'folded',napkinColor:'#a9b48c',greenery:'light',greeneryColor:'#647351',flowerStyle:'roses',flowerA:'#f4eddd',flowerB:'#dfc9aa',flowerC:'#ad829a',flowerCenter:'#c7a76c',arrangement:'bud',vaseStyle:'bottle',vaseCount:5,vaseHeight:7,stemsPerVase:2,flowerHeight:17,candleStyle:'votive',candleCount:5,candleColor:'#f4eddd',indoorArbor:'frame',indoorArborColor:'#c7a76c',indoorArborDecor:'greenery',outdoorArborDecor:'meadow',arborFabricColor:'#f4eddd',sofaStyle:'rattan',sofaColor:'#dfc9aa'},
+        plumGarden:{clothColor:'#dfc9aa',runnerStyle:'gauze',runnerColor:'#ad829a',napkinStyle:'draped',napkinColor:'#62314c',greenery:'lush',greeneryColor:'#566447',flowerStyle:'dahlias',flowerDensity:1.6,flowerA:'#f4eddd',flowerB:'#ad829a',flowerC:'#62314c',flowerCenter:'#665249',arrangement:'low',vaseStyle:'compote',vaseCount:2,vaseHeight:5,flowerHeight:15,candleStyle:'hurricane',candleCount:3,candleHeight:7,candleColor:'#f4eddd',indoorArbor:'frame',indoorArborColor:'#c7a76c',outdoorArbor:'hoop',outdoorArborColor:'#c7a76c',indoorArborDecor:'full',outdoorArborDecor:'full',sofaStyle:'tufted',sofaColor:'#62314c'},
+        blueMeadow:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#829db5',napkinStyle:'folded',napkinColor:'#526d83',greenery:'light',greeneryColor:'#647351',flowerStyle:'delphinium',flowerDensity:.6,flowerA:'#f4eddd',flowerB:'#829db5',flowerC:'#62314c',flowerCenter:'#c7a76c',arrangement:'meadow',vaseStyle:'smooth',vaseCount:3,vaseHeight:6,stemsPerVase:2,flowerHeight:22,candleStyle:'taper',candleCount:3,candleColor:'#dfc9aa',indoorArborDecor:'meadow',outdoorArborDecor:'meadow',arborFabricColor:'#f4eddd',sofaStyle:'curved',sofaColor:'#829db5'},
         garden:{clothColor:'#e9e4d8',runnerStyle:'gauze',runnerColor:'#a5b09b',flowerStyle:'wildflower',flowerA:'#f5efdf',flowerB:'#d8b4b0',flowerC:'#b5a8c8',vaseCount:4,vaseStyle:'smooth',candleColor:'#f1e5cc',indoorArbor:'hoop',outdoorArbor:'frame',indoorArborDecor:'florals',outdoorArborDecor:'greenery',sofaStyle:'rattan',sofaColor:'#e5d9bd'},
         blue:{clothColor:'#8ca2b4',runnerStyle:'satin',runnerColor:'#f4ecdd',flowerStyle:'hydrangea',flowerA:'#eae9dd',flowerB:'#789bb7',flowerC:'#b7c6d4',metalFinish:'silver',candleColor:'#f2eee2',indoorArbor:'frame',outdoorArbor:'hoop',indoorArborColor:'#eeeee6',outdoorArborColor:'#eeeee6',indoorArborDecor:'drape',outdoorArborDecor:'florals',sofaStyle:'curved',sofaColor:'#455f7a'},
         wine:{clothColor:'#6b3446',clothFinish:'satin',runnerStyle:'gauze',runnerColor:'#dcc7aa',flowerStyle:'roses',flowerDensity:1.6,flowerA:'#cba9aa',flowerB:'#f0e1c8',flowerC:'#6c203a',vaseStyle:'amber',vaseColor:'#b37f42',candleStyle:'pillar',candleColor:'#ead7b4',indoorArbor:'hexagon',outdoorArbor:'hexagon',indoorArborColor:'#ba9953',outdoorArborColor:'#ba9953',indoorArborDecor:'florals',outdoorArborDecor:'drape',sofaStyle:'tufted',sofaColor:'#653246'},
         minimal:{clothColor:'#eae5da',runnerStyle:'none',greenery:'light',flowerStyle:'roses',flowerDensity:.6,flowerA:'#efeee6',flowerB:'#efeee6',flowerC:'#efeee6',vaseStyle:'ceramic',vaseColor:'#e9e4d9',vaseCount:1,candleCount:2,candleColor:'#eee7d8',metalFinish:'black',indoorArbor:'frame',outdoorArbor:'triangle',indoorArborColor:'#252525',outdoorArborColor:'#252525',sofaStyle:'classic',sofaColor:'#e8e3d9'}
       };
-      if(!looks[name]){if(name==='custom'){config.design.look='custom';saveState();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;rebuild();saveState();
+      const glassLooks={ivoryPlum:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},pistachio:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},plumGarden:{glassware:'tinted',glassColor:'#ad829a',trailingGreenery:true},blueMeadow:{glassware:'clear',trailingGreenery:true}};
+      if(!looks[name]){if(name==='custom'){config.design.look='custom';saveState();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;rebuild();saveState();
     }
     function normalize(raw){
       const out={schema:'venue-pavilion-v8',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&&Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
@@ -365,7 +391,9 @@
       materials.flowerIvory=standard(new T.Color(d.flowerA),{roughness:.92,side:T.DoubleSide});
       materials.flowerBlue=standard(new T.Color(d.flowerB),{roughness:.92,side:T.DoubleSide});
       materials.flowerWine=standard(new T.Color(d.flowerC),{roughness:.92,side:T.DoubleSide});
-      materials.flowerCenter=standard(new T.Color('#777a53'),{roughness:1});
+      materials.flowerCenter=standard(new T.Color(d.flowerCenter),{roughness:1});
+      materials.napkin=standard(new T.Color(d.napkinColor),{roughness:.95,side:T.DoubleSide});
+      materials.goblet=new T.MeshPhysicalMaterial({color:new T.Color(d.glassware==='clear'?'#ecf0e5':d.glassColor),roughness:.10,transparent:true,opacity:d.glassware==='clear'?.19:.46,depthWrite:false,side:T.DoubleSide,clearcoat:1});
       materials.vase=new T.MeshPhysicalMaterial({color:new T.Color(d.vaseColor),roughness:d.vaseStyle==='ceramic'?.55:.08,metalness:0,transparent:d.vaseStyle!=='ceramic',opacity:d.vaseStyle==='ceramic'?1:d.vaseStyle==='amber'?.60:.20,depthWrite:d.vaseStyle==='ceramic',side:T.DoubleSide,clearcoat:1});
       materials.vaseEtch=new T.LineBasicMaterial({color:new T.Color('#e5e5d8'),transparent:true,opacity:.42});
       materials.arborIndoor=standard(new T.Color(d.indoorArborColor),{roughness:.68});materials.arborOutdoor=standard(new T.Color(d.outdoorArborColor),{roughness:.68});
@@ -611,48 +639,66 @@
       const bloom=(x,y,z,r,color,pompom=false)=>{
         if(d.flowerStyle==='none')return;
         pompom=pompom&&d.flowerStyle==='mixed';
-        const count=pompom?20:d.flowerStyle==='roses'?15:d.flowerStyle==='wildflower'?8:5;
+        const dahlia=d.flowerStyle==='dahlias',anemone=d.flowerStyle==='anemones',orchid=d.flowerStyle==='orchids';
+        const count=pompom?20:dahlia?24:d.flowerStyle==='roses'?15:d.flowerStyle==='wildflower'?8:anemone?7:5;
         for(let j=0;j<count;j++){
-          const rose=d.flowerStyle==='roses',ring=rose?Math.floor(j/5):0;
-          const a=j/(rose?5:count)*Math.PI*2+ring*.5,rr=pompom?r*.42:rose?r*(.18+ring*.22):r*.48,py=pompom?Math.sin(j*2.4)*r*.35:rose?r*(2-ring)*.16:0;
-          petals[color].push({p:[x+Math.cos(a)*rr,y+py,z+Math.sin(a)*rr],s:pompom?[r*.38,r*.30,r*.38]:[r*.50,r*.16,r*.72],r:[.12*Math.sin(a),Math.PI/2-a,.18*Math.cos(a)]});
+          const layered=d.flowerStyle==='roses'||dahlia,perRing=dahlia?8:5,ring=layered?Math.floor(j/perRing):0;
+          const a=j/(layered?perRing:count)*Math.PI*2+ring*.5,rr=pompom?r*.42:layered?r*(.18+ring*.22):r*.48,py=pompom?Math.sin(j*2.4)*r*.35:layered?r*(2-ring)*.16:0;
+          petals[color].push({p:[x+Math.cos(a)*rr,y+py,z+Math.sin(a)*rr],s:pompom?[r*.38,r*.30,r*.38]:dahlia?[r*.25,r*.20,r*.65]:orchid?[r*(j%2?.72:.4),r*.13,r*(j%2?.8:.6)]:[r*.50,r*.16,r*.72],r:[.12*Math.sin(a),Math.PI/2-a,.18*Math.cos(a)]});
         }
-        centers.push({p:[x,y+r*.14,z],s:[r*.18,r*.12,r*.18]});
+        centers.push({p:[x,y+r*.14,z],s:[r*(anemone?.30:.18),r*.12,r*(anemone?.30:.18)]});
       };
-      for(const cx of [-length*.23,length*.23]){
+      const clusterCenters=d.arrangement==='bud'?[]:d.arrangement==='meadow'?[-length*.38,-length*.19,0,length*.19,length*.38]:[-length*.23,length*.23];
+      for(const cx of clusterCenters){
         const number=(d.flowerStyle==='hydrangea'?20:d.flowerStyle==='wildflower'?7:12)*d.flowerDensity;
-        for(let j=0;j<number;j++){const a=rand()*Math.PI*2,r=Math.sqrt(rand())*(d.flowerStyle==='wildflower'?.40:.28);bloom(cx+Math.cos(a)*r,top+.25+rand()*(d.flowerStyle==='wildflower'?.40:.18),Math.sin(a)*r,d.flowerStyle==='roses'?.14:.10+rand()*.025,j%5<3?'ivory':'blue');}
-        for(let j=0;j<4*d.flowerDensity;j++)bloom(cx-.28+rand()*.5,top+.25+rand()*.12,-.17+rand()*.35,.115,'wine',true);
+        const clusterBase=top+(d.arrangement==='low'?Math.max(.2,d.flowerHeight/12-.32):.25);
+        for(let j=0;j<number;j++){
+          const a=rand()*Math.PI*2,r=Math.sqrt(rand())*(d.flowerStyle==='wildflower'?.40:.28),x=cx+Math.cos(a)*r,z=Math.sin(a)*r,y=clusterBase+rand()*(d.flowerStyle==='wildflower'?.40:.18),color=['ivory','blue','wine'][j%5<3?0:j%5===3?1:2];
+          bloom(x,y,z,['roses','dahlias','anemones'].includes(d.flowerStyle)?.15:.10+rand()*.025,color);
+          if(d.arrangement==='low'||d.arrangement==='meadow')beam(g,[cx,top+.06,0],[x,y,z],.008,materials.decorLeaf);
+          if(d.flowerStyle==='delphinium')for(let k=0;k<4;k++)bloom(x+.035*Math.sin(k*2),y+k*.11,z,.065,color);
+        }
+        for(let j=0;j<4*d.flowerDensity;j++)bloom(cx-.28+rand()*.5,clusterBase+rand()*.12,-.17+rand()*.35,.115,'wine',true);
       }
       const glassVase=(x,z,height,radius)=>{
-        const profile=[[radius*.72,0],[radius,.05],[radius*.93,height*.35],[radius*.68,height*.72],[radius*.70,height*.94],[radius*.81,height],[radius*.67,height],[radius*.58,height*.74],[radius*.83,.06],[radius*.65,.035]].map(p=>new T.Vector2(...p));
-        const vase=new T.Mesh(new T.LatheGeometry(profile,20),materials.vase);vase.position.set(x,top+.025,z);g.add(vase);
+        const shape=d.vaseStyle==='compote'?[[.20,0],[.22,.05],[.06,.09],[.055,height*.45],[.20,height*.55],[.43,height],[.40,height],[.17,height*.60],[.04,height*.52],[.04,.08]]:d.vaseStyle==='bottle'?[[radius*.8,0],[radius,.03],[radius,height*.52],[radius*.37,height*.68],[radius*.37,height],[radius*.27,height],[radius*.27,height*.68],[radius*.85,.04]]:[[radius*.72,0],[radius,.05],[radius*.93,height*.35],[radius*.68,height*.72],[radius*.70,height*.94],[radius*.81,height],[radius*.67,height],[radius*.58,height*.74],[radius*.83,.06],[radius*.65,.035]];
+        const profile=shape.map(p=>new T.Vector2(...p));
+        const vase=new T.Mesh(new T.LatheGeometry(profile,20),d.vaseStyle==='compote'?materials.gold:materials.vase);vase.position.set(x,top+.025,z);g.add(vase);
         const etched=[];if(d.vaseStyle==='cut')for(let k=0;k<10;k++)for(let j=0;j<4;j++){
           const a=k*Math.PI*2/10,y=top+.10+j*(height-.15)/4;
           for(const d of [-1,1]){const b=a+d*Math.PI/10;etched.push([x+Math.sin(a)*radius*.92,y,z+Math.cos(a)*radius*.92],[x+Math.sin(b)*radius*.92,y+(height-.15)/4,z+Math.cos(b)*radius*.92]);}
         }
         const geom=new T.BufferGeometry().setFromPoints(etched.map(p=>new T.Vector3(...p)));g.add(new T.LineSegments(geom,materials.vaseEtch));
       };
-      const vaseCount=d.vaseStyle==='none'?0:d.vaseCount;
+      const vaseCount=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&&d.vaseStyle!=='compote'?0:d.vaseCount;
       for(let index=0;index<vaseCount;index++){
-        const side=index%2?-1:1,x=vaseCount===1?0:-length*.36+index*length*.72/(vaseCount-1),z=side*.035,vaseHeight=d.vaseHeight/12;
+        const span=d.arrangement==='low'?.46:.72,side=index%2?-1:1,x=vaseCount===1?0:-length*span/2+index*length*span/(vaseCount-1),z=side*.035,vaseHeight=d.vaseHeight/12;
         glassVase(x,z,vaseHeight,index===Math.floor(vaseCount/2)&&vaseCount%2?.20:.115);
-        if(d.flowerStyle==='none')continue;
-        for(let branch=0;branch<3;branch++){
-          const xx=x+(branch-1)*.22,zz=z+(branch-1)*.1,height=vaseHeight+(branch===1?.99:.59);
+        if(d.flowerStyle==='none'||d.arrangement==='low')continue;
+        for(let branch=0;branch<d.stemsPerVase;branch++){
+          const offset=branch-(d.stemsPerVase-1)/2,xx=x+offset*.22,zz=z+offset*.1,height=vaseHeight+Math.max(.2,d.flowerHeight/12-vaseHeight)*(branch%2?.92:.65),color=['ivory','blue','wine'][(index+branch)%3];
           beam(g,[x,top+.1,z],[xx,top+height,zz],.009,materials.decorLeaf);
-          for(let j=0;j<4;j++){
-            const u=.60+j*.10,px=x+(xx-x)*u+.075*Math.sin(j*3),py=top+height*u;
-            bloom(px,py,zz,.075,'ivory');leaves.push({p:[px,py-.10,zz+.04],s:[.055,.012,.13],r:[.5,j,0]});
+          const spike=d.flowerStyle==='delphinium';
+          for(let j=0;j<(spike?7:3);j++){
+            const u=spike?.50+j*.07:.60+j*.10,px=x+(xx-x)*u+.075*Math.sin(j*3),py=top+height*u;
+            if(spike||d.flowerStyle==='mixed'||d.flowerStyle==='wildflower')bloom(px,py,zz,spike?.065:.075,color);
+            leaves.push({p:[px,py-.10,zz+.04],s:[.055,.012,.13],r:[.5,j,0]});
           }
-          if(side<0&&branch===1){for(let j=0;j<17;j++){const a=rand()*Math.PI*2,r=rand()*.14;bloom(xx+Math.cos(a)*r,top+height+rand()*.10,zz+Math.sin(a)*r,.07,'ivory');}}
+          if(d.flowerStyle==='hydrangea'){for(let j=0;j<17;j++){const a=rand()*Math.PI*2,r=rand()*.14;bloom(xx+Math.cos(a)*r,top+height+rand()*.10,zz+Math.sin(a)*r,.07,color);}}
+          else bloom(xx,top+height,zz,['roses','dahlias','anemones','orchids'].includes(d.flowerStyle)?.16:.09,color);
+          if(d.flowerStyle==='orchids')for(let j=0;j<3;j++)bloom(xx+.1*(j-1),top+height-.18*j,zz,.14,color);
         }
       }
       for(let index=0;index<(d.candleStyle==='none'?0:d.candleCount);index++){
         let x=d.candleCount===1?length*.18:-length*.27+index*length*.54/(d.candleCount-1);
         if(Math.abs(x)<.05&&vaseCount%2&&vaseCount)x+=.30;
-        const z=index%2?.24:-.24,h=[.62,.43,.72][index%3],candleHeight=d.candleHeight/12;
-        if(d.candleStyle!=='taper'){
+        const z=index%2?.24:-.24,h=d.candleStyle==='enclosedTaper'?.10:[.62,.43,.72][index%3],candleHeight=d.candleHeight/12;
+        if(d.candleStyle==='votive'){
+          cylinder(g,.12,.20,x,top+.14,z,materials.candle);
+          const glass=new T.Mesh(new T.CylinderGeometry(.16,.14,.30,16,1,true),materials.hurricane);glass.position.set(x,top+.17,z);g.add(glass);
+          cylinder(g,.025,.04,x,top+.26,z,materials.bulb);continue;
+        }
+        if(!['taper','enclosedTaper'].includes(d.candleStyle)){
           cylinder(g,.14,candleHeight,x,top+candleHeight/2+.035,z,materials.candle);
           cylinder(g,.18,.035,x,top+.03,z,materials.gold);
           if(d.candleStyle==='hurricane'){
@@ -664,6 +710,7 @@
         cylinder(g,.026,h-.10,x,top+h/2+.07,z,materials.gold);cylinder(g,.065,.075,x,top+h,z,materials.gold);
         const candle=new T.Mesh(new T.CylinderGeometry(.019,.033,candleHeight,12),materials.candle);candle.position.set(x,top+h+candleHeight/2+.015,z);candle.castShadow=true;g.add(candle);
         beam(g,[x,top+h+candleHeight+.015,z],[x+.005,top+h+candleHeight+.045,z],.005,materials.metal);
+        if(d.candleStyle==='enclosedTaper'){const height=candleHeight+.28,glass=new T.Mesh(new T.CylinderGeometry(.16,.16,height,20,1,true),materials.hurricane);glass.position.set(x,top+height/2+.025,z);g.add(glass);}
       }
       // Gold rope-edged chargers, positioned in front of the modeled chairs.
       const charger=(x,z)=>{
@@ -672,6 +719,25 @@
         for(const [r,tube]of [[.531,.008],[.548,.006]]){const ring=new T.Mesh(new T.TorusGeometry(r,tube,5,48),materials.gold);ring.rotation.x=Math.PI/2;ring.position.set(x,top+.065,z);g.add(ring);}
       };
       if(d.chargers){if(guestTable)for(const side of [-1,1])for(let i=0;i<4;i++)charger(-length/2+(i+.5)*length/4,side*(width/2-.56));else for(const x of [-1.2,1.2])charger(x,width/2-.56);}
+      const places=guestTable?[-1,1].flatMap(side=>Array.from({length:4},(_,i)=>({x:-length/2+(i+.5)*length/4,z:side*(width/2-.56),side}))):[-1.2,1.2].map(x=>({x,z:width/2-.56,side:1}));
+      if(d.napkinStyle!=='none'){
+        const geom=new T.PlaneGeometry(.42,d.napkinStyle==='draped'?1.4:.75,8,16),p=geom.attributes.position;
+        for(let i=0;i<p.count;i++){
+          const x=p.getX(i),v=p.getY(i),z=d.napkinStyle==='draped'?v+.40:v;
+          p.setXYZ(i,x,Math.min(0,.56-z)+.014*Math.sin(x*32)+(d.napkinStyle==='gathered'?.045*Math.cos(v*8):0),z);
+        }geom.computeVertexNormals();
+        instances(geom,materials.napkin,places.map(p=>({p:[p.x,top+.10,p.z],s:[1,1,1],r:[0,p.side<0?Math.PI:0,0]})));
+      }
+      if(d.glassware!=='none'){
+        const profile=[[.13,0],[.14,.025],[.03,.05],[.025,.31],[.10,.34],[.15,.43],[.17,.64],[.15,.78],[.14,.78],[.15,.64],[.13,.44],[.07,.36]].map(p=>new T.Vector2(...p));
+        const geometry=new T.LatheGeometry(profile,20),p=geometry.attributes.position;
+        if(d.glassware==='ribbed'){for(let i=0;i<p.count;i++)if(p.getY(i)>.38){const a=Math.atan2(p.getZ(i),p.getX(i)),r=1+.045*Math.cos(a*12);p.setX(i,p.getX(i)*r);p.setZ(i,p.getZ(i)*r);}geometry.computeVertexNormals();}
+        instances(geometry,materials.goblet,places.map(p=>({p:[p.x+.55,top+.02,p.side*(width/2-.85)],s:[1,1,1]})));
+      }
+      if(d.trailingGreenery)for(const sign of [-1,1])if(exposedEnd(sign))for(let strand=0;strand<4;strand++)for(let i=0;i<17;i++){
+        const u=i/16,x=sign*(length/2-.25+.47*Math.sin(u*Math.PI/2)),y=top+.09-u*(1.0+strand*.16),z=(strand-1.5)*.11;
+        leaves.push({p:[x,y,z],s:[.035,.065,.035],r:[0,0,.18*Math.sin(i)]});
+      }
       const petalGeometry=new T.SphereGeometry(1,7,5);instances(petalGeometry,materials.flowerIvory,petals.ivory);instances(petalGeometry,materials.flowerBlue,petals.blue);instances(petalGeometry,materials.flowerWine,petals.wine);instances(leafGeometry,materials.decorLeaf,leaves.slice(baseLeafCount));instances(petalGeometry,materials.flowerCenter,centers);
     }
     function makeObject(id,name,x,z,r=0){const group=new T.Group();group.userData={id,name};const p=config.positions[config.layout][id];group.position.set(p?p.x:-x,0,p?p.z:z);group.rotation.y=p?p.r:-r;furniture.add(group);objects.push(group);return group;}
@@ -924,6 +990,11 @@
       }
       if(dressing==='bare')return;
       const framePoint=t=>{
+        if(dressing==='meadow')return [(t<.5?-1:1)*(width/2-.4)+(t%.5-.25)*1.8,.45+.75*Math.sin((t%.5)*Math.PI*2)];
+        if(dressing==='full'){
+          if(style==='hoop'){const a=t*Math.PI*2;return [Math.cos(a)*width/2,height/2+Math.sin(a)*height/2];}
+          if(style==='frame'||style==='timber')return t<.25?[-width/2,t*4*height]:t<.75?[-width/2+(t-.25)*2*width,height]:[width/2,(1-t)*4*height];
+        }
         if(style==='hoop'){const a=Math.PI*(1-t);return [Math.cos(a)*width/2,height/2+Math.sin(a)*height/2];}
         if(style==='triangle')return [-width/2+t*width,height*(1-Math.abs(t*2-1))];
         if(style==='hexagon')return [-width/2+t*width,height*(1-.25*Math.abs(t*2-1))];
@@ -931,14 +1002,15 @@
       };
       const leaves=[],petals=[],dummy=new T.Object3D();let seed=9011;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
       for(let i=0;i<180;i++){
-        const t=rand();if(dressing!=='greenery'&&t>.38&&t<.78)continue;const p=framePoint(t);
+        const t=rand();if(!['greenery','full','meadow'].includes(dressing)&&t>.38&&t<.78)continue;const p=framePoint(t);
         leaves.push({x:p[0]+(rand()-.5)*.35,y:p[1]+(rand()-.5)*.38,z:-depth/2-.11+(rand()-.5)*.18,a:rand()*Math.PI*2});
       }
+      if(d.trailingGreenery&&dressing!=='meadow')for(const sign of [-1,1])for(let strand=0;strand<3;strand++)for(let i=0;i<16;i++)leaves.push({x:sign*(width/2-.2)+strand*.09,y:height-i*.085,z:-depth/2-.2,a:0,trail:true});
       const leafMesh=new T.InstancedMesh(new T.SphereGeometry(1,7,5),materials.decorLeaf,leaves.length);
-      leaves.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(.2,p.a,p.a);dummy.scale.set(.10,.035,.22);dummy.updateMatrix();leafMesh.setMatrixAt(i,dummy.matrix);});leafMesh.instanceMatrix.needsUpdate=true;leafMesh.computeBoundingSphere();parent.add(leafMesh);
-      if(dressing!=='greenery'){
-        for(let i=0;i<45;i++){
-          const t=i<32?rand()*.34:.80+rand()*.2,p=framePoint(t),x=p[0]+(rand()-.5)*.35,y=p[1]+(rand()-.5)*.4,z=-depth/2-.23;
+      leaves.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(.2,p.a,p.a);dummy.scale.set(...(p.trail?[.035,.065,.035]:[.10,.035,.22]));dummy.updateMatrix();leafMesh.setMatrixAt(i,dummy.matrix);});leafMesh.instanceMatrix.needsUpdate=true;leafMesh.computeBoundingSphere();parent.add(leafMesh);
+      if(dressing!=='greenery'&&d.flowerStyle!=='none'){
+        for(let i=0;i<(dressing==='full'?90:dressing==='meadow'?65:45);i++){
+          const t=['full','meadow'].includes(dressing)?rand():i<32?rand()*.34:.80+rand()*.2,p=framePoint(t),x=p[0]+(rand()-.5)*.35,y=p[1]+(rand()-.5)*.4,z=-depth/2-.23;
           for(let j=0;j<5;j++){const a=j*Math.PI*2/5;petals.push({x:x+Math.cos(a)*.10,y:y+Math.sin(a)*.10,z,a,color:i%3});}
         }
         for(let k=0;k<3;k++){
@@ -1140,6 +1212,15 @@
       for(const el of designFields){const value=config.design[el.dataset.design];if(el.type==='checkbox')el.checked=value;else el.value=value;}
       const d=config.design;
       for(const el of designFields){const key=el.dataset.design;el.disabled=(key==='runnerColor'||key==='runnerWidth')&&d.runnerStyle==='none'||['vaseCount','vaseHeight','vaseColor'].includes(key)&&d.vaseStyle==='none'||['candleCount','candleHeight','candleColor'].includes(key)&&d.candleStyle==='none'||key==='flowerDensity'&&d.flowerStyle==='none';}
+      for(const el of designFields){const key=el.dataset.design;
+        if(key==='napkinColor')el.disabled=d.napkinStyle==='none';if(key==='glassColor')el.disabled=['none','clear'].includes(d.glassware);
+        if(key==='stemsPerVase')el.disabled=d.vaseStyle==='none'||['low','meadow'].includes(d.arrangement)||d.flowerStyle==='none';
+        if(['vaseCount','vaseHeight','vaseColor'].includes(key))el.disabled=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&&d.vaseStyle!=='compote';
+        if(key==='candleHeight'&&d.candleStyle==='votive'){el.disabled=true;el.value=3;}
+      }
+      const shownVases=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&&d.vaseStyle!=='compote'?0:d.vaseCount;
+      $('lp-style-summary').textContent=(d.arrangement==='bud'?'Bud vases':d.arrangement==='low'?'Low centerpieces':d.arrangement==='meadow'?'Flower meadow':'Low flowers + bud vases')+' · '+shownVases+' vessels per table · '+(d.candleStyle==='none'?0:d.candleCount)+' '+(d.candleStyle==='votive'?'votives':'candles')+' per table · '+(d.napkinStyle==='none'?'no napkins shown':d.napkinStyle+' napkins');
+      const target=$('lp-color-target').value;for(const button of $('lp-palette-swatches').querySelectorAll('button'))button.setAttribute('aria-pressed',String(d[target]===button.dataset.color));
       const s=sofaSpec();$('lp-sofa-spec').textContent='All four sofas: '+s.length.toFixed(1)+' × '+s.depth.toFixed(1)+' × '+s.height.toFixed(1)+' ft each (length × depth × height, estimated).';
     }
     function clearance(){
@@ -1431,6 +1512,13 @@
       if(key==='vaseStyle')config.design.vaseColor=el.value==='amber'?'#b37f42':el.value==='ceramic'?'#e9e4d9':'#ecf0e5';
       config.design.look='custom';config.design=normalizeDesign(config.design);rebuild();saveState();
     });
+    for(const [name,color]of COLOR_SWATCHES){
+      const button=document.createElement('button');button.className='btn';button.type='button';button.dataset.color=color;button.setAttribute('aria-label',name+' '+color);button.setAttribute('aria-pressed','false');
+      const sample=document.createElement('span');sample.setAttribute('aria-hidden','true');sample.style.cssText='display:inline-block;width:16px;height:16px;margin-right:6px;vertical-align:middle;background:'+color;button.append(sample,document.createTextNode(name));
+      button.onclick=()=>{const key=$('lp-color-target').value;config.design[key]=color;config.design.look='custom';if(key==='napkinColor'&&config.design.napkinStyle==='none')config.design.napkinStyle='folded';if(key==='glassColor'&&['none','clear'].includes(config.design.glassware))config.design.glassware='tinted';if(key==='clothColor')config.linens=true;if(key==='runnerColor'&&config.design.runnerStyle==='none')config.design.runnerStyle='gauze';rebuild();saveState();};
+      $('lp-palette-swatches').append(button);
+    }
+    $('lp-color-target').onchange=()=>syncControls();$('lp-focus-table').onclick=()=>view('table');
     $('lp-focus-arbor').onclick=()=>view('arbor');$('lp-focus-ceremony').onclick=()=>view('ceremony');$('lp-focus-sofas').onclick=()=>view('lounge');
     for(const [id,key]of [['lp-dance-pattern','dancePattern'],['lp-dance-a','danceA'],['lp-dance-b','danceB']])$(id).addEventListener('change',e=>{config[key]=key==='dancePattern'?e.target.value:hex(e.target.value,config[key]);rebuild();saveState();});
     for(const [id,key,lo,hi]of [['lp-tile-size','tileSize',1,4],['lp-house-rise','houseRise',1.5,20],['lp-lake-drop','lakeDrop',2,18]])$(id).addEventListener('change',e=>{const old=config[key];config[key]=n(e.target.value,old,lo,hi);if(key==='houseRise'&&['residence','stairs'].includes(activeView))orbit.target[1]+=config[key]-old;rebuild();saveState();});

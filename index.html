@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Wedding Pavilion</title>
-<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+<title>Lakeside Estate · Wedding Studio</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:0;background:inherit}iframe{display:block;width:100%;height:100vh;margin:0 auto;border:0}</style>
 
 </head>
 <body>
@@ -1797,7 +1797,9 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
 
 &lt;/script&gt;
 &lt;div id=&quot;venue-pavilion-3d&quot;&gt;
-  &lt;div class=&quot;viz-row lp-heading&quot;&gt;&lt;h2&gt;Wedding pavilion&lt;/h2&gt;&lt;span class=&quot;text-small&quot; id=&quot;lp-capacity&quot;&gt;90 × 40 ft · 96 guest seats + couple&lt;/span&gt;&lt;/div&gt;
+  &lt;header class=&quot;lp-heading&quot;&gt;&lt;div&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;YOUR WEDDING, IN THE MAKING&lt;/span&gt;&lt;h2&gt;Lakeside Estate&lt;/h2&gt;&lt;p class=&quot;lp-subtitle&quot;&gt;Wedding pavilion · a space to imagine together&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;lp-heading-actions&quot;&gt;&lt;span class=&quot;text-small&quot; id=&quot;lp-capacity&quot;&gt;90 × 40 ft · 96 guest seats + couple&lt;/span&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-camera&quot;&gt;Reset camera&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-open&quot;&gt;Reset all…&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-undo-reset&quot; hidden&gt;Undo reset&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
+  &lt;div class=&quot;lp-reset-prompt&quot; id=&quot;lp-reset-prompt&quot; role=&quot;group&quot; aria-label=&quot;Confirm reset&quot; hidden&gt;&lt;strong&gt;Start fresh?&lt;/strong&gt;&lt;span&gt;Reset furniture, styling, site options and camera to the original planning defaults. You can undo this.&lt;/span&gt;&lt;button class=&quot;btn btn-primary&quot; id=&quot;lp-reset-confirm&quot; type=&quot;button&quot;&gt;Reset everything&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-reset-cancel&quot; type=&quot;button&quot;&gt;Keep my design&lt;/button&gt;&lt;/div&gt;
+  &lt;div id=&quot;lp-workspace&quot; class=&quot;lp-workspace&quot;&gt;&lt;section id=&quot;lp-viewer&quot; class=&quot;lp-viewer&quot; aria-label=&quot;Venue visualization&quot;&gt;&lt;/section&gt;&lt;aside id=&quot;lp-editor&quot; class=&quot;lp-editor&quot; aria-label=&quot;Wedding design controls&quot;&gt;&lt;section class=&quot;lp-lookbook&quot; id=&quot;lp-lookbook&quot;&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;THE OVERALL FEEL&lt;/span&gt;&lt;h3&gt;Find your starting look&lt;/h3&gt;&lt;p&gt;Coordinated flowers, fabrics &amp; candlelight. Make it yours below.&lt;/p&gt;&lt;div id=&quot;lp-look-cards&quot; class=&quot;lp-look-cards&quot; role=&quot;group&quot; aria-label=&quot;Coordinated wedding looks&quot;&gt;&lt;/div&gt;&lt;/section&gt;&lt;/aside&gt;&lt;/div&gt;
   &lt;div class=&quot;viz-controls&quot; id=&quot;lp-main-nav&quot;&gt;
     &lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-orbit-mode&quot;&gt;Orbit&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-walk-inside&quot;&gt;Walk inside&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-stop-motion&quot;&gt;Stop / Esc&lt;/button&gt;
   &lt;/div&gt;
@@ -1806,7 +1808,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       &lt;select class=&quot;form-select&quot; id=&quot;lp-layout&quot;&gt;&lt;option value=&quot;separate&quot;&gt;12 separate tables&lt;/option&gt;&lt;option value=&quot;joined&quot;&gt;3 joined rows&lt;/option&gt;&lt;/select&gt;
     &lt;/label&gt;
     &lt;label class=&quot;form-label&quot;&gt;View
-      &lt;select class=&quot;form-select&quot; id=&quot;lp-view&quot;&gt;&lt;option value=&quot;perspective&quot;&gt;Pavilion overview&lt;/option&gt;&lt;option value=&quot;site&quot;&gt;Whole property&lt;/option&gt;&lt;option value=&quot;plan&quot;&gt;Floor plan&lt;/option&gt;&lt;option value=&quot;lake&quot;&gt;From lake / dock&lt;/option&gt;&lt;option value=&quot;house&quot;&gt;From house&lt;/option&gt;&lt;option value=&quot;side&quot;&gt;Dining end&lt;/option&gt;&lt;option value=&quot;inside&quot;&gt;Inside pavilion&lt;/option&gt;&lt;option value=&quot;table&quot;&gt;Table settings close-up&lt;/option&gt;&lt;option value=&quot;measure&quot;&gt;Interior measurements&lt;/option&gt;&lt;option value=&quot;walk&quot;&gt;Walkthrough&lt;/option&gt;&lt;option value=&quot;ceremony&quot;&gt;Ceremony deck&lt;/option&gt;&lt;option value=&quot;residence&quot;&gt;House detail&lt;/option&gt;&lt;option value=&quot;stairs&quot;&gt;Stairs and side path&lt;/option&gt;&lt;option value=&quot;kitchen&quot;&gt;Catering tent area&lt;/option&gt;&lt;option value=&quot;arbor&quot;&gt;Couple’s arbor detail&lt;/option&gt;&lt;option value=&quot;lounge&quot;&gt;Lounge furniture&lt;/option&gt;&lt;/select&gt;
+      &lt;select class=&quot;form-select&quot; id=&quot;lp-view&quot;&gt;&lt;option value=&quot;perspective&quot;&gt;Pavilion overview&lt;/option&gt;&lt;option value=&quot;site&quot;&gt;Whole property&lt;/option&gt;&lt;option value=&quot;plan&quot;&gt;Floor plan&lt;/option&gt;&lt;option value=&quot;lake&quot;&gt;From lake / dock&lt;/option&gt;&lt;option value=&quot;house&quot;&gt;From house&lt;/option&gt;&lt;option value=&quot;side&quot;&gt;Dining end&lt;/option&gt;&lt;option value=&quot;inside&quot;&gt;Inside pavilion&lt;/option&gt;&lt;option value=&quot;table&quot;&gt;Table settings close-up&lt;/option&gt;&lt;option value=&quot;measure&quot;&gt;Interior measurements&lt;/option&gt;&lt;option value=&quot;walk&quot;&gt;Walkthrough&lt;/option&gt;&lt;option value=&quot;ceremony&quot;&gt;Ceremony deck&lt;/option&gt;&lt;option value=&quot;residence&quot;&gt;House detail&lt;/option&gt;&lt;option value=&quot;houseInterior&quot;&gt;House · main living space&lt;/option&gt;&lt;option value=&quot;houseLower&quot;&gt;House · lower lounge&lt;/option&gt;&lt;option value=&quot;stairs&quot;&gt;Stairs and side path&lt;/option&gt;&lt;option value=&quot;kitchen&quot;&gt;Catering tent area&lt;/option&gt;&lt;option value=&quot;arbor&quot;&gt;Couple’s arbor detail&lt;/option&gt;&lt;option value=&quot;lounge&quot;&gt;Lounge furniture&lt;/option&gt;&lt;/select&gt;
     &lt;/label&gt;
     &lt;label class=&quot;form-label&quot;&gt;Drag action
       &lt;select class=&quot;form-select&quot; id=&quot;lp-action&quot;&gt;&lt;option value=&quot;orbit&quot;&gt;Rotate view&lt;/option&gt;&lt;option value=&quot;move&quot;&gt;Move furniture&lt;/option&gt;&lt;option value=&quot;measure&quot;&gt;Measure floor distance&lt;/option&gt;&lt;/select&gt;
@@ -1865,14 +1867,14 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
   &lt;div role=&quot;tabpanel&quot; id=&quot;lp-panel-layout&quot; aria-labelledby=&quot;lp-tab-layout&quot;&gt;
     &lt;div class=&quot;viz-controls&quot; id=&quot;lp-layout-tools&quot;&gt;
       &lt;label class=&quot;form-label&quot;&gt;Guest count&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;200&quot; step=&quot;1&quot; id=&quot;lp-guests&quot; value=&quot;100&quot;&gt;&lt;/label&gt;
-      &lt;label class=&quot;form-label&quot;&gt;Outer rows: extra doorway setback (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;4&quot; step=&quot;0.5&quot; id=&quot;lp-door-setback&quot; value=&quot;2&quot;&gt;&lt;/label&gt;
+      &lt;details class=&quot;lp-details&quot; id=&quot;lp-row-offsets&quot; open&gt;&lt;summary&gt;Dining row offsets&lt;/summary&gt;&lt;p class=&quot;text-small&quot;&gt;Shift each entire row toward the couple’s end. Row 1 is house-side; row 3 is lake-side. Individual dragged positions in that row are reset when its offset changes.&lt;/p&gt;&lt;div class=&quot;viz-controls&quot;&gt;&lt;label class=&quot;form-label&quot;&gt;Row 1 · house side (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;-3&quot; max=&quot;6&quot; step=&quot;0.5&quot; id=&quot;lp-row-1&quot; value=&quot;2&quot;&gt;&lt;/label&gt;&lt;label class=&quot;form-label&quot;&gt;Row 2 · middle (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;-3&quot; max=&quot;6&quot; step=&quot;0.5&quot; id=&quot;lp-row-2&quot; value=&quot;0&quot;&gt;&lt;/label&gt;&lt;label class=&quot;form-label&quot;&gt;Row 3 · lake side (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;-3&quot; max=&quot;6&quot; step=&quot;0.5&quot; id=&quot;lp-row-3&quot; value=&quot;2&quot;&gt;&lt;/label&gt;&lt;/div&gt;&lt;label class=&quot;form-label&quot;&gt;Quick outer-row setback (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;4&quot; step=&quot;0.5&quot; id=&quot;lp-door-setback&quot; value=&quot;2&quot;&gt;&lt;/label&gt;&lt;/details&gt;
       &lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-fit-guests&quot;&gt;Use enough tables for guest count&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-clear-couple&quot;&gt;Remove table in front of couple&lt;/button&gt;
       &lt;label class=&quot;form-label&quot;&gt;Bar / photo booth sides&lt;select class=&quot;form-select&quot; id=&quot;lp-bar-side&quot;&gt;&lt;option value=&quot;house&quot;&gt;Bar toward house · photo booth toward lake&lt;/option&gt;&lt;option value=&quot;lake&quot;&gt;Bar toward lake · photo booth toward house&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-check&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;lp-dessert&quot; checked&gt;&lt;span class=&quot;form-check-label&quot;&gt;Dessert table&lt;/span&gt;&lt;/label&gt;
       &lt;label class=&quot;form-check&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;lp-door-guides&quot; checked&gt;&lt;span class=&quot;form-check-label&quot;&gt;Doorway / center-aisle guides&lt;/span&gt;&lt;/label&gt;
       &lt;label class=&quot;form-check&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; id=&quot;lp-power&quot; checked&gt;&lt;span class=&quot;form-check-label&quot;&gt;Power locations (approx.)&lt;/span&gt;&lt;/label&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;text-small&quot; id=&quot;lp-seating-status&quot; role=&quot;status&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;text-small&quot; id=&quot;lp-seating-status&quot; role=&quot;status&quot;&gt;&lt;/div&gt;&lt;details class=&quot;lp-details&quot; id=&quot;lp-dessert-options&quot;&gt;&lt;summary&gt;Dessert presentation&lt;/summary&gt;&lt;div class=&quot;viz-controls&quot;&gt;&lt;label class=&quot;form-label&quot;&gt;Cupcake display&lt;select class=&quot;form-select&quot; id=&quot;lp-dessert-style&quot;&gt;&lt;option value=&quot;tiers&quot;&gt;Tiered stands + cutting cake&lt;/option&gt;&lt;option value=&quot;platters&quot;&gt;Low cake stands &amp; platters&lt;/option&gt;&lt;option value=&quot;mixed&quot;&gt;Tiered stands &amp; dessert trays&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;label class=&quot;form-label&quot;&gt;Cupcakes shown&lt;input class=&quot;form-control&quot; type=&quot;number&quot; id=&quot;lp-cupcake-count&quot; min=&quot;12&quot; max=&quot;96&quot; step=&quot;4&quot; value=&quot;48&quot;&gt;&lt;/label&gt;&lt;/div&gt;&lt;p class=&quot;text-small&quot;&gt;Display quantity is illustrative; final catering quantities are separate.&lt;/p&gt;&lt;/details&gt;
     &lt;details class=&quot;lp-details&quot;&gt;&lt;summary class=&quot;cursor-interaction&quot;&gt;Choose which tables to keep · 8 seats each&lt;/summary&gt;&lt;div id=&quot;lp-table-toggles&quot; class=&quot;lp-table-toggles&quot;&gt;&lt;/div&gt;&lt;/details&gt;
     &lt;div class=&quot;text-small&quot;&gt;Floor plan: house above, lake below. Power markers use the house-side entertainment corner and lake-side dining corner; exact sockets and capacity need venue confirmation.&lt;/div&gt;
   &lt;/div&gt;
@@ -1895,7 +1897,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     &lt;div class=&quot;text-small&quot;&gt;Bench count, deck size and aisle arrangements are adjustable planning estimates. Tent siting, leveling and service clearance need venue/caterer approval.&lt;/div&gt;
   &lt;/div&gt;
   &lt;div role=&quot;tabpanel&quot; id=&quot;lp-panel-view&quot; aria-labelledby=&quot;lp-tab-view&quot; hidden&gt;
-    &lt;div class=&quot;viz-controls&quot; id=&quot;lp-display-tools&quot;&gt;
+    &lt;div class=&quot;viz-controls&quot; id=&quot;lp-display-tools&quot;&gt;&lt;label class=&quot;form-check&quot;&gt;&lt;input class=&quot;form-check-input&quot; id=&quot;lp-house-cutaway&quot; type=&quot;checkbox&quot;&gt;&lt;span class=&quot;form-check-label&quot;&gt;House cutaway · show interior&lt;/span&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Ceiling lighting&lt;select class=&quot;form-select&quot; id=&quot;lp-lighting&quot;&gt;&lt;option value=&quot;original&quot;&gt;Photo reference: cafe lights + rings&lt;/option&gt;&lt;option value=&quot;strings&quot;&gt;Cafe strands only&lt;/option&gt;&lt;option value=&quot;canopy&quot;&gt;Dense canopy of lights&lt;/option&gt;&lt;option value=&quot;lanterns&quot;&gt;Paper lanterns&lt;/option&gt;&lt;option value=&quot;none&quot;&gt;No decorative lights&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Overhead dressing&lt;select class=&quot;form-select&quot; id=&quot;lp-ceiling-decor&quot;&gt;&lt;option value=&quot;none&quot;&gt;None&lt;/option&gt;&lt;option value=&quot;greenery&quot;&gt;Hanging greenery&lt;/option&gt;&lt;option value=&quot;fabric&quot;&gt;Soft fabric swags&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;View height (px)&lt;input class=&quot;form-control&quot; id=&quot;lp-view-height&quot; type=&quot;number&quot; min=&quot;360&quot; max=&quot;1200&quot; step=&quot;40&quot; value=&quot;680&quot;&gt;&lt;/label&gt;
@@ -1926,14 +1928,14 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       &lt;label class=&quot;form-label&quot;&gt;Greenery color&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; data-design=&quot;greeneryColor&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-check&quot;&gt;&lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; data-design=&quot;trailingGreenery&quot;&gt;&lt;span class=&quot;form-check-label&quot;&gt;Trailing amaranthus / vines&lt;/span&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Arrangement&lt;select class=&quot;form-select&quot; data-design=&quot;arrangement&quot;&gt;&lt;option value=&quot;mixed&quot;&gt;Low flowers + bud vases&lt;/option&gt;&lt;option value=&quot;bud&quot;&gt;Bud vases only&lt;/option&gt;&lt;option value=&quot;low&quot;&gt;Low clusters only&lt;/option&gt;&lt;option value=&quot;meadow&quot;&gt;Meadow along the runner&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
-      &lt;label class=&quot;form-label&quot;&gt;Flower style&lt;select class=&quot;form-select&quot; data-design=&quot;flowerStyle&quot;&gt;&lt;option value=&quot;mixed&quot;&gt;Mixed garden blooms&lt;/option&gt;&lt;option value=&quot;roses&quot;&gt;Layered roses&lt;/option&gt;&lt;option value=&quot;dahlias&quot;&gt;Dahlia-inspired blooms&lt;/option&gt;&lt;option value=&quot;anemones&quot;&gt;Dark-center anemones&lt;/option&gt;&lt;option value=&quot;orchids&quot;&gt;Orchid-inspired sprays&lt;/option&gt;&lt;option value=&quot;delphinium&quot;&gt;Delphinium-style spires&lt;/option&gt;&lt;option value=&quot;hydrangea&quot;&gt;Hydrangea clusters&lt;/option&gt;&lt;option value=&quot;wildflower&quot;&gt;Airy wildflowers&lt;/option&gt;&lt;option value=&quot;none&quot;&gt;No flowers&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+      &lt;label class=&quot;form-label&quot;&gt;Flower style&lt;select class=&quot;form-select&quot; data-design=&quot;flowerStyle&quot;&gt;&lt;option value=&quot;mixed&quot;&gt;Mixed garden blooms&lt;/option&gt;&lt;option value=&quot;roses&quot;&gt;Layered roses&lt;/option&gt;&lt;option value=&quot;dahlias&quot;&gt;Dahlia-inspired blooms&lt;/option&gt;&lt;option value=&quot;anemones&quot;&gt;Dark-center anemones&lt;/option&gt;&lt;option value=&quot;orchids&quot;&gt;Orchid-inspired sprays&lt;/option&gt;&lt;option value=&quot;delphinium&quot;&gt;Delphinium-style spires&lt;/option&gt;&lt;option value=&quot;hydrangea&quot;&gt;Hydrangea clusters&lt;/option&gt;&lt;option value=&quot;ranunculus&quot;&gt;Layered ranunculus&lt;/option&gt;&lt;option value=&quot;anthurium&quot;&gt;Sculptural anthurium&lt;/option&gt;&lt;option value=&quot;carnations&quot;&gt;Ruffled carnations&lt;/option&gt;&lt;option value=&quot;wildflower&quot;&gt;Airy wildflowers&lt;/option&gt;&lt;option value=&quot;none&quot;&gt;No flowers&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Flower fullness&lt;select class=&quot;form-select&quot; data-design=&quot;flowerDensity&quot;&gt;&lt;option value=&quot;0.6&quot;&gt;Light&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;Reference&lt;/option&gt;&lt;option value=&quot;1.6&quot;&gt;Lush&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Main flower color&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; data-design=&quot;flowerA&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Second flower color&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; data-design=&quot;flowerB&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Accent flower color&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; data-design=&quot;flowerC&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Flower centers&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; data-design=&quot;flowerCenter&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Vases&lt;select class=&quot;form-select&quot; data-design=&quot;vaseStyle&quot;&gt;&lt;option value=&quot;cut&quot;&gt;Patterned glass&lt;/option&gt;&lt;option value=&quot;smooth&quot;&gt;Smooth glass&lt;/option&gt;&lt;option value=&quot;bottle&quot;&gt;Narrow glass bottles&lt;/option&gt;&lt;option value=&quot;compote&quot;&gt;Footed metal bowls&lt;/option&gt;&lt;option value=&quot;amber&quot;&gt;Tinted glass&lt;/option&gt;&lt;option value=&quot;ceramic&quot;&gt;Ceramic&lt;/option&gt;&lt;option value=&quot;none&quot;&gt;No vases&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
-      &lt;label class=&quot;form-label&quot;&gt;Vases per table&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;5&quot; step=&quot;1&quot; data-design=&quot;vaseCount&quot;&gt;&lt;/label&gt;
+      &lt;label class=&quot;form-label&quot;&gt;Bud vases per table · 0–5&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;5&quot; step=&quot;1&quot; data-design=&quot;vaseCount&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Vase height (in)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;4&quot; max=&quot;18&quot; step=&quot;1&quot; data-design=&quot;vaseHeight&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Stems per vase&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;5&quot; step=&quot;1&quot; data-design=&quot;stemsPerVase&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Flower height above tabletop (in)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; min=&quot;12&quot; max=&quot;36&quot; step=&quot;1&quot; data-design=&quot;flowerHeight&quot;&gt;&lt;/label&gt;
@@ -1978,7 +1980,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
   &lt;details class=&quot;lp-details&quot; id=&quot;lp-finishes&quot;&gt;
     &lt;summary class=&quot;cursor-interaction&quot;&gt;Dance floor and site grade&lt;/summary&gt;
     &lt;div class=&quot;viz-controls&quot;&gt;
-      &lt;label class=&quot;form-label&quot;&gt;Dance floor&lt;select class=&quot;form-select&quot; id=&quot;lp-dance-pattern&quot;&gt;&lt;option value=&quot;checker&quot;&gt;Checkerboard tiles&lt;/option&gt;&lt;option value=&quot;solid&quot;&gt;Solid color&lt;/option&gt;&lt;option value=&quot;concrete&quot;&gt;Bare concrete&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
+      &lt;label class=&quot;form-label&quot;&gt;Dance floor&lt;select class=&quot;form-select&quot; id=&quot;lp-dance-pattern&quot;&gt;&lt;option value=&quot;checker&quot;&gt;Checkerboard tiles&lt;/option&gt;&lt;option value=&quot;solid&quot;&gt;Solid color&lt;/option&gt;&lt;option value=&quot;concrete&quot;&gt;Bare concrete&lt;/option&gt;&lt;option value=&quot;wood&quot;&gt;Warm wood parquet&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Tile color A&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; id=&quot;lp-dance-a&quot; value=&quot;#101010&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Tile color B&lt;input class=&quot;form-control form-control-color&quot; type=&quot;color&quot; id=&quot;lp-dance-b&quot; value=&quot;#ffffff&quot;&gt;&lt;/label&gt;
       &lt;label class=&quot;form-label&quot;&gt;Approx. tile size (ft)&lt;input class=&quot;form-control&quot; type=&quot;number&quot; id=&quot;lp-tile-size&quot; min=&quot;1&quot; max=&quot;4&quot; step=&quot;0.5&quot; value=&quot;2&quot;&gt;&lt;/label&gt;
@@ -2005,7 +2007,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     &lt;div class=&quot;viz-controls&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-save&quot;&gt;Save layout&lt;/button&gt;&lt;label class=&quot;form-label&quot;&gt;Load saved layout&lt;input class=&quot;form-control&quot; id=&quot;lp-load&quot; type=&quot;file&quot; accept=&quot;application/json,.json&quot;&gt;&lt;/label&gt;&lt;/div&gt;
     &lt;label class=&quot;form-label&quot; id=&quot;lp-json-wrap&quot; hidden&gt;Saved layout JSON&lt;textarea class=&quot;form-control&quot; id=&quot;lp-layout-json&quot; rows=&quot;5&quot; readonly aria-label=&quot;Saved layout JSON, available to select and copy&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;
   &lt;/details&gt;
-  &lt;div class=&quot;text-small lp-assumptions&quot;&gt;90 × 40 ft pavilion · Dining left, entertainment right in floor plan · House uphill, lake downhill. Site elevations, distances and unmeasured dimensions are photo-based estimates.&lt;/div&gt;
+  &lt;div class=&quot;text-small lp-assumptions&quot;&gt;House interior furnishings and ceremony dimensions are photo-based approximations. 90 × 40 ft pavilion · Dining left, entertainment right in floor plan · House uphill, lake downhill. Site elevations, distances and unmeasured dimensions are photo-based estimates.&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
 #venue-pavilion-3d {width:100%;color:var(--foreground)}
@@ -2026,8 +2028,73 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
 #venue-pavilion-3d .lp-details summary {margin-bottom:10px}
 #venue-pavilion-3d .lp-assumptions {margin-top:10px;color:var(--muted-foreground)}
 @media(max-width:480px){#venue-pavilion-3d .lp-heading {display:block;padding-right:75px}}
+
+#venue-pavilion-3d{--studio-ink:#303d35;--studio-plum:#644451;--studio-sage:#718471;--studio-line:#dfdfd3;--studio-paper:#fbf9f4;--studio-soft:#efeee5;box-sizing:border-box;padding:24px;color:var(--studio-ink);background:var(--studio-paper);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
+#venue-pavilion-3d *{box-sizing:border-box}
+#venue-pavilion-3d .lp-heading{display:flex;justify-content:space-between;align-items:center;padding:0 0 22px;gap:20px}
+#venue-pavilion-3d .lp-heading h2{font:normal clamp(28px,3vw,42px)/1.1 Georgia,serif;letter-spacing:-1px;margin:7px 0 5px}
+#venue-pavilion-3d .lp-eyebrow{font-size:10px;letter-spacing:2px;color:#75816e;font-weight:700}
+#venue-pavilion-3d .lp-subtitle{font-size:13px;color:#738074;margin:0}
+#venue-pavilion-3d .lp-heading-actions{display:grid;gap:10px;justify-items:end}
+#venue-pavilion-3d #lp-capacity{font-size:12px;letter-spacing:.3px}
+#venue-pavilion-3d .lp-workspace{display:grid;grid-template-columns:minmax(0,1fr) 365px;gap:20px;align-items:start}
+#venue-pavilion-3d .lp-viewer{min-width:0;overflow:hidden;border:1px solid var(--studio-line);border-radius:16px;background:#fff;box-shadow:0 8px 30px #33443108}
+#venue-pavilion-3d .lp-editor{min-width:0;background:#fff;border:1px solid var(--studio-line);border-radius:16px;max-height:1100px;overflow:auto;scrollbar-width:thin;scrollbar-color:#bac3b3 transparent;padding:19px}
+#venue-pavilion-3d #lp-main-nav{padding:12px;background:#f1f2eb;border-bottom:1px solid var(--studio-line);gap:7px;margin:0}
+#venue-pavilion-3d #lp-main-nav label{flex:1 1 175px;max-width:240px;font-size:10px;text-transform:uppercase;letter-spacing:1px;gap:3px}
+#venue-pavilion-3d #lp-main-nav select{text-transform:none;letter-spacing:0;font-size:12px}
+#venue-pavilion-3d .btn{color:var(--studio-ink);border:1px solid var(--studio-line);background:#fff;border-radius:8px;padding:8px 11px;min-height:36px;font-size:12px;line-height:1.35;white-space:normal;cursor:pointer;box-shadow:none;transition:background .15s,border-color .15s}
+#venue-pavilion-3d .btn:hover{background:#edf1e8;border-color:#a8b6a1}
+#venue-pavilion-3d .btn-primary,#venue-pavilion-3d #lp-walk-inside{background:var(--studio-ink);color:#fff;border-color:var(--studio-ink)}
+#venue-pavilion-3d .btn:focus-visible,#venue-pavilion-3d select:focus-visible,#venue-pavilion-3d input:focus-visible,#venue-pavilion-3d summary:focus-visible,#venue-pavilion-3d .lp-look-card:focus-visible{outline:3px solid #b5bc9e;outline-offset:2px}
+#venue-pavilion-3d .btn[aria-pressed=true]{border-color:var(--studio-plum);background:#f3edf0}
+#venue-pavilion-3d .lp-stage{margin:0;border:0;border-radius:0;height:680px;background:#e9eee7}
+#venue-pavilion-3d #lp-resize{border:0;border-radius:0;min-height:25px;padding:3px;background:#edf0e8;color:#6c7d69;font-size:10px;letter-spacing:.7px}
+#venue-pavilion-3d #lp-nav-hint{padding:9px 14px;font-size:11px;color:#738074;background:#f7f8f3}
+#venue-pavilion-3d .lp-navigation{margin:0!important;padding:12px 14px;border:0;border-top:1px solid var(--studio-line);background:#fff}
+#venue-pavilion-3d .lp-navigation&gt;summary{font-size:12px;font-weight:600;color:#66765f}
+#venue-pavilion-3d .lp-navigation&gt;.form-label{display:inline-flex;margin:8px 10px 0 0;max-width:170px}
+#venue-pavilion-3d .lp-navigation .viz-controls{margin:10px 0 0}
+#venue-pavilion-3d #lp-walk-controls,#venue-pavilion-3d #lp-tour-controls{padding:12px 14px;background:#f5f1f2}
+#venue-pavilion-3d #lp-selection{padding:9px 14px;margin:0;color:#738074;font-size:11px;border-top:1px solid #eceee5}
+#venue-pavilion-3d .lp-lookbook{padding-bottom:17px}
+#venue-pavilion-3d h3{font:normal 23px/1.2 Georgia,serif;margin:5px 0 8px;letter-spacing:-.4px}
+#venue-pavilion-3d .lp-lookbook p{font-size:12px;color:#788172;margin:0 0 15px}
+#venue-pavilion-3d .lp-look-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+#venue-pavilion-3d .lp-look-card{display:flex;gap:8px;align-items:center;padding:11px 8px;background:#fcfbf7;border:1px solid #e7e4da;border-radius:9px;color:#626b5d;font-size:11px;text-align:left;cursor:pointer}
+#venue-pavilion-3d .lp-look-card[aria-pressed=true]{background:#f0ede5;border-color:#7b8b70;box-shadow:inset 0 0 0 1px #7b8b70}
+#venue-pavilion-3d .lp-look-colors{display:flex;flex-shrink:0;padding-left:3px}
+#venue-pavilion-3d .lp-look-colors i{display:block;width:15px;height:23px;border-radius:8px;margin-left:-3px;border:1px solid #ffffff99}
+#venue-pavilion-3d .lp-lookbook&gt;label{display:flex;font-size:11px;color:#7a806f}
+#venue-pavilion-3d .viz-controls{display:flex;flex-wrap:wrap;gap:11px;margin:10px 0;align-items:end}
+#venue-pavilion-3d .lp-editor .viz-controls&gt;.form-label{flex:1 1 135px;max-width:100%;min-width:0}
+#venue-pavilion-3d .lp-editor .viz-controls&gt;.lp-details{width:100%}
+#venue-pavilion-3d .form-label{display:flex;flex-direction:column;font-size:11px;font-weight:500;gap:5px;color:#6a7464;min-width:0}
+#venue-pavilion-3d .form-select,#venue-pavilion-3d .form-control{height:37px;border:1px solid #dedfd4;border-radius:7px;background:#fcfcf8;color:#384636;box-shadow:none;font-size:12px;padding:7px 9px;max-width:100%;min-width:0;width:100%}
+#venue-pavilion-3d textarea.form-control{height:auto}
+#venue-pavilion-3d .form-control-color{padding:4px;width:100%;cursor:pointer}
+#venue-pavilion-3d .form-check{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#66735f;margin:4px 9px 4px 0}
+#venue-pavilion-3d input[type=checkbox]{accent-color:#738568;width:14px;height:14px;margin:0}
+#venue-pavilion-3d #lp-settings-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:5px;background:#f2f1e9;border-radius:9px;margin-bottom:8px;border:0}
+#venue-pavilion-3d #lp-settings-tabs button{min-width:0;padding:9px 5px;border:0;border-radius:6px;font-size:11px;line-height:1.3;white-space:normal;color:#7b826f;background:none;cursor:pointer}
+#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:1/-1}
+#venue-pavilion-3d #lp-settings-tabs button.active{background:#fff;color:#485840;box-shadow:0 1px 5px #33443112}
+#venue-pavilion-3d .lp-details{margin:12px 0;border-top:1px solid #eeeee6;padding-top:12px}
+#venue-pavilion-3d .lp-details&gt;summary{cursor:pointer;font-size:12px;font-weight:600;color:#57694d;margin:0 0 8px}
+#venue-pavilion-3d .text-small,#venue-pavilion-3d .lp-details p{font-size:11px;line-height:1.55;color:#7b8373}
+#venue-pavilion-3d .lp-label{border-radius:5px;font-size:10px;background:#fffffff2;color:#41513b;box-shadow:0 1px 4px #0001}
+#venue-pavilion-3d #lp-palette-swatches{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+#venue-pavilion-3d #lp-palette-swatches .btn{font-size:10px;padding:5px;min-height:30px;text-align:left}
+#venue-pavilion-3d #lp-palette-swatches span{border-radius:50%}
+#venue-pavilion-3d .lp-table-toggles{grid-template-columns:1fr 1fr;gap:2px}
+#venue-pavilion-3d .lp-assumptions{margin-top:16px;max-width:1000px;font-size:10px;opacity:.8}
+#venue-pavilion-3d .lp-reset-prompt{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1px solid #d8c5cd;padding:14px;border-radius:10px;background:#faf1f5;margin-bottom:16px;font-size:12px}
+#venue-pavilion-3d .lp-reset-prompt span{flex:1 1 280px}
+@media(min-width:1600px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) 390px}}
+@media(max-width:1100px){#venue-pavilion-3d{padding:16px}#venue-pavilion-3d .lp-workspace{grid-template-columns:1fr}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible}#venue-pavilion-3d .lp-look-cards{grid-template-columns:repeat(4,1fr)}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}#venue-pavilion-3d .lp-editor .viz-controls&gt;.form-label{flex-basis:180px}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:600px){#venue-pavilion-3d{padding:10px}#venue-pavilion-3d .lp-heading{display:block;padding:8px 6px 18px}#venue-pavilion-3d .lp-heading-actions{justify-items:start;margin-top:15px;gap:7px}#venue-pavilion-3d .lp-subtitle{font-size:11px}#venue-pavilion-3d .lp-stage{height:520px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:1/-1}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-main-nav .btn{flex:1 1 90px}#venue-pavilion-3d #lp-main-nav label{max-width:none;flex-basis:100%}#venue-pavilion-3d .lp-editor{padding:15px}#venue-pavilion-3d .lp-editor .viz-controls&gt;.form-label{flex-basis:130px}}
 &lt;/style&gt;
-&lt;script type=&quot;application/json&quot; id=&quot;lp-initial-state&quot;&gt;{&quot;modelContent&quot;:{&quot;danceWidth&quot;:20,&quot;danceDepth&quot;:20,&quot;doorSetback&quot;:2,&quot;barSide&quot;:&quot;house&quot;,&quot;dessert&quot;:true,&quot;doorGuides&quot;:true,&quot;power&quot;:true,&quot;disabledTables&quot;:[],&quot;targetGuests&quot;:100,&quot;benchRows&quot;:8,&quot;benchLength&quot;:11,&quot;deckWidth&quot;:32,&quot;deckDepth&quot;:38,&quot;aisleDecor&quot;:&quot;none&quot;,&quot;aislePairs&quot;:4,&quot;aisleColor&quot;:&quot;#eee7d5&quot;,&quot;tentSide&quot;:&quot;right&quot;,&quot;tentStyle&quot;:&quot;frame&quot;,&quot;tentWidth&quot;:20,&quot;tentDepth&quot;:20,&quot;lighting&quot;:&quot;original&quot;,&quot;ceilingDecor&quot;:&quot;none&quot;,&quot;schema&quot;:&quot;venue-pavilion-v8&quot;,&quot;layout&quot;:&quot;separate&quot;,&quot;length&quot;:8,&quot;width&quot;:3,&quot;gap&quot;:1.5,&quot;roof&quot;:true,&quot;labels&quot;:true,&quot;context&quot;:true,&quot;walls&quot;:&quot;real&quot;,&quot;measurements&quot;:true,&quot;measureScope&quot;:&quot;overall&quot;,&quot;grid&quot;:true,&quot;arbor&quot;:true,&quot;kitchen&quot;:false,&quot;decor&quot;:true,&quot;linens&quot;:false,&quot;dancePattern&quot;:&quot;checker&quot;,&quot;danceA&quot;:&quot;#101010&quot;,&quot;danceB&quot;:&quot;#ffffff&quot;,&quot;tileSize&quot;:2,&quot;houseRise&quot;:3.5,&quot;lakeDrop&quot;:7.5,&quot;positions&quot;:{&quot;separate&quot;:{},&quot;joined&quot;:{}},&quot;design&quot;:{&quot;look&quot;:&quot;custom&quot;,&quot;clothColor&quot;:&quot;#c9b09e&quot;,&quot;clothFinish&quot;:&quot;linen&quot;,&quot;runnerStyle&quot;:&quot;lace&quot;,&quot;runnerColor&quot;:&quot;#f4ecd9&quot;,&quot;runnerWidth&quot;:11,&quot;greenery&quot;:&quot;lush&quot;,&quot;greeneryColor&quot;:&quot;#57684e&quot;,&quot;flowerStyle&quot;:&quot;mixed&quot;,&quot;flowerDensity&quot;:1,&quot;flowerA&quot;:&quot;#eee7d5&quot;,&quot;flowerB&quot;:&quot;#7f9eaf&quot;,&quot;flowerC&quot;:&quot;#602e46&quot;,&quot;vaseStyle&quot;:&quot;cut&quot;,&quot;vaseCount&quot;:5,&quot;vaseHeight&quot;:10,&quot;vaseColor&quot;:&quot;#ecf0e5&quot;,&quot;candleStyle&quot;:&quot;taper&quot;,&quot;candleCount&quot;:3,&quot;candleHeight&quot;:12,&quot;candleColor&quot;:&quot;#bd9b56&quot;,&quot;metalFinish&quot;:&quot;gold&quot;,&quot;chargers&quot;:true,&quot;indoorArbor&quot;:&quot;timber&quot;,&quot;outdoorArbor&quot;:&quot;timber&quot;,&quot;indoorArborColor&quot;:&quot;#6c4d36&quot;,&quot;outdoorArborColor&quot;:&quot;#6c4d36&quot;,&quot;indoorArborDecor&quot;:&quot;drape&quot;,&quot;outdoorArborDecor&quot;:&quot;greenery&quot;,&quot;arborFabricColor&quot;:&quot;#f1e9d8&quot;,&quot;sofaStyle&quot;:&quot;classic&quot;,&quot;sofaColor&quot;:&quot;#ece6da&quot;,&quot;sofaFrameColor&quot;:&quot;#704b31&quot;,&quot;sofaLength&quot;:6}},&quot;privateContent&quot;:{&quot;orbit&quot;:{&quot;azimuth&quot;:4.36547265625002,&quot;polar&quot;:1.1271367187499997,&quot;distance&quot;:18.436156014278442,&quot;target&quot;:[0,1,0]},&quot;view&quot;:&quot;perspective&quot;,&quot;walk&quot;:{&quot;x&quot;:13.602396554743555,&quot;y&quot;:6.849232191304194,&quot;z&quot;:-95.09435646675702,&quot;yaw&quot;:28.277757420244395,&quot;pitch&quot;:-0.11518749999999969},&quot;tour&quot;:{&quot;time&quot;:1.7670720000000475,&quot;speed&quot;:1},&quot;navigation&quot;:{&quot;height&quot;:680,&quot;speed&quot;:8}}}&lt;/script&gt;
+&lt;script type=&quot;application/json&quot; id=&quot;lp-initial-state&quot;&gt;{&quot;modelContent&quot;:{&quot;danceWidth&quot;:20,&quot;danceDepth&quot;:20,&quot;doorSetback&quot;:2,&quot;barSide&quot;:&quot;house&quot;,&quot;dessert&quot;:true,&quot;doorGuides&quot;:true,&quot;power&quot;:true,&quot;disabledTables&quot;:[],&quot;targetGuests&quot;:100,&quot;benchRows&quot;:8,&quot;benchLength&quot;:9.5,&quot;deckWidth&quot;:28,&quot;deckDepth&quot;:34,&quot;aisleDecor&quot;:&quot;none&quot;,&quot;aislePairs&quot;:4,&quot;aisleColor&quot;:&quot;#eee7d5&quot;,&quot;tentSide&quot;:&quot;right&quot;,&quot;tentStyle&quot;:&quot;frame&quot;,&quot;tentWidth&quot;:20,&quot;tentDepth&quot;:20,&quot;lighting&quot;:&quot;original&quot;,&quot;ceilingDecor&quot;:&quot;none&quot;,&quot;schema&quot;:&quot;venue-pavilion-v9&quot;,&quot;layout&quot;:&quot;separate&quot;,&quot;length&quot;:8,&quot;width&quot;:3,&quot;gap&quot;:1.5,&quot;roof&quot;:false,&quot;labels&quot;:true,&quot;context&quot;:true,&quot;walls&quot;:&quot;real&quot;,&quot;measurements&quot;:false,&quot;measureScope&quot;:&quot;overall&quot;,&quot;grid&quot;:false,&quot;arbor&quot;:true,&quot;kitchen&quot;:false,&quot;decor&quot;:true,&quot;linens&quot;:false,&quot;dancePattern&quot;:&quot;checker&quot;,&quot;danceA&quot;:&quot;#101010&quot;,&quot;danceB&quot;:&quot;#ffffff&quot;,&quot;tileSize&quot;:2,&quot;houseRise&quot;:3.5,&quot;lakeDrop&quot;:7.5,&quot;positions&quot;:{&quot;separate&quot;:{},&quot;joined&quot;:{}},&quot;design&quot;:{&quot;look&quot;:&quot;custom&quot;,&quot;clothColor&quot;:&quot;#c9b09e&quot;,&quot;clothFinish&quot;:&quot;linen&quot;,&quot;runnerStyle&quot;:&quot;lace&quot;,&quot;runnerColor&quot;:&quot;#f4ecd9&quot;,&quot;runnerWidth&quot;:11,&quot;greenery&quot;:&quot;lush&quot;,&quot;greeneryColor&quot;:&quot;#57684e&quot;,&quot;flowerStyle&quot;:&quot;mixed&quot;,&quot;flowerDensity&quot;:1,&quot;flowerA&quot;:&quot;#eee7d5&quot;,&quot;flowerB&quot;:&quot;#7f9eaf&quot;,&quot;flowerC&quot;:&quot;#602e46&quot;,&quot;vaseStyle&quot;:&quot;cut&quot;,&quot;vaseCount&quot;:5,&quot;vaseHeight&quot;:10,&quot;vaseColor&quot;:&quot;#ecf0e5&quot;,&quot;candleStyle&quot;:&quot;taper&quot;,&quot;candleCount&quot;:3,&quot;candleHeight&quot;:12,&quot;candleColor&quot;:&quot;#bd9b56&quot;,&quot;metalFinish&quot;:&quot;gold&quot;,&quot;chargers&quot;:true,&quot;indoorArbor&quot;:&quot;timber&quot;,&quot;outdoorArbor&quot;:&quot;timber&quot;,&quot;indoorArborColor&quot;:&quot;#6c4d36&quot;,&quot;outdoorArborColor&quot;:&quot;#6c4d36&quot;,&quot;indoorArborDecor&quot;:&quot;drape&quot;,&quot;outdoorArborDecor&quot;:&quot;greenery&quot;,&quot;arborFabricColor&quot;:&quot;#f1e9d8&quot;,&quot;sofaStyle&quot;:&quot;classic&quot;,&quot;sofaColor&quot;:&quot;#ece6da&quot;,&quot;sofaFrameColor&quot;:&quot;#704b31&quot;,&quot;sofaLength&quot;:6},&quot;rowOffsets&quot;:[2,0,2]},&quot;privateContent&quot;:{&quot;orbit&quot;:{&quot;azimuth&quot;:0.4,&quot;polar&quot;:0.72,&quot;distance&quot;:150,&quot;target&quot;:[0,1,0]},&quot;view&quot;:&quot;perspective&quot;,&quot;walk&quot;:{&quot;x&quot;:13.602396554743555,&quot;y&quot;:6.849232191304194,&quot;z&quot;:-95.09435646675702,&quot;yaw&quot;:28.277757420244395,&quot;pitch&quot;:-0.11518749999999969},&quot;tour&quot;:{&quot;time&quot;:1.7670720000000475,&quot;speed&quot;:1},&quot;navigation&quot;:{&quot;height&quot;:680,&quot;speed&quot;:8}}}&lt;/script&gt;
 &lt;script&gt;
 (function(){
   const root=document.getElementById('venue-pavilion-3d');
@@ -2042,12 +2109,14 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
   }
   function initialize(){
     const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas');
-    const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:11,deckWidth:32,deckDepth:38,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none'};
+    const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'none',napkinColor:'#62314c',glassware:'none',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
     const COLOR_SWATCHES=[['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
     const designFields=[...root.querySelectorAll('[data-design]')];
-    let config={...PLAN_DEFAULTS,schema:'venue-pavilion-v8',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
+    let config={...PLAN_DEFAULTS,schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
+    const resetDefaults=JSON.parse(JSON.stringify(config));
+    let resetUndo=null,rebuildTimer=0;
     let navigation={height:680,speed:8};
     organizeControls();
     let orbit={azimuth:0.35,polar:0.67,distance:150,target:[0,1,0]}, selected='table-1', activeView='perspective';
@@ -2056,9 +2125,9 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     const reducedMotion=window.matchMedia&amp;&amp;window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const initialState=JSON.parse(document.getElementById('lp-initial-state').textContent);
     const hostState=window.openai&amp;&amp;window.openai.widgetState;
-    const existing=hostState&amp;&amp;hostState.modelContent&amp;&amp;hostState.modelContent.schema==='venue-pavilion-v8'?hostState:initialState.modelContent?initialState:hostState;
-    if(existing&amp;&amp;existing.modelContent&amp;&amp;/^venue-pavilion-v[12345678]$/.test(existing.modelContent.schema))config=normalize(existing.modelContent);
-    const currentSaved=existing&amp;&amp;existing.modelContent&amp;&amp;/^venue-pavilion-v[68]$/.test(existing.modelContent.schema);
+    const existing=hostState&amp;&amp;hostState.modelContent&amp;&amp;/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(hostState.modelContent.schema)?hostState:initialState.modelContent?initialState:hostState;
+    if(existing&amp;&amp;existing.modelContent&amp;&amp;/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(existing.modelContent.schema))config=normalize(existing.modelContent);
+    const currentSaved=existing&amp;&amp;existing.modelContent&amp;&amp;/^(?:venue|lakeside)-pavilion-v[689]$/.test(existing.modelContent.schema);
     if(currentSaved&amp;&amp;existing.privateContent&amp;&amp;existing.privateContent.orbit)orbit=normalizeOrbit(existing.privateContent.orbit);
     if(currentSaved&amp;&amp;existing.privateContent&amp;&amp;existing.privateContent.walk)walk=normalizeWalk(existing.privateContent.walk);
     if(currentSaved&amp;&amp;existing.privateContent&amp;&amp;existing.privateContent.tour)tour=normalizeTour(existing.privateContent.tour);
@@ -2077,7 +2146,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     const shell=new T.Group(),walls=new T.Group(),roof=new T.Group(),ceilingLights=new T.Group(),furniture=new T.Group(),context=new T.Group(),dimensions=new T.Group(),grid=new T.Group(),ruler=new T.Group(),doorGuides=new T.Group(),powerMarkers=new T.Group();
     scene.add(shell,walls,roof,ceilingLights,furniture,context,dimensions,grid,ruler,doorGuides,powerMarkers);
     const unitBox=new T.BoxGeometry(1,1,1),unitCylinder=new T.CylinderGeometry(1,1,1,16);
-    let materials={},colors={},objects=[],labels=[],selectionBox=null,textures=[],measurementPoints=[],walkSurfaces=[],terrainMesh=null,doorLeaves=[];
+    let materials={},colors={},objects=[],labels=[],selectionBox=null,textures=[],measurementPoints=[],walkSurfaces=[],terrainMesh=null,doorLeaves=[],houseExterior=null,ceremonyGroup=null,decorTextureCache={};
     const raycaster=new T.Raycaster(),pointer=new T.Vector2(),ground=new T.Plane(new T.Vector3(0,1,0),0),target=new T.Vector3();
     function n(v,d,lo,hi){v=Number(v);return Number.isFinite(v)?Math.max(lo,Math.min(hi,v)):d;}
     function hex(v,d){return typeof v==='string'&amp;&amp;/^#[0-9a-f]{6}$/i.test(v)?v:d;}
@@ -2087,7 +2156,19 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       top.after($('lp-tour-controls'));$('lp-tour-controls').after(stage);
       stage.after($('lp-resize'));$('lp-resize').after($('lp-nav-hint'));
       $('lp-layout-tools').prepend($('lp-layout').closest('label'));
-      $('lp-panel-view').appendChild(old);$('lp-panel-view').appendChild(root.querySelector('.lp-camera'));
+      const viewer=$('lp-viewer'),editor=$('lp-editor');
+      viewer.append(top,$('lp-tour-controls'),stage,$('lp-resize'),$('lp-nav-hint'));
+      const navDetails=document.createElement('details');navDetails.className='lp-navigation lp-details';navDetails.open=true;
+      const summary=document.createElement('summary');summary.textContent='Camera &amp; navigation';navDetails.append(summary,old,root.querySelector('.lp-camera'));
+      viewer.append(navDetails,$('lp-walk-controls'),$('lp-selection'));
+      // Camera height and speed are available without starting a tour or walking.
+      navDetails.append($('lp-eye').closest('label'),$('lp-walk-speed').closest('label'));
+      editor.append($('lp-settings-tabs'));
+      for(const name of ['layout','decor','ceremony','view','save'])editor.append($('lp-panel-'+name));
+      $('lp-lookbook').append(root.querySelector('[data-design=&quot;look&quot;]').closest('label'));
+      const looks=[['ivoryPlum','Ivory &amp; plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
+      for(const [key,name,swatches]of looks){const b=document.createElement('button');b.type='button';b.className='lp-look-card';b.dataset.look=key;b.setAttribute('aria-pressed','false');const samples=document.createElement('span');samples.className='lp-look-colors';samples.setAttribute('aria-hidden','true');for(const color of swatches){const dot=document.createElement('i');dot.style.background=color;samples.append(dot);}b.append(samples,document.createTextNode(name));b.onclick=()=&gt;applyLook(key);$('lp-look-cards').append(b);}
+      $('lp-panel-save').insertAdjacentHTML('afterbegin','&lt;h3&gt;Move, measure &amp; keep your design&lt;/h3&gt;');
       $('lp-panel-decor').append($('lp-design-tables'),$('lp-design-arbors'),$('lp-design-sofas'));
       $('lp-panel-layout').appendChild($('lp-finishes'));$('lp-finishes').querySelector('summary').textContent='Dance floor size, finish and site grade';
       $('lp-panel-save').appendChild($('lp-furniture'));$('lp-furniture').open=true;
@@ -2109,7 +2190,9 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       for(const [key,lo,hi] of [['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
       for(const key of ['targetGuests','benchRows','aislePairs'])out[key]=Math.round(out[key]);
       for(const [key,choices]of Object.entries({barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
-      for(const key of ['dessert','doorGuides','power'])if(typeof raw[key]==='boolean')out[key]=raw[key];
+      for(const key of ['dessert','doorGuides','power','houseCutaway'])if(typeof raw[key]==='boolean')out[key]=raw[key];
+      out.rowOffsets=Array.isArray(raw.rowOffsets)?[0,1,2].map(i=&gt;n(raw.rowOffsets[i],[out.doorSetback,0,out.doorSetback][i],-3,6)):[out.doorSetback,0,out.doorSetback];
+      out.cupcakeCount=Math.round(n(raw.cupcakeCount,48,12,96));out.dessertStyle=['tiers','platters','mixed'].includes(raw.dessertStyle)?raw.dessertStyle:'tiers';
       out.aisleColor=hex(raw.aisleColor,out.aisleColor);out.disabledTables=Array.isArray(raw.disabledTables)?[...new Set(raw.disabledTables.filter(id=&gt;/^table-(?:[1-9]|1[0-2])$/.test(id)))]:[];return out;
     }
     function normalizeDesign(raw){
@@ -2137,21 +2220,21 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         minimal:{clothColor:'#eae5da',runnerStyle:'none',greenery:'light',flowerStyle:'roses',flowerDensity:.6,flowerA:'#efeee6',flowerB:'#efeee6',flowerC:'#efeee6',vaseStyle:'ceramic',vaseColor:'#e9e4d9',vaseCount:1,candleCount:2,candleColor:'#eee7d8',metalFinish:'black',indoorArbor:'frame',outdoorArbor:'triangle',indoorArborColor:'#252525',outdoorArborColor:'#252525',sofaStyle:'classic',sofaColor:'#e8e3d9'}
       };
       const glassLooks={ivoryPlum:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},pistachio:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},plumGarden:{glassware:'tinted',glassColor:'#ad829a',trailingGreenery:true},blueMeadow:{glassware:'clear',trailingGreenery:true}};
-      if(!looks[name]){if(name==='custom'){config.design.look='custom';saveState();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;rebuild();saveState();
+      if(!looks[name]){if(name==='custom'){config.design.look='custom';saveState();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;refreshDecor();saveState();
     }
     function normalize(raw){
-      const out={schema:'venue-pavilion-v8',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&amp;&amp;Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
+      const out={schema:'venue-pavilion-v9',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete','wood'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&amp;&amp;Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
       for(const mode of ['separate','joined'])for(const [id,p]of Object.entries((raw.positions&amp;&amp;raw.positions[mode])||{})){
         if(!/^table-\d+$|^couple$|^dance$|^bar$|^dj$|^photo$|^dessert$|^sofa-\d+$|^cocktail-\d+$/.test(id)||!p)continue;
-        const mirror=/^venue-pavilion-v[345678]$/.test(raw.schema)?1:-1;out.positions[mode][id]={x:mirror*n(p.x,0,-45,45),z:n(p.z,0,-20,20),r:mirror*n(p.r,0,-Math.PI*20,Math.PI*20)};
-      }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));return out;
+        const mirror=/^(?:venue|lakeside)-pavilion-v[3456789]$/.test(raw.schema)?1:-1;out.positions[mode][id]={x:mirror*n(p.x,0,-45,45),z:n(p.z,0,-20,20),r:mirror*n(p.r,0,-Math.PI*20,Math.PI*20)};
+      }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));if(!/v9$/.test(raw.schema)&amp;&amp;Number(raw.deckWidth)===32&amp;&amp;Number(raw.deckDepth)===38){out.deckWidth=28;out.deckDepth=34;if(Number(raw.benchLength)===11)out.benchLength=9.5;}return out;
     }
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
     function restoreNavigation(raw){navigation={height:n(raw&amp;&amp;raw.height,680,360,1200),speed:raw&amp;&amp;[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8};stage.style.height=navigation.height+'px';}
     function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5)};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
-    let lastPublished='';
-    function saveState(){if(window.openai&amp;&amp;window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,tour,navigation}};lastPublished=JSON.stringify(snapshot);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=&gt;{});}}
+    let lastPublished='';const publishedStates=new Set();
+    function saveState(){if(window.openai&amp;&amp;window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,tour,navigation}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size&gt;32)publishedStates.delete(publishedStates.values().next().value);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=&gt;{});}}
     function color(token){
       const probe=document.createElement('span');probe.style.color='var('+token+')';root.appendChild(probe);const s=getComputedStyle(probe).color;probe.remove();
       const c=document.createElement('canvas');c.width=c.height=1;const ctx=c.getContext('2d');ctx.fillStyle=s;ctx.fillRect(0,0,1,1);const d=ctx.getImageData(0,0,1,1).data;
@@ -2179,6 +2262,12 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       materials.porchFloor=standard(colors.concrete.clone().lerp(bright,.27),{map:concrete,roughness:1});
       materials.deckwood.color.copy(colors.wood).lerp(colors.concrete,.35).lerp(bright,.13);
       // Physical finish colors follow the supplied decor photos, independent of the interface theme.
+      decorPalette();
+      neutralLight.copy(bright);ambient.color.copy(bright);ambient.groundColor.copy(colors.concrete);sun.color.copy(bright);fill.color.copy(bright);
+      stage.style.background=getComputedStyle(root).getPropertyValue('--muted');
+    }
+    function decorPalette(){
+      const standard=(c,extra={})=&gt;new T.MeshStandardMaterial({color:c,roughness:.8,...extra});
       const d=config.design;
       materials.linen=standard(new T.Color(d.clothColor),{map:d.clothFinish==='linen'?decorTexture('linen'):null,roughness:d.clothFinish==='linen'?1:.30,side:T.DoubleSide});
       materials.lace=standard(new T.Color(d.runnerColor),{map:d.runnerStyle==='gauze'?decorTexture('linen'):null,alphaMap:d.runnerStyle==='lace'?decorTexture('lace'):null,alphaTest:d.runnerStyle==='lace'?.25:0,transparent:d.runnerStyle==='gauze',opacity:d.runnerStyle==='gauze'?.75:1,side:T.DoubleSide,roughness:d.runnerStyle==='satin'?.27:1});
@@ -2199,8 +2288,6 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       materials.sofaFabric=standard(new T.Color(d.sofaColor),{roughness:d.sofaStyle==='tufted'?.58:.95});materials.sofaFrame=standard(new T.Color(d.sofaFrameColor),{roughness:.75});
       materials.sofaButton=standard(new T.Color(d.sofaColor).multiplyScalar(.72),{roughness:.8});
       materials.hurricane=new T.MeshPhysicalMaterial({color:new T.Color('#ecf0e5'),roughness:.08,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide});
-      neutralLight.copy(bright);ambient.color.copy(bright);ambient.groundColor.copy(colors.concrete);sun.color.copy(bright);fill.color.copy(bright);
-      stage.style.background=getComputedStyle(root).getPropertyValue('--muted');
     }
     function surfaceTexture(kind){
       const cv=document.createElement('canvas');cv.width=cv.height=256;const ctx=cv.getContext('2d'),pixels=ctx.createImageData(256,256);let seed=317;
@@ -2217,6 +2304,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const texture=new T.CanvasTexture(cv);texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(kind==='wood'?2:kind==='fabric'?4:kind==='paver'?2:kind==='stone'?3:12,kind==='wood'?1:kind==='fabric'?1:kind==='paver'?2:kind==='stone'?2:6);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(texture);return texture;
     }
     function decorTexture(kind){
+      if(decorTextureCache[kind])return decorTextureCache[kind];
       const cv=document.createElement('canvas');cv.width=256;cv.height=256;const ctx=cv.getContext('2d');
       if(kind==='linen'){
         ctx.fillStyle='#f2e8df';ctx.fillRect(0,0,256,256);
@@ -2230,7 +2318,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         }
         for(const x of [5,14,242,251]){ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,256);ctx.stroke();}
       }
-      const texture=new T.CanvasTexture(cv);texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(6,kind==='linen'?3:1);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(kind==='linen')texture.colorSpace=T.SRGBColorSpace;textures.push(texture);return texture;
+      const texture=new T.CanvasTexture(cv);texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(6,kind==='linen'?3:1);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(kind==='linen')texture.colorSpace=T.SRGBColorSpace;textures.push(texture);decorTextureCache[kind]=texture;return texture;
     }
     function box(parent,w,h,d,x,y,z,mat,rotation=0){const m=new T.Mesh(unitBox,mat);m.scale.set(w,h,d);m.position.set(x,y,z);m.rotation.y=rotation;m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
     function cylinder(parent,r,h,x,y,z,mat){const m=new T.Mesh(unitCylinder,mat);m.scale.set(r,h,r);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
@@ -2238,7 +2326,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     function path(parent,points,mat=materials.line){const g=new T.BufferGeometry().setFromPoints(points.map(p=&gt;new T.Vector3(...p)));parent.add(new T.Line(g,mat));}
     function tag(text,pos,kind='fixed',owner=null){const el=document.createElement('span');el.className='lp-label text-small';el.textContent=text;$('lp-labels').appendChild(el);labels.push({el,pos:new T.Vector3(...pos),kind,owner});}
     function clearScene(){
-      const dispose=new Set();for(const group of [shell,walls,roof,ceilingLights,furniture,context,dimensions,grid,ruler,doorGuides,powerMarkers]){group.traverse(o=&gt;{if(o.geometry&amp;&amp;o.geometry!==unitBox&amp;&amp;o.geometry!==unitCylinder)dispose.add(o.geometry);if(o.isInstancedMesh)o.dispose();});group.clear();}dispose.forEach(g=&gt;g.dispose());textures.forEach(t=&gt;t.dispose());textures=[];
+      const dispose=new Set(),sceneMaterials=new Set();for(const group of [shell,walls,roof,ceilingLights,furniture,context,dimensions,grid,ruler,doorGuides,powerMarkers]){group.traverse(o=&gt;{if(o.geometry&amp;&amp;o.geometry!==unitBox&amp;&amp;o.geometry!==unitCylinder)dispose.add(o.geometry);if(o.isInstancedMesh)o.dispose();if(o.material)for(const m of [].concat(o.material))sceneMaterials.add(m);});group.clear();}dispose.forEach(g=&gt;g.dispose());sceneMaterials.forEach(m=&gt;m.dispose());textures.forEach(t=&gt;t.dispose());textures=[];decorTextureCache={};
       if(selectionBox){scene.remove(selectionBox);selectionBox.geometry.dispose();selectionBox.material.dispose();selectionBox=null;}
       $('lp-labels').replaceChildren();labels=[];objects=[];walkSurfaces=[];terrainMesh=null;doorLeaves=[];
     }
@@ -2437,10 +2525,11 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const bloom=(x,y,z,r,color,pompom=false)=&gt;{
         if(d.flowerStyle==='none')return;
         pompom=pompom&amp;&amp;d.flowerStyle==='mixed';
-        const dahlia=d.flowerStyle==='dahlias',anemone=d.flowerStyle==='anemones',orchid=d.flowerStyle==='orchids';
-        const count=pompom?20:dahlia?24:d.flowerStyle==='roses'?15:d.flowerStyle==='wildflower'?8:anemone?7:5;
+        const dahlia=d.flowerStyle==='dahlias',anemone=d.flowerStyle==='anemones',orchid=d.flowerStyle==='orchids',ranunculus=d.flowerStyle==='ranunculus',ruffle=d.flowerStyle==='carnations';
+        if(d.flowerStyle==='anthurium'){for(const sign of [-1,1])petals[color].push({p:[x+sign*r*.20,y,z],s:[r*.48,r*.09,r*.72],r:[.18,sign*.35,sign*.15]});centers.push({p:[x,y+r*.3,z],s:[r*.07,r*.42,r*.07]});return;}
+        const count=pompom?20:ranunculus?30:ruffle?22:dahlia?24:d.flowerStyle==='roses'?15:d.flowerStyle==='wildflower'?8:anemone?7:5;
         for(let j=0;j&lt;count;j++){
-          const layered=d.flowerStyle==='roses'||dahlia,perRing=dahlia?8:5,ring=layered?Math.floor(j/perRing):0;
+          const layered=d.flowerStyle==='roses'||dahlia||ranunculus||ruffle,perRing=ranunculus?10:dahlia?8:ruffle?7:5,ring=layered?Math.floor(j/perRing):0;
           const a=j/(layered?perRing:count)*Math.PI*2+ring*.5,rr=pompom?r*.42:layered?r*(.18+ring*.22):r*.48,py=pompom?Math.sin(j*2.4)*r*.35:layered?r*(2-ring)*.16:0;
           petals[color].push({p:[x+Math.cos(a)*rr,y+py,z+Math.sin(a)*rr],s:pompom?[r*.38,r*.30,r*.38]:dahlia?[r*.25,r*.20,r*.65]:orchid?[r*(j%2?.72:.4),r*.13,r*(j%2?.8:.6)]:[r*.50,r*.16,r*.72],r:[.12*Math.sin(a),Math.PI/2-a,.18*Math.cos(a)]});
         }
@@ -2468,7 +2557,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         }
         const geom=new T.BufferGeometry().setFromPoints(etched.map(p=&gt;new T.Vector3(...p)));g.add(new T.LineSegments(geom,materials.vaseEtch));
       };
-      const vaseCount=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&amp;&amp;d.vaseStyle!=='compote'?0:d.vaseCount;
+      const vaseCount=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&amp;&amp;d.vaseStyle!=='compote'?0:Math.min(d.vaseCount,Math.max(1,Math.floor(length/1.15)));
       for(let index=0;index&lt;vaseCount;index++){
         const span=d.arrangement==='low'?.46:.72,side=index%2?-1:1,x=vaseCount===1?0:-length*span/2+index*length*span/(vaseCount-1),z=side*.035,vaseHeight=d.vaseHeight/12;
         glassVase(x,z,vaseHeight,index===Math.floor(vaseCount/2)&amp;&amp;vaseCount%2?.20:.115);
@@ -2543,7 +2632,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const gap=config.layout==='joined'?0:config.gap;
       for(let row=0;row&lt;3;row++)for(let col=0;col&lt;4;col++){
         const id='table-'+(row*4+col+1);if(config.disabledTables.includes(id))continue;
-        const g=makeObject(id,'Guest table '+(row*4+col+1),3+config.length/2+col*(config.length+gap)+(row===1?0:config.doorSetback),[-13,0,13][row]);table(g,config.length,config.width);
+        const g=makeObject(id,'Guest table '+(row*4+col+1),3+config.length/2+col*(config.length+gap)+config.rowOffsets[row],[-13,0,13][row]);table(g,config.length,config.width);
       }
       const couple=makeObject('couple','Couple’s table',41.5,0,Math.PI/2);table(couple,6,2.5,false);chair(couple,-1.2,2.25,0);chair(couple,1.2,2.25,0);
       if(config.arbor){
@@ -2555,15 +2644,37 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       for(const x of [-4.5,4.5]){box(dj,1.1,2.4,1,x,3.5,.2,materials.metal);cylinder(dj,.1,3,x,1.5,.2,materials.metal);}
       const barZ=config.barSide==='house'?-17.4:17.4;
       const bar=makeObject('bar','Bar',-23,barZ);box(bar,6,3.4,2.6,0,1.7,0,materials.wood);box(bar,6.3,.15,3,0,3.48,0,materials.darkwood);for(let i=-2;i&lt;=2;i+=1)cylinder(bar,.13,.8,i,3.95,0,materials.green);
-      const photo=makeObject('photo','Photo booth',-17,-barZ,barZ&lt;0?Math.PI:0);box(photo,5,6,.2,0,3,-1.5,materials.fabric);box(photo,.7,4,.7,0,2,1,materials.metal);box(photo,1.5,1.7,.2,0,4.6,1,materials.frame);
-      if(config.dessert){const dessert=makeObject('dessert','Dessert table',-10,barZ);table(dessert,6,2.5,false);cylinder(dessert,.65,.12,0,2.62,0,materials.gold);cylinder(dessert,.45,.85,0,3.08,0,materials.flowerIvory);for(const x of [-2,2]){cylinder(dessert,.55,.08,x,2.58,0,materials.gold);for(let i=0;i&lt;5;i++)cylinder(dessert,.12,.23,x+Math.cos(i*1.3)*.32,2.75,Math.sin(i*1.3)*.32,materials.flowerBlue);}tag('Dessert table',[10,4,barZ],'object',dessert);}
+      const photo=makeObject('photo','Photo booth',-17,-barZ,barZ&lt;0?Math.PI:0);
+      box(photo,5.8,7.1,.12,0,3.55,-1.75,materials.linen);
+      for(let i=0;i&lt;25;i++){const fold=box(photo,.09,7.0,.09,-2.8+i*.233,3.55,-1.66+.08*Math.sin(i),materials.linen);fold.castShadow=false;}
+      for(const x of [-3,3]){box(photo,.12,7.3,.12,x,3.65,-1.8,materials.gold);box(photo,.7,.07,.7,x,.04,-1.8,materials.gold);}
+      const ring=new T.Mesh(new T.TorusGeometry(.67,.075,10,40),materials.bulb);ring.position.set(0,4.9,1);photo.add(ring);
+      cylinder(photo,.065,4.4,0,2.2,1,materials.gold);cylinder(photo,.56,.10,0,.07,1,materials.gold);
+      box(photo,.62,.85,.14,0,4.8,1.08,materials.metal);box(photo,.48,.64,.02,0,4.8,1.16,materials.houseGlass);
+      box(photo,1.3,2.3,.8,-2,1.15,.4,materials.wood);cylinder(photo,.23,.6,-2,2.65,.4,materials.vase);for(let i=0;i&lt;5;i++)beam(photo,[-2,2.4,.4],[-2+Math.sin(i)*.25,3.3+Math.cos(i)*.2,.4],.014,materials.gold);
+      if(config.dessert){const dessert=makeObject('dessert','Cupcakes &amp; cutting cake',-10,barZ);dessertDisplay(dessert);tag('Cupcakes &amp; cutting cake',[10,4,barZ],'object',dessert);}
       const sofas=[[-37,-18,0],[-43,-12,Math.PI/2],[-43,13,Math.PI/2],[-37,18,Math.PI]];
       sofas.forEach(([x,z,r],i)=&gt;{const g=makeObject('sofa-'+(i+1),'Lounge sofa '+(i+1),x,z,r);sofa(g);});
       [[-30,-17],[-38.5,6],[-30,17],[-17,12]].forEach(([x,z],i)=&gt;{const g=makeObject('cocktail-'+(i+1),'Cocktail table '+(i+1),x,z);cylinder(g,1.65,.15,0,3.45,0,materials.wood);cylinder(g,.12,3.3,0,1.7,0,materials.metal);cylinder(g,1,.10,0,.1,0,materials.metal);});
-      tag('Dining · '+(12-config.disabledTables.length)*8+' guest seats',[-24,.5,-19]);tag('Couple’s table',[41.5,3.5,0],'object',couple);tag('Dance floor · '+config.danceWidth+' × '+config.danceDepth+' ft',[-25,.5,0],'object',dance);tag('Bar',[-23,4.5,barZ],'object',bar);tag('Photo booth',[-17,7,-barZ],'object',photo);tag('DJ',[-41.5,5,-1],'object',dj);
+      tag('Dining · '+(12-config.disabledTables.length)*8+' guest seats',[-24,.5,-19],'furniture');tag('Couple’s table',[41.5,3.5,0],'object',couple);tag('Dance floor · '+config.danceWidth+' × '+config.danceDepth+' ft',[-25,.5,0],'object',dance);tag('Bar',[-23,4.5,barZ],'object',bar);tag('Photo booth',[-17,7,-barZ],'object',photo);tag('DJ',[-41.5,5,-1],'object',dj);
+    }
+    function dessertDisplay(g){
+      box(g,6,.15,2.5,0,2.45,0,materials.wood);for(const x of [-2.4,2.4])for(const z of [-.85,.85])box(g,.15,2.4,.15,x,1.2,z,materials.darkwood);
+      box(g,6.05,.035,2.55,0,2.55,0,materials.linen);for(const z of [-1.27,1.27])box(g,6.05,2.1,.02,0,1.48,z,materials.linen);
+      cylinder(g,.65,.10,0,2.64,0,materials.gold);cylinder(g,.10,.30,0,2.80,0,materials.gold);cylinder(g,.65,.08,0,2.98,0,materials.gold);cylinder(g,.47,.62,0,3.32,0,materials.flowerIvory);
+      for(let i=0;i&lt;8;i++){const rose=new T.Mesh(new T.SphereGeometry(.07,6,5),i%2?materials.flowerWine:materials.flowerBlue);rose.position.set(Math.cos(i)*.18,3.68,Math.sin(i)*.18);g.add(rose);}
+      const slots=[];for(const sign of [-1,1]){const tiers=config.dessertStyle==='platters'?1:3;for(let t=0;t&lt;tiers;t++){const r=tiers===1?.87:.86-t*.18,y=2.67+t*.52,x=sign*1.85;cylinder(g,r,.055,x,y,0,materials.gold);if(t)cylinder(g,.055,.5,x,y-.26,0,materials.gold);const num=tiers===1?48:[24,16,8][t];for(let i=0;i&lt;num;i++){const a=i*Math.PI*2/num,rr=tiers===1?([.85,.6,.32][i%3]):r*(i%3===0?.34:.80);slots.push({x:x+Math.cos(a)*rr,y:y+.055,z:Math.sin(a)*rr});}}}
+      if(config.dessertStyle==='mixed')for(const sign of [-1,1]){box(g,1.1,.055,.7,sign*2.5,2.65,.76,materials.gold);for(let i=0;i&lt;6;i++)box(g,.18,.13,.20,sign*2.5+(i%3-1)*.25,2.75,.61+Math.floor(i/3)*.28,materials.darkwood);}
+      const count=Math.min(config.cupcakeCount,slots.length),cupGeometry=new T.CylinderGeometry(.105,.08,.16,10),swirlGeometry=new T.TorusGeometry(.072,.038,6,12),cup=new T.InstancedMesh(cupGeometry,materials.linen,count),swirl=new T.InstancedMesh(swirlGeometry,materials.flowerIvory,count*3),dummy=new T.Object3D();
+      for(let i=0;i&lt;count;i++){const p=slots[Math.floor(i*slots.length/count)];dummy.position.set(p.x,p.y+.08,p.z);dummy.rotation.set(0,0,0);dummy.scale.set(1,1,1);dummy.updateMatrix();cup.setMatrixAt(i,dummy.matrix);for(let j=0;j&lt;3;j++){dummy.position.y=p.y+.18+j*.045;dummy.rotation.x=Math.PI/2;dummy.scale.setScalar(1-j*.25);dummy.updateMatrix();swirl.setMatrixAt(i*3+j,dummy.matrix);}}cup.instanceMatrix.needsUpdate=true;swirl.instanceMatrix.needsUpdate=true;g.add(cup,swirl);
     }
     function danceSurface(parent){
       const w=config.danceWidth,d=config.danceDepth;
+      if(config.dancePattern==='wood'){
+        box(parent,w+.15,.08,d+.15,0,.04,0,materials.darkwood);
+        const module=2,cols=Math.ceil(w/module),rows=Math.ceil(d/module);
+        for(let i=0;i&lt;cols;i++)for(let j=0;j&lt;rows;j++){const pw=Math.min(module,w-i*module),pd=Math.min(module,d-j*module);for(let plank=0;plank&lt;4;plank++){const horizontal=(i+j)%2===0;box(parent,horizontal?pw-.015:pw/4-.012,.035,horizontal?pd/4-.012:pd-.015,-w/2+i*module+(horizontal?pw/2:(plank+.5)*pw/4),.10,-d/2+j*module+(horizontal?(plank+.5)*pd/4:pd/2),materials.dance);}}return;
+      }
       if(config.dancePattern==='concrete'){box(parent,w,.02,d,0,.02,0,materials.floor);return;}
       box(parent,w+.15,.08,d+.15,0,.04,0,materials.metal);
       const cols=Math.ceil(w/config.tileSize),rows=Math.ceil(d/config.tileSize);
@@ -2608,14 +2719,12 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const waterGeom=new T.PlaneGeometry(260,135,80,45),wp=waterGeom.attributes.position;
       for(let i=0;i&lt;wp.count;i++){const x=wp.getX(i),z=wp.getY(i);wp.setZ(i,.045*Math.sin(x*.8+z*.4)+.025*Math.cos(z*1.2-x*.3));}waterGeom.computeVertexNormals();
       const water=new T.Mesh(waterGeom,materials.water);water.rotation.x=-Math.PI/2;water.position.set(0,-config.lakeDrop-.30,183);water.receiveShadow=true;context.add(water);
-      pavers(56,14,0,config.houseRise+.06,-66);
-      ribbon([[0,-59],[0,-47],[0,-32]],10,materials.paver,.06,true);
-      timberRamp(-32,-20.05,10,'metal');
-      // The side route ends at the house patio. It does not run down to the pavilion bridge.
-      ribbon([[-34,-116],[-40,-99],[-42,-83],[-42,-71],[-40,-63],[-35,-60],[-30,-61],[-27.8,-64]],5.5,materials.paver,.06,false);
-      ribbon([[-34.4,-80],[-38,-80],[-41.8,-80]],3.8,materials.paver,.06,false);
-      pavilionGrounds();timberRamp(20.05,27.5,10,'metal');
-      ribbon([[0,27.5],[0,39],[0,52]],8,materials.floor,.06,true);ribbon([[0,52],[0,57.5]],10,materials.paver,.07,true);
+      courtyardPaving();
+      ribbon([[0,-58.75],[0,-47],[0,-32]],10,materials.paver,.06,true);
+      // Rails stop at the rock-bed edge, leaving the full 4.5 ft sidewalk open.
+      timberRamp(-32,-24.5,10,'metal');
+      pavilionGrounds();timberRamp(24.5,32,10,'metal');
+      ribbon([[0,32],[0,39],[0,52]],8,materials.floor,.06,true);ribbon([[0,52],[0,57.5]],10,materials.paver,.07,true);
       house();ceremony();courtyardLights();if(config.kitchen)kitchenTent();
       // Woodland edges visible in the supplied house, pavilion and dock photos.
       const canopy=new T.SphereGeometry(1,10,8),trunk=new T.CylinderGeometry(.40,.70,1,9),trees=[];
@@ -2643,9 +2752,24 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       tag('Ceremony deck · downhill',[0,gradeHeight(0,110)+4,110],'context');tag('Lake',[35,-config.lakeDrop+.8,143],'context');
 
     }
+    function courtyardPaving(){
+      // Triangulate a UNION of the patio and path footprints. One surface, global UVs,
+      // and an explicit covered-patio cutout eliminate coplanar seams at junctions.
+      const curve=new T.CatmullRomCurve3([[-34,-116],[-40,-100],[-42,-83],[-42,-71],[-41,-64],[-38,-59],[-34,-58.5],[-29,-61.5]].map(p=&gt;new T.Vector3(p[0],0,p[1])));
+      const samples=Array.from({length:181},(_,i)=&gt;curve.getPointAt(i/180));
+      const distanceSegment=(x,z,a,b)=&gt;{const dx=b.x-a.x,dz=b.z-a.z,u=Math.max(0,Math.min(1,((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz||1)));return Math.hypot(x-a.x-u*dx,z-a.z-u*dz);};
+      const rect=(x,z,cx,cz,w,d)=&gt;{const a=Math.abs(x-cx)-w/2,b=Math.abs(z-cz)-d/2;return Math.hypot(Math.max(0,a),Math.max(0,b))+Math.min(Math.max(a,b),0);};
+      const field=(x,z)=&gt;{let value=rect(x,z,0,-61.5,56,5.5);for(let i=1;i&lt;samples.length;i++)value=Math.min(value,distanceSegment(x,z,samples[i-1],samples[i])-2.75);
+        // Short toe landings connect each lower stair to the side route.
+        value=Math.min(value,rect(x,z,-36.8,-81,8.6,3.2),rect(x,z,-34.3,-59,4.1,2.5));
+        return Math.max(value,-rect(x,z,0,-70.5,50,12.5));};
+      const positions=[],uv=[];const emit=tri=&gt;{let poly=tri.map(p=&gt;({...p,d:field(p.x,p.z)})),out=[];for(let i=0;i&lt;poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];if(a.d&lt;=0)out.push(a);if((a.d&lt;=0)!==(b.d&lt;=0)){const t=a.d/(a.d-b.d);out.push({x:a.x+(b.x-a.x)*t,z:a.z+(b.z-a.z)*t});}}for(let i=1;i&lt;out.length-1;i++)for(const p of [out[0],out[i],out[i+1]]){positions.push(p.x,gradeHeight(p.x,p.z)+.06,p.z);uv.push(p.x/8,p.z/8);}};
+      const step=.65;for(let x=-47;x&lt;29;x+=step)for(let z=-120;z&lt; -56;z+=step){const a={x,z},b={x:x+step,z},c={x,z:z+step},d={x:x+step,z:z+step};emit([a,c,b]);emit([b,c,d]);}
+      const geometry=new T.BufferGeometry();geometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geometry.computeVertexNormals();const mesh=new T.Mesh(geometry,materials.paver);mesh.receiveShadow=true;mesh.name='continuous-courtyard-paving';context.add(mesh);walkSurfaces.push(mesh);
+    }
     function gradeHeight(x,z){
       let y;
-      if(z&lt; -77)y=config.houseRise+(-77-z)*.025;
+      if(z&lt; -84)y=config.houseRise+(-84-z)*.025;
       else if(z&lt; -59)y=config.houseRise;
       else if(z&lt; -28)y=config.houseRise*(-z-28)/31;
       else if(z&lt;=28)y=0;
@@ -2682,7 +2806,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     function timberRamp(z0,z1,width,railing='metal'){
       const count=Math.ceil((z1-z0)/.58);
       for(let i=0;i&lt;count;i++){
-        const a=z0+i*(z1-z0)/count,b=z0+(i+1)*(z1-z0)/count,z=(a+b)/2,y=gradeHeight(0,z)+.12,slope=(gradeHeight(0,b)-gradeHeight(0,a))/(b-a);
+        const a=z0+i*(z1-z0)/count,b=z0+(i+1)*(z1-z0)/count,z=(a+b)/2,y=gradeHeight(0,z)-.06,slope=(gradeHeight(0,b)-gradeHeight(0,a))/(b-a);
         const plank=box(context,width,.16,b-a-.022,0,y,z,materials.deckwood);plank.rotation.x=-Math.atan(slope);walkSurfaces.push(plank);
       }
       if(railing!=='metal')return;
@@ -2705,7 +2829,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     function pavilionGrounds(){
       // Broad concrete aprons flank both entrances, joined by concrete side walks.
       for(const sign of [-1,1]){
-        for(const [a,b]of [[-45,-5.2],[5.2,45]]){
+        for(const [a,b]of [[-45,45]]){
           const slab=box(context,b-a,.16,4.5,(a+b)/2,-.06,sign*22.25,materials.floor);walkSurfaces.push(slab);
         }
         const side=box(context,6.5,.16,49,sign*48.25,-.06,0,materials.floor);walkSurfaces.push(side);
@@ -2843,20 +2967,21 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     }
     function house(){
       const h=new T.Group();h.position.y=config.houseRise;context.add(h);const front=-77;
-      box(h,44,8,26,0,3.6,-90,materials.stone);
-      box(h,44,18,26,0,17,-90,materials.siding);
-      box(h,44,1.22,26,0,26.6,-90,materials.siding);
+      const exterior=new T.Group();h.add(exterior);houseExterior=exterior;
+      box(exterior,44,8,26,0,3.6,-90,materials.stone);
+      box(exterior,44,18,26,0,17,-90,materials.siding);
+      box(exterior,44,1.22,26,0,26.6,-90,materials.siding);
       // Horizontal siding, standing-seam metal roof and the central dormer.
-      for(let y=8.4;y&lt;26;y+=.45){box(h,44,.035,.035,0,y,front+.025,materials.frame);for(const x of [-22,22])box(h,.035,.035,26,x,y,-90,materials.frame);}
-      pitchedRoof(h,48,31,0,26,-90,7.6,materials.houseRoof);
-      box(h,14,5.0,7,0,31.0,-84,materials.siding);pitchedRoof(h,16,9,0,33.45,-84,1.3,materials.houseRoof);
-      windowHouse(h,0,31.4,-80.4,12,2.4);
-      for(const x of [-14,0,14])windowHouse(h,x,22.8,front+.16,x===0?7.4:8,3.3);
-      for(const x of [-14,0,14])windowHouse(h,x,12.8,front+.16,x===0?8:6,5.4);
+      for(let y=8.4;y&lt;26;y+=.45){box(exterior,44,.035,.035,0,y,front+.025,materials.frame);for(const x of [-22,22])box(exterior,.035,.035,26,x,y,-90,materials.frame);}
+      pitchedRoof(exterior,48,31,0,26,-90,7.6,materials.houseRoof);
+      box(exterior,14,5.0,7,0,31.0,-84,materials.siding);pitchedRoof(exterior,16,9,0,33.45,-84,1.3,materials.houseRoof);
+      windowHouse(exterior,0,31.4,-80.4,12,2.4);
+      for(const x of [-14,0,14])windowHouse(exterior,x,22.8,front+.16,x===0?7.4:8,3.3);
+      for(const x of [-14,0,14])windowHouse(exterior,x,12.8,front+.16,x===0?8:6,5.4);
       box(h,50,.40,13,0,7.85,-70.7,materials.darkwood);
       box(h,50,.35,13,0,17.4,-70.7,materials.frame);
       // Stone lower facade and the open lower patio under the screened porch.
-      for(const x of [-14,0,14])windowHouse(h,x,3.5,front+.35,5.6,6.6);
+      for(const x of [-14,0,14])windowHouse(exterior,x,3.5,front+.35,5.6,6.6);
       for(const x of [-24,-16,-8,0,8,16,24]){
         box(h,1.2,8,1.2,x,3.8,-64.8,materials.stone);
         box(h,.36,9.4,.36,x,12.5,-64.8,materials.wood);
@@ -2873,10 +2998,32 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       for(const dx of [-1.4,1.4])box(h,.4,2.2,3.2,5+dx,1.1,-61.5,materials.stone);
       for(const dz of [-1.4,1.4])box(h,2.5,2.2,.4,5,1.1,-61.5+dz,materials.stone);
       box(h,3.4,.18,3.4,5,2.25,-61.5,materials.metal);
-      staircase(h);
+      staircase(h);houseInterior(h);
       // Patio tables and the strings across the courtyard seen in the photographs.
       for(const x of [-18,18]){cylinder(h,1.7,.12,x,2,-59,materials.darkwood);cylinder(h,.1,2,x,1,-59,materials.metal);}
 
+    }
+    function houseInterior(h){
+      // Furnishing and timber details follow the supplied photos. Room placement is
+      // a visual approximation, not a measured architectural floor plan.
+      box(h,43.5,.22,25.5,0,8.05,-90,materials.wood);box(h,43.5,.20,25.5,0,-.08,-90,materials.porchFloor);
+      for(const x of [-20,20])box(h,.18,18,25.5,x,17,-90,materials.siding);
+      box(h,40,18,.18,0,17,-102.5,materials.siding);
+      for(const x of [-12,12]){box(h,.65,18,.65,x,17,-91,materials.wood);beam(h,[x,17,-102],[x,28,-90],.22,materials.wood);beam(h,[x,28,-90],[x,17,-77],.22,materials.wood);}
+      for(let z=-101;z&lt; -78;z+=4)box(h,40,.45,.35,0,18,z,materials.wood);
+      // Long dining table, black chairs, open kitchen, stone fireplace and seating.
+      const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i&lt;6;i++)chair(dining,-5.7+i*2.25,side*2.6,side&gt;0?0:Math.PI);
+      for(let i=0;i&lt;5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.stoneLight);}
+      box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.stoneLight);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
+      box(h,5.5,12,1.4,13,14.2,-101.2,materials.stone);box(h,3,3,.2,13,10,-100.42,materials.metal);box(h,6,.20,2.1,13,12,-100.2,materials.darkwood);
+      const couch=new T.Group();couch.position.set(13,8.2,-94.4);h.add(couch);sofa(couch);box(h,4.4,.18,2.5,13,9.6,-97.6,materials.wood);
+      // Loft edge and dark spindle railing, leaving the central living space open.
+      for(const side of [-1,1]){box(h,7,.22,25,side*16.5,18.3,-90,materials.wood);for(let z=-101;z&lt;=-78;z+=.65)box(h,.055,2.7,.055,side*13.05,19.75,z,materials.metal);box(h,.13,.15,25,side*13.05,21.1,-90,materials.darkwood);}
+      // Ground-level pool table, TV and bar visible in the reference album.
+      box(h,4.7,2.3,8.3,0,1.25,-89,materials.darkwood);box(h,4.3,.10,7.8,0,2.46,-89,materials.decorLeaf);for(const x of [-2.3,2.3])box(h,.2,.3,8.3,x,2.6,-89,materials.wood);for(const z of [-93.1,-84.9])box(h,4.8,.3,.22,0,2.6,z,materials.wood);
+      for(let i=0;i&lt;10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.gold);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
+      box(h,8,3.1,2,-13,1.55,-100,materials.wood);box(h,8.2,.12,2.2,-13,3.16,-100,materials.darkwood);box(h,5,2.8,.12,12,4.9,-102.2,materials.metal);
+      tag('House interior · photo-based concept',[0,config.houseRise+16,-89],'context');
     }
     function staircase(parent){
       // Upper flight runs straight out of the porch. Lower flights split lakeward and houseward.
@@ -2909,7 +3056,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       for(const dx of [-w/2,0,w/2])box(parent,.10,h+.1,.15,x+dx,y,z+.16,materials.frame);
       for(const dy of [-h/2,h/2])box(parent,w,.1,.15,x,y+dy,z+.16,materials.frame);
     }
-    function ceremonySpec(){const depth=config.deckDepth,width=config.deckWidth;return {depth,width,start:119-depth,rows:Math.min(config.benchRows,Math.max(0,Math.floor((depth-12)/3.4)+1)),bench:Math.min(config.benchLength,(width-8)/2-1)};}
+    function ceremonySpec(){const depth=config.deckDepth,width=config.deckWidth;return {depth,width,start:119-depth,rows:Math.min(config.benchRows,Math.max(0,Math.floor((depth-12)/3)+1)),bench:Math.min(config.benchLength,(width-6)/2-1)};}
     function aislePlant(parent,x,z,flowers){
       const base=gradeHeight(0,z)+.24;cylinder(parent,.36,.55,x,base+.27,z,materials.darkwood);
       const count=flowers?90:144,mesh=new T.InstancedMesh(new T.SphereGeometry(1,6,4),flowers?materials.aisleFlower:materials.decorLeaf,count),dummy=new T.Object3D();
@@ -2920,7 +3067,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       }mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();parent.add(mesh);
     }
     function ceremony(){
-      const c=new T.Group();context.add(c);
+      const c=new T.Group();ceremonyGroup=c;context.add(c);
       const spec=ceremonySpec(),edge=spec.width/2;
       const deck=(width,z0,z1)=&gt;{
         const count=Math.ceil((z1-z0)/.58);
@@ -2947,10 +3094,9 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       ropeRun([-edge,spec.start],[-edge,119],6);ropeRun([edge,spec.start],[edge,119],6);
       ropeRun([-edge,119],[-5,119],2);ropeRun([5,119],[edge,119],2);
       for(let row=0;row&lt;spec.rows;row++)for(const side of [-1,1]){
-        const x=side*(4+spec.bench/2),z=spec.start+3+row*3.4,base=gradeHeight(0,z)+.20;
+        const x=side*(3+spec.bench/2),z=spec.start+3+row*3,base=gradeHeight(0,z)+.20;
         for(const dz of [-.45,0,.45])box(c,spec.bench,.16,.41,x,base+1.50,z+dz,materials.wood);
-        for(const dx of [-spec.bench*.4,spec.bench*.4]){box(c,.25,1.4,1,x+dx,base+.75,z,materials.darkwood);box(c,.20,3.0,.20,x+dx,base+1.6,z-.68,materials.darkwood);}
-        for(const y of [2.12,2.55,2.98])box(c,spec.bench,.32,.16,x,base+y,z-.68,materials.wood);
+        for(const dx of [-spec.bench*.4,spec.bench*.4])box(c,.25,1.4,1,x+dx,base+.75,z,materials.darkwood);
       }
       if(config.aisleDecor!=='none')for(let i=0;i&lt;config.aislePairs;i++)for(const side of [-1,1]){
         const z=spec.start+3+i/Math.max(1,config.aislePairs-1)*(spec.depth-14),flowers=config.aisleDecor==='flowers'||config.aisleDecor==='mixed'&amp;&amp;i%2===1;
@@ -2959,11 +3105,22 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const arborBase=gradeHeight(0,115)+.20;
       const arbor=new T.Group();arbor.position.set(0,arborBase,114.9);c.add(arbor);timberArbor(arbor,8.4,8.6,2.2,'outdoor');
     }
+    function disposeGroup(group){const geometries=new Set();group.traverse(o=&gt;{if(o.geometry&amp;&amp;o.geometry!==unitBox&amp;&amp;o.geometry!==unitCylinder)geometries.add(o.geometry);if(o.isInstancedMesh)o.dispose();});group.clear();geometries.forEach(g=&gt;g.dispose());}
+    function refreshDecor(){
+      // Small styling edits must not recreate the forest, house and paving or stall navigation.
+      const keys=['linen','lace','gold','candle','decorLeaf','decorCedar','flowerIvory','flowerBlue','flowerWine','flowerCenter','napkin','goblet','vase','vaseEtch','arborIndoor','arborOutdoor','arborFabric','sofaFabric','sofaFrame','sofaButton','hurricane'];
+      clearTimeout(rebuildTimer);const old=Object.fromEntries(keys.map(k=&gt;[k,materials[k]]));disposeGroup(furniture);objects=[];
+      labels=labels.filter(l=&gt;{if(l.owner||l.kind==='furniture'){l.el.remove();return false;}return true;});
+      if(ceremonyGroup){const stale=ceremonyGroup;walkSurfaces=walkSurfaces.filter(o=&gt;{let p=o;while(p){if(p===stale)return false;p=p.parent;}return true;});disposeGroup(stale);context.remove(stale);}
+      decorPalette();for(const key of keys){const next=materials[key];if(old[key]){old[key].copy(next);old[key].needsUpdate=true;materials[key]=old[key];next.dispose();}}addFurniture();ceremony();applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();draw();
+    }
     function rebuild(){
+      clearTimeout(rebuildTimer);
       const old=Object.values(materials);clearScene();palette();old.forEach(m=&gt;m.dispose());floorAndStructure();addFurniture();surroundings();
       applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();draw();
     }
     function applyAppearance(){
+      if(houseExterior)houseExterior.visible=!config.houseCutaway;
       roof.visible=(config.roof&amp;&amp;activeView!=='plan')||activeView==='tour';context.visible=config.context||activeView==='tour';walls.visible=config.walls!=='hidden';dimensions.visible=config.measurements&amp;&amp;activeView!=='tour';grid.visible=config.grid&amp;&amp;activeView!=='tour';ruler.visible=activeView!=='tour'&amp;&amp;(config.measurements||$('lp-action').value==='measure');
       doorLeaves.forEach(o=&gt;o.visible=activeView!=='tour');
       doorGuides.visible=config.doorGuides&amp;&amp;!['walk','tour'].includes(activeView);powerMarkers.visible=config.power;
@@ -3000,10 +3157,12 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       $('lp-seating-status').textContent=(12-config.disabledTables.length)+' tables · '+seats+' guest seats for '+config.targetGuests+' guests · '+(seats&lt;config.targetGuests?(config.targetGuests-seats)+' more guest seats needed':(seats-config.targetGuests)+' spare guest seats')+'. Couple’s 2 seats are separate.';
       for(let i=1;i&lt;=12;i++)$('lp-table-'+i).checked=!config.disabledTables.includes('table-'+i);
       const ceremony=ceremonySpec(),ceremonySeats=ceremony.rows*2*Math.floor(ceremony.bench/1.8);
-      $('lp-ceremony-status').textContent=ceremony.rows+' rows per side · '+ceremony.rows*2+' backed benches, '+ceremony.bench.toFixed(1)+' ft long · approx. '+ceremonySeats+' seats at 22 in/person. '+(ceremony.rows&lt;config.benchRows?'Rows reduced to fit the selected deck depth. ':'')+'Deck '+ceremony.width+' × '+ceremony.depth+' ft (estimated).';
+      $('lp-ceremony-status').textContent=ceremony.rows+' rows per side · '+ceremony.rows*2+' backless benches, '+ceremony.bench.toFixed(1)+' ft long · approx. '+ceremonySeats+' seats at 22 in/person. '+(ceremony.rows&lt;config.benchRows?'Rows reduced to fit the selected deck depth. ':'')+'Deck '+ceremony.width+' × '+ceremony.depth+' ft (estimated).';
+      config.rowOffsets.forEach((v,i)=&gt;$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
+      for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
       $('lp-view-height').value=navigation.height;$('lp-walk-speed').value=navigation.speed;
       for(const [id,key]of [['lp-layout','layout'],['lp-length','length'],['lp-width','width'],['lp-gap','gap'],['lp-walls','walls'],['lp-measure-scope','measureScope'],['lp-dance-pattern','dancePattern'],['lp-dance-a','danceA'],['lp-dance-b','danceB'],['lp-tile-size','tileSize'],['lp-house-rise','houseRise'],['lp-lake-drop','lakeDrop']])$(id).value=config[key];
-      $('lp-gap').disabled=config.layout==='joined';$('lp-dance-b').disabled=config.dancePattern!=='checker';$('lp-dance-a').disabled=config.dancePattern==='concrete';$('lp-tile-size').disabled=config.dancePattern!=='checker';for(const [id,key]of [['lp-roof','roof'],['lp-label-toggle','labels'],['lp-context','context'],['lp-measurements','measurements'],['lp-grid','grid'],['lp-arbor','arbor'],['lp-kitchen','kitchen'],['lp-decor','decor'],['lp-linens','linens']])$(id).checked=config[key];
+      $('lp-gap').disabled=config.layout==='joined';$('lp-dance-b').disabled=config.dancePattern!=='checker';$('lp-dance-a').disabled=['concrete','wood'].includes(config.dancePattern);$('lp-tile-size').disabled=config.dancePattern!=='checker';for(const [id,key]of [['lp-roof','roof'],['lp-label-toggle','labels'],['lp-context','context'],['lp-measurements','measurements'],['lp-grid','grid'],['lp-arbor','arbor'],['lp-kitchen','kitchen'],['lp-decor','decor'],['lp-linens','linens']])$(id).checked=config[key];
       $('lp-walk-controls').hidden=activeView!=='walk';$('lp-in').hidden=activeView==='walk';$('lp-out').hidden=activeView==='walk';$('lp-eye').value=walk.y.toFixed(2);$('lp-action').disabled=activeView==='walk';
       const guided=activeView==='tour';$('lp-tour-controls').hidden=!guided;$('lp-tour-start').hidden=guided;
       for(const id of ['lp-left','lp-right','lp-in','lp-out'])$(id).hidden=guided||(activeView==='walk'&amp;&amp;['lp-in','lp-out'].includes(id));
@@ -3189,10 +3348,13 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         table:{azimuth:.95,polar:1.12,distance:10.5,target:[-7,3.0,-13]},
         measure:{azimuth:.28,polar:.67,distance:115*factor,target:[0,0,0]},
         ceremony:{azimuth:Math.PI,polar:1.43,distance:32*factor,target:[0,gradeHeight(0,105)+3,105]},
+        houseInterior:{azimuth:.7,polar:1.30,distance:18,target:[0,config.houseRise+12,-91]},
+        houseLower:{azimuth:.5,polar:1.42,distance:14,target:[0,config.houseRise+3,-92]},
         residence:{azimuth:.12,polar:1.71,distance:66*factor,target:[0,config.houseRise+14,-85]},
         stairs:{azimuth:-.60,polar:1.30,distance:35,target:[-29,config.houseRise+5,-68]},
         kitchen:{azimuth:-.75,polar:.85,distance:70*factor,target:[-20,4,-40]}
       };
+      if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
       else if(name!=='tour')orbit=presets[name]||presets.perspective;
       if(name==='measure'){config.measurements=true;config.measureScope='sections';config.walls='hidden';config.roof=false;rebuild();}
@@ -3206,7 +3368,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&amp;&amp;!['walk','tour'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','measure','walk','tour','ceremony','residence','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      activeView=['perspective','site','plan','lake','house','side','inside','table','measure','walk','tour','ceremony','residence','houseInterior','houseLower','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;
     }
@@ -3293,13 +3455,15 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     $('lp-orbit-mode').onclick=()=&gt;{if(['walk','tour'].includes(activeView)){cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3()),center=p.clone().addScaledVector(direction,18);view('perspective',false);orbit={azimuth:Math.atan2(-direction.x,-direction.z),polar:Math.acos(n(-direction.y,0,-1,1)),distance:18,target:center.toArray()};draw();saveState();}else $('lp-orbit-mode').focus({preventScroll:true});};
     $('lp-stop-motion').onclick=()=&gt;{stopWalking();pauseTour();saveState();};
     const resizeHandle=$('lp-resize');let resizing=null;
-    const setHeight=value=&gt;{navigation.height=Math.round(n(value,680,360,1200));stage.style.height=navigation.height+'px';$('lp-view-height').value=navigation.height;resize();};
+    const setHeight=value=&gt;{navigation.height=Math.round(n(value,680,360,1200));stage.style.height=navigation.height+'px';config.rowOffsets.forEach((v,i)=&gt;$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
+      for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
+      $('lp-view-height').value=navigation.height;resize();};
     resizeHandle.onpointerdown=e=&gt;{stopWalking();resizeHandle.focus({preventScroll:true});resizing={y:e.clientY,height:stage.clientHeight};resizeHandle.setPointerCapture(e.pointerId);e.preventDefault();};
     resizeHandle.onpointermove=e=&gt;{if(resizing)setHeight(resizing.height+e.clientY-resizing.y);};
     resizeHandle.onpointerup=resizeHandle.onpointercancel=resizeHandle.onlostpointercapture=()=&gt;{if(resizing){resizing=null;saveState();}};
     resizeHandle.onkeydown=e=&gt;{if(['ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();e.stopPropagation();setHeight(navigation.height+(e.key==='ArrowDown'?40:-40));saveState();}};
     $('lp-view-height').onchange=e=&gt;{setHeight(e.target.value);saveState();};
-    for(const [id,key]of [['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).onchange=e=&gt;{stopWalking();config[key]=e.target.value;Object.assign(config,normalizePlan(config));if(key==='doorSetback')for(const mode of ['separate','joined'])for(const i of [1,2,3,4,9,10,11,12])delete config.positions[mode]['table-'+i];rebuild();saveState();};
+    for(const [id,key]of [['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).onchange=e=&gt;{stopWalking();config[key]=e.target.value;Object.assign(config,normalizePlan(config));if(key==='doorSetback'){config.rowOffsets=[config.doorSetback,config.rowOffsets[1],config.doorSetback];}if(key==='doorSetback')for(const mode of ['separate','joined'])for(const i of [1,2,3,4,9,10,11,12])delete config.positions[mode]['table-'+i];rebuild();saveState();};
     for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).onchange=e=&gt;{config[key]=e.target.checked;rebuild();saveState();};
     $('lp-bar-side').onchange=e=&gt;{config.barSide=e.target.value;for(const mode of ['separate','joined'])for(const id of ['bar','photo','dessert'])delete config.positions[mode][id];rebuild();saveState();};
     $('lp-clear-couple').onclick=()=&gt;{if(!config.disabledTables.includes('table-8'))config.disabledTables.push('table-8');rebuild();saveState();};
@@ -3307,11 +3471,21 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
     $('lp-remove-table').onclick=()=&gt;{if(/^table-/.test(selected)&amp;&amp;!config.disabledTables.includes(selected)){config.disabledTables.push(selected);rebuild();saveState();}};
     $('lp-layout').addEventListener('change',e=&gt;{config.layout=e.target.value;rebuild();saveState();});
     $('lp-view').addEventListener('change',e=&gt;{view(e.target.value);(activeView==='walk'?$('lp-walk-inside'):$('lp-orbit-mode')).focus({preventScroll:true});});
+    for(let row=0;row&lt;3;row++)$('lp-row-'+(row+1)).onchange=e=&gt;{config.rowOffsets[row]=n(e.target.value,0,-3,6);for(const mode of ['separate','joined'])for(let col=1;col&lt;=4;col++)delete config.positions[mode]['table-'+(row*4+col)];rebuild();saveState();};
+    $('lp-house-cutaway').onchange=e=&gt;{config.houseCutaway=e.target.checked;applyAppearance();draw();saveState();};
+    for(const [id,key]of [['lp-dessert-style','dessertStyle'],['lp-cupcake-count','cupcakeCount']])$(id).onchange=e=&gt;{config[key]=e.target.value;Object.assign(config,normalizePlan(config));refreshDecor();saveState();};
+    $('lp-reset-camera').onclick=()=&gt;{stopWalking();pauseTour(false);orbit={azimuth:.35,polar:.67,distance:150,target:[0,1,0]};walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};tour={time:0,speed:1};view('perspective');};
+    $('lp-reset-open').onclick=()=&gt;{$('lp-reset-prompt').hidden=false;};$('lp-reset-cancel').onclick=()=&gt;{$('lp-reset-prompt').hidden=true;};
+    $('lp-reset-confirm').onclick=()=&gt;{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
+    $('lp-undo-reset').onclick=()=&gt;{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};
+    // Capture the new value before a pending refresh can synchronize the form.
+    // In particular, rapid edits of the same numeric field must not be clobbered.
+    for(const el of designFields)el.addEventListener('input',()=&gt;{clearTimeout(rebuildTimer);const key=el.dataset.design;if(key==='look')return;config.design[key]=el.type==='checkbox'?el.checked:el.value;config.design=normalizeDesign(config.design);config.design.look='custom';});
     for(const el of designFields)el.addEventListener('change',()=&gt;{
       const key=el.dataset.design;if(key==='look'){applyLook(el.value);return;}
       config.design[key]=el.type==='checkbox'?el.checked:el.value;
       if(key==='vaseStyle')config.design.vaseColor=el.value==='amber'?'#b37f42':el.value==='ceramic'?'#e9e4d9':'#ecf0e5';
-      config.design.look='custom';config.design=normalizeDesign(config.design);rebuild();saveState();
+      config.design.look='custom';config.design=normalizeDesign(config.design);clearTimeout(rebuildTimer);rebuildTimer=setTimeout(()=&gt;{refreshDecor();saveState();},100);
     });
     for(const [name,color]of COLOR_SWATCHES){
       const button=document.createElement('button');button.className='btn';button.type='button';button.dataset.color=color;button.setAttribute('aria-label',name+' '+color);button.setAttribute('aria-pressed','false');
@@ -3340,14 +3514,14 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='venue-pavilion-layout.json';a.click();setTimeout(()=&gt;URL.revokeObjectURL(url),5000);$('lp-selection').textContent='Layout JSON is available below to select and copy.';saveState();
     };
     $('lp-load').addEventListener('change',e=&gt;{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=&gt;{
-      try{const raw=JSON.parse(reader.result);if(!/^venue-pavilion-v[12345678]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
+      try{const raw=JSON.parse(reader.result);if(!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
     };reader.readAsText(file);e.target.value='';});
     window.addEventListener('openai:set_globals',e=&gt;{
       const state=e.detail&amp;&amp;e.detail.globals&amp;&amp;e.detail.globals.widgetState;
-      if(state&amp;&amp;JSON.stringify({modelContent:state.modelContent,privateContent:state.privateContent})===lastPublished)return;
-      if(!state||!state.modelContent||!/^venue-pavilion-v[12345678]$/.test(state.modelContent.schema))return;
+      if(state&amp;&amp;publishedStates.has(JSON.stringify({modelContent:state.modelContent,privateContent:state.privateContent})))return;
+      if(!state||!state.modelContent||!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(state.modelContent.schema))return;
       stopWalking();pauseTour(false);config=normalize(state.modelContent);
-      if(/^venue-pavilion-v[68]$/.test(state.modelContent.schema)){
+      if(/^(?:venue|lakeside)-pavilion-v[689]$/.test(state.modelContent.schema)){
         if(state.privateContent&amp;&amp;state.privateContent.orbit)orbit=normalizeOrbit(state.privateContent.orbit);
         if(state.privateContent&amp;&amp;state.privateContent.walk)walk=normalizeWalk(state.privateContent.walk);
         tour=normalizeTour(state.privateContent&amp;&amp;state.privateContent.tour||{});

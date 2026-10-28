@@ -29,6 +29,18 @@ Open the local URL printed by the server. `npm run build` alone needs no browser
 
 Edit the source, then rebuild. Do not edit `dist/`; it is generated. The page shown in Codex and this repository are separate copies; future website changes belong in `src/model.html` and must be committed to trigger CI. The repository contains only this website, not the surrounding chat attachments or private wedding files.
 
+## Designing the space
+
+The visualization is the main workspace, with camera/navigation controls beneath it and a separate design panel. Four coordinated looks provide a starting palette; all individual colors and arrangements remain editable.
+
+- **Layout:** guest capacity, per-row offsets, table removal, bar/photo-booth sides, cupcake presentation, dance floor sizes and checkerboard/solid/concrete/wood finishes.
+- **Decor:** tablecloths, runners, napkins, bud vases, flower types, candles, arbors and lounge furniture. Vase counts are bounded to 0–5 and small styling edits retain the static property geometry.
+- **Ceremony:** compact backless benches, estimated deck dimensions, aisle florals and catering tent concepts.
+- **Camera:** orbit, WASD walking, guided tour, measurements and the house interior cutaway. Interior furniture positions, unmeasured site features and ceremony proportions are approximations from reference photos.
+- **Reset all:** restores the baseline layout, styling, site and camera. The confirmation offers cancellation, and **Undo reset** restores the previous design until another reset or reload.
+
+Saved v1–v8 layouts migrate to v9. Existing seating, table positions, styling and dance floor dimensions are retained. The former unmeasured 32 × 38 ft ceremony default migrates to a more compact 28 × 34 ft estimate; custom dimensions are preserved. Public source includes the permitted venue title but contains no addresses, guest data or private photo links.
+
 ## CircleCI pipeline
 
 ```mermaid

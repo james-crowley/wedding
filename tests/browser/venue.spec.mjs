@@ -89,7 +89,7 @@ test('ceremony, tent and ceiling options render without runtime errors', async (
   await app.locator('#lp-tent-style').selectOption('peak');
   await app.locator('#lp-aisle-decor').selectOption('mixed');
   await app.locator('#lp-view').selectOption('ceremony');
-  await expect(app.locator('#lp-ceremony-status')).toContainText('backed benches');
+  await expect(app.locator('#lp-ceremony-status')).toContainText('backless benches');
   await app.locator('#lp-tab-view').click();
   await app.locator('#lp-lighting').selectOption('lanterns');
   await app.locator('#lp-ceiling-decor').selectOption('greenery');
@@ -152,4 +152,49 @@ test('decor color swatches and flower choices persist after reloading', async ({
   await page.setViewportSize({ width: 390, height: 900 });
   expect(await app.locator('body').evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)).toBe(false);
   expect(await app.locator('#lp-settings-tabs').evaluate(nav => [...nav.children].some(tab => tab.scrollWidth > tab.clientWidth + 1))).toBe(false);
+});
+
+test('row offsets are independent, and reset can be undone', async ({ page }) => {
+  const app=page.frameLocator('#codex-visualization');
+  const state=()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
+  await app.locator('#lp-row-2').fill('3');await app.locator('#lp-row-2').press('Tab');
+  expect((await state()).rowOffsets).toEqual([2,3,2]);
+  await app.locator('#lp-clear-couple').click();
+  await app.locator('#lp-reset-open').click();await app.locator('#lp-reset-cancel').click();
+  await expect(app.locator('#lp-capacity')).toContainText('88 guest seats');
+  await app.locator('#lp-reset-open').click();await app.locator('#lp-reset-confirm').click();
+  await expect(app.locator('#lp-capacity')).toContainText('96 guest seats');
+  expect((await state()).rowOffsets).toEqual([2,0,2]);
+  await app.locator('#lp-undo-reset').click();
+  await expect(app.locator('#lp-capacity')).toContainText('88 guest seats');
+  expect((await state()).rowOffsets).toEqual([2,3,2]);
+});
+
+test('bounded vase edits, new flowers, wood floor and cupcake displays stay renderable', async ({ page }) => {
+  test.setTimeout(180_000);
+  const app=page.frameLocator('#codex-visualization');
+  const consoleErrors=[];page.on('console',msg=>{if(msg.type()==='error')consoleErrors.push(msg.text());});
+  await app.locator('#lp-tab-decor').click();await app.locator('#lp-style-flowers summary').click();
+  await app.locator('[data-design="arrangement"]').selectOption('bud');
+  let staleSnapshot;
+  for(const value of ['0','1','999999','2','5','0','5']){
+    const field=app.locator('[data-design="vaseCount"]');await field.fill(value);await field.press('Tab');
+    await expect(field).toHaveValue(value==='999999'?'5':value);
+    if(value==='2'){await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(2);staleSnapshot=await app.locator('body').evaluate(()=>window.openai.widgetState);}
+  }
+  await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(5);
+  await app.locator('body').evaluate((_,snapshot)=>window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:snapshot}}})),staleSnapshot);
+  await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('5');
+  for(const flower of ['ranunculus','anthurium','carnations'])await app.locator('[data-design="flowerStyle"]').selectOption(flower);
+  await expect(app.locator('[data-design="flowerStyle"]')).toHaveValue('carnations');
+  await app.locator('#lp-tab-layout').click();await app.locator('#lp-finishes summary').click();await app.locator('#lp-dance-pattern').selectOption('wood');
+  await app.locator('#lp-dessert-options summary').click();await app.locator('#lp-dessert-style').selectOption('mixed');
+  await app.locator('#lp-cupcake-count').fill('72');await app.locator('#lp-cupcake-count').press('Tab');
+  const state=await app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
+  expect(state.dancePattern).toBe('wood');expect(state.cupcakeCount).toBe(72);expect(state.design.vaseCount).toBe(5);
+  await app.locator('#lp-view').selectOption('houseInterior');
+  await app.locator('#lp-tab-view').click();await expect(app.locator('#lp-house-cutaway')).toBeChecked();
+  await app.locator('#lp-view').selectOption('houseLower');
+  expect(await app.locator('#lp-canvas').evaluate(c=>!c.getContext('webgl2').isContextLost())).toBe(true);
+  expect(consoleErrors).toEqual([]);
 });

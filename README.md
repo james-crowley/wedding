@@ -60,7 +60,7 @@ flowchart LR
   Build --> Ready[All three checks pass]
   Unit --> Ready
   Inventory --> Ready
-  Ready --> Split[4 browser shards · 1 worker each]
+  Ready --> Split[8 browser shards · 1 worker each]
   Split --> Merge[Merge reports · verify complete coverage]
   Merge --> Artifacts[Combined report and validation receipt]
   Merge --> Main{main branch?}
@@ -70,7 +70,7 @@ flowchart LR
 
 All branches except `gh-pages` build and test. Pull requests never publish. The publish job runs only after build/unit checks and every browser shard succeed on `main`, uses a protected context, and runs in a serial group. It checks the artifact's source commit, HTML checksum and complete browser-validation receipt, skips superseded main commits, and pushes normally without force-pushing. It refuses to replace an unrelated existing Pages site.
 
-The Playwright package and Docker image are pinned to the same version. Browser tests block external resources and exercise real WebGL initialization, table counts, saved dimensions/bar positions, keyboard release, resizing, ceremony/tent/ceiling controls and tour navigation. Named Node test suites keep unit JUnit reports compatible with CircleCI’s results parser. Reports include per-shard JUnit and HTML reports, a combined HTML report, failure screenshots, retry traces and a successful floor-plan screenshot. Browser tests still block external resources and use real software WebGL. Each shard has one worker to avoid competing for its container’s CPU. `fullyParallel` enables test-level splitting even though the suite is in one file; a unit check proves the four shards cover every collected case exactly once.
+The Playwright package and Docker image are pinned to the same version. Browser tests block external resources and exercise real WebGL initialization, table counts, saved dimensions/bar positions, keyboard release, resizing, ceremony/tent/ceiling controls and tour navigation. Named Node test suites keep unit JUnit reports compatible with CircleCI’s results parser. Reports include per-shard JUnit and HTML reports, a combined HTML report, failure screenshots, retry traces and a successful floor-plan screenshot. Browser tests still block external resources and use real software WebGL. Each shard has one worker to avoid competing for its container’s CPU. `fullyParallel` enables test-level splitting, including parameterized cases within a file; a unit check proves the configured shards cover every collected case exactly once. The expanded option matrix uses eight shards.
 
 ### Speed and change selection
 
@@ -78,10 +78,10 @@ The Playwright package and Docker image are pinned to the same version. Browser 
 - **Cache downloads:** a versioned, architecture/Playwright/lockfile-keyed npm download cache supports `npm ci --prefer-offline`. Only the build job writes it. Installed dependencies are passed through the workflow workspace, not restored from a cross-run installed-environment cache. Browser binaries already come with the pinned Playwright image.
 - **Trace on retry:** CI records a trace on the first retry instead of recording and discarding a trace for every passing first attempt. Screenshots and shard reports remain available on failure. Local full runs retain failure traces; `--trace=on` is available for explicit debugging.
 - **Documentation fast path:** only `README.md` and Markdown files under `docs/` can skip browser jobs and publication. Build/unit checks still run. Main compares against the source commit recorded on `gh-pages`, covering multi-commit pushes and previously failed app builds. Other branches use their merge base with main. Missing history, failed fetching, unknown files or changes to source/tests/dependencies/CI all select the full suite. This is not a cached-test-pass bypass.
-- **Complete gate:** merging requires a matching successful receipt from each of four shards and passing results for every collected test/project. Missing, duplicated, skipped, failed or mismatched reports block publication. Attempt-specific report paths support workspace reuse on reruns.
+- **Complete gate:** merging requires a matching successful receipt from each of eight shards and passing results for every collected test/project. Missing, duplicated, skipped, failed or mismatched reports block publication. Attempt-specific report paths support workspace reuse on reruns.
 - **Fast local feedback:** `npm run test:changed` inspects staged, unstaged and untracked edits. Documentation/unit-test-only edits use build/unit checks; anything else also runs all browser tests. `npm test` always runs the full suite. Playwright’s import-based `--only-changed` is deliberately not used for served HTML, which the browser specs do not import.
 
-Four parallel containers reduce elapsed time rather than the total number of browser checks. If the account queues containers, the speedup will be smaller. No build-output or passing-test-result cache is used to authorize deployment.
+Parallel containers reduce elapsed time rather than the total number of browser checks. If the account queues containers, the speedup will be smaller. No build-output or passing-test-result cache is used to authorize deployment.
 
 ### Option and rendering validation
 

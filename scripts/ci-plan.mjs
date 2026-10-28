@@ -4,7 +4,7 @@ import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectRoot } from './build.mjs';
 
-export const SHARDS = 4;
+export const SHARDS = 8;
 export function docsOnly(files) {
   return files.every(file => file === 'README.md' || /^docs\/.+\.md$/.test(file));
 }

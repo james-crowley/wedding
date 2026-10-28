@@ -7,6 +7,7 @@ import { Script } from 'node:vm';
 import { parse } from 'yaml';
 import { build, projectRoot, escapeAttribute } from '../../scripts/build.mjs';
 import { deploymentPlan } from '../../scripts/deploy-pages.mjs';
+import { SHARDS } from '../../scripts/ci-plan.mjs';
 
 describe('Site and deployment invariants', () => {
 test('portable build is deterministic, bundled and checksummed', async () => {
@@ -58,7 +59,7 @@ test('CircleCI only deploys tested main builds, in a serial group', async () => 
   assert.deepEqual(deploy.requires, ['verify-browser-tests']);
   assert.deepEqual(jobs.find(j => j['verify-browser-tests'])['verify-browser-tests'].requires, ['browser-tests']);
   assert.deepEqual(jobs.find(j => j['browser-tests'])['browser-tests'].requires, ['build-and-unit']);
-  assert.equal(config.jobs['browser-tests'].parallelism, 4);
+  assert.equal(config.jobs['browser-tests'].parallelism, SHARDS);
   for (const job of ['build-and-unit', 'browser-tests', 'verify-browser-tests']) assert.equal(jobs.find(j => j[job])[job].filters.branches.ignore, 'gh-pages');
   assert.equal(deploy.filters.branches.only, 'main');
   assert.equal(deploy.context, 'wedding-pages');

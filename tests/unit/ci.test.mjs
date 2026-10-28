@@ -16,7 +16,7 @@ const collect = shard => {
   const r = spawnSync(process.execPath, args, { cwd: projectRoot, encoding: 'utf8' });assert.equal(r.status, 0, r.stderr);
   return specs(JSON.parse(r.stdout));
 };
-test('four native shards partition every browser test exactly once', () => {
+test('native shards partition every browser test exactly once', () => {
   const all = collect(), ids = all.map(s => s.id).sort(), shards = Array.from({ length: SHARDS }, (_, i) => collect(i + 1));
   assert.ok(all.length > SHARDS);assert.ok(shards.every(tests => tests.length > 0));
   const split = shards.flatMap(tests => tests.map(s => s.id));assert.equal(new Set(split).size, ids.length);assert.deepEqual(split.sort(), ids);

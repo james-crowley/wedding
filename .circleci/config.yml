@@ -47,7 +47,7 @@ jobs:
 
   browser-tests:
     executor: browser
-    parallelism: 4
+    parallelism: 8
     steps:
       - checkout
       - attach_workspace:

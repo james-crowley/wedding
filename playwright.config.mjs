@@ -2,8 +2,9 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/browser',
-  timeout: 60_000,
-  globalTimeout: 8 * 60_000,
+  // Software WebGL on shared CI CPUs takes longer than a desktop GPU.
+  timeout: 120_000,
+  globalTimeout: 15 * 60_000,
   expect: { timeout: 15_000 },
   workers: 1,
   retries: process.env.CI ? 1 : 0,

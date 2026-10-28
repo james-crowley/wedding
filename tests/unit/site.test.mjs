@@ -27,6 +27,14 @@ test('portable build is deterministic, bundled and checksummed', async () => {
 
 test('attribute escaping protects the embedded document', () => assert.equal(escapeAttribute('<&">'), '&lt;&amp;&quot;&gt;'));
 
+test('public model uses generic labels and contains no external photo or location links', async () => {
+  const source = await readFile(join(projectRoot, 'src/model.html'), 'utf8');
+  assert.match(source, /<h2>Wedding pavilion<\/h2>/);
+  assert.match(source, /schema:'venue-pavilion-v8'/);
+  assert.doesNotMatch(source, /(?:mailto:|tel:|https?:\/\/(?!cdn\.jsdelivr\.net\/npm\/three@))/i);
+  assert.doesNotMatch(source, /\/(?:Users|home)\/[^/]+\//);
+});
+
 test('model scripts parse and literal control IDs exist exactly once', async () => {
   const source = await readFile(join(projectRoot, 'src/model.html'), 'utf8');
   for (const [, script] of source.matchAll(/<script>([\s\S]*?)<\/script>/g)) new Script(script);

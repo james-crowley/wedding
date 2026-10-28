@@ -651,7 +651,7 @@
       const clusterCenters=d.arrangement==='bud'?[]:d.arrangement==='meadow'?[-length*.38,-length*.19,0,length*.19,length*.38]:[-length*.23,length*.23];
       for(const cx of clusterCenters){
         const number=(d.flowerStyle==='hydrangea'?20:d.flowerStyle==='wildflower'?7:12)*d.flowerDensity;
-        const clusterBase=top+(d.arrangement==='low'?Math.max(.2,d.flowerHeight/12-.32):.25);
+        const clusterBase=top+(d.arrangement==='low'?Math.max(.2,d.flowerHeight/12-.32):d.arrangement==='meadow'?.15+rand()*Math.max(.15,d.flowerHeight/12-.65):.25);
         for(let j=0;j<number;j++){
           const a=rand()*Math.PI*2,r=Math.sqrt(rand())*(d.flowerStyle==='wildflower'?.40:.28),x=cx+Math.cos(a)*r,z=Math.sin(a)*r,y=clusterBase+rand()*(d.flowerStyle==='wildflower'?.40:.18),color=['ivory','blue','wine'][j%5<3?0:j%5===3?1:2];
           bloom(x,y,z,['roses','dahlias','anemones'].includes(d.flowerStyle)?.15:.10+rand()*.025,color);
@@ -1005,7 +1005,10 @@
         const t=rand();if(!['greenery','full','meadow'].includes(dressing)&&t>.38&&t<.78)continue;const p=framePoint(t);
         leaves.push({x:p[0]+(rand()-.5)*.35,y:p[1]+(rand()-.5)*.38,z:-depth/2-.11+(rand()-.5)*.18,a:rand()*Math.PI*2});
       }
-      if(d.trailingGreenery&&dressing!=='meadow')for(const sign of [-1,1])for(let strand=0;strand<3;strand++)for(let i=0;i<16;i++)leaves.push({x:sign*(width/2-.2)+strand*.09,y:height-i*.085,z:-depth/2-.2,a:0,trail:true});
+      if(d.trailingGreenery&&dressing!=='meadow')for(const sign of [-1,1]){
+        const anchor=framePoint(style==='hoop'&&dressing==='full'?(sign<0?.375:.125):sign<0?.12:.88);
+        for(let strand=0;strand<3;strand++)for(let i=0;i<16;i++)leaves.push({x:anchor[0]+strand*.09,y:anchor[1]-i*.085,z:-depth/2-.2,a:0,trail:true});
+      }
       const leafMesh=new T.InstancedMesh(new T.SphereGeometry(1,7,5),materials.decorLeaf,leaves.length);
       leaves.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(.2,p.a,p.a);dummy.scale.set(...(p.trail?[.035,.065,.035]:[.10,.035,.22]));dummy.updateMatrix();leafMesh.setMatrixAt(i,dummy.matrix);});leafMesh.instanceMatrix.needsUpdate=true;leafMesh.computeBoundingSphere();parent.add(leafMesh);
       if(dressing!=='greenery'&&d.flowerStyle!=='none'){

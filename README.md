@@ -81,6 +81,17 @@ The Playwright package and Docker image are pinned to the same version. Browser 
 
 Four parallel containers reduce elapsed time rather than the total number of browser checks. If the account queues containers, the speedup will be smaller. No build-output or passing-test-result cache is used to authorize deployment.
 
+### Measured workflow times
+
+Complete CircleCI workflow times on October 28, 2026, including environment startup, reports and publication:
+
+| Pipeline | End-to-end time | Browser coverage |
+| --- | --- | --- |
+| [Previous serial pipeline](https://app.circleci.com/workflow/75f8ff79-b153-4b27-a689-6fcf857e471c) | 18m 15s | All 13 cases |
+| [Four shards, cached installation and concurrent static checks](https://app.circleci.com/workflow/36ccb4d0-86a8-4157-88ff-788881d1e2c8) | 7m 29s | All 13 cases, plus 16 unit checks |
+
+That run reduced elapsed time by about 59%. Its concurrent build/unit/inventory step took 4 seconds; browser rendering remained the largest cost. These are observed runs, not guaranteed timings. The live Pages build was checked against the published manifest checksum after the workflow completed.
+
 ## First-time GitHub and CircleCI setup
 
 The repository is connected to CircleCI. Its publisher uses a dedicated write-enabled SSH deploy key restricted to this repository, with the private key encrypted in CircleCI project settings. No personal GitHub token is needed in the pipeline. The public fingerprint is pinned in the publish job.

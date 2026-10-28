@@ -1527,7 +1527,10 @@
     }
     function draw(){
       if(camera===planCamera){const halfHeight=orbit.distance*Math.tan(43*Math.PI/360);camera.left=-halfHeight*stage.clientWidth/stage.clientHeight;camera.right=-camera.left;camera.top=halfHeight;camera.bottom=-halfHeight;camera.updateProjectionMatrix();}
-      cameraPosition();renderer.render(scene,camera);const rect=stage.getBoundingClientRect(),occupied=[];
+      cameraPosition();renderer.render(scene,camera);refreshLabels();
+    }
+    function refreshLabels(){
+      const rect=stage.getBoundingClientRect(),occupied=[];
       const priority=l=>l.kind==='ruler'?0:['dimension','height'].includes(l.kind)?1:l.kind==='object'?2:3;
       [...labels].sort((a,b)=>priority(a)-priority(b)).forEach(l=>{
         let pos=l.pos.clone();if(l.owner)pos.set(l.owner.position.x,l.pos.y,l.owner.position.z);pos.project(camera);
@@ -1739,7 +1742,7 @@
         restoreProjection(state.privateContent&&state.privateContent.view);rebuild();
       }else{rebuild();view('perspective',false);}
     });
-    if(document.fonts)document.fonts.ready.then(()=>{resize();draw();});
+    if(document.fonts)document.fonts.ready.then(refreshLabels);
     new ResizeObserver(resize).observe(stage);
     let themeTimer;const themeObserver=new MutationObserver(()=>{clearTimeout(themeTimer);themeTimer=setTimeout(()=>rebuild(),100);});themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
     if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>rebuild());

@@ -185,7 +185,7 @@ test('bounded vase edits, new flowers, wood floor and cupcake displays stay rend
   let staleSnapshot;
   for(const value of ['0','1','999999','2','5','0','5']){
     const field=app.locator('[data-design="vaseCount"]');await field.fill(value);await field.press('Tab');
-    await expect(field).toHaveValue(value==='999999'?'5':value);
+    await expect(field).toHaveValue(value==='999999'?'7':value);
     if(value==='2'){await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(2);staleSnapshot=await app.locator('body').evaluate(()=>window.openai.widgetState);}
   }
   await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(5);
@@ -203,4 +203,59 @@ test('bounded vase edits, new flowers, wood floor and cupcake displays stay rend
   await app.locator('#lp-view').selectOption('houseLower');
   expect(await app.locator('#lp-canvas').evaluate(c=>!c.getContext('webgl2').isContextLost())).toBe(true);
   expect(consoleErrors).toEqual([]);
+});
+
+test('seated views follow guest tables, persist, and hand over to walking', async ({ page }, info) => {
+  const app=page.frameLocator('#codex-visualization');
+  const state=()=>app.locator('body').evaluate(()=>window.openai.widgetState);
+  await app.locator('#lp-sit').click();
+  await expect(app.locator('#lp-view')).toHaveValue('seat');
+  await expect(app.locator('#lp-seat-side')).toBeDisabled();
+  await expect(app.locator('#lp-seat-place option')).toHaveCount(2);
+  await app.locator('#lp-seat-table').selectOption('table-5');
+  await app.locator('#lp-seat-side').selectOption('-1');
+  await app.locator('#lp-seat-place').selectOption('3');
+  await app.locator('#lp-seat-look').selectOption('dance');
+  await page.reload();await expect(app.locator('#lp-loading')).toBeHidden({timeout:45_000});
+  await expect(app.locator('#lp-view')).toHaveValue('seat');
+  await expect(app.locator('#lp-seat-table')).toHaveValue('table-5');
+  await expect(app.locator('#lp-seat-side')).toHaveValue('-1');
+  await expect(app.locator('#lp-seat-place')).toHaveValue('3');
+  expect((await state()).privateContent.seat.look).toBe('dance');
+  const saved=await state();saved.modelContent.positions.separate['table-5']={x:-16,z:4,r:Math.PI/2};
+  saved.privateContent.seat={table:'table-5',side:1,place:2,look:'across',eye:3.8,yaw:0,pitch:-.04};
+  await app.locator('body').evaluate((_,s)=>window.dispatchEvent(new CustomEvent('openai:set_globals',{detail:{globals:{widgetState:s}}})),saved);
+  await info.attach('seated-table-five',{body:await app.locator('#lp-stage').screenshot(),contentType:'image/png'});
+  await app.locator('#lp-seat-stand').click();
+  const walk=(await state()).privateContent.walk;
+  expect(walk.x).toBeCloseTo(-13.5,3);expect(walk.z).toBeCloseTo(5,3);expect(walk.y).toBe(5.5);
+  await app.locator('#lp-sit').click();
+  await app.locator('#lp-tab-layout').click();await app.getByText('Choose which tables to keep',{exact:false}).first().click();
+  await app.locator('#lp-table-5').uncheck();
+  await expect(app.locator('#lp-seat-table')).toHaveValue('couple');
+  await expect(app.locator('#lp-seat-table option[value="table-5"]')).toHaveCount(0);
+  await app.locator('#lp-seat-next').click();await expect(app.locator('#lp-seat-table')).toHaveValue('table-1');
+  await app.locator('#lp-orbit-mode').focus();await page.keyboard.down('w');await page.waitForTimeout(180);await page.keyboard.up('w');
+  await expect(app.locator('#lp-view')).toHaveValue('walk');
+});
+
+test('florist looks and dress colors render with five or seven bud vases', async ({ page }, info) => {
+  const app=page.frameLocator('#codex-visualization');
+  const model=()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
+  await app.locator('#lp-look-cards [data-look="florist"]').click();
+  let m=await model();expect(m.design.flowerStyle).toBe('florist');expect(m.design.vaseCount).toBe(5);expect(m.design.outdoorArborDecor).toBe('corners');expect(m.design.napkinColor).toBe('#642c38');
+  await app.locator('#lp-look-cards [data-look="vasesOnly"]').click();
+  m=await model();expect(m.design.vaseCount).toBe(7);expect(m.design.candleCount).toBe(0);expect(m.design.candleStyle).toBe('none');
+  await app.locator('#lp-tab-decor').click();await app.locator('#lp-style-flowers summary').click();
+  await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('7');
+  for(const flower of ['hellebore','astrantia','sprayroses','florist'])await app.locator('[data-design="flowerStyle"]').selectOption(flower);
+  await app.locator('#lp-color-target').selectOption('napkinColor');
+  await app.getByRole('button',{name:'Twilight #4f6875',exact:true}).click();
+  await app.locator('#lp-sit').click();await app.locator('#lp-seat-table').selectOption('table-1');
+  await page.reload();await expect(app.locator('#lp-loading')).toBeHidden({timeout:45_000});
+  m=await model();expect(m.design.vaseCount).toBe(7);expect(m.design.flowerStyle).toBe('florist');expect(m.design.napkinColor).toBe('#4f6875');
+  expect(await app.locator('#lp-canvas').evaluate(c=>!c.getContext('webgl2').isContextLost())).toBe(true);
+  await page.setViewportSize({width:390,height:900});await expect(app.locator('#lp-seat-controls')).toBeVisible();
+  expect(await app.locator('body').evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await info.attach('seated-mobile',{body:await page.screenshot(),contentType:'image/png'});
 });

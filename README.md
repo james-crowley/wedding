@@ -33,12 +33,16 @@ Edit the source, then rebuild. Do not edit `dist/`; it is generated. The page sh
 
 The Lakeside-inspired interface uses pale sage, white surfaces, fine rules, an Allura wordmark and Raleway controls. Both open-license fonts are bundled for offline use; notices and license terms are included in the HTML and build output.
 
-The visualization is the main workspace, with camera/navigation controls beneath it and a separate design panel. Four coordinated looks provide a starting palette; all individual colors and arrangements remain editable.
+The visualization is the main workspace, with camera/navigation controls beneath it and a separate design panel. Coordinated looks provide a starting palette; all individual colors and arrangements remain editable.
 
 - **Layout:** guest capacity, per-row offsets, table removal, bar/photo-booth sides, cupcake presentation, dance floor sizes and checkerboard/solid/concrete/wood finishes.
-- **Decor:** tablecloths, runners, napkins, bud vases, flower types, candles, arbors and lounge furniture. Vase counts are bounded to 0–5 and small styling edits retain the static property geometry.
+- **Decor:** tablecloths, runners, napkins, bud vases, flower types, candles, arbors and lounge furniture. Vase counts are bounded to 0–7 and small styling edits retain the static property geometry.
 - **Ceremony:** compact backless benches, estimated deck dimensions, aisle florals and catering tent concepts.
-- **Camera:** orbit, WASD walking, guided tour, measurements and the house interior cutaway. Interior furniture positions, unmeasured site features and ceremony proportions are approximations from reference photos.
+- **Camera:** orbit, seated views at every dining table, WASD walking, guided tour, measurements and the house interior cutaway. Interior furniture positions, unmeasured site features and ceremony proportions are approximations from reference photos.
+Seated views offer the couple’s two positions or either side of any active guest table, with selectable seats, direction and an estimated eye height. They follow table moves/rotation and omit removed tables. Drag to look, choose Stand up here, or use WASD to leave the seat. Camera choices are saved with the layout.
+
+The wine/olive/twilight looks combine ivory flowers, wine accents, dusty-blue spires and eucalyptus. They include five bud vases with enclosed tapers or seven vases without candles; ivory and twilight variations remain editable. Hellebores, astrantia, spray roses and the mixed florist recipe are stylized geometry. Named dress-color swatches are visual approximations, not manufacturer color specifications. Opposite-corner arbor flowers offer an upper-left and lower-right arrangement.
+
 - **Reset all:** restores the baseline layout, styling, site and camera. The confirmation offers cancellation, and **Undo reset** restores the previous design until another reset or reload.
 
 Saved v1–v8 layouts migrate to v9. Existing seating, table positions, styling and dance floor dimensions are retained. The former unmeasured 32 × 38 ft ceremony default migrates to a more compact 28 × 34 ft estimate; custom dimensions are preserved. Public source includes the permitted venue title but contains no addresses, guest data or private photo links.

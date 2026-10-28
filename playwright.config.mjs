@@ -6,7 +6,7 @@ export default defineConfig({
   outputDir: './test-results/browser-artifacts',
   // Software WebGL on shared CI CPUs takes longer than a desktop GPU.
   timeout: 180_000,
-  globalTimeout: 20 * 60_000,
+  globalTimeout: 25 * 60_000,
   expect: { timeout: 15_000 },
   workers: 1,
   retries: process.env.CI ? 1 : 0,

@@ -3,14 +3,25 @@
   <div class="lp-reset-prompt" id="lp-reset-prompt" role="group" aria-label="Confirm reset" hidden><strong>Start fresh?</strong><span>Reset furniture, styling, site options and camera to the original planning defaults. You can undo this.</span><button class="btn btn-primary" id="lp-reset-confirm" type="button">Reset everything</button><button class="btn" id="lp-reset-cancel" type="button">Keep my design</button></div>
   <div id="lp-workspace" class="lp-workspace"><section id="lp-viewer" class="lp-viewer" aria-label="Venue visualization"></section><aside id="lp-editor" class="lp-editor" aria-label="Wedding design controls"><section class="lp-lookbook" id="lp-lookbook"><span class="lp-eyebrow">THE OVERALL FEEL</span><h3>Find your starting look</h3><p>Coordinated flowers, fabrics & candlelight. Make it yours below.</p><div id="lp-look-cards" class="lp-look-cards" role="group" aria-label="Coordinated wedding looks"></div></section></aside></div>
   <div class="viz-controls" id="lp-main-nav">
-    <button class="btn" type="button" id="lp-orbit-mode">Orbit</button><button class="btn" type="button" id="lp-walk-inside">Walk inside</button><button class="btn" type="button" id="lp-stop-motion">Stop / Esc</button>
+    <button class="btn" type="button" id="lp-orbit-mode">Orbit</button><button class="btn" type="button" id="lp-sit">Sit at a table</button><button class="btn" type="button" id="lp-walk-inside">Walk inside</button><button class="btn" type="button" id="lp-stop-motion">Stop / Esc</button>
   </div>
+  <section id="lp-seat-controls" class="lp-seat-controls" aria-label="Seated dining view" hidden>
+    <div class="lp-seat-heading"><div><span class="lp-eyebrow">A GUEST’S PERSPECTIVE</span><h3>Take a seat</h3></div><button class="btn" id="lp-seat-show" type="button">Show view</button><button class="btn" id="lp-seat-stand" type="button">Stand up here</button></div>
+    <div class="viz-controls">
+      <label class="form-label">Table<select class="form-select" id="lp-seat-table"></select></label>
+      <label class="form-label">Side<select class="form-select" id="lp-seat-side"><option value="1">Side A</option><option value="-1">Side B</option></select></label>
+      <label class="form-label">Seat<select class="form-select" id="lp-seat-place"></select></label>
+      <label class="form-label">Look toward<select class="form-select" id="lp-seat-look"><option value="across">Across the table</option><option value="couple">Couple’s table</option><option value="dance">Dance floor</option><option value="lake">Lake doors</option><option value="house">House doors</option></select></label>
+      <label class="form-label">Seated eye height (ft, est.)<input class="form-control" id="lp-seat-eye" type="number" min="3.2" max="4.5" step="0.1" value="3.8"></label>
+    </div><p class="text-small" id="lp-seat-status" role="status" aria-live="polite"></p>
+    <div class="viz-row"><button class="btn" type="button" id="lp-seat-prev">Previous table</button><button class="btn" type="button" id="lp-seat-next">Next table</button><button class="btn" type="button" id="lp-seat-recenter">Recenter view</button></div>
+  </section>
   <div class="viz-controls">
     <label class="form-label">Dining layout
       <select class="form-select" id="lp-layout"><option value="separate">12 separate tables</option><option value="joined">3 joined rows</option></select>
     </label>
     <label class="form-label">View
-      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
+      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
     </label>
     <label class="form-label">Drag action
       <select class="form-select" id="lp-action"><option value="orbit">Rotate view</option><option value="move">Move furniture</option><option value="measure">Measure floor distance</option></select>
@@ -109,7 +120,7 @@
   <details class="lp-details" id="lp-design-tables" open>
     <summary class="cursor-interaction">Table styling</summary>
     <div class="viz-controls">
-      <label class="form-label">Starting look<select class="form-select" data-design="look"><option value="photo">Original table reference</option><option value="ivoryPlum">Ivory, dusty blue & plum</option><option value="pistachio">Pistachio & champagne</option><option value="plumGarden">Plum garden & antique gold</option><option value="blueMeadow">Blue & ivory meadow</option><option value="garden">Soft garden</option><option value="blue">Blue and ivory</option><option value="wine">Burgundy and gold</option><option value="minimal">Minimal ivory</option><option value="custom">Custom</option></select></label>
+      <label class="form-label">Starting look<select class="form-select" data-design="look"><option value="florist">Wine, olive & twilight · 5 vases + candles</option><option value="vasesOnly">Wine, olive & twilight · 7 bud vases</option><option value="ivoryGarden">Ivory garden · olive accents</option><option value="twilightGarden">Twilight garden · blue accents</option><option value="photo">Original table reference</option><option value="ivoryPlum">Ivory, dusty blue & plum</option><option value="pistachio">Pistachio & champagne</option><option value="plumGarden">Plum garden & antique gold</option><option value="blueMeadow">Blue & ivory meadow</option><option value="garden">Soft garden</option><option value="blue">Blue and ivory</option><option value="wine">Burgundy and gold</option><option value="minimal">Minimal ivory</option><option value="custom">Custom</option></select></label>
     </div>
     <div class="viz-controls"><label class="form-label">Apply a color to<select class="form-select" id="lp-color-target"><option value="napkinColor">Napkins</option><option value="clothColor">Tablecloths</option><option value="runnerColor">Runners</option><option value="flowerA">Main flowers</option><option value="flowerB">Second flowers</option><option value="flowerC">Accent flowers</option><option value="greeneryColor">Greenery</option><option value="candleColor">Candles</option><option value="arborFabricColor">Arbor fabric</option><option value="sofaColor">Sofas</option><option value="glassColor">Goblets</option></select></label><button class="btn" type="button" id="lp-focus-table">View styled table</button></div>
     <div class="viz-row" id="lp-palette-swatches" role="group" aria-label="Coordinating color swatches"></div>
@@ -130,14 +141,14 @@
       <label class="form-label">Greenery color<input class="form-control form-control-color" type="color" data-design="greeneryColor"></label>
       <label class="form-check"><input class="form-check-input" type="checkbox" data-design="trailingGreenery"><span class="form-check-label">Trailing amaranthus / vines</span></label>
       <label class="form-label">Arrangement<select class="form-select" data-design="arrangement"><option value="mixed">Low flowers + bud vases</option><option value="bud">Bud vases only</option><option value="low">Low clusters only</option><option value="meadow">Meadow along the runner</option></select></label>
-      <label class="form-label">Flower style<select class="form-select" data-design="flowerStyle"><option value="mixed">Mixed garden blooms</option><option value="roses">Layered roses</option><option value="dahlias">Dahlia-inspired blooms</option><option value="anemones">Dark-center anemones</option><option value="orchids">Orchid-inspired sprays</option><option value="delphinium">Delphinium-style spires</option><option value="hydrangea">Hydrangea clusters</option><option value="ranunculus">Layered ranunculus</option><option value="anthurium">Sculptural anthurium</option><option value="carnations">Ruffled carnations</option><option value="wildflower">Airy wildflowers</option><option value="none">No flowers</option></select></label>
+      <label class="form-label">Flower style<select class="form-select" data-design="flowerStyle"><option value="florist">Florist garden mix</option><option value="hellebore">Hellebores</option><option value="astrantia">Astrantia star flowers</option><option value="sprayroses">Ivory spray roses</option><option value="mixed">Mixed garden blooms</option><option value="roses">Layered roses</option><option value="dahlias">Dahlia-inspired blooms</option><option value="anemones">Dark-center anemones</option><option value="orchids">Orchid-inspired sprays</option><option value="delphinium">Delphinium-style spires</option><option value="hydrangea">Hydrangea clusters</option><option value="ranunculus">Layered ranunculus</option><option value="anthurium">Sculptural anthurium</option><option value="carnations">Ruffled carnations</option><option value="wildflower">Airy wildflowers</option><option value="none">No flowers</option></select></label>
       <label class="form-label">Flower fullness<select class="form-select" data-design="flowerDensity"><option value="0.6">Light</option><option value="1">Reference</option><option value="1.6">Lush</option></select></label>
       <label class="form-label">Main flower color<input class="form-control form-control-color" type="color" data-design="flowerA"></label>
       <label class="form-label">Second flower color<input class="form-control form-control-color" type="color" data-design="flowerB"></label>
       <label class="form-label">Accent flower color<input class="form-control form-control-color" type="color" data-design="flowerC"></label>
       <label class="form-label">Flower centers<input class="form-control form-control-color" type="color" data-design="flowerCenter"></label>
       <label class="form-label">Vases<select class="form-select" data-design="vaseStyle"><option value="cut">Patterned glass</option><option value="smooth">Smooth glass</option><option value="bottle">Narrow glass bottles</option><option value="compote">Footed metal bowls</option><option value="amber">Tinted glass</option><option value="ceramic">Ceramic</option><option value="none">No vases</option></select></label>
-      <label class="form-label">Bud vases per table · 0–5<input class="form-control" type="number" min="0" max="5" step="1" data-design="vaseCount"></label>
+      <label class="form-label">Bud vases per table · 0–7<input class="form-control" type="number" min="0" max="7" step="1" data-design="vaseCount"></label>
       <label class="form-label">Vase height (in)<input class="form-control" type="number" min="4" max="18" step="1" data-design="vaseHeight"></label>
       <label class="form-label">Stems per vase<input class="form-control" type="number" min="1" max="5" step="1" data-design="stemsPerVase"></label>
       <label class="form-label">Flower height above tabletop (in)<input class="form-control" type="number" min="12" max="36" step="1" data-design="flowerHeight"></label>
@@ -152,6 +163,7 @@
       <label class="form-check"><input class="form-check-input" type="checkbox" data-design="chargers"><span class="form-check-label">Chargers</span></label>
     </div>
     </details>
+    <p class="text-small" id="lp-floral-note">Florist garden mix combines ranunculus, garden and spray roses, hellebores, astrantia and delphinium with eucalyptus and trailing amaranthus. Olive, Cabernet and Twilight are visual color approximations; compare physical fabric and flower samples.</p>
     <div class="text-small">Styling applies to all guest tables and the couple’s table in both layouts.</div>
   </details>
   <details class="lp-details" id="lp-design-arbors">
@@ -159,10 +171,10 @@
     <div class="viz-controls">
       <label class="form-label">Couple’s arbor<select class="form-select" data-design="indoorArbor"><option value="timber">Timber pergola</option><option value="frame">Simple rectangle</option><option value="triangle">Triangle</option><option value="hoop">Round hoop</option><option value="hexagon">Hexagon</option><option value="none">None</option></select></label>
       <label class="form-label">Couple’s arbor color<input class="form-control form-control-color" type="color" data-design="indoorArborColor"></label>
-      <label class="form-label">Couple’s arbor dressing<select class="form-select" data-design="indoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
+      <label class="form-label">Couple’s arbor dressing<select class="form-select" data-design="indoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="corners">Upper-left + lower-right flowers</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
       <label class="form-label">Ceremony arbor<select class="form-select" data-design="outdoorArbor"><option value="timber">Timber pergola</option><option value="frame">Simple rectangle</option><option value="triangle">Triangle</option><option value="hoop">Round hoop</option><option value="hexagon">Hexagon</option><option value="none">None</option></select></label>
       <label class="form-label">Ceremony arbor color<input class="form-control form-control-color" type="color" data-design="outdoorArborColor"></label>
-      <label class="form-label">Ceremony arbor dressing<select class="form-select" data-design="outdoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
+      <label class="form-label">Ceremony arbor dressing<select class="form-select" data-design="outdoorArborDecor"><option value="bare">Bare frame</option><option value="greenery">Greenery</option><option value="corners">Upper-left + lower-right flowers</option><option value="florals">Asymmetrical florals</option><option value="full">Full floral frame</option><option value="meadow">Grounded flower meadow</option><option value="drape">Fabric and flowers</option></select></label>
       <label class="form-label">Arbor fabric color<input class="form-control form-control-color" type="color" data-design="arborFabricColor"></label>
     </div>
     <div class="text-small">Arbor florals use the table flower colors. Designs and dimensions are planning concepts.</div>
@@ -296,6 +308,12 @@
 #venue-pavilion-3d #lp-palette-swatches .btn{font-size:11px;padding:7px;min-height:34px;text-align:left;letter-spacing:0}
 #venue-pavilion-3d #lp-palette-swatches span{border-radius:50%;width:18px!important;height:18px!important}
 #venue-pavilion-3d .lp-table-toggles{grid-template-columns:1fr 1fr;gap:5px}
+#venue-pavilion-3d .lp-seat-controls{padding:18px;border-bottom:1px solid var(--studio-line);background:#f5f6ef}
+#venue-pavilion-3d .lp-seat-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+#venue-pavilion-3d .lp-seat-heading h3{margin:5px 0;font:26px Georgia,serif;color:var(--studio-ink)}
+#venue-pavilion-3d .lp-seat-controls .form-label{flex:1 1 145px;min-width:0}
+#venue-pavilion-3d .lp-seat-controls p{margin:10px 0}
+#venue-pavilion-3d #lp-sit{border-color:#859475;color:#4d5e42;background:#eff2e7}
 #venue-pavilion-3d .lp-assumptions{margin-top:20px;padding-top:14px;border-top:1px solid #dce3d3;max-width:1150px;font-size:11px;opacity:1;line-height:1.8}
 #venue-pavilion-3d .lp-reset-prompt{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px solid #becbad;padding:18px;border-radius:1px;background:#f0f4e9;margin-bottom:20px;font-size:12px}
 #venue-pavilion-3d .lp-reset-prompt span{flex:1 1 280px}
@@ -303,6 +321,19 @@
 @media(max-width:1100px){#venue-pavilion-3d{padding:20px}#venue-pavilion-3d .lp-workspace{grid-template-columns:1fr}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible;padding:24px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:repeat(4,1fr)}#venue-pavilion-3d .lp-look-card{flex-direction:row;align-items:center;gap:10px}#venue-pavilion-3d .lp-look-colors{gap:2px}#venue-pavilion-3d .lp-look-colors i{width:15px;height:20px;border-radius:8px}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:180px}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:600px){#venue-pavilion-3d{padding:12px}#venue-pavilion-3d .lp-heading{display:block;padding:14px 5px 22px;margin-bottom:18px}#venue-pavilion-3d .lp-heading h2{font-size:48px}#venue-pavilion-3d .lp-heading-actions{justify-items:start;margin-top:19px;gap:10px}#venue-pavilion-3d .lp-subtitle{font-size:11px;letter-spacing:.3px}#venue-pavilion-3d #lp-capacity{font-size:13px}#venue-pavilion-3d .lp-stage{height:520px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:1/-1}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-main-nav .btn{flex:1 1 95px}#venue-pavilion-3d #lp-main-nav label{max-width:none;flex-basis:100%}#venue-pavilion-3d .lp-editor{padding:20px 16px}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:135px}#venue-pavilion-3d .form-control,#venue-pavilion-3d .form-select{font-size:16px;height:44px}#venue-pavilion-3d .btn{min-height:44px}#venue-pavilion-3d #lp-resize{min-height:32px}}
 @media(prefers-reduced-motion:reduce){#venue-pavilion-3d .btn,#venue-pavilion-3d .lp-look-card{transition:none}}
+@media(max-width:699px){
+#venue-pavilion-3d .lp-viewer{display:flex;flex-direction:column}
+#venue-pavilion-3d #lp-main-nav{order:0}
+#venue-pavilion-3d #lp-tour-controls{order:1}
+#venue-pavilion-3d #lp-stage{order:2}
+#venue-pavilion-3d #lp-resize{order:3}
+#venue-pavilion-3d #lp-seat-controls{order:4}
+#venue-pavilion-3d #lp-nav-hint{order:5}
+#venue-pavilion-3d .lp-navigation{order:6}
+#venue-pavilion-3d #lp-walk-controls{order:7}
+#venue-pavilion-3d #lp-selection{order:8}
+#venue-pavilion-3d .lp-seat-heading{flex-wrap:wrap}
+}
 </style>
 <script type="application/json" id="lp-initial-state">{"modelContent":{"danceWidth":20,"danceDepth":20,"doorSetback":2,"barSide":"house","dessert":true,"doorGuides":true,"power":true,"disabledTables":[],"targetGuests":100,"benchRows":8,"benchLength":9.5,"deckWidth":28,"deckDepth":34,"aisleDecor":"none","aislePairs":4,"aisleColor":"#eee7d5","tentSide":"right","tentStyle":"frame","tentWidth":20,"tentDepth":20,"lighting":"original","ceilingDecor":"none","schema":"venue-pavilion-v9","layout":"separate","length":8,"width":3,"gap":1.5,"roof":false,"labels":true,"context":true,"walls":"real","measurements":false,"measureScope":"overall","grid":false,"arbor":true,"kitchen":false,"decor":true,"linens":false,"dancePattern":"checker","danceA":"#101010","danceB":"#ffffff","tileSize":2,"houseRise":3.5,"lakeDrop":7.5,"positions":{"separate":{},"joined":{}},"design":{"look":"custom","clothColor":"#c9b09e","clothFinish":"linen","runnerStyle":"lace","runnerColor":"#f4ecd9","runnerWidth":11,"greenery":"lush","greeneryColor":"#57684e","flowerStyle":"mixed","flowerDensity":1,"flowerA":"#eee7d5","flowerB":"#7f9eaf","flowerC":"#602e46","vaseStyle":"cut","vaseCount":5,"vaseHeight":10,"vaseColor":"#ecf0e5","candleStyle":"taper","candleCount":3,"candleHeight":12,"candleColor":"#bd9b56","metalFinish":"gold","chargers":true,"indoorArbor":"timber","outdoorArbor":"timber","indoorArborColor":"#6c4d36","outdoorArborColor":"#6c4d36","indoorArborDecor":"drape","outdoorArborDecor":"greenery","arborFabricColor":"#f1e9d8","sofaStyle":"classic","sofaColor":"#ece6da","sofaFrameColor":"#704b31","sofaLength":6},"rowOffsets":[2,0,2]},"privateContent":{"orbit":{"azimuth":0.4,"polar":0.72,"distance":150,"target":[0,1,0]},"view":"perspective","walk":{"x":13.602396554743555,"y":6.849232191304194,"z":-95.09435646675702,"yaw":28.277757420244395,"pitch":-0.11518749999999969},"tour":{"time":1.7670720000000475,"speed":1},"navigation":{"height":680,"speed":8}}}</script>
 <script>
@@ -322,7 +353,7 @@
     const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'none',napkinColor:'#62314c',glassware:'none',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
-    const COLOR_SWATCHES=[['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
+    const COLOR_SWATCHES=[['Olive','#59632a'],['Cabernet','#642c38'],['Twilight','#4f6875'],['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
     const designFields=[...root.querySelectorAll('[data-design]')];
     let config={...PLAN_DEFAULTS,schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
     const resetDefaults=JSON.parse(JSON.stringify(config));
@@ -330,7 +361,7 @@
     let navigation={height:680,speed:8};
     organizeControls();
     let orbit={azimuth:0.35,polar:0.67,distance:150,target:[0,1,0]}, selected='table-1', activeView='perspective';
-    let walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};
+    let walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0},seat=normalizeSeat({});
     let tour={time:0,speed:1},tourPlaying=false,tourFrame=0,tourLast=0,tourChapter=-1,tourLook={yaw:0,pitch:0};
     const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const initialState=JSON.parse(document.getElementById('lp-initial-state').textContent);
@@ -342,6 +373,7 @@
     if(currentSaved&&existing.privateContent&&existing.privateContent.walk)walk=normalizeWalk(existing.privateContent.walk);
     if(currentSaved&&existing.privateContent&&existing.privateContent.tour)tour=normalizeTour(existing.privateContent.tour);
     if(currentSaved&&existing.privateContent&&existing.privateContent.navigation)navigation={height:n(existing.privateContent.navigation.height,680,360,1200),speed:n(existing.privateContent.navigation.speed,8,4,16)};
+    if(currentSaved&&existing.privateContent&&existing.privateContent.seat)seat=normalizeSeat(existing.privateContent.seat);
     stage.style.height=navigation.height+'px';
     const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
@@ -367,7 +399,7 @@
       stage.after($('lp-resize'));$('lp-resize').after($('lp-nav-hint'));
       $('lp-layout-tools').prepend($('lp-layout').closest('label'));
       const viewer=$('lp-viewer'),editor=$('lp-editor');
-      viewer.append(top,$('lp-tour-controls'),stage,$('lp-resize'),$('lp-nav-hint'));
+      viewer.append(top,$('lp-seat-controls'),$('lp-tour-controls'),stage,$('lp-resize'),$('lp-nav-hint'));
       const navDetails=document.createElement('details');navDetails.className='lp-navigation lp-details';navDetails.open=true;
       const summary=document.createElement('summary');summary.textContent='Camera & navigation';navDetails.append(summary,old,root.querySelector('.lp-camera'));
       viewer.append(navDetails,$('lp-walk-controls'),$('lp-selection'));
@@ -376,7 +408,7 @@
       editor.append($('lp-settings-tabs'));
       for(const name of ['layout','decor','ceremony','view','save'])editor.append($('lp-panel-'+name));
       $('lp-lookbook').append(root.querySelector('[data-design="look"]').closest('label'));
-      const looks=[['ivoryPlum','Ivory & plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
+      const looks=[['florist','Wine, olive & twilight',['#59632a','#642c38','#4f6875']],['vasesOnly','Seven-vase garden',['#f4eddd','#642c38','#59632a']],['ivoryGarden','Ivory & olive',['#f4eddd','#59632a','#dfc9aa']],['twilightGarden','Twilight garden',['#4f6875','#f4eddd','#642c38']],['ivoryPlum','Ivory & plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
       for(const [key,name,swatches]of looks){const b=document.createElement('button');b.type='button';b.className='lp-look-card';b.dataset.look=key;b.setAttribute('aria-pressed','false');const samples=document.createElement('span');samples.className='lp-look-colors';samples.setAttribute('aria-hidden','true');for(const color of swatches){const dot=document.createElement('i');dot.style.background=color;samples.append(dot);}b.append(samples,document.createTextNode(name));b.onclick=()=>applyLook(key);$('lp-look-cards').append(b);}
       $('lp-panel-save').insertAdjacentHTML('afterbegin','<h3>Move, measure & keep your design</h3>');
       $('lp-panel-decor').append($('lp-design-tables'),$('lp-design-arbors'),$('lp-design-sofas'));
@@ -419,6 +451,10 @@
     }
     function applyLook(name){
       const looks={
+        florist:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#dfc9aa',napkinStyle:'gathered',napkinColor:'#642c38',greenery:'light',greeneryColor:'#748477',trailingGreenery:true,flowerStyle:'florist',flowerA:'#f5efdf',flowerB:'#879daf',flowerC:'#642c38',flowerCenter:'#a4a276',arrangement:'bud',vaseStyle:'cut',vaseCount:5,vaseHeight:7,stemsPerVase:2,flowerHeight:16,candleStyle:'enclosedTaper',candleCount:3,candleHeight:10,candleColor:'#f5efdf',metalFinish:'gold',glassware:'clear',indoorArborDecor:'corners',outdoorArborDecor:'corners',sofaColor:'#f4eddd'},
+        vasesOnly:{clothColor:'#f4eddd',runnerStyle:'none',napkinStyle:'folded',napkinColor:'#59632a',greenery:'light',greeneryColor:'#748477',trailingGreenery:true,flowerStyle:'florist',flowerA:'#f5efdf',flowerB:'#879daf',flowerC:'#642c38',arrangement:'bud',vaseStyle:'bottle',vaseCount:7,vaseHeight:7,stemsPerVase:2,flowerHeight:16,candleStyle:'none',candleCount:0,glassware:'clear',indoorArborDecor:'corners',outdoorArborDecor:'corners'},
+        ivoryGarden:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#59632a',napkinStyle:'gathered',napkinColor:'#59632a',greenery:'light',greeneryColor:'#748477',flowerStyle:'sprayroses',flowerA:'#f5efdf',flowerB:'#e9e5d9',flowerC:'#642c38',arrangement:'bud',vaseStyle:'smooth',vaseCount:5,vaseHeight:6,stemsPerVase:3,flowerHeight:15,candleStyle:'votive',candleCount:3,candleColor:'#f5efdf',glassware:'ribbed',glassColor:'#a9b48c',indoorArborDecor:'corners',outdoorArborDecor:'corners'},
+        twilightGarden:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#4f6875',napkinStyle:'folded',napkinColor:'#4f6875',greenery:'light',greeneryColor:'#748477',flowerStyle:'florist',flowerA:'#f5efdf',flowerB:'#879daf',flowerC:'#642c38',arrangement:'bud',vaseStyle:'cut',vaseCount:5,vaseHeight:8,stemsPerVase:3,flowerHeight:18,candleStyle:'enclosedTaper',candleCount:3,candleHeight:10,candleColor:'#f5efdf',glassware:'clear',indoorArborDecor:'corners',outdoorArborDecor:'corners'},
         photo:{},
         ivoryPlum:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#dfc9aa',napkinStyle:'gathered',napkinColor:'#62314c',greenery:'light',greeneryColor:'#566447',flowerStyle:'mixed',flowerA:'#f4eddd',flowerB:'#829db5',flowerC:'#62314c',flowerCenter:'#665249',arrangement:'mixed',vaseStyle:'cut',vaseCount:5,vaseHeight:8,stemsPerVase:3,flowerHeight:19,candleStyle:'taper',candleCount:4,candleColor:'#f4eddd',indoorArborDecor:'drape',outdoorArborDecor:'florals',arborFabricColor:'#dfc9aa',sofaStyle:'classic',sofaColor:'#f4eddd'},
         pistachio:{clothColor:'#f4eddd',runnerStyle:'gauze',runnerColor:'#a9b48c',napkinStyle:'folded',napkinColor:'#a9b48c',greenery:'light',greeneryColor:'#647351',flowerStyle:'roses',flowerA:'#f4eddd',flowerB:'#dfc9aa',flowerC:'#ad829a',flowerCenter:'#c7a76c',arrangement:'bud',vaseStyle:'bottle',vaseCount:5,vaseHeight:7,stemsPerVase:2,flowerHeight:17,candleStyle:'votive',candleCount:5,candleColor:'#f4eddd',indoorArbor:'frame',indoorArborColor:'#c7a76c',indoorArborDecor:'greenery',outdoorArborDecor:'meadow',arborFabricColor:'#f4eddd',sofaStyle:'rattan',sofaColor:'#dfc9aa'},
@@ -441,10 +477,11 @@
     }
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
     function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8};stage.style.height=navigation.height+'px';}
+    function normalizeSeat(s){return {table:s.table==='couple'||/^table-(?:[1-9]|1[0-2])$/.test(s.table)?s.table:'couple',side:Number(s.side)===-1?-1:1,place:Math.round(n(s.place,1,1,4)),look:['across','couple','dance','lake','house'].includes(s.look)?s.look:'across',eye:n(s.eye,3.8,3.2,4.5),yaw:n(s.yaw,0,-100,100),pitch:n(s.pitch,-.04,-1.2,1.2)};}
     function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5)};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
     let lastPublished='';const publishedStates=new Set();
-    function saveState(){if(window.openai&&window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,tour,navigation}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size>32)publishedStates.delete(publishedStates.values().next().value);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=>{});}}
+    function saveState(){if(window.openai&&window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,seat,tour,navigation}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size>32)publishedStates.delete(publishedStates.values().next().value);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=>{});}}
     function color(token){
       const probe=document.createElement('span');probe.style.color='var('+token+')';root.appendChild(probe);const s=getComputedStyle(probe).color;probe.remove();
       const c=document.createElement('canvas');c.width=c.height=1;const ctx=c.getContext('2d');ctx.fillStyle=s;ctx.fillRect(0,0,1,1);const d=ctx.getImageData(0,0,1,1).data;
@@ -732,14 +769,18 @@
       const twigGeometry=new T.BufferGeometry().setFromPoints(twigs.map(p=>new T.Vector3(...p)));g.add(new T.LineSegments(twigGeometry,materials.wire));
       const baseLeafCount=leaves.length,leafGeometry=new T.SphereGeometry(1,7,5);instances(leafGeometry,materials.decorLeaf,leaves);instances(leafGeometry,materials.decorCedar,needles);
       const petals={ivory:[],blue:[],wine:[]},centers=[];
-      const bloom=(x,y,z,r,color,pompom=false)=>{
-        if(d.flowerStyle==='none')return;
-        pompom=pompom&&d.flowerStyle==='mixed';
-        const dahlia=d.flowerStyle==='dahlias',anemone=d.flowerStyle==='anemones',orchid=d.flowerStyle==='orchids',ranunculus=d.flowerStyle==='ranunculus',ruffle=d.flowerStyle==='carnations';
-        if(d.flowerStyle==='anthurium'){for(const sign of [-1,1])petals[color].push({p:[x+sign*r*.20,y,z],s:[r*.48,r*.09,r*.72],r:[.18,sign*.35,sign*.15]});centers.push({p:[x,y+r*.3,z],s:[r*.07,r*.42,r*.07]});return;}
-        const count=pompom?20:ranunculus?30:ruffle?22:dahlia?24:d.flowerStyle==='roses'?15:d.flowerStyle==='wildflower'?8:anemone?7:5;
+      const species=i=>d.flowerStyle==='florist'?['ranunculus','roses','hellebore','sprayroses','astrantia','delphinium'][i%6]:d.flowerStyle;
+      const stemColor=(kind,fallback)=>d.flowerStyle==='florist'?(kind==='delphinium'?'blue':['roses','hellebore','astrantia'].includes(kind)?'wine':'ivory'):fallback;
+      const bloom=(x,y,z,r,color,pompom=false,kind=d.flowerStyle)=>{
+        if(kind==='none')return;
+        if(kind==='florist')kind='ranunculus';
+        if(kind==='astrantia'){for(let j=0;j<12;j++){const a=j*Math.PI/6;petals[color].push({p:[x+Math.cos(a)*r*.50,y,z+Math.sin(a)*r*.50],s:[r*.15,r*.06,r*.55],r:[0,Math.PI/2-a,0]});}centers.push({p:[x,y+r*.12,z],s:[r*.28,r*.20,r*.28]});return;}
+        pompom=pompom&&kind==='mixed';
+        const dahlia=kind==='dahlias',anemone=kind==='anemones',orchid=kind==='orchids',ranunculus=kind==='ranunculus',ruffle=kind==='carnations';
+        if(kind==='anthurium'){for(const sign of [-1,1])petals[color].push({p:[x+sign*r*.20,y,z],s:[r*.48,r*.09,r*.72],r:[.18,sign*.35,sign*.15]});centers.push({p:[x,y+r*.3,z],s:[r*.07,r*.42,r*.07]});return;}
+        const count=kind==='hellebore'?5:pompom?20:ranunculus?30:ruffle?22:dahlia?24:['roses','sprayroses'].includes(kind)?15:kind==='wildflower'?8:anemone?7:5;
         for(let j=0;j<count;j++){
-          const layered=d.flowerStyle==='roses'||dahlia||ranunculus||ruffle,perRing=ranunculus?10:dahlia?8:ruffle?7:5,ring=layered?Math.floor(j/perRing):0;
+          const layered=['roses','sprayroses'].includes(kind)||dahlia||ranunculus||ruffle,perRing=ranunculus?10:dahlia?8:ruffle?7:5,ring=layered?Math.floor(j/perRing):0;
           const a=j/(layered?perRing:count)*Math.PI*2+ring*.5,rr=pompom?r*.42:layered?r*(.18+ring*.22):r*.48,py=pompom?Math.sin(j*2.4)*r*.35:layered?r*(2-ring)*.16:0;
           petals[color].push({p:[x+Math.cos(a)*rr,y+py,z+Math.sin(a)*rr],s:pompom?[r*.38,r*.30,r*.38]:dahlia?[r*.25,r*.20,r*.65]:orchid?[r*(j%2?.72:.4),r*.13,r*(j%2?.8:.6)]:[r*.50,r*.16,r*.72],r:[.12*Math.sin(a),Math.PI/2-a,.18*Math.cos(a)]});
         }
@@ -750,10 +791,10 @@
         const number=(d.flowerStyle==='hydrangea'?20:d.flowerStyle==='wildflower'?7:12)*d.flowerDensity;
         const clusterBase=top+(d.arrangement==='low'?Math.max(.2,d.flowerHeight/12-.32):d.arrangement==='meadow'?.15+rand()*Math.max(.15,d.flowerHeight/12-.65):.25);
         for(let j=0;j<number;j++){
-          const a=rand()*Math.PI*2,r=Math.sqrt(rand())*(d.flowerStyle==='wildflower'?.40:.28),x=cx+Math.cos(a)*r,z=Math.sin(a)*r,y=clusterBase+rand()*(d.flowerStyle==='wildflower'?.40:.18),color=['ivory','blue','wine'][j%5<3?0:j%5===3?1:2];
-          bloom(x,y,z,['roses','dahlias','anemones'].includes(d.flowerStyle)?.15:.10+rand()*.025,color);
+          const a=rand()*Math.PI*2,r=Math.sqrt(rand())*(d.flowerStyle==='wildflower'?.40:.28),x=cx+Math.cos(a)*r,z=Math.sin(a)*r,y=clusterBase+rand()*(d.flowerStyle==='wildflower'?.40:.18),kind=species(j),color=stemColor(kind,['ivory','blue','wine'][j%5<3?0:j%5===3?1:2]);
+          bloom(x,y,z,['roses','dahlias','anemones'].includes(d.flowerStyle)?.15:.10+rand()*.025,color,false,kind);
           if(d.arrangement==='low'||d.arrangement==='meadow')beam(g,[cx,top+.06,0],[x,y,z],.008,materials.decorLeaf);
-          if(d.flowerStyle==='delphinium')for(let k=0;k<4;k++)bloom(x+.035*Math.sin(k*2),y+k*.11,z,.065,color);
+          if(kind==='delphinium')for(let k=0;k<4;k++)bloom(x+.035*Math.sin(k*2),y+k*.11,z,.065,color,false,kind);
         }
         for(let j=0;j<4*d.flowerDensity;j++)bloom(cx-.28+rand()*.5,clusterBase+rand()*.12,-.17+rand()*.35,.115,'wine',true);
       }
@@ -767,22 +808,22 @@
         }
         const geom=new T.BufferGeometry().setFromPoints(etched.map(p=>new T.Vector3(...p)));g.add(new T.LineSegments(geom,materials.vaseEtch));
       };
-      const vaseCount=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&&d.vaseStyle!=='compote'?0:Math.min(d.vaseCount,Math.max(1,Math.floor(length/1.15)));
+      const vaseCount=d.vaseStyle==='none'||d.arrangement==='meadow'||d.arrangement==='low'&&d.vaseStyle!=='compote'?0:Math.min(d.vaseCount,Math.max(1,Math.floor(length/.95)));
       for(let index=0;index<vaseCount;index++){
         const span=d.arrangement==='low'?.46:.72,side=index%2?-1:1,x=vaseCount===1?0:-length*span/2+index*length*span/(vaseCount-1),z=side*.035,vaseHeight=d.vaseHeight/12;
         glassVase(x,z,vaseHeight,index===Math.floor(vaseCount/2)&&vaseCount%2?.20:.115);
         if(d.flowerStyle==='none'||d.arrangement==='low')continue;
         for(let branch=0;branch<d.stemsPerVase;branch++){
-          const offset=branch-(d.stemsPerVase-1)/2,xx=x+offset*.22,zz=z+offset*.1,height=vaseHeight+Math.max(.2,d.flowerHeight/12-vaseHeight)*(branch%2?.92:.65),color=['ivory','blue','wine'][(index+branch)%3];
+          const offset=branch-(d.stemsPerVase-1)/2,xx=x+offset*.22,zz=z+offset*.1,height=vaseHeight+Math.max(.2,d.flowerHeight/12-vaseHeight)*(branch%2?.92:.65),kind=species(index+branch),color=stemColor(kind,['ivory','blue','wine'][(index+branch)%3]);
           beam(g,[x,top+.1,z],[xx,top+height,zz],.009,materials.decorLeaf);
-          const spike=d.flowerStyle==='delphinium';
+          const spike=kind==='delphinium';
           for(let j=0;j<(spike?7:3);j++){
             const u=spike?.50+j*.07:.60+j*.10,px=x+(xx-x)*u+.075*Math.sin(j*3),py=top+height*u;
-            if(spike||d.flowerStyle==='mixed'||d.flowerStyle==='wildflower')bloom(px,py,zz,spike?.065:.075,color);
+            if(spike||['mixed','wildflower','sprayroses'].includes(kind))bloom(px,py,zz,spike?.065:.075,color,false,kind);
             leaves.push({p:[px,py-.10,zz+.04],s:[.055,.012,.13],r:[.5,j,0]});
           }
           if(d.flowerStyle==='hydrangea'){for(let j=0;j<17;j++){const a=rand()*Math.PI*2,r=rand()*.14;bloom(xx+Math.cos(a)*r,top+height+rand()*.10,zz+Math.sin(a)*r,.07,color);}}
-          else bloom(xx,top+height,zz,['roses','dahlias','anemones','orchids'].includes(d.flowerStyle)?.16:.09,color);
+          else bloom(xx,top+height,zz,['roses','dahlias','anemones','orchids','ranunculus','hellebore'].includes(kind)?.16:.10,color,false,kind);
           if(d.flowerStyle==='orchids')for(let j=0;j<3;j++)bloom(xx+.1*(j-1),top+height-.18*j,zz,.14,color);
         }
       }
@@ -1122,6 +1163,7 @@
       }
       if(dressing==='bare')return;
       const framePoint=t=>{
+        if(dressing==='corners')return t<.64?[-width/2+(t/.64-.35)*1.7,height-.45+.38*Math.sin(t*10)]:[width/2-.25+Math.sin(t*12)*.25,.5+(t-.64)/.36*1.8];
         if(dressing==='meadow')return [(t<.5?-1:1)*(width/2-.4)+(t%.5-.25)*1.8,.45+.75*Math.sin((t%.5)*Math.PI*2)];
         if(dressing==='full'){
           if(style==='hoop'){const a=t*Math.PI*2;return [Math.cos(a)*width/2,height/2+Math.sin(a)*height/2];}
@@ -1134,7 +1176,7 @@
       };
       const leaves=[],petals=[],dummy=new T.Object3D();let seed=9011;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
       for(let i=0;i<180;i++){
-        const t=rand();if(!['greenery','full','meadow'].includes(dressing)&&t>.38&&t<.78)continue;const p=framePoint(t);
+        const t=rand();if(!['greenery','full','meadow','corners'].includes(dressing)&&t>.38&&t<.78)continue;const p=framePoint(t);
         leaves.push({x:p[0]+(rand()-.5)*.35,y:p[1]+(rand()-.5)*.38,z:-depth/2-.11+(rand()-.5)*.18,a:rand()*Math.PI*2});
       }
       if(d.trailingGreenery&&dressing!=='meadow')for(const sign of [-1,1]){
@@ -1145,7 +1187,7 @@
       leaves.forEach((p,i)=>{dummy.position.set(p.x,p.y,p.z);dummy.rotation.set(.2,p.a,p.a);dummy.scale.set(...(p.trail?[.035,.065,.035]:[.10,.035,.22]));dummy.updateMatrix();leafMesh.setMatrixAt(i,dummy.matrix);});leafMesh.instanceMatrix.needsUpdate=true;leafMesh.computeBoundingSphere();parent.add(leafMesh);
       if(dressing!=='greenery'&&d.flowerStyle!=='none'){
         for(let i=0;i<(dressing==='full'?90:dressing==='meadow'?65:45);i++){
-          const t=['full','meadow'].includes(dressing)?rand():i<32?rand()*.34:.80+rand()*.2,p=framePoint(t),x=p[0]+(rand()-.5)*.35,y=p[1]+(rand()-.5)*.4,z=-depth/2-.23;
+          const t=['full','meadow','corners'].includes(dressing)?rand():i<32?rand()*.34:.80+rand()*.2,p=framePoint(t),x=p[0]+(rand()-.5)*.35,y=p[1]+(rand()-.5)*.4,z=-depth/2-.23;
           for(let j=0;j<5;j++){const a=j*Math.PI*2/5;petals.push({x:x+Math.cos(a)*.10,y:y+Math.sin(a)*.10,z,a,color:i%3});}
         }
         for(let k=0;k<3;k++){
@@ -1331,16 +1373,16 @@
     }
     function applyAppearance(){
       if(houseExterior)houseExterior.visible=!config.houseCutaway;
-      roof.visible=(config.roof&&activeView!=='plan')||activeView==='tour';context.visible=config.context||activeView==='tour';walls.visible=config.walls!=='hidden';dimensions.visible=config.measurements&&activeView!=='tour';grid.visible=config.grid&&activeView!=='tour';ruler.visible=activeView!=='tour'&&(config.measurements||$('lp-action').value==='measure');
+      roof.visible=(config.roof&&activeView!=='plan')||['tour','seat'].includes(activeView);context.visible=config.context||activeView==='tour';walls.visible=config.walls!=='hidden';dimensions.visible=config.measurements&&activeView!=='tour';grid.visible=config.grid&&activeView!=='tour';ruler.visible=activeView!=='tour'&&(config.measurements||$('lp-action').value==='measure');
       doorLeaves.forEach(o=>o.visible=activeView!=='tour');
-      doorGuides.visible=config.doorGuides&&!['walk','tour'].includes(activeView);powerMarkers.visible=config.power;
+      doorGuides.visible=config.doorGuides&&!['walk','tour','seat'].includes(activeView);powerMarkers.visible=config.power;
       if(config.walls==='ghost')walls.traverse(o=>{if(o.isMesh){o.castShadow=false;if(o.material!==materials.ghost)o.material=materials.ghostFrame;}});
     }
     function selectedObject(){return objects.find(o=>o.userData.id===selected)||objects[0];}
     function fillObjectOptions(){const select=$('lp-object');select.replaceChildren();objects.forEach(o=>{const op=document.createElement('option');op.value=o.userData.id;op.textContent=o.userData.name;select.appendChild(op);});}
     function selectObject(id){
       selected=id;const o=selectedObject();if(!o)return;selected=o.userData.id;$('lp-object').value=selected;$('lp-x').value=(o.position.x+45).toFixed(1);$('lp-z').value=(o.position.z+20).toFixed(1);
-      if(selectionBox){scene.remove(selectionBox);selectionBox.geometry.dispose();selectionBox.material.dispose();}selectionBox=new T.BoxHelper(o,color('--viz-series-1'));selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour'].includes(activeView);scene.add(selectionBox);
+      if(selectionBox){scene.remove(selectionBox);selectionBox.geometry.dispose();selectionBox.material.dispose();}selectionBox=new T.BoxHelper(o,color('--viz-series-1'));selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(activeView);scene.add(selectionBox);
       $('lp-object-size').textContent=objectDimensions(o);selectionText();rebuildRulers();
       $('lp-remove-table').disabled=!/^table-/.test(selected);
     }
@@ -1352,7 +1394,8 @@
     }
     function selectionText(){
       const action=$('lp-action').value,o=selectedObject();
-      if(activeView==='tour')$('lp-selection').textContent='Drag the scene to pause and look around · Resume recenters the camera · Take control here switches to walking · Roof and site are shown during the tour';
+      if(activeView==='seat')$('lp-selection').textContent='Seated perspective · drag to look · W/A/S/D to stand and move · choose another table above';
+      else if(activeView==='tour')$('lp-selection').textContent='Drag the scene to pause and look around · Resume recenters the camera · Take control here switches to walking · Roof and site are shown during the tour';
       else if(activeView==='walk')$('lp-selection').textContent='Camera height '+walk.y.toFixed(2)+' ft · drag to look · W/A/S/D to move · R/F to rise/lower · Esc stops';
       else if(action==='move')$('lp-selection').textContent=o.userData.name+' · drag to move'+(/^table-/.test(o.userData.id)?' · chairs move with the table':'');
       else if(action==='measure')$('lp-selection').textContent=measurementPoints.length===2?'Distance in model: '+measurementPoints[0].distanceTo(measurementPoints[1]).toFixed(2)+' ft · choose another point to start a new measurement.':measurementPoints.length===1?'Choose the second point on the ground.':'Choose two ground points to measure straight-line distance.';
@@ -1373,10 +1416,12 @@
       $('lp-view-height').value=navigation.height;$('lp-walk-speed').value=navigation.speed;
       for(const [id,key]of [['lp-layout','layout'],['lp-length','length'],['lp-width','width'],['lp-gap','gap'],['lp-walls','walls'],['lp-measure-scope','measureScope'],['lp-dance-pattern','dancePattern'],['lp-dance-a','danceA'],['lp-dance-b','danceB'],['lp-tile-size','tileSize'],['lp-house-rise','houseRise'],['lp-lake-drop','lakeDrop']])$(id).value=config[key];
       $('lp-gap').disabled=config.layout==='joined';$('lp-dance-b').disabled=config.dancePattern!=='checker';$('lp-dance-a').disabled=['concrete','wood'].includes(config.dancePattern);$('lp-tile-size').disabled=config.dancePattern!=='checker';for(const [id,key]of [['lp-roof','roof'],['lp-label-toggle','labels'],['lp-context','context'],['lp-measurements','measurements'],['lp-grid','grid'],['lp-arbor','arbor'],['lp-kitchen','kitchen'],['lp-decor','decor'],['lp-linens','linens']])$(id).checked=config[key];
+      syncSeats();
       $('lp-walk-controls').hidden=activeView!=='walk';$('lp-in').hidden=activeView==='walk';$('lp-out').hidden=activeView==='walk';$('lp-eye').value=walk.y.toFixed(2);$('lp-action').disabled=activeView==='walk';
       const guided=activeView==='tour';$('lp-tour-controls').hidden=!guided;$('lp-tour-start').hidden=guided;
-      for(const id of ['lp-left','lp-right','lp-in','lp-out'])$(id).hidden=guided||(activeView==='walk'&&['lp-in','lp-out'].includes(id));
-      $('lp-action').disabled=guided||activeView==='walk';$('lp-roof').disabled=guided;$('lp-context').disabled=guided;
+      for(const id of ['lp-left','lp-right','lp-in','lp-out'])$(id).hidden=guided||(['walk','seat'].includes(activeView)&&['lp-in','lp-out'].includes(id));
+      $('lp-action').disabled=guided||['walk','seat'].includes(activeView);$('lp-roof').disabled=guided||activeView==='seat';$('lp-context').disabled=guided;
+      if(activeView==='seat')$('lp-roof').checked=true;
       if(guided){$('lp-roof').checked=true;$('lp-context').checked=true;}syncTourControls();
       if(activeView==='plan'){$('lp-roof').checked=false;$('lp-roof').disabled=true;}
       for(const el of designFields){const value=config.design[el.dataset.design];if(el.type==='checkbox')el.checked=value;else el.value=value;}
@@ -1515,7 +1560,31 @@
     function jumpTour(index){
       pauseTour(false);const stops=tourTimeline().filter(f=>f.name);index=Math.max(0,Math.min(stops.length-1,index));tour.time=stops[index].at;tourLook={yaw:0,pitch:0};syncTourControls();draw();saveState();
     }
+    function syncSeats(){
+      const tables=objects.filter(o=>o.userData.id==='couple'||/^table-/.test(o.userData.id));
+      if(!tables.some(o=>o.userData.id===seat.table))seat.table='couple';
+      const list=$('lp-seat-table');list.replaceChildren();for(const o of tables){const option=document.createElement('option');option.value=o.userData.id;option.textContent=o.userData.name;list.append(option);}list.value=seat.table;
+      const couple=seat.table==='couple',count=couple?2:4;seat.place=Math.min(count,seat.place);if(couple)seat.side=1;
+      $('lp-seat-place').replaceChildren();for(let i=1;i<=count;i++){const option=document.createElement('option');option.value=String(i);option.textContent=couple?'Couple seat '+i:'Seat '+i;$('lp-seat-place').append(option);}
+      $('lp-seat-place').value=seat.place;$('lp-seat-side').value=seat.side;$('lp-seat-side').disabled=couple;$('lp-seat-look').value=seat.look;$('lp-seat-eye').value=seat.eye;
+      $('lp-seat-controls').hidden=activeView!=='seat';$('lp-sit').setAttribute('aria-pressed',String(activeView==='seat'));
+      const option=$('lp-seat-look').querySelector('[value="couple"]');option.disabled=couple;
+      if(couple&&seat.look==='couple'){seat.look='across';$('lp-seat-look').value='across';}
+      $('lp-seat-status').textContent=(couple?'Couple’s table':tables.find(o=>o.userData.id===seat.table).userData.name+' · side '+(seat.side===1?'A':'B'))+' · seat '+seat.place+' · '+seat.eye.toFixed(1)+' ft eye height (estimated). Drag to look around; W/A/S/D leaves your seat. Views follow moved and rotated tables.';
+    }
+    function seatedPose(){
+      const o=objects.find(o=>o.userData.id===seat.table)||objects.find(o=>o.userData.id==='couple'),couple=o.userData.id==='couple';
+      const local=new T.Vector3(couple?[-1.2,1.2][Math.min(1,seat.place-1)]:-config.length/2+(seat.place-.5)*config.length/4,seat.eye,couple?2.25:seat.side*(config.width/2+1));
+      o.updateWorldMatrix(true,false);const p=o.localToWorld(local),direction=new T.Vector3(0,0,couple?-1:-seat.side).applyQuaternion(o.quaternion);
+      let yaw=Math.atan2(direction.x,-direction.z);const focus=seat.look==='couple'?objects.find(o=>o.userData.id==='couple'):seat.look==='dance'?objects.find(o=>o.userData.id==='dance'):null;
+      const point=focus?focus.position:seat.look==='lake'?new T.Vector3(0,0,20):seat.look==='house'?new T.Vector3(0,0,-20):null;
+      if(point&&point.distanceTo(p)>2)yaw=Math.atan2(point.x-p.x,p.z-point.z);
+      return {p,yaw:yaw+seat.yaw,pitch:seat.pitch};
+    }
     function cameraPosition(){
+      if(activeView==='seat'){
+        const pose=seatedPose(),cp=Math.cos(pose.pitch);walkCamera.position.copy(pose.p);walkCamera.lookAt(pose.p.x+Math.sin(pose.yaw)*cp,pose.p.y+Math.sin(pose.pitch),pose.p.z-Math.cos(pose.yaw)*cp);walkCamera.updateMatrixWorld();return;
+      }
       if(activeView==='tour'){
         const pose=tourPose();walkCamera.position.copy(pose.p);walkCamera.quaternion.copy(pose.q);
         walkCamera.rotateY(tourLook.yaw);walkCamera.rotateX(tourLook.pitch);walkCamera.updateMatrixWorld();return;
@@ -1535,9 +1604,9 @@
       [...labels].sort((a,b)=>priority(a)-priority(b)).forEach(l=>{
         let pos=l.pos.clone();if(l.owner)pos.set(l.owner.position.x,l.pos.y,l.owner.position.z);pos.project(camera);
         const x=(pos.x+1)*rect.width/2,y=(-pos.y+1)*rect.height/2,isMeasure=l.kind==='dimension'||l.kind==='ruler'||l.kind==='height';
-        let enabled=activeView!=='tour'&&(isMeasure?((config.measurements||(l.kind==='ruler'&&$('lp-action').value==='measure'))&&(l.kind!=='height'||activeView!=='plan')):(config.labels&&activeView!=='walk'&&activeView!=='table'&&(activeView!=='site'||['context','site'].includes(l.kind))&&(l.kind!=='site'||activeView==='site')));
-        if(l.kind==='power')enabled=config.power&&!['walk','tour','table'].includes(activeView);
-        if(l.kind==='door')enabled=config.doorGuides&&!['walk','tour','table','site'].includes(activeView);
+        let enabled=activeView!=='tour'&&(isMeasure?((config.measurements||(l.kind==='ruler'&&$('lp-action').value==='measure'))&&(l.kind!=='height'||activeView!=='plan')):(config.labels&&!['walk','seat','table'].includes(activeView)&&(activeView!=='site'||['context','site'].includes(l.kind))&&(l.kind!=='site'||activeView==='site')));
+        if(l.kind==='power')enabled=config.power&&!['walk','tour','seat','table'].includes(activeView);
+        if(l.kind==='door')enabled=config.doorGuides&&!['walk','tour','seat','table','site'].includes(activeView);
         const visible=enabled&&(l.kind!=='context'||config.context)&&pos.z>-1&&pos.z<1&&x>20&&x<rect.width-20&&y>15&&y<rect.height-15;
         l.el.style.display=visible?'block':'none';if(!visible)return;
         const w=l.el.offsetWidth,h=l.el.offsetHeight,xx=Math.max(w/2+5,Math.min(rect.width-w/2-5,x));let chosen=null;
@@ -1569,7 +1638,7 @@
       };
       if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
-      else if(name!=='tour')orbit=presets[name]||presets.perspective;
+      else if(!['tour','seat'].includes(name))orbit=presets[name]||presets.perspective;
       if(name==='measure'){config.measurements=true;config.measureScope='sections';config.walls='hidden';config.roof=false;rebuild();}
       if(name==='kitchen'){config.kitchen=true;config.context=true;rebuild();}
       if(name==='table'){
@@ -1578,10 +1647,11 @@
         config.decor=true;config.measurements=false;config.roof=false;roof.visible=false;
         rebuild();
       }
-      applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour'].includes(name);selectionText();draw();if(remember)saveState();
+      applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','measure','walk','tour','ceremony','residence','houseInterior','houseLower','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;
     }
@@ -1600,18 +1670,19 @@
       if(activeView==='tour'){pauseTour();gesture={x:e.clientX,y:e.clientY};return;}
       (activeView==='walk'?$('lp-walk-inside'):$('lp-orbit-mode')).focus({preventScroll:true});
       if(pointers.size===2){const a=[...pointers.values()];pinchDistance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);gesture=null;return;}
-      if(activeView!=='walk'&&$('lp-action').value==='measure'){
+      if(!['walk','seat'].includes(activeView)&&$('lp-action').value==='measure'){
         const p=pointOnFloor(e);if(p){if(measurementPoints.length===2)measurementPoints=[];measurementPoints.push(p);rebuildRulers();selectionText();if(measurementPoints.length===2)$('lp-selection').textContent='Distance in model: '+measurementPoints[0].distanceTo(measurementPoints[1]).toFixed(2)+' ft · choose another point to start a new measurement.';}draw();gesture=null;return;
       }
-      const object=activeView!=='walk'&&$('lp-action').value==='move'?hitObject(e):null,p=pointOnFloor(e);if(object)selectObject(object.userData.id);
+      const object=!['walk','seat'].includes(activeView)&&$('lp-action').value==='move'?hitObject(e):null,p=pointOnFloor(e);if(object)selectObject(object.userData.id);
       gesture={x:e.clientX,y:e.clientY,object,p,origin:object?object.position.clone():null,pan:e.button===2||e.shiftKey};draw();
     });
     canvas.addEventListener('pointermove',e=>{
       if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
       if(activeView==='tour'){if(gesture){tourLook.yaw-=(e.clientX-gesture.x)*.005;tourLook.pitch=n(tourLook.pitch-(e.clientY-gesture.y)*.004,0,-1.2,1.2);gesture.x=e.clientX;gesture.y=e.clientY;draw();}return;}
-      if(pointers.size===2){const a=[...pointers.values()],d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(activeView!=='walk'&&pinchDistance>0&&d>0)orbit.distance=n(orbit.distance*pinchDistance/d,150,8,520);pinchDistance=d;draw();return;}
+      if(pointers.size===2){const a=[...pointers.values()],d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(!['walk','seat'].includes(activeView)&&pinchDistance>0&&d>0)orbit.distance=n(orbit.distance*pinchDistance/d,150,8,520);pinchDistance=d;draw();return;}
       if(!gesture)return;const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
-      if(activeView==='walk'){walk.yaw+=dx*.005;walk.pitch=n(walk.pitch-dy*.004,0,-1.2,1.2);gesture.x=e.clientX;gesture.y=e.clientY;}
+      if(activeView==='seat'){seat.yaw+=dx*.005;seat.pitch=n(seat.pitch-dy*.004,0,-1.2,1.2);gesture.x=e.clientX;gesture.y=e.clientY;}
+      else if(activeView==='walk'){walk.yaw+=dx*.005;walk.pitch=n(walk.pitch-dy*.004,0,-1.2,1.2);gesture.x=e.clientX;gesture.y=e.clientY;}
       else if(gesture.object&&gesture.p){const p=pointOnFloor(e);if(p){gesture.object.position.x=n(Math.round((gesture.origin.x+p.x-gesture.p.x)*2)/2,0,-44,44);gesture.object.position.z=n(Math.round((gesture.origin.z+p.z-gesture.p.z)*2)/2,0,-19,19);persistObject(gesture.object);}}
       else if(gesture.pan){const scale=orbit.distance*.0009;orbit.target[0]-=dx*Math.cos(orbit.azimuth)*scale;orbit.target[2]+=dx*Math.sin(orbit.azimuth)*scale;orbit.target[0]-=dy*Math.sin(orbit.azimuth)*scale;orbit.target[2]-=dy*Math.cos(orbit.azimuth)*scale;gesture.x=e.clientX;gesture.y=e.clientY;}
       else{orbit.azimuth-=dx*.007;orbit.polar=n(orbit.polar+dy*.007,.68,.015,1.75);gesture.x=e.clientX;gesture.y=e.clientY;}
@@ -1619,7 +1690,7 @@
     });
     function endPointer(e){pointers.delete(e.pointerId);if(pointers.size===0){gesture=null;pinchDistance=0;canvas.classList.remove('lp-dragging');saveState();}}
     canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('lostpointercapture',endPointer);
-    let wheelSave;canvas.addEventListener('wheel',e=>{if(activeView==='tour')return;e.preventDefault();if(activeView==='walk')moveWalker(-e.deltaY*.018,0,0);else orbit.distance=n(orbit.distance*Math.exp(e.deltaY*.001),150,8,520);draw();clearTimeout(wheelSave);wheelSave=setTimeout(saveState,250);},{passive:false});
+    let wheelSave;canvas.addEventListener('wheel',e=>{if(['tour','seat'].includes(activeView))return;e.preventDefault();if(activeView==='walk')moveWalker(-e.deltaY*.018,0,0);else orbit.distance=n(orbit.distance*Math.exp(e.deltaY*.001),150,8,520);draw();clearTimeout(wheelSave);wheelSave=setTimeout(saveState,250);},{passive:false});
     function moveWalker(forward,side,turn){
       walk.yaw+=turn;walk.x=n(walk.x+Math.sin(walk.yaw)*forward+Math.cos(walk.yaw)*side,0,-110,110);walk.z=n(walk.z-Math.cos(walk.yaw)*forward+Math.sin(walk.yaw)*side,-16,-145,220);
     }
@@ -1665,7 +1736,7 @@
     $('lp-eye').onchange=e=>{walk.y=n(e.target.value,5.5,3,200);selectionText();draw();saveState();};
     $('lp-walk-speed').onchange=e=>{navigation.speed=Number(e.target.value);saveState();};
     $('lp-walk-inside').onclick=()=>{view('walk',false);walk={x:1.7,y:5.5,z:-13,yaw:Math.PI,pitch:0};draw();syncControls();saveState();$('lp-walk-inside').focus({preventScroll:true});};
-    $('lp-orbit-mode').onclick=()=>{if(['walk','tour'].includes(activeView)){cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3()),center=p.clone().addScaledVector(direction,18);view('perspective',false);orbit={azimuth:Math.atan2(-direction.x,-direction.z),polar:Math.acos(n(-direction.y,0,-1,1)),distance:18,target:center.toArray()};draw();saveState();}else $('lp-orbit-mode').focus({preventScroll:true});};
+    $('lp-orbit-mode').onclick=()=>{if(['walk','tour','seat'].includes(activeView)){cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3()),center=p.clone().addScaledVector(direction,18);view('perspective',false);orbit={azimuth:Math.atan2(-direction.x,-direction.z),polar:Math.acos(n(-direction.y,0,-1,1)),distance:18,target:center.toArray()};draw();saveState();}else $('lp-orbit-mode').focus({preventScroll:true});};
     $('lp-stop-motion').onclick=()=>{stopWalking();pauseTour();saveState();};
     const resizeHandle=$('lp-resize');let resizing=null;
     const setHeight=value=>{navigation.height=Math.round(n(value,680,360,1200));stage.style.height=navigation.height+'px';config.rowOffsets.forEach((v,i)=>$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
@@ -1683,14 +1754,20 @@
     $('lp-fit-guests').onclick=()=>{const needed=Math.min(12,Math.ceil(config.targetGuests/8)),order=[8,4,12,7,3,11,6,2,10,5,1,9];config.disabledTables=order.slice(0,12-needed).map(i=>'table-'+i);rebuild();saveState();};
     $('lp-remove-table').onclick=()=>{if(/^table-/.test(selected)&&!config.disabledTables.includes(selected)){config.disabledTables.push(selected);rebuild();saveState();}};
     $('lp-layout').addEventListener('change',e=>{config.layout=e.target.value;rebuild();saveState();});
+    $('lp-sit').onclick=()=>{view('seat');$('lp-seat-table').focus({preventScroll:true});};
+    for(const [id,key]of [['lp-seat-table','table'],['lp-seat-side','side'],['lp-seat-place','place'],['lp-seat-look','look'],['lp-seat-eye','eye']])$(id).onchange=e=>{seat=normalizeSeat({...seat,[key]:e.target.value,yaw:0,pitch:-.04});syncSeats();draw();saveState();};
+    for(const [id,delta]of [['lp-seat-prev',-1],['lp-seat-next',1]])$(id).onclick=()=>{const options=[...$('lp-seat-table').options],index=options.findIndex(o=>o.value===seat.table);seat.table=options[(index+delta+options.length)%options.length].value;seat.yaw=0;seat.pitch=-.04;syncSeats();draw();saveState();};
+    $('lp-seat-recenter').onclick=()=>{seat.yaw=0;seat.pitch=-.04;draw();saveState();};
+    $('lp-seat-show').onclick=()=>stage.scrollIntoView({block:'start',behavior:reducedMotion?'auto':'smooth'});
+    $('lp-seat-stand').onclick=()=>{takeManualControl();walk.y=5.5;draw();syncControls();saveState();$('lp-walk-inside').focus({preventScroll:true});};
     $('lp-view').addEventListener('change',e=>{view(e.target.value);(activeView==='walk'?$('lp-walk-inside'):$('lp-orbit-mode')).focus({preventScroll:true});});
     for(let row=0;row<3;row++)$('lp-row-'+(row+1)).onchange=e=>{config.rowOffsets[row]=n(e.target.value,0,-3,6);for(const mode of ['separate','joined'])for(let col=1;col<=4;col++)delete config.positions[mode]['table-'+(row*4+col)];rebuild();saveState();};
     $('lp-house-cutaway').onchange=e=>{config.houseCutaway=e.target.checked;applyAppearance();draw();saveState();};
     for(const [id,key]of [['lp-dessert-style','dessertStyle'],['lp-cupcake-count','cupcakeCount']])$(id).onchange=e=>{config[key]=e.target.value;Object.assign(config,normalizePlan(config));refreshDecor();saveState();};
-    $('lp-reset-camera').onclick=()=>{stopWalking();pauseTour(false);orbit={azimuth:.35,polar:.67,distance:150,target:[0,1,0]};walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};tour={time:0,speed:1};view('perspective');};
+    $('lp-reset-camera').onclick=()=>{stopWalking();pauseTour(false);orbit={azimuth:.35,polar:.67,distance:150,target:[0,1,0]};walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};seat=normalizeSeat({});tour={time:0,speed:1};view('perspective');};
     $('lp-reset-open').onclick=()=>{$('lp-reset-prompt').hidden=false;};$('lp-reset-cancel').onclick=()=>{$('lp-reset-prompt').hidden=true;};
-    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
-    $('lp-undo-reset').onclick=()=>{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};
+    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
+    $('lp-undo-reset').onclick=()=>{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);seat=normalizeSeat(resetUndo.seat||{});tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};
     // Capture the new value before a pending refresh can synchronize the form.
     // In particular, rapid edits of the same numeric field must not be clobbered.
     for(const el of designFields)el.addEventListener('input',()=>{clearTimeout(rebuildTimer);const key=el.dataset.design;if(key==='look')return;config.design[key]=el.type==='checkbox'?el.checked:el.value;config.design=normalizeDesign(config.design);config.design.look='custom';});
@@ -1714,7 +1791,7 @@
     for(const [id,key]of [['lp-arbor','arbor'],['lp-kitchen','kitchen'],['lp-decor','decor'],['lp-linens','linens']])$(id).addEventListener('change',e=>{config[key]=e.target.checked;rebuild();saveState();});
     $('lp-walls').addEventListener('change',e=>{config.walls=e.target.value;rebuild();saveState();});
     $('lp-action').addEventListener('change',()=>{selectObject(selected);selectionText();rebuildRulers();draw();});
-    $('lp-left').onclick=()=>{if(activeView==='walk')walk.yaw-=.22;else orbit.azimuth-=.22;draw();saveState();};$('lp-right').onclick=()=>{if(activeView==='walk')walk.yaw+=.22;else orbit.azimuth+=.22;draw();saveState();};
+    $('lp-left').onclick=()=>{if(activeView==='seat')seat.yaw-=.22;else if(activeView==='walk')walk.yaw-=.22;else orbit.azimuth-=.22;draw();saveState();};$('lp-right').onclick=()=>{if(activeView==='seat')seat.yaw+=.22;else if(activeView==='walk')walk.yaw+=.22;else orbit.azimuth+=.22;draw();saveState();};
     $('lp-in').onclick=()=>{if(activeView==='walk')moveWalker(2,0,0);else orbit.distance=n(orbit.distance*.83,150,8,520);draw();saveState();};$('lp-out').onclick=()=>{if(activeView==='walk')moveWalker(-2,0,0);else orbit.distance=n(orbit.distance*1.2,150,8,520);draw();saveState();};
     for(const [id,key]of [['lp-roof','roof'],['lp-label-toggle','labels'],['lp-context','context'],['lp-measurements','measurements'],['lp-grid','grid']])$(id).addEventListener('change',e=>{config[key]=e.target.checked;applyAppearance();rebuildRulers();draw();saveState();});
     for(const [id,key,lo,hi]of [['lp-length','length',4,10],['lp-width','width',2,5],['lp-gap','gap',0,5]])$(id).addEventListener('change',e=>{config[key]=n(e.target.value,config[key],lo,hi);rebuild();saveState();});
@@ -1723,11 +1800,11 @@
     for(const [id,key,offset,limit]of [['lp-x','x',45,90],['lp-z','z',20,40]])$(id).addEventListener('change',e=>{const o=selectedObject();o.position[key]=n(e.target.value,offset,0,limit)-offset;persistObject(o);draw();saveState();});
     $('lp-turn').onclick=()=>{const o=selectedObject();o.rotation.y+=Math.PI/2;persistObject(o);draw();saveState();};
     $('lp-save').onclick=()=>{
-      const text=JSON.stringify({schema:config.schema,model:config,camera:orbit,walk,tour,navigation,view:activeView},null,2);$('lp-json-wrap').hidden=false;$('lp-layout-json').value=text;
+      const text=JSON.stringify({schema:config.schema,model:config,camera:orbit,walk,seat,tour,navigation,view:activeView},null,2);$('lp-json-wrap').hidden=false;$('lp-layout-json').value=text;
       const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='venue-pavilion-layout.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);$('lp-selection').textContent='Layout JSON is available below to select and copy.';saveState();
     };
     $('lp-load').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{
-      try{const raw=JSON.parse(reader.result);if(!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
+      try{const raw=JSON.parse(reader.result);if(!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);seat=normalizeSeat(raw.seat||{});tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
     };reader.readAsText(file);e.target.value='';});
     window.addEventListener('openai:set_globals',e=>{
       const state=e.detail&&e.detail.globals&&e.detail.globals.widgetState;
@@ -1736,7 +1813,7 @@
       stopWalking();pauseTour(false);config=normalize(state.modelContent);
       if(/^(?:venue|lakeside)-pavilion-v[689]$/.test(state.modelContent.schema)){
         if(state.privateContent&&state.privateContent.orbit)orbit=normalizeOrbit(state.privateContent.orbit);
-        if(state.privateContent&&state.privateContent.walk)walk=normalizeWalk(state.privateContent.walk);
+        if(state.privateContent&&state.privateContent.walk)walk=normalizeWalk(state.privateContent.walk);seat=normalizeSeat(state.privateContent&&state.privateContent.seat||{});
         tour=normalizeTour(state.privateContent&&state.privateContent.tour||{});
         if(state.privateContent&&state.privateContent.navigation)restoreNavigation(state.privateContent.navigation);
         restoreProjection(state.privateContent&&state.privateContent.view);rebuild();

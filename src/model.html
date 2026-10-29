@@ -50,6 +50,7 @@
     <canvas id="lp-canvas" role="img" aria-label="Interactive three-dimensional model of the wedding pavilion. The house sits uphill from the level pavilion, with the lake downhill. Central doors connect the house terrace to the ceremony route. Dining occupies the left half of the floor plan; the checkerboard dance floor and entertainment occupy the right. Walkthrough, measurements and furniture controls are available."></canvas>
     <div class="lp-labels" id="lp-labels" aria-hidden="true"></div>
     <div class="lp-loading" id="lp-loading" role="status">Preparing pavilion…</div>
+    <div class="lp-recovery" id="lp-recovery" role="alert" hidden><strong>The graphics preview paused.</strong><p>Your saved design is safe. Restore with a lighter preview.</p><button class="btn" id="lp-restore-render" type="button">Restore preview</button></div>
   </div>
   <div class="viz-controls lp-camera">
     <button class="btn" type="button" id="lp-left" aria-label="Rotate view left">Rotate left</button>
@@ -72,10 +73,10 @@
   <div class="text-small lp-selection" id="lp-selection" aria-live="polite">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan</div>
   <div class="nav nav-pills viz-row" role="tablist" aria-label="Venue planning controls" id="lp-settings-tabs">
     <button class="nav-link active" role="tab" id="lp-tab-layout" aria-controls="lp-panel-layout" aria-selected="true" type="button">Layout</button>
-    <button class="nav-link" role="tab" id="lp-tab-decor" aria-controls="lp-panel-decor" aria-selected="false" type="button">Decor & furniture</button>
+    <button class="nav-link" role="tab" id="lp-tab-decor" aria-controls="lp-panel-decor" aria-selected="false" type="button">Looks & decor</button>
     <button class="nav-link" role="tab" id="lp-tab-ceremony" aria-controls="lp-panel-ceremony" aria-selected="false" type="button">Ceremony & tents</button>
     <button class="nav-link" role="tab" id="lp-tab-view" aria-controls="lp-panel-view" aria-selected="false" type="button">View & lighting</button>
-    <button class="nav-link" role="tab" id="lp-tab-rentals" aria-controls="lp-panel-rentals" aria-selected="false" type="button">Rental catalogs</button>
+    <button class="nav-link" role="tab" id="lp-tab-rentals" aria-controls="lp-panel-rentals" aria-selected="false" type="button">Table settings & rentals</button>
     <button class="nav-link" role="tab" id="lp-tab-save" aria-controls="lp-panel-save" aria-selected="false" type="button">Move, measure & save</button>
   </div>
   <div role="tabpanel" id="lp-panel-layout" aria-labelledby="lp-tab-layout">
@@ -94,9 +95,14 @@
   </div>
   <div role="tabpanel" id="lp-panel-decor" aria-labelledby="lp-tab-decor" hidden></div>
   <section role="tabpanel" id="lp-panel-rentals" aria-labelledby="lp-tab-rentals" hidden>
-    <span class="lp-eyebrow">FROM CATALOG TO CELEBRATION</span><h3>Explore the rentals</h3>
+    <span class="lp-eyebrow">BUILD YOUR PLACE SETTING</span><h3>Dress the table</h3>
+    <p class="text-small">Pick a piece below, choose a supplier, then apply an item to see it on every dining table. Each part can come from a different company.</p>
+    <div id="lp-rental-components" class="lp-component-grid" role="group" aria-label="Choose a rental component"></div>
+    <div class="lp-table-tools"><button class="btn btn-primary" id="lp-table-closeup" type="button">See table close-up</button><button class="btn" id="lp-table-overview" type="button">See pavilion</button><button class="btn" id="lp-place-setting" type="button">Show complete place settings</button></div>
+    <p class="text-small" id="lp-table-setting-status" role="status"></p>
+    <div id="lp-rental-custom"></div>
     <p class="text-small" id="lp-rental-coverage"></p>
-    <p class="text-small">Keep your custom designs, or try a supplier’s product. Previews use simplified shapes and approximate colors; source photos and fabric samples are the reference. Prices are published unit prices, not an event quote. Availability, taxes, delivery, labor and setup need vendor confirmation.</p>
+    <p class="text-small" id="lp-rental-notes">Keep your custom designs, or try a supplier’s product. Previews use simplified shapes and approximate colors; source photos and fabric samples are the reference. Prices are published unit prices, not an event quote. Availability, taxes, delivery, labor and setup need vendor confirmation.</p>
     <div id="lp-rental-vendors" class="lp-rental-vendors"></div>
     <div class="viz-controls">
       <label class="form-label">Rental company<select class="form-select" id="lp-rental-vendor"><option value="all">Both companies</option><option value="classic">Classic Party Rentals</option><option value="party">Party Perfect</option></select></label>
@@ -113,7 +119,7 @@
   </section>
   <div role="tabpanel" id="lp-panel-ceremony" aria-labelledby="lp-tab-ceremony" hidden>
     <div class="viz-controls">
-      <label class="form-label">Bench rows per side<input class="form-control" id="lp-bench-rows" type="number" min="0" max="10" step="1" value="8"></label>
+      <label class="form-label">Flower stands<select class="form-select" id="lp-flower-stands"><option value="none">None</option><option value="pedestal">White ceremony pedestals</option><option value="plinth">Modern square plinths</option><option value="urn">Garden urns</option></select></label><label class="form-label">Stand placement<select class="form-select" id="lp-stand-position"><option value="entry">Aisle entrance</option><option value="arbor">Beside the arbor</option><option value="both">Entrance and arbor</option></select></label><label class="form-label">Bench rows per side<input class="form-control" id="lp-bench-rows" type="number" min="0" max="10" step="1" value="8"></label>
       <label class="form-label">Bench length (ft, est.)<input class="form-control" id="lp-bench-length" type="number" min="6" max="13" step="0.5" value="11"></label>
       <label class="form-label">Ceremony deck width (ft, est.)<input class="form-control" id="lp-deck-width" type="number" min="24" max="42" step="1" value="32"></label>
       <label class="form-label">Ceremony deck depth (ft, est.)<input class="form-control" id="lp-deck-depth" type="number" min="24" max="48" step="1" value="38"></label>
@@ -132,7 +138,7 @@
     <div class="viz-controls" id="lp-display-tools"><label class="form-check"><input class="form-check-input" id="lp-house-cutaway" type="checkbox"><span class="form-check-label">House cutaway · show interior</span></label>
       <label class="form-label">Ceiling lighting<select class="form-select" id="lp-lighting"><option value="original">Photo reference: cafe lights + rings</option><option value="strings">Cafe strands only</option><option value="canopy">Dense canopy of lights</option><option value="lanterns">Paper lanterns</option><option value="none">No decorative lights</option></select></label>
       <label class="form-label">Overhead dressing<select class="form-select" id="lp-ceiling-decor"><option value="none">None</option><option value="greenery">Hanging greenery</option><option value="fabric">Soft fabric swags</option></select></label>
-      <label class="form-label">View height (px)<input class="form-control" id="lp-view-height" type="number" min="360" max="1200" step="40" value="680"></label>
+      <label class="form-label">Graphics quality<select class="form-select" id="lp-quality"><option value="auto">Automatic · lighter on phones</option><option value="mobile">Light · phone / battery saver</option><option value="high">Detailed · desktop</option></select></label><label class="form-label">View height (px)<input class="form-control" id="lp-view-height" type="number" min="360" max="1200" step="40" value="680"></label>
     </div>
   </div>
   <div role="tabpanel" id="lp-panel-save" aria-labelledby="lp-tab-save" hidden></div>
@@ -200,7 +206,7 @@
     <div class="text-small">Styling applies to all guest tables and the couple’s table in both layouts.</div>
   </details>
   <details class="lp-details" id="lp-design-arbors">
-    <summary class="cursor-interaction">Arbor designs</summary>
+    <summary class="cursor-interaction">Arbors & backdrops</summary><label class="form-label">Couple’s backdrop<select class="form-select" data-design="coupleBackdrop"><option value="arbor">Selected arbor</option><option value="hedge">Greenery wall with warm light</option><option value="none">No backdrop</option></select></label>
     <div class="viz-controls">
       <label class="form-label">Couple’s arbor<select class="form-select" data-design="indoorArbor"><option value="timber">Timber pergola</option><option value="frame">Simple rectangle</option><option value="triangle">Triangle</option><option value="hoop">Round hoop</option><option value="hexagon">Hexagon</option><option value="none">None</option></select></label>
       <label class="form-label">Couple’s arbor color<input class="form-control form-control-color" type="color" data-design="indoorArborColor"></label>
@@ -256,7 +262,36 @@
   </details>
   <div class="text-small lp-assumptions">House interior furnishings and ceremony dimensions are photo-based approximations. 90 × 40 ft pavilion · Dining left, entertainment right in floor plan · House uphill, lake downhill. Site elevations, distances and unmeasured dimensions are photo-based estimates.</div>
 </div>
-<style id="lp-fonts">/* Bundled studio fonts */</style>
+<style id="lp-fonts">/* Bundled studio fonts */
+/* Design studio: preview first, component selection next, advanced fields last. */
+#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) minmax(350px,420px);gap:18px}
+#venue-pavilion-3d .lp-editor{padding:0 18px 24px;max-height:1100px;border-radius:12px}
+#venue-pavilion-3d .lp-viewer{border-radius:12px}
+#venue-pavilion-3d #lp-settings-tabs{position:sticky;top:0;z-index:3;grid-template-columns:repeat(3,minmax(0,1fr));padding-top:8px;background:#fff;gap:4px;border-top:0}
+#venue-pavilion-3d #lp-settings-tabs button{border-radius:7px;font-size:12px;padding:11px 5px}
+#venue-pavilion-3d .lp-view-shortcuts{display:flex;gap:7px;padding:10px 14px;background:#fff}
+#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0}
+#venue-pavilion-3d .lp-component-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
+#venue-pavilion-3d .lp-component-grid button small{display:none}
+#venue-pavilion-3d .lp-component-grid button[aria-pressed=true]{background:#435a44;color:white;border-color:#435a44}
+#venue-pavilion-3d .lp-table-tools{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:100px;background:#fff;padding:9px 0;z-index:2}
+#venue-pavilion-3d .lp-rental-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#venue-pavilion-3d .lp-rental-card{padding:11px;border-radius:10px;overflow:hidden}
+#venue-pavilion-3d .lp-rental-card h4{font:500 13px/1.4 'Studio Raleway',Arial,sans-serif;margin:8px 0}
+#venue-pavilion-3d .lp-rental-card .text-small{font-size:10px;line-height:1.5}
+#venue-pavilion-3d .lp-rental-card svg{width:100%;height:90px;background:#f5f3ee;border-radius:7px}
+#venue-pavilion-3d .lp-rental-actions{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+#venue-pavilion-3d .lp-rental-actions .btn{font-size:11px;min-height:42px;border-radius:6px}
+#venue-pavilion-3d .lp-photo-look{border:1px solid #dce2d5;border-radius:10px;padding:15px;margin:12px 0;background:#fafbf7}
+#venue-pavilion-3d .lp-photo-look h4{margin:4px 0 8px;font:22px Georgia,serif;color:#435a44}
+#venue-pavilion-3d .lp-photo-look .viz-row{gap:6px;flex-wrap:wrap}
+#venue-pavilion-3d .lp-recovery{position:absolute;inset:15% 8%;background:#fffffff5;border:1px solid #879974;padding:24px;z-index:10;border-radius:12px}
+#venue-pavilion-3d #lp-rental-custom{margin:10px 0}
+#venue-pavilion-3d .lp-heading{padding-bottom:20px}
+@media(max-width:1100px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr)}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible}#venue-pavilion-3d .lp-viewer{position:relative}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){#venue-pavilion-3d .lp-heading h2{font-size:33px}#venue-pavilion-3d .lp-heading{gap:12px}#venue-pavilion-3d .lp-editor{padding:0 12px 20px}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d .lp-table-tools{top:100px}#venue-pavilion-3d .lp-view-shortcuts .btn{flex:1;padding:7px;font-size:11px}#venue-pavilion-3d .lp-stage{height:440px}#venue-pavilion-3d #lp-main-nav{padding:9px;gap:5px}#venue-pavilion-3d #lp-main-nav .btn{padding:8px;font-size:10px}#venue-pavilion-3d .lp-rental-card{padding:8px}}
+
+</style>
 <style>
 #venue-pavilion-3d {width:100%;color:var(--foreground)}
 #venue-pavilion-3d [hidden] {display:none!important}
@@ -389,6 +424,35 @@
 #venue-pavilion-3d #lp-selection{order:8}
 #venue-pavilion-3d .lp-seat-heading{flex-wrap:wrap}
 }
+
+/* Design studio: preview first, component selection next, advanced fields last. */
+#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) minmax(350px,420px);gap:18px}
+#venue-pavilion-3d .lp-editor{padding:0 18px 24px;max-height:1100px;border-radius:12px}
+#venue-pavilion-3d .lp-viewer{border-radius:12px}
+#venue-pavilion-3d #lp-settings-tabs{position:sticky;top:0;z-index:3;grid-template-columns:repeat(3,minmax(0,1fr));padding-top:8px;background:#fff;gap:4px;border-top:0}
+#venue-pavilion-3d #lp-settings-tabs button{border-radius:7px;font-size:12px;padding:11px 5px}
+#venue-pavilion-3d .lp-view-shortcuts{display:flex;gap:7px;padding:10px 14px;background:#fff}
+#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0}
+#venue-pavilion-3d .lp-component-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
+#venue-pavilion-3d .lp-component-grid button small{display:none}
+#venue-pavilion-3d .lp-component-grid button[aria-pressed=true]{background:#435a44;color:white;border-color:#435a44}
+#venue-pavilion-3d .lp-table-tools{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:100px;background:#fff;padding:9px 0;z-index:2}
+#venue-pavilion-3d .lp-rental-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#venue-pavilion-3d .lp-rental-card{padding:11px;border-radius:10px;overflow:hidden}
+#venue-pavilion-3d .lp-rental-card h4{font:500 13px/1.4 'Studio Raleway',Arial,sans-serif;margin:8px 0}
+#venue-pavilion-3d .lp-rental-card .text-small{font-size:10px;line-height:1.5}
+#venue-pavilion-3d .lp-rental-card svg{width:100%;height:90px;background:#f5f3ee;border-radius:7px}
+#venue-pavilion-3d .lp-rental-actions{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+#venue-pavilion-3d .lp-rental-actions .btn{font-size:11px;min-height:42px;border-radius:6px}
+#venue-pavilion-3d .lp-photo-look{border:1px solid #dce2d5;border-radius:10px;padding:15px;margin:12px 0;background:#fafbf7}
+#venue-pavilion-3d .lp-photo-look h4{margin:4px 0 8px;font:22px Georgia,serif;color:#435a44}
+#venue-pavilion-3d .lp-photo-look .viz-row{gap:6px;flex-wrap:wrap}
+#venue-pavilion-3d .lp-recovery{position:absolute;inset:15% 8%;background:#fffffff5;border:1px solid #879974;padding:24px;z-index:10;border-radius:12px}
+#venue-pavilion-3d #lp-rental-custom{margin:10px 0}
+#venue-pavilion-3d .lp-heading{padding-bottom:20px}
+@media(max-width:1100px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr)}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible}#venue-pavilion-3d .lp-viewer{position:relative}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){#venue-pavilion-3d .lp-heading h2{font-size:33px}#venue-pavilion-3d .lp-heading{gap:12px}#venue-pavilion-3d .lp-editor{padding:0 12px 20px}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d .lp-table-tools{top:100px}#venue-pavilion-3d .lp-view-shortcuts .btn{flex:1;padding:7px;font-size:11px}#venue-pavilion-3d .lp-stage{height:440px}#venue-pavilion-3d #lp-main-nav{padding:9px;gap:5px}#venue-pavilion-3d #lp-main-nav .btn{padding:8px;font-size:10px}#venue-pavilion-3d .lp-rental-card{padding:8px}}
+
 </style>
 <script type="application/json" id="lp-initial-state">{"modelContent":{"danceWidth":20,"danceDepth":20,"doorSetback":2,"barSide":"house","dessert":true,"doorGuides":true,"power":true,"disabledTables":[],"targetGuests":100,"benchRows":8,"benchLength":9.5,"deckWidth":28,"deckDepth":34,"aisleDecor":"none","aislePairs":4,"aisleColor":"#eee7d5","tentSide":"right","tentStyle":"frame","tentWidth":20,"tentDepth":20,"lighting":"original","ceilingDecor":"none","schema":"venue-pavilion-v9","layout":"separate","length":8,"width":3,"gap":1.5,"roof":false,"labels":true,"context":true,"walls":"real","measurements":false,"measureScope":"overall","grid":false,"arbor":true,"kitchen":false,"decor":true,"linens":false,"dancePattern":"checker","danceA":"#101010","danceB":"#ffffff","tileSize":2,"houseRise":3.5,"lakeDrop":7.5,"positions":{"separate":{},"joined":{}},"design":{"look":"custom","clothColor":"#c9b09e","clothFinish":"linen","runnerStyle":"lace","runnerColor":"#f4ecd9","runnerWidth":11,"greenery":"lush","greeneryColor":"#57684e","flowerStyle":"mixed","flowerDensity":1,"flowerA":"#eee7d5","flowerB":"#7f9eaf","flowerC":"#602e46","vaseStyle":"cut","vaseCount":5,"vaseHeight":10,"vaseColor":"#ecf0e5","candleStyle":"taper","candleCount":3,"candleHeight":12,"candleColor":"#bd9b56","metalFinish":"gold","chargers":true,"indoorArbor":"timber","outdoorArbor":"timber","indoorArborColor":"#6c4d36","outdoorArborColor":"#6c4d36","indoorArborDecor":"drape","outdoorArborDecor":"greenery","arborFabricColor":"#f1e9d8","sofaStyle":"classic","sofaColor":"#ece6da","sofaFrameColor":"#704b31","sofaLength":6},"rowOffsets":[2,0,2]},"privateContent":{"orbit":{"azimuth":0.4,"polar":0.72,"distance":150,"target":[0,1,0]},"view":"perspective","walk":{"x":13.602396554743555,"y":6.849232191304194,"z":-95.09435646675702,"yaw":28.277757420244395,"pitch":-0.11518749999999969},"tour":{"time":1.7670720000000475,"speed":1},"navigation":{"height":680,"speed":8}}}</script>
 <script>/* Bundled rental library */</script>
@@ -407,17 +471,17 @@
   function initialize(){
     const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary;
     let rentalPage=0,rentalFilterTimer=0;
-    const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48};
+    const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
-    Object.assign(DESIGN_DEFAULTS,{napkinStyle:'none',napkinColor:'#62314c',glassware:'none',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
-    Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'none',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'none',chargerMaterial:'metal',chargerColor:'#cfad65',chargerRimColor:'#cfad65',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0});
+    Object.assign(DESIGN_DEFAULTS,{napkinStyle:'folded',napkinColor:'#62314c',glassware:'clear',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
+    Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'round',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'silver',chargerMaterial:'metal',chargerColor:'#cfad65',chargerRimColor:'#cfad65',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0,coupleBackdrop:'arbor'});
     const HOLDER_COLORS={gold:'#cfad65',silver:'#c6cbd0',black:'#242424'};
     const COLOR_SWATCHES=[['Olive','#59632a'],['Cabernet','#642c38'],['Twilight','#4f6875'],['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
     const designFields=[...root.querySelectorAll('[data-design]')];
     let config={...PLAN_DEFAULTS,rentals:{applied:{},shortlist:[]},schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
     const resetDefaults=JSON.parse(JSON.stringify(config));
     let resetUndo=null,rebuildTimer=0;
-    let navigation={height:680,speed:8};
+    let navigation={height:680,speed:8,quality:'auto'};
     organizeControls();
     let orbit={azimuth:0.35,polar:0.67,distance:150,target:[0,1,0]}, selected='table-1', activeView='perspective';
     let walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0},seat=normalizeSeat({});
@@ -431,11 +495,17 @@
     if(currentSaved&&existing.privateContent&&existing.privateContent.orbit)orbit=normalizeOrbit(existing.privateContent.orbit);
     if(currentSaved&&existing.privateContent&&existing.privateContent.walk)walk=normalizeWalk(existing.privateContent.walk);
     if(currentSaved&&existing.privateContent&&existing.privateContent.tour)tour=normalizeTour(existing.privateContent.tour);
-    if(currentSaved&&existing.privateContent&&existing.privateContent.navigation)navigation={height:n(existing.privateContent.navigation.height,680,360,1200),speed:n(existing.privateContent.navigation.speed,8,4,16)};
+    if(currentSaved&&existing.privateContent&&existing.privateContent.navigation)navigation={height:n(existing.privateContent.navigation.height,680,360,1200),speed:n(existing.privateContent.navigation.speed,8,4,16),quality:['auto','mobile','high'].includes(existing.privateContent.navigation.quality)?existing.privateContent.navigation.quality:'auto'};
     if(currentSaved&&existing.privateContent&&existing.privateContent.seat)seat=normalizeSeat(existing.privateContent.seat);
     stage.style.height=navigation.height+'px';
-    const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;
+    const phonePreview=()=>navigation.quality==='mobile'||navigation.quality==='auto'&&(window.matchMedia('(pointer: coarse)').matches||window.innerWidth<760);
+    const renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:true,preserveDrawingBuffer:true,powerPreference:'default'});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,phonePreview()?1:1.5));renderer.shadowMap.enabled=!phonePreview();renderer.shadowMap.type=T.PCFSoftShadowMap;
+    let graphicsLost=false;
+    canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();graphicsLost=true;stopWalking();pauseTour(false);saveState();$('lp-recovery').hidden=false;});
+    canvas.addEventListener('webglcontextrestored',()=>{graphicsLost=false;rebuild();$('lp-recovery').hidden=true;});
+    $('lp-restore-render').onclick=()=>{navigation.quality='mobile';saveState();if(graphicsLost)renderer.getContext().getExtension('WEBGL_lose_context')?.restoreContext();else {rebuild();$('lp-recovery').hidden=true;}};
+    $('lp-quality').onchange=event=>{navigation.quality=event.target.value;rebuild();saveState();};
     renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.90;
     const scene=new T.Scene(),perspectiveCamera=new T.PerspectiveCamera(43,1,0.1,1600),planCamera=new T.OrthographicCamera(-60,60,30,-30,.1,1600),walkCamera=new T.PerspectiveCamera(66,1,.08,1200);
     let camera=perspectiveCamera;
@@ -470,16 +540,24 @@
       const looks=[['florist','Wine, olive & twilight',['#59632a','#642c38','#4f6875']],['vasesOnly','Seven-vase garden',['#f4eddd','#642c38','#59632a']],['ivoryGarden','Ivory & olive',['#f4eddd','#59632a','#dfc9aa']],['twilightGarden','Twilight garden',['#4f6875','#f4eddd','#642c38']],['ivoryPlum','Ivory & plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
       for(const [key,name,swatches]of looks){const b=document.createElement('button');b.type='button';b.className='lp-look-card';b.dataset.look=key;b.setAttribute('aria-pressed','false');const samples=document.createElement('span');samples.className='lp-look-colors';samples.setAttribute('aria-hidden','true');for(const color of swatches){const dot=document.createElement('i');dot.style.background=color;samples.append(dot);}b.append(samples,document.createTextNode(name));b.onclick=()=>applyLook(key);$('lp-look-cards').append(b);}
       $('lp-panel-save').insertAdjacentHTML('afterbegin','<h3>Move, measure & keep your design</h3>');
+      $('lp-panel-decor').prepend($('lp-lookbook'));$('lp-lookbook').hidden=false;
       $('lp-panel-decor').append($('lp-design-tables'),$('lp-design-arbors'),$('lp-design-sofas'));
       $('lp-panel-layout').appendChild($('lp-finishes'));$('lp-finishes').querySelector('summary').textContent='Dance floor size, finish and site grade';
       $('lp-panel-save').appendChild($('lp-furniture'));$('lp-furniture').open=true;
       $('lp-panel-save').prepend($('lp-action').closest('label'));
       $('lp-seating-status').after($('lp-clearance'));
+      const custom=$('lp-rental-custom');
+      for(const id of ['lp-style-place-settings','lp-style-linens']){custom.append($(id));$(id).open=false;}
+      $('lp-style-place-settings').querySelector('.viz-controls').prepend(root.querySelector('[data-design="chargers"]').closest('label'));
+      $('lp-style-place-settings').querySelector('summary').textContent='Custom plates, chargers, flatware & chairs';
+      $('lp-style-linens').querySelector('summary').textContent='Custom fabric, napkins & glassware';
+      const toolbar=document.createElement('div');toolbar.className='lp-view-shortcuts';
+      for(const [label,tab]of [['Style a table','rentals'],['Wedding looks','decor'],['Arrange space','layout']]){const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=label;b.onclick=()=>{$('lp-tab-'+tab).click();if(tab==='rentals'){$('lp-rental-components').querySelector('[data-category=china]').click();view('table');}$('lp-editor').scrollIntoView({block:'nearest',behavior:'auto'});};toolbar.append(b);}viewer.prepend(toolbar);
       $('lp-panel-ceremony').querySelector('.viz-controls').prepend($('lp-kitchen').closest('label'));
       for(const id of ['lp-arbor','lp-decor','lp-linens'])$('lp-panel-decor').prepend($(id).closest('label'));
       for(const tab of root.querySelectorAll('#lp-settings-tabs button'))tab.addEventListener('click',()=>{
         for(const peer of root.querySelectorAll('#lp-settings-tabs button')){const on=peer===tab;peer.setAttribute('aria-selected',String(on));peer.classList.toggle('active',on);$(peer.getAttribute('aria-controls')).hidden=!on;}
-        $('lp-lookbook').hidden=tab.id==='lp-tab-rentals';$('lp-editor').scrollTop=0;
+        $('lp-lookbook').hidden=tab.id!=='lp-tab-decor';$('lp-editor').scrollTop=0;
       });
       for(let i=1;i<=12;i++){
         const label=document.createElement('label');label.className='form-check';const input=document.createElement('input');input.type='checkbox';input.className='form-check-input';input.id='lp-table-'+i;input.checked=true;
@@ -491,7 +569,7 @@
       const out={...PLAN_DEFAULTS};
       for(const [key,lo,hi] of [['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
       for(const key of ['targetGuests','benchRows','aislePairs'])out[key]=Math.round(out[key]);
-      for(const [key,choices]of Object.entries({barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
+      for(const [key,choices]of Object.entries({flowerStands:['none','pedestal','plinth','urn'],standPosition:['entry','arbor','both'],barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
       for(const key of ['dessert','doorGuides','power','houseCutaway'])if(typeof raw[key]==='boolean')out[key]=raw[key];
       out.rowOffsets=Array.isArray(raw.rowOffsets)?[0,1,2].map(i=>n(raw.rowOffsets[i],[out.doorSetback,0,out.doorSetback][i],-3,6)):[out.doorSetback,0,out.doorSetback];
       out.cupcakeCount=Math.round(n(raw.cupcakeCount,48,12,96));out.dessertStyle=['tiers','platters','mixed'].includes(raw.dessertStyle)?raw.dessertStyle:'tiers';
@@ -539,7 +617,7 @@
       }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));if(!/v9$/.test(raw.schema)&&Number(raw.deckWidth)===32&&Number(raw.deckDepth)===38){out.deckWidth=28;out.deckDepth=34;if(Number(raw.benchLength)===11)out.benchLength=9.5;}out.rentals=rentalLibrary.cleanState(raw.rentals,out);return out;
     }
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
-    function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8};stage.style.height=navigation.height+'px';}
+    function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8,quality:['auto','mobile','high'].includes(raw?.quality)?raw.quality:'auto'};stage.style.height=navigation.height+'px';}
     function normalizeSeat(s){return {table:s.table==='couple'||/^table-(?:[1-9]|1[0-2])$/.test(s.table)?s.table:'couple',side:Number(s.side)===-1?-1:1,place:Math.round(n(s.place,1,1,4)),look:['across','couple','dance','lake','house'].includes(s.look)?s.look:'across',eye:n(s.eye,3.8,3.2,4.5),yaw:n(s.yaw,0,-100,100),pitch:n(s.pitch,-.04,-1.2,1.2)};}
     function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5),surface:Number.isFinite(w.surface)?n(w.surface,0,-30,60):null};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
@@ -983,15 +1061,15 @@
         if(d.candleStyle==='enclosedTaper'){const height=candleHeight+.28,glass=new T.Mesh(new T.CylinderGeometry(.16,.16,height,20,1,true),materials.hurricane);glass.position.set(x,top+height/2+.025,z);g.add(glass);}
       }
       // Gold rope-edged chargers, positioned in front of the modeled chairs.
-      const chargerBeads=[],chargerWeave=[];
+      const chargerBeads=[],chargerWeave=[],chargerPlates=[],chargerRings=[];
       const charger=(x,z)=>{
-        const points=[[0,0],[.37,.003],[.46,.025],[.54,.042],[.55,.035],[.47,.01],[.36,-.009],[0,-.01]].map(p=>new T.Vector2(...p));
-        const plate=new T.Mesh(new T.LatheGeometry(points,40),materials.rentalCharger);plate.position.set(x,top+.025,z);plate.castShadow=true;plate.receiveShadow=true;g.add(plate);
-        for(const [r,tube]of [[.531,.008],[.548,.006]]){const ring=new T.Mesh(new T.TorusGeometry(r,tube,5,48),materials.chargerRim);ring.rotation.x=Math.PI/2;ring.position.set(x,top+.065,z);g.add(ring);}
+        chargerPlates.push({p:[x,top+.025,z],s:[1,1,1]});
+        for(const r of [.531,.548])chargerRings.push({p:[x,top+.065,z],s:[r,r,r],r:[Math.PI/2,0,0]});
         if(d.chargerMaterial==='pearl')for(let i=0;i<24;i++)chargerBeads.push({p:[x+Math.cos(i*Math.PI/12)*.53,top+.07,z+Math.sin(i*Math.PI/12)*.53],s:[1,1,1]});
         if(d.chargerMaterial==='rattan')for(const r of [.24,.30,.36,.42,.48])chargerWeave.push({p:[x,top+.06,z],r:[Math.PI/2,0,0],s:[r,r,r]});
       };
       if(d.chargers){if(guestTable)for(const side of [-1,1])for(let i=0;i<4;i++)charger(-length/2+(i+.5)*length/4,side*(width/2-.56));else for(const x of [-1.2,1.2])charger(x,width/2-.56);}
+      if(chargerPlates.length){instances(new T.LatheGeometry([[0,0],[.37,.003],[.46,.025],[.54,.042],[.55,.035],[.47,.01],[.36,-.009],[0,-.01]].map(p=>new T.Vector2(...p)),24),materials.rentalCharger,chargerPlates);instances(new T.TorusGeometry(1,.013,4,32),materials.chargerRim,chargerRings);}
       if(chargerBeads.length)instances(new T.SphereGeometry(.018,5,4),materials.chargerRim,chargerBeads);if(chargerWeave.length)instances(new T.TorusGeometry(1,.015,4,32),materials.chargerRim,chargerWeave);
       const places=guestTable?[-1,1].flatMap(side=>Array.from({length:4},(_,i)=>({x:-length/2+(i+.5)*length/4,z:side*(width/2-.56),side}))):[-1.2,1.2].map(x=>({x,z:width/2-.56,side:1}));
       placeSettings(g,places,top);
@@ -1026,9 +1104,9 @@
         const g=makeObject(id,'Guest table '+(row*4+col+1),3+config.length/2+col*(config.length+gap)+config.rowOffsets[row],[-13,0,13][row]);table(g,config.length,config.width);
       }
       const couple=makeObject('couple','Couple’s table',41.5,0,Math.PI/2);table(couple,6,2.5,false);chair(couple,-1.2,2.25,0);chair(couple,1.2,2.25,0);
-      if(config.arbor){
+      if(config.arbor&&config.design.coupleBackdrop!=='none'){
         const a=new T.Group();a.position.z=2.35;couple.add(a);
-        timberArbor(a,8,8.5,.8);
+        if(config.design.coupleBackdrop==='hedge'){box(a,8,8,.3,0,4,0,materials.decorLeaf);for(const x of [-4,4])box(a,.18,8.2,.4,x,4.1,0,materials.wood);box(a,8.4,.25,.4,0,8.2,0,materials.wood);box(a,3,.055,.06,0,5,.19,materials.bulb);}else timberArbor(a,8,8.5,.8);
       }
       const dance=makeObject('dance','Dance floor',-25,0);danceSurface(dance);
       const dj=makeObject('dj','DJ',-41.5,-1,Math.PI/2);box(dj,6,2.7,2.7,0,1.35,0,materials.metal);box(dj,1.3,.1,.8,-1,2.76,0,materials.frame);box(dj,1.3,.1,.8,1,2.76,0,materials.frame);
@@ -1136,7 +1214,7 @@
       for(let i=0;i<12;i++){mask.beginPath();mask.ellipse(10+rand()*44,8+rand()*48,4+rand()*5,2+rand()*3,rand()*Math.PI,0,Math.PI*2);mask.fill();}
       const alpha=new T.CanvasTexture(maskCanvas);textures.push(alpha);
       const leafMaterial=new T.MeshStandardMaterial({color:colors.bright,alphaMap:alpha,alphaTest:.35,side:T.DoubleSide,roughness:1,emissive:colors.green,emissiveIntensity:.1});materials.forestLeaves=leafMaterial;
-      const leavesPerTree=1200,forest=new T.InstancedMesh(new T.PlaneGeometry(4,4),leafMaterial,trees.length*leavesPerTree),dummy=new T.Object3D();let leafIndex=0;
+      const leavesPerTree=phonePreview()?240:600,forest=new T.InstancedMesh(new T.PlaneGeometry(4,4),leafMaterial,trees.length*leavesPerTree),dummy=new T.Object3D();let leafIndex=0;
       for(const tree of trees)for(let i=0;i<leavesPerTree;i++){
         const theta=rand()*Math.PI*2,cosPhi=rand()*2-1,rad=Math.cbrt(rand()),horizontal=Math.sqrt(1-cosPhi*cosPhi),radius=(8.5+rand()*2)*tree.size;
         dummy.position.set(tree.x+Math.cos(theta)*horizontal*rad*radius,tree.base+(i<120?3:tree.height*.72)+cosPhi*rad*radius*(i<120?.34:1.15),tree.z+Math.sin(theta)*horizontal*rad*radius);
@@ -1252,8 +1330,8 @@
       }
       // Scatter pale stones without introducing separate draw calls for every pebble.
       let seed=491;const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
-      const stones=new T.InstancedMesh(new T.IcosahedronGeometry(1,0),materials.gravel,2200),dummy=new T.Object3D();
-      for(let i=0;i<2200;i++){
+      const stones=new T.InstancedMesh(new T.IcosahedronGeometry(1,0),materials.gravel,phonePreview()?550:1200),dummy=new T.Object3D();
+      for(let i=0;i<stones.count;i++){
         let x,z;if(i<1700){const sign=rnd()<.5?-1:1;x=sign*(5.8+rnd()*48.5);z=(rnd()<.5?-1:1)*(24.6+rnd()*2.6);}else{x=(rnd()<.5?-1:1)*(51.65+rnd()*2.7);z=-24.4+rnd()*48.8;}
         const r=.045+rnd()*.065;dummy.position.set(x,-.055,z);dummy.scale.set(r,r*.7,r);dummy.rotation.set(rnd()*3,rnd()*3,rnd()*3);dummy.updateMatrix();stones.setMatrixAt(i,dummy.matrix);
       }stones.instanceMatrix.needsUpdate=true;context.add(stones);
@@ -1397,10 +1475,17 @@
       box(h,50,.15,12.5,0,.02,-70.5,materials.porchFloor);
       box(h,50,.14,12.5,0,7.54,-70.5,materials.siding);
       for(const x of [-24,-16,-8,0,8,16,24])box(h,1.35,8,1.35,x,3.75,-64.8,materials.stone);
-      // Low square stone fire pit on the lower patio, rather than loose colored blocks.
-      for(const dx of [-1.4,1.4])box(h,.4,2.2,3.2,5+dx,1.1,-61.5,materials.stone);
-      for(const dz of [-1.4,1.4])box(h,2.5,2.2,.4,5,1.1,-61.5+dz,materials.stone);
-      box(h,3.4,.18,3.4,5,2.25,-61.5,materials.metal);
+      // Long stone-clad fire island, gray counter and recessed burner (photo-based; dimensions estimated).
+      box(h,12,2.5,3.4,5,1.25,-60.5,materials.stone);box(h,12.5,.18,3.9,5,2.59,-60.5,materials.stoneLight);
+      box(h,6.8,.035,1.25,5,2.70,-60.5,materials.metal);
+      for(let i=0;i<20;i++)cylinder(h,.09,.06,2+ i*.31,2.75,-60.5+Math.sin(i*2.4)*.36,materials.darkwood);
+      // Porch has gray planks, warm wood ceiling and cushioned black rockers.
+      for(let z=-76.5;z< -64.8;z+=.55)box(h,49,.045,.52,0,8.08,z,materials.porchFloor);
+      box(h,49,.07,12,0,17.15,-70.7,materials.wood);
+      for(const x of [-17,-6,6,17]){const r=new T.Group();r.position.set(x,8.1,-68.8);h.add(r);box(r,1.7,.16,1.7,0,1.3,0,materials.metal);box(r,1.55,.16,1.55,0,1.45,0,materials.decorLeaf);for(const xx of [-.85,.85]){box(r,.10,2.7,.10,xx,1.35,.70,materials.metal);box(r,.12,.12,2.1,xx,.12,0,materials.metal);box(r,.12,.12,1.7,xx,2,0,materials.metal);}for(let xx=-.65;xx<=.65;xx+=.26)box(r,.045,1.35,.06,xx,2.1,.70,materials.metal);}
+      for(const x of [-12,12]){cylinder(h,.12,.65,x,16.7,-70,materials.frame);for(const a of [0,Math.PI/3,2*Math.PI/3])box(h,3.6,.06,.32,x,16.4,-70,materials.frame,a);}
+      // Driveway-side chimney, distinct from the lake-facing porch stairs.
+      box(exterior,5,23,3.2,-12,11,-104,materials.stone);box(exterior,3.6,7,2.9,-12,26,-104,materials.stone);
       staircase(h);houseInterior(h);
       // Patio tables and the strings across the courtyard seen in the photographs.
       for(const x of [-18,18]){cylinder(h,1.7,.12,x,2,-59,materials.darkwood);cylinder(h,.1,2,x,1,-59,materials.metal);}
@@ -1416,16 +1501,17 @@
       for(let z=-101;z< -78;z+=4)box(h,40,.45,.35,0,18,z,materials.wood);
       // Long dining table, black chairs, open kitchen, stone fireplace and seating.
       const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i<6;i++)chair(dining,-5.7+i*2.25,side*2.6,side>0?0:Math.PI);
-      for(let i=0;i<5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.stoneLight);}
-      box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.stoneLight);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
+      for(let i=0;i<5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.darkwood);}
+      box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.darkwood);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
       box(h,5.5,12,1.4,13,14.2,-101.2,materials.stone);box(h,3,3,.2,13,10,-100.42,materials.metal);box(h,6,.20,2.1,13,12,-100.2,materials.darkwood);
       const couch=new T.Group();couch.position.set(13,8.2,-94.4);h.add(couch);sofa(couch);box(h,4.4,.18,2.5,13,9.6,-97.6,materials.wood);
       // Loft edge and dark spindle railing, leaving the central living space open.
       for(const side of [-1,1]){box(h,7,.22,25,side*16.5,18.3,-90,materials.wood);for(let z=-101;z<=-78;z+=.65)box(h,.055,2.7,.055,side*13.05,19.75,z,materials.metal);box(h,.13,.15,25,side*13.05,21.1,-90,materials.darkwood);}
-      // Ground-level pool table, TV and bar visible in the reference album.
+      // Ground-level pool table, shuffleboard, TV and bar visible in the reference album.
       box(h,4.7,2.3,8.3,0,1.25,-89,materials.darkwood);box(h,4.3,.10,7.8,0,2.46,-89,materials.decorLeaf);for(const x of [-2.3,2.3])box(h,.2,.3,8.3,x,2.6,-89,materials.wood);for(const z of [-93.1,-84.9])box(h,4.8,.3,.22,0,2.6,z,materials.wood);
       for(let i=0;i<10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.gold);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
       box(h,8,3.1,2,-13,1.55,-100,materials.wood);box(h,8.2,.12,2.2,-13,3.16,-100,materials.darkwood);box(h,5,2.8,.12,12,4.9,-102.2,materials.metal);
+      box(h,14,2.35,2.1,-13,1.18,-87,materials.wood);box(h,13.4,.08,1.55,-13,2.4,-87,materials.darkwood);for(let i=0;i<6;i++)cylinder(h,.08,.06,-18+i*.22,2.48,-87,materials.gold);
       tag('House interior · photo-based concept',[0,config.houseRise+16,-89],'context');
     }
     function staircase(parent){
@@ -1505,23 +1591,58 @@
         const z=spec.start+3+i/Math.max(1,config.aislePairs-1)*(spec.depth-14),flowers=config.aisleDecor==='flowers'||config.aisleDecor==='mixed'&&i%2===1;
         aislePlant(c,side*3.8,z,flowers);
       }
+      if(config.flowerStands!=='none'){
+        const stops=config.standPosition==='both'?[spec.start+1,113]:[config.standPosition==='arbor'?113:spec.start+1];
+        for(const z of stops)for(const side of [-1,1]){
+          const x=side*(z===113?5:3.8),base=gradeHeight(0,z)+.24;
+          const stand=new T.Group();stand.name='Ceremony '+config.flowerStands;stand.position.set(x,base,z);c.add(stand);
+          if(config.flowerStands==='urn'){cylinder(stand,.55,.25,0,.12,0,materials.siding);cylinder(stand,.23,1.3,0,.85,0,materials.siding);cylinder(stand,.75,.65,0,1.7,0,materials.siding);}
+          else {box(stand,1.3,.14,1.3,0,.07,0,materials.siding);box(stand,.95,config.flowerStands==='pedestal'?3:2.4,.95,0,config.flowerStands==='pedestal'?1.6:1.3,0,materials.siding);box(stand,1.35,.14,1.35,0,config.flowerStands==='pedestal'?3.17:2.57,0,materials.siding);}
+          const crown=config.flowerStands==='urn'?2.15:config.flowerStands==='pedestal'?3.35:2.75,dummy=new T.Object3D();
+          const flowers=new T.InstancedMesh(new T.SphereGeometry(1,7,5),materials.flowerIvory,40);flowers.name='Pedestal flowers';
+          for(let i=0;i<40;i++){const a=i*2.4,r=.7*Math.sqrt((i%17)/17);dummy.position.set(Math.cos(a)*r,crown+Math.sin(i*1.8)*.2,Math.sin(a)*r);dummy.scale.set(.19,.15,.18);dummy.updateMatrix();flowers.setMatrixAt(i,dummy.matrix);}flowers.computeBoundingSphere();stand.add(flowers);
+          for(let i=0;i<8;i++)beam(stand,[0,crown-.1,0],[Math.sin(i)*.8,crown-.25-Math.cos(i)*.15,Math.cos(i)*.8],.025,materials.decorLeaf);
+        }
+      }
       const arborBase=gradeHeight(0,115)+.20;
       const arbor=new T.Group();arbor.position.set(0,arborBase,114.9);c.add(arbor);timberArbor(arbor,8.4,8.6,2.2,'outdoor');
     }
+    function batchSimpleParts(parent){
+      for(const child of [...parent.children])if(child.isGroup)batchSimpleParts(child);
+      const buckets=new Map(),walkable=new Set(walkSurfaces);
+      for(const child of parent.children){
+        if(!child.isMesh||child.isInstancedMesh||![unitBox,unitCylinder].includes(child.geometry)||walkable.has(child)||doorLeaves.includes(child))continue;
+        const key=child.geometry.uuid+child.material.uuid+child.castShadow+child.receiveShadow;
+        if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(child);
+      }
+      for(const items of buckets.values()){
+        if(items.length<3)continue;
+        const first=items[0],mesh=new T.InstancedMesh(first.geometry,first.material,items.length);mesh.name='Batched '+first.geometry.type;mesh.castShadow=first.castShadow;mesh.receiveShadow=first.receiveShadow;
+        items.forEach((item,i)=>{item.updateMatrix();mesh.setMatrixAt(i,item.matrix);parent.remove(item);});mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();parent.add(mesh);
+      }
+    }
     function disposeGroup(group){const geometries=new Set();group.traverse(o=>{if(o.geometry&&o.geometry!==unitBox&&o.geometry!==unitCylinder)geometries.add(o.geometry);if(o.isInstancedMesh)o.dispose();});group.clear();geometries.forEach(g=>g.dispose());}
     function queueDecorRefresh(){clearTimeout(rebuildTimer);rebuildTimer=setTimeout(()=>{refreshDecor();saveState();},100);}
+    let lastDecorShape='';
+    function decorShape(){const {rentals,design,...plan}=config;return JSON.stringify([plan,Object.fromEntries(Object.entries(design).filter(([key,value])=>key!=='look'&&!(typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value))))]);}
     function refreshDecor(){
-      // Small styling edits must not recreate the forest, house and paving or stall navigation.
+      if(graphicsLost)return;
       const keys=['rentalTable','danceA','danceB','rentalChair','rentalSeat','china','chinaRim','flatware','flatwareHandle','rentalCharger','chargerRim','rentalBar','linen','lace','gold','candle','decorLeaf','decorCedar','flowerIvory','flowerBlue','flowerWine','flowerCenter','napkin','goblet','vase','vaseEtch','arborIndoor','arborOutdoor','arborFabric','sofaFabric','sofaFrame','sofaButton','hurricane'];
-      clearTimeout(rebuildTimer);const old=Object.fromEntries(keys.map(k=>[k,materials[k]]));disposeGroup(furniture);objects=[];
-      labels=labels.filter(l=>{if(l.owner||l.kind==='furniture'){l.el.remove();return false;}return true;});
-      if(ceremonyGroup){const stale=ceremonyGroup;walkSurfaces=walkSurfaces.filter(o=>{let p=o;while(p){if(p===stale)return false;p=p.parent;}return true;});disposeGroup(stale);context.remove(stale);}
-      decorPalette();for(const key of keys){const next=materials[key];if(old[key]){old[key].copy(next);old[key].needsUpdate=true;materials[key]=old[key];next.dispose();}}addFurniture();ceremony();applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();draw();
+      clearTimeout(rebuildTimer);const sameShape=decorShape()===lastDecorShape,old=Object.fromEntries(keys.map(k=>[k,materials[k]]));
+      // Recolor existing material instances without rebuilding thousands of
+      // flowers, plates, chairs and the ceremony deck on every color input.
+      decorPalette();for(const key of keys){const next=materials[key];if(old[key]){old[key].copy(next);old[key].needsUpdate=true;materials[key]=old[key];next.dispose();}}
+      if(!sameShape){
+        disposeGroup(furniture);objects=[];labels=labels.filter(l=>{if(l.owner||l.kind==='furniture'){l.el.remove();return false;}return true;});
+        if(ceremonyGroup){const stale=ceremonyGroup;walkSurfaces=walkSurfaces.filter(o=>{let p=o;while(p){if(p===stale)return false;p=p.parent;}return true;});disposeGroup(stale);context.remove(stale);}
+        addFurniture();ceremony();batchSimpleParts(furniture);batchSimpleParts(ceremonyGroup);fillObjectOptions();selectObject(selected);clearance();rebuildRulers();lastDecorShape=decorShape();
+      }
+      applyAppearance();syncControls();draw();
     }
     function rebuild(){
-      clearTimeout(rebuildTimer);
-      const old=Object.values(materials);clearScene();palette();old.forEach(m=>m.dispose());floorAndStructure();addFurniture();surroundings();
-      applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();draw();
+      clearTimeout(rebuildTimer);if(graphicsLost)return;renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,phonePreview()?1:1.5));renderer.shadowMap.enabled=!phonePreview();sun.shadow.mapSize.set(phonePreview()?512:1024,phonePreview()?512:1024);if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null;}
+      const old=Object.values(materials);clearScene();palette();old.forEach(m=>m.dispose());floorAndStructure();addFurniture();surroundings();batchSimpleParts(furniture);batchSimpleParts(context);
+      applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();lastDecorShape=decorShape();resize();
     }
     function applyAppearance(){
       if(houseExterior)houseExterior.visible=!config.houseCutaway;
@@ -1558,15 +1679,69 @@
     function rentalNode(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;}
     function rentalLink(item){const a=rentalNode('a','View vendor listing ↗');a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';a.className='lp-rental-link';a.setAttribute('aria-label','View supplier listing for '+(item.name||'rental catalog'));return a;}
     function rentalButton(text,key,id){const b=rentalNode('button',text,'btn');b.type='button';b.dataset[key]=id;return b;}
+    const studioComponents=[['china','China & plates'],['chargers','Chargers'],['flatware','Flatware'],['glassware','Glassware'],['napkins','Napkins'],['linens','Tablecloths'],['runners','Runners'],['chairs','Chairs'],['tables','Tables'],['accessories','Vases & candles'],['lounge','Lounge'],['all','Full catalog']];
+    function updateTableSettingStatus(){
+      const d=config.design,parts=[['china',d.chinaStyle!=='none','plates'],['charger',d.chargers,'chargers'],['flatware',d.flatwareStyle!=='none','flatware'],['glass',d.glassware!=='none','glasses'],['napkin',d.napkinStyle!=='none','napkins']];
+      $('lp-table-setting-status').textContent=(config.decor?'On your tables: '+parts.filter(p=>p[1]).map(p=>p[2]).join(', ')+'.':'Table decor is hidden. Apply an item or show complete place settings.')+' Select any component to replace it.';
+      for(const button of $('lp-rental-components').children){const [category]=studioComponents.find(c=>c[0]===button.dataset.category)||[];button.setAttribute('aria-pressed',String($('lp-rental-category').value===category));const item=Object.values(config.rentals.applied).map(id=>rentalLibrary.get(id)).find(i=>i.category===category);button.querySelector('small').textContent=item?'Supplier selected':'Explore options';}
+    }
+    function rentalThumbnail(item){
+      const NS='http://www.w3.org/2000/svg',svg=document.createElementNS(NS,'svg'),d=item.preview.design,slot=item.preview.slot;
+      svg.setAttribute('viewBox','0 0 180 100');svg.setAttribute('role','img');svg.setAttribute('aria-label','Simplified '+rentalLibrary.slots[slot]+' illustration; not a product photograph');
+      const shape=(name,attrs)=>{const el=document.createElementNS(NS,name);for(const [key,value]of Object.entries(attrs))el.setAttribute(key,String(value));svg.append(el);return el;};
+      const color=(key,fallback)=>/^#[0-9a-f]{6}$/i.test(d[key])?d[key]:fallback;
+      if(['china','charger'].includes(slot)){
+        const fill=color(slot==='china'?'chinaColor':'chargerColor','#eee9df'),rim=color(slot==='china'?'chinaRimColor':'chargerRimColor','#b9a882');
+        const square=d.chinaStyle==='square';shape(square?'rect':'circle',square?{x:49,y:9,width:82,height:82,rx:8,fill,stroke:rim,'stroke-width':3}:{cx:90,cy:50,r:42,fill,stroke:rim,'stroke-width':3});shape('circle',{cx:90,cy:50,r:30,fill:'none',stroke:'#b8afa2','stroke-width':1});
+      }else if(slot==='flatware'){
+        const fill=['gold','blackGold'].includes(d.flatwareStyle)?'#b49859':d.flatwareStyle==='black'?'#252525':'#929a9e';
+        for(const x of [53,90,127])shape('rect',{x:x-3,y:39,width:6,height:49,rx:3,fill});
+        for(const x of [46,51,56,61])shape('rect',{x,y:10,width:3,height:30,rx:1,fill});shape('rect',{x:46,y:31,width:18,height:13,rx:3,fill});shape('path',{d:'M87 42 L87 8 Q103 12 94 47 Z',fill});shape('ellipse',{cx:127,cy:26,rx:11,ry:18,fill});
+      }else if(slot==='glass'){
+        shape('path',{d:d.glassware==='tumbler'?'M61 12 L65 83 L115 83 L119 12 Z':'M58 10 Q56 53 85 58 L85 86 L66 90 L114 90 L95 86 L95 58 Q124 53 122 10 Z',fill:color('glassColor','#c7d8dc'),opacity:.7,stroke:'#708b94','stroke-width':2});
+      }else if(['cloth','runner','napkin'].includes(slot)){
+        shape('path',{d:slot==='napkin'?'M48 24 L128 14 L137 77 L63 89 Z':slot==='runner'?'M67 5 L112 5 L126 95 L52 95 Z':'M27 22 L151 22 L166 83 L136 78 L113 87 L89 79 L64 88 L13 81 Z',fill:color(slot==='cloth'?'clothColor':slot==='runner'?'runnerColor':'napkinColor','#8f9b78'),stroke:'#544c4326','stroke-width':2});
+        for(let i=0;i<7;i++)shape('path',{d:`M${53+i*11} 25 l6 52`,fill:'none',stroke:'#ffffff33','stroke-width':2});
+      }else if(slot==='chair'){
+        const fill=color('chairColor','#9b7751');shape('path',{d:'M57 85 V16 Q90 0 123 16 V85 M57 55 H123 M66 54 V89 M115 54 V89',fill:'none',stroke:fill,'stroke-width':7});shape('path',{d:'M60 20 L120 49 M120 20 L60 49',stroke:fill,'stroke-width':4});shape('rect',{x:60,y:51,width:60,height:9,rx:3,fill:color('chairSeatColor','#e8dfcb')});
+      }else if(slot==='sofa'){
+        shape('rect',{x:24,y:21,width:132,height:53,rx:d.sofaStyle==='curved'?24:9,fill:color('sofaColor','#c8c0af')});shape('rect',{x:17,y:45,width:146,height:31,rx:7,fill:color('sofaColor','#c8c0af'),stroke:'#61534755'});for(const x of [30,145])shape('rect',{x,y:76,width:6,height:12,fill:'#66513c'});
+      }else{shape('rect',{x:26,y:25,width:128,height:45,rx:6,fill:color(Object.keys(d).find(k=>/Color$/.test(k)),'#9a927f')});shape('path',{d:'M42 70 V88 M138 70 V88',stroke:'#685b48','stroke-width':5});}
+      return svg;
+    }
+    function initializeStudio(){
+      for(const [category,label]of studioComponents){const button=rentalButton(label,'category',category);button.append(rentalNode('small','Explore options'));button.onclick=()=>{
+        $('lp-rental-category').value=category;$('lp-rental-search').value='';$('lp-rental-mode').value=category==='all'?'all':'preview';rentalPage=0;renderRentalLibrary();
+        if(['china','chargers','flatware','glassware','napkins','linens','runners','chairs','tables'].includes(category))view('table');else if(category==='lounge')view('lounge');
+      };$('lp-rental-components').append(button);}
+      $('lp-table-closeup').onclick=()=>{view('table');stage.scrollIntoView({block:'nearest',behavior:'auto'});};$('lp-table-overview').onclick=()=>{view('inside');stage.scrollIntoView({block:'nearest',behavior:'auto'});};
+      $('lp-place-setting').onclick=()=>{const d=config.design;config.decor=true;if(d.chinaStyle==='none')d.chinaStyle='round';if(d.flatwareStyle==='none')d.flatwareStyle='silver';if(d.glassware==='none')d.glassware='clear';if(d.napkinStyle==='none')d.napkinStyle='folded';d.chargers=true;refreshDecor();view('table');saveState();};
+      const section=rentalNode('section',undefined,'lp-photo-looks');section.append(rentalNode('h3','From real celebrations'),rentalNode('p','Photo-inspired starting points. Colors and unphotographed settings are suggestions; table counts and distances are not measured from photographs. Apply a complete concept or borrow just one part.','text-small'));
+      const sources=[
+        {id:'blueGarden',name:'Blue-glass garden',url:'https://www.instagram.com/p/DaDmZZuDDGm/',credit:'Venue gallery · blue runner, colored goblets, ivory flowers and wood tables visible.',design:{runnerStyle:'gauze',runnerColor:'#829db5',clothColor:'#f4eddd',flowerStyle:'hydrangea',flowerA:'#f7f1e7',flowerB:'#e9e6d7',flowerC:'#eae3d2',greenery:'light',greeneryColor:'#62774f',glassware:'tinted',glassColor:'#7698ad',vaseStyle:'smooth',vaseCount:3,arrangement:'mixed',chairStyle:'folding',chairColor:'#97704b',napkinStyle:'folded',napkinColor:'#829db5'},ceremony:{flowerStands:'urn',standPosition:'arbor',aisleDecor:'ferns'},linens:false},
+        {id:'samanthaRyan',name:'Samantha & Ryan · soft garden',url:'https://www.instagram.com/p/DX5Ex2xHPo4/',credit:'Rachel Reid Photos · cream arbor draping, mauve/ivory flowers and timber couple’s table visible. Reception settings are a coordinating suggestion.',design:{runnerStyle:'gauze',runnerColor:'#f1e9d8',flowerStyle:'roses',flowerA:'#eee7da',flowerB:'#c6a4a8',flowerC:'#8b6575',greenery:'light',vaseStyle:'smooth',vaseCount:3,arrangement:'bud',napkinColor:'#a58a94',napkinStyle:'gathered',coupleBackdrop:'arbor',outdoorArborDecor:'drape',arborFabricColor:'#f1e9d8'},ceremony:{flowerStands:'none',aisleDecor:'none'},linens:false},
+        {id:'cassidyAustin',name:'Cassidy & Austin · autumn ivory',url:'https://www.instagram.com/p/DW2F0vlEsh9/',credit:'Ruffner Photography · white aisle pedestals with ivory/rust flowers, greenery backdrop and ivory runner visible. Guest-table layout is a suggestion.',design:{runnerStyle:'gauze',runnerColor:'#f0e6d5',flowerStyle:'roses',flowerA:'#f4eddd',flowerB:'#bc7a44',flowerC:'#a45c41',greenery:'light',greeneryColor:'#4c6040',vaseStyle:'smooth',arrangement:'bud',vaseCount:3,coupleBackdrop:'hedge',napkinStyle:'folded',napkinColor:'#dfc9aa',candleStyle:'hurricane',candleColor:'#f4eddd'},ceremony:{flowerStands:'pedestal',standPosition:'entry',aisleDecor:'none'},linens:false}
+      ];
+      for(const look of sources){const card=rentalNode('article',undefined,'lp-photo-look');card.append(rentalNode('h4',look.name),rentalNode('p',look.credit,'text-small'));const link=rentalNode('a','See original wedding ↗');link.href=look.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);const actions=rentalNode('div',undefined,'viz-row');
+        for(const [part,label]of [['all','Apply complete concept'],['tables','Table decor only'],['ceremony','Ceremony only'],['layout','Suggested table layout']]){const b=rentalButton(label,'photoLook',look.id);b.dataset.part=part;b.onclick=()=>{
+          stopWalking();clearTimeout(rebuildTimer);
+          if(['all','tables'].includes(part)){config.design=normalizeDesign({...config.design,...look.design,look:'custom'});config.decor=true;config.linens=look.linens;}
+          if(['all','ceremony'].includes(part)){Object.assign(config,look.ceremony);config.design=normalizeDesign({...config.design,outdoorArborDecor:look.design.outdoorArborDecor||'corners',arborFabricColor:look.design.arborFabricColor||'#f1e9d8',flowerA:look.design.flowerA,flowerB:look.design.flowerB,flowerC:look.design.flowerC});}
+          if(['all','layout'].includes(part)){config.layout='separate';config.rowOffsets=[2,0,2];config.positions.separate={};}
+          rebuild();view(part==='ceremony'?'ceremony':part==='layout'?'plan':'table');saveState();$('lp-selection').textContent=look.name+' · '+(part==='all'?'photo-inspired concept':label.toLowerCase())+' · unmeasured details are suggestions.';
+        };actions.append(b);}card.append(actions);section.append(card);
+      }$('lp-lookbook').append(section);
+    }
+
     function renderRentalLibrary(){
-      const state=config.rentals,opts={vendor:$('lp-rental-vendor').value,category:$('lp-rental-category').value,mode:$('lp-rental-mode').value,search:$('lp-rental-search').value};
+      updateTableSettingStatus();const state=config.rentals,opts={vendor:$('lp-rental-vendor').value,category:$('lp-rental-category').value,mode:$('lp-rental-mode').value,search:$('lp-rental-search').value};
       const found=rentalLibrary.filter(opts,state),pages=Math.max(1,Math.ceil(found.length/8));rentalPage=Math.max(0,Math.min(rentalPage,pages-1));
       const results=$('lp-rental-results');results.replaceChildren();
       for(const item of found.slice(rentalPage*8,rentalPage*8+8)){
         const card=rentalNode('article',undefined,'lp-rental-card');card.dataset.rentalId=item.id;
         const vendor=rentalNode('div',rentalLibrary.data.vendors[item.vendor].name,'lp-rental-vendor');vendor.dataset.vendor=item.vendor;
         const heading=rentalNode('h4',item.name),price=rentalNode('p',rentalLibrary.price(item),'lp-rental-price');
-        card.append(vendor,heading,price);
+        if(item.preview)card.append(rentalThumbnail(item));card.append(vendor,heading,price);
         if(item.spec)card.append(rentalNode('p',item.spec,'text-small'));
         if(item.preview){
           const colors=Object.entries(item.preview.design).filter(([key,value])=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value));
@@ -1593,6 +1768,14 @@
       if(!state.shortlist.length)list.append(rentalNode('p','Save alternatives from either company to compare with your rental quote.','text-small'));
     }
     function initializeRentalControls(){
+      initializeStudio();
+      // Put products immediately after component choices and filters. Reference
+      // notes and advanced custom fields should not bury the catalog.
+      const rentalPanel=$('lp-panel-rentals'),selection=$('lp-rental-applied').parentElement;
+      rentalPanel.insertBefore($('lp-rental-custom'),selection);
+      const references=document.createElement('details');references.className='lp-details';const heading=document.createElement('summary');heading.textContent='Catalog sources & preview notes';references.append(heading);
+      references.append($('lp-rental-coverage'),$('lp-rental-notes'),$('lp-rental-vendors'));rentalPanel.append(references);
+
       for(const [value,label]of Object.entries(rentalLibrary.categories)){const option=rentalNode('option',label);option.value=value;$('lp-rental-category').append(option);}
       for(const vendor of Object.values(rentalLibrary.data.vendors))$('lp-rental-vendors').append(rentalLink({url:vendor.url}));
       [...$('lp-rental-vendors').children].forEach((a,i)=>a.textContent=Object.values(rentalLibrary.data.vendors)[i].name+' ↗');
@@ -1605,7 +1788,7 @@
         const button=event.target.closest('button');if(!button)return;
         if(button.dataset.rentalApply){
           const item=rentalLibrary.get(button.dataset.rentalApply);if(!item?.preview)return;
-          stopWalking();config=normalize(rentalLibrary.apply(config,item.id));
+          stopWalking();config=normalize(rentalLibrary.apply(config,item.id));if(['china','flatware','charger','glass','napkin','cloth','runner','vase','candle'].includes(item.preview.slot))config.decor=true;
           // Full rebuilds are necessary for tent structure and pavilion lighting.
           // Tabletop and lounge selections reuse the static property geometry.
           if(['tent','lighting'].includes(item.preview.slot))rebuild();else refreshDecor();
@@ -1625,7 +1808,7 @@
     }
     function syncControls(){
       config.rentals=rentalLibrary.cleanState(config.rentals,config);renderRentalLibrary();
-      for(const [id,key]of [['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-bar-side','barSide'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).value=config[key];
+      for(const [id,key]of [['lp-flower-stands','flowerStands'],['lp-stand-position','standPosition'],['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-bar-side','barSide'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).value=config[key];
       for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).checked=config[key];
       const seats=(12-config.disabledTables.length)*8;
       $('lp-capacity').textContent='90 × 40 ft · '+seats+' guest seats + 2 couple seats';
@@ -1635,7 +1818,7 @@
       $('lp-ceremony-status').textContent=ceremony.rows+' rows per side · '+ceremony.rows*2+' backless benches, '+ceremony.bench.toFixed(1)+' ft long · approx. '+ceremonySeats+' seats at 22 in/person. '+(ceremony.rows<config.benchRows?'Rows reduced to fit the selected deck depth. ':'')+'Deck '+ceremony.width+' × '+ceremony.depth+' ft (estimated).';
       config.rowOffsets.forEach((v,i)=>$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
       for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
-      $('lp-view-height').value=navigation.height;$('lp-walk-speed').value=navigation.speed;
+      $('lp-quality').value=navigation.quality||'auto';$('lp-flower-stands').value=config.flowerStands;$('lp-stand-position').value=config.standPosition;$('lp-view-height').value=navigation.height;$('lp-walk-speed').value=navigation.speed;
       for(const [id,key]of [['lp-layout','layout'],['lp-length','length'],['lp-width','width'],['lp-gap','gap'],['lp-walls','walls'],['lp-measure-scope','measureScope'],['lp-dance-pattern','dancePattern'],['lp-dance-a','danceA'],['lp-dance-b','danceB'],['lp-tile-size','tileSize'],['lp-house-rise','houseRise'],['lp-lake-drop','lakeDrop']])$(id).value=config[key];
       $('lp-gap').disabled=config.layout==='joined';$('lp-dance-b').disabled=config.dancePattern!=='checker';$('lp-dance-a').disabled=['concrete','wood'].includes(config.dancePattern);$('lp-tile-size').disabled=config.dancePattern!=='checker';for(const [id,key]of [['lp-roof','roof'],['lp-label-toggle','labels'],['lp-context','context'],['lp-measurements','measurements'],['lp-grid','grid'],['lp-arbor','arbor'],['lp-kitchen','kitchen'],['lp-decor','decor'],['lp-linens','linens']])$(id).checked=config[key];
       syncSeats();
@@ -1817,6 +2000,7 @@
       target.fromArray(orbit.target);const s=Math.sin(orbit.polar);camera.position.set(target.x+orbit.distance*s*Math.sin(orbit.azimuth),Math.max(.25,target.y+orbit.distance*Math.cos(orbit.polar)),target.z+orbit.distance*s*Math.cos(orbit.azimuth));camera.lookAt(target);camera.updateMatrixWorld();
     }
     function draw(){
+      if(graphicsLost)return;
       if(camera===planCamera){const halfHeight=orbit.distance*Math.tan(43*Math.PI/360);camera.left=-halfHeight*stage.clientWidth/stage.clientHeight;camera.right=-camera.left;camera.top=halfHeight;camera.bottom=-halfHeight;camera.updateProjectionMatrix();}
       cameraPosition();renderer.render(scene,camera);refreshLabels();
     }
@@ -1970,13 +2154,13 @@
     const resizeHandle=$('lp-resize');let resizing=null;
     const setHeight=value=>{navigation.height=Math.round(n(value,680,360,1200));stage.style.height=navigation.height+'px';config.rowOffsets.forEach((v,i)=>$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
       for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
-      $('lp-view-height').value=navigation.height;resize();};
+      $('lp-quality').value=navigation.quality||'auto';$('lp-flower-stands').value=config.flowerStands;$('lp-stand-position').value=config.standPosition;$('lp-view-height').value=navigation.height;resize();};
     resizeHandle.onpointerdown=e=>{stopWalking();resizeHandle.focus({preventScroll:true});resizing={y:e.clientY,height:stage.clientHeight};resizeHandle.setPointerCapture(e.pointerId);e.preventDefault();};
     resizeHandle.onpointermove=e=>{if(resizing)setHeight(resizing.height+e.clientY-resizing.y);};
     resizeHandle.onpointerup=resizeHandle.onpointercancel=resizeHandle.onlostpointercapture=()=>{if(resizing){resizing=null;saveState();}};
     resizeHandle.onkeydown=e=>{if(['ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();e.stopPropagation();setHeight(navigation.height+(e.key==='ArrowDown'?40:-40));saveState();}};
     $('lp-view-height').onchange=e=>{setHeight(e.target.value);saveState();};
-    for(const [id,key]of [['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).onchange=e=>{stopWalking();config[key]=e.target.value;Object.assign(config,normalizePlan(config));if(key==='doorSetback'){config.rowOffsets=[config.doorSetback,config.rowOffsets[1],config.doorSetback];}if(key==='doorSetback')for(const mode of ['separate','joined'])for(const i of [1,2,3,4,9,10,11,12])delete config.positions[mode]['table-'+i];rebuild();saveState();};
+    for(const [id,key]of [['lp-flower-stands','flowerStands'],['lp-stand-position','standPosition'],['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).onchange=e=>{stopWalking();config[key]=e.target.value;Object.assign(config,normalizePlan(config));if(key==='doorSetback'){config.rowOffsets=[config.doorSetback,config.rowOffsets[1],config.doorSetback];}if(key==='doorSetback')for(const mode of ['separate','joined'])for(const i of [1,2,3,4,9,10,11,12])delete config.positions[mode]['table-'+i];rebuild();saveState();};
     for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).onchange=e=>{config[key]=e.target.checked;rebuild();saveState();};
     $('lp-bar-side').onchange=e=>{config.barSide=e.target.value;for(const mode of ['separate','joined'])for(const id of ['bar','photo','dessert'])delete config.positions[mode][id];rebuild();saveState();};
     $('lp-clear-couple').onclick=()=>{if(!config.disabledTables.includes('table-8'))config.disabledTables.push('table-8');rebuild();saveState();};
@@ -1995,7 +2179,7 @@
     for(const [id,key]of [['lp-dessert-style','dessertStyle'],['lp-cupcake-count','cupcakeCount']])$(id).onchange=e=>{config[key]=e.target.value;Object.assign(config,normalizePlan(config));refreshDecor();saveState();};
     $('lp-reset-camera').onclick=()=>{stopWalking();pauseTour(false);orbit={azimuth:.35,polar:.67,distance:150,target:[0,1,0]};walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};seat=normalizeSeat({});tour={time:0,speed:1};view('perspective');};
     $('lp-reset-open').onclick=()=>{$('lp-reset-prompt').hidden=false;};$('lp-reset-cancel').onclick=()=>{$('lp-reset-prompt').hidden=true;};
-    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
+    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8,quality:'auto'};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
     $('lp-undo-reset').onclick=()=>{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);seat=normalizeSeat(resetUndo.seat||{});tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};
     // Capture the new value before a pending refresh can synchronize the form.
     // In particular, rapid edits of the same numeric field must not be clobbered.

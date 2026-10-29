@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
 import { projectRoot } from './build.mjs';
 import { readPlan, SHARDS } from './ci-plan.mjs';
-import {browserInventory,balancedBrowserShards,verifyShardSelection} from './browser-shards.mjs';
+import {browserInventory,balancedBrowserShards,verifyShardSelection,timedInventory,reportTimings} from './browser-shards.mjs';
 
 export function specs(report) {
   return (report.suites || []).flatMap(suite => [...(suite.specs || []), ...specs(suite)]);
@@ -44,7 +44,8 @@ function playwright(args, options = {}) {
 }
 async function inventory() {
   const plan = await readPlan();
-  const expected = plan.mode === 'docs' ? [] : browserInventory(playwright(['test', '--list', '--reporter=json'], { capture: true }));
+  let history={};try{history=JSON.parse(await readFile(join(projectRoot,'.ci/browser-timings.json'),'utf8'));}catch{}
+  const expected = plan.mode === 'docs' ? [] : timedInventory(browserInventory(playwright(['test', '--list', '--reporter=json'], { capture: true })),history);
   if (plan.mode === 'full' && !expected.length) throw new Error('No browser tests were collected');
   await writeFile(join(projectRoot, '.ci/expected-tests.json'), JSON.stringify(expected, null, 2) + '\n');
   console.log(`Collected ${expected.length} required browser tests.`);
@@ -86,6 +87,7 @@ async function merge() {
   const report = JSON.parse(await readFile(join(projectRoot, '.ci/browser-results.json'), 'utf8'));
   const expected = JSON.parse(await readFile(join(projectRoot, '.ci/expected-tests.json'), 'utf8'));
   const passedCount = verifyResults(report, expected);
+  await writeFile(join(projectRoot,'.ci/browser-timings.json'),JSON.stringify(reportTimings(report))+'\n');
   const proof = { status: 'passed', commit: plan.commit, htmlSha256: manifest.htmlSha256, shards: plan.shards, testCount: expected.length, passedCount, inventorySha256: createHash('sha256').update(JSON.stringify(expected)).digest('hex') };
   await writeFile(join(projectRoot, '.ci/browser-proof.json'), JSON.stringify(proof, null, 2) + '\n');
   console.log(`Verified all ${passedCount} browser tests across ${plan.shards} shards.`);

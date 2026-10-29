@@ -36,11 +36,13 @@ test('portable build is deterministic, bundled and checksummed', async () => {
 
 test('attribute escaping protects the embedded document', () => assert.equal(escapeAttribute('<&">'), '&lt;&amp;&quot;&gt;'));
 
-test('public model keeps private details out and contains no external photo or location links', async () => {
+test('public model keeps private details out and only links reviewed public design references', async () => {
   const source = await readFile(join(projectRoot, 'src/model.html'), 'utf8');
   assert.match(source, /<h2>Lakeside Estate<\/h2>/);
   assert.match(source, /schema:'venue-pavilion-v9'/);
-  assert.doesNotMatch(source, /(?:mailto:|tel:|https?:\/\/(?!cdn\.jsdelivr\.net\/npm\/three@))/i);
+  assert.doesNotMatch(source, /mailto:|tel:|photos\.app\.goo\.gl|maps\.google|google\.com\/maps/i);
+  const allowed=new Set(['https://www.instagram.com/p/DaDmZZuDDGm/','https://www.instagram.com/p/DX5Ex2xHPo4/','https://www.instagram.com/p/DW2F0vlEsh9/']);
+  for(const [url]of source.matchAll(/https?:[^'"<>\s]+/g))assert.ok(url.startsWith('https://cdn.jsdelivr.net/npm/three@')||url==='http://www.w3.org/2000/svg'||allowed.has(url),'Unexpected external reference: '+url);
   assert.doesNotMatch(source, /\/(?:Users|home)\/[^/]+\//);
 });
 

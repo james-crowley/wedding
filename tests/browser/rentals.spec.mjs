@@ -10,7 +10,7 @@ async function apply(frame,item){await find(frame,item);await frame.locator(`[da
 
 test.beforeEach(async({page})=>{
   await page.addInitScript(installRenderAudit);await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
-  await page.goto('/');const frame=await frameOf(page);await expect(frame.locator('#lp-loading')).toBeHidden({timeout:45_000});await frame.locator('#lp-reset-camera').click();await frame.locator('#lp-tab-rentals').click();
+  await page.goto('/');const frame=await frameOf(page);await expect(frame.locator('#lp-loading')).toBeHidden({timeout:45_000});await frame.locator('#lp-quality').evaluate(el=>{el.value='mobile';el.dispatchEvent(new Event('change',{bubbles:true}));});await frame.locator('#lp-reset-camera').click();await frame.locator('#lp-tab-rentals').click();
 });
 
 for(let start=0;start<previews.length;start+=batchSize){

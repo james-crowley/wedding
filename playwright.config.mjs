@@ -18,6 +18,11 @@ export default defineConfig({
   failOnFlakyTests: Boolean(process.env.CI),
   forbidOnly: Boolean(process.env.CI),
   reporter: [['list'], ['junit', { outputFile: 'test-results/browser.xml' }], ['html', { outputFolder: 'playwright-report', open: 'never' }], ...process.env.CI_SHARD_REPORT_DIR ? [['blob', { outputDir: process.env.CI_SHARD_REPORT_DIR }]] : []],
+  projects: [
+    {name:'chromium',use:{browserName:'chromium'}},
+    {name:'phone-firefox',testMatch:/studio\.spec\.mjs/,use:{browserName:'firefox',viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,launchOptions:{firefoxUserPrefs:{'webgl.force-enabled':true,'gfx.webrender.software':true}}}},
+    {name:'phone-webkit',testMatch:/studio\.spec\.mjs/,use:{browserName:'webkit',viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,launchOptions:{args:[]}}}
+  ],
   use: {
     browserName: 'chromium',
     baseURL: 'http://127.0.0.1:4173',
@@ -25,6 +30,7 @@ export default defineConfig({
     reducedMotion: 'reduce',
     trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
     screenshot: 'only-on-failure',
+    video: 'on-first-retry',
     launchOptions: { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--disable-dev-shm-usage'] }
   },
   webServer: { command: 'npm run serve', url: 'http://127.0.0.1:4173', reuseExistingServer: false, timeout: 20_000 }

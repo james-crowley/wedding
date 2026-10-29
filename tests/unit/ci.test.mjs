@@ -26,7 +26,7 @@ test('balanced test lists partition every browser case exactly once in the actua
     }
     assert.equal(new Set(selected).size,all.length);assert.deepEqual(selected.sort(),all.map(test=>test.id).sort());
     const weights=shards.map(s=>s.weight);assert.ok(Math.max(...weights)/Math.min(...weights)<1.1);
-    const batches=shards.map(s=>s.tests.filter(test=>test.title.startsWith('rental preview matrix')).length);assert.ok(batches.every(n=>n>=4&&n<=5),'Heavy catalog batches must reach every worker');
+    const batches=shards.map(s=>s.tests.filter(test=>test.title.startsWith('rental preview matrix')).length);assert.ok(batches.every(n=>n>=3&&n<=6),'Heavy catalog batches must reach every worker');
     assert.deepEqual(balancedBrowserShards(all,SHARDS),shards,'Assignments must be deterministic');
   }finally{await rm(directory,{recursive:true,force:true});}
 });

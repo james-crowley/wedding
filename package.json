@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
+    "gifenc": "1.0.3",
+    "pngjs": "7.0.0",
     "yaml": "2.9.1"
   }
 }

@@ -6,7 +6,7 @@ export function browserInventory(report) {
     const nested=top?[]:[...parents,suite.title].filter(Boolean);
     for(const spec of suite.specs||[]){
       const file=spec.file.replaceAll('\\','/');
-      const selector=[file,...nested,spec.title].join(' › ');
+      const project=spec.tests[0]?.projectId||'',selector=[...(project?['['+project+']']:[]),file,...nested,spec.title].join(' › ');
       if(/[\r\n]/.test(selector)||file.startsWith('/')||file.split('/').includes('..'))throw new Error('Unsupported browser test selector');
       items.push({id:spec.id,title:spec.title,selector,projects:spec.tests.map(test=>test.projectId||''),weight:browserWeight(spec.title)});
     }
@@ -15,6 +15,7 @@ export function browserInventory(report) {
   for(const suite of report.suites||[])visit(suite,[],true);return items;
 }
 export function browserWeight(title){
+  if(title.startsWith('studio:'))return 70;
   const batch=title.match(/^rental preview matrix (\d+)–(\d+):/);if(batch)return 4+(Number(batch[2])-Number(batch[1])+1)*1.5;
   const audit=title.match(/^option audit: (.+) \(/);
   if(audit){const control=controls.find(c=>c.selector===audit[1]);return 4+Math.max(1,control?.values.length||20)*1.5;}
@@ -38,4 +39,12 @@ export function balancedBrowserShards(inventory,total){
 export function verifyShardSelection(actual,assigned){
   const ids=actual.map(t=>t.id).sort(),wanted=assigned.map(t=>t.id).sort();
   if(!ids.length||new Set(ids).size!==ids.length||JSON.stringify(ids)!==JSON.stringify(wanted))throw new Error('Browser test list does not exactly match its assigned shard');
+}
+
+// Timing history only orders complete coverage. It never selects or skips tests.
+export function timedInventory(inventory,history={}){
+  return inventory.map(test=>({...test,weight:Number.isFinite(history[test.id])&&history[test.id]>0?Math.max(1,Math.min(900,history[test.id])):test.weight}));
+}
+export function reportTimings(report){
+  const history={};function visit(suite){for(const spec of suite.specs||[]){const duration=(spec.tests||[]).flatMap(t=>t.results||[]).reduce((sum,r)=>sum+(Number.isFinite(r.duration)?r.duration:0),0)/1000;if(duration>0)history[spec.id]=duration;}for(const child of suite.suites||[])visit(child);}for(const suite of report.suites||[])visit(suite);return history;
 }

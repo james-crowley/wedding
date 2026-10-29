@@ -24,6 +24,10 @@ jobs:
           key: v1-npm-pw1641-{{ arch }}-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
+      - restore_cache:
+          keys:
+            - v2-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-
+            - v2-browser-timings-{{ checksum "package-lock.json" }}-
       - run:
           name: Classify changes against the published source or PR merge base
           command: node scripts/ci-plan.mjs prepare
@@ -59,6 +63,10 @@ jobs:
           name: Run this browser shard with one WebGL worker
           command: node scripts/ci-browser.mjs run
           no_output_timeout: 15m
+      - run:
+          name: Build a browsable gallery of screenshots, GIFs and recordings
+          when: always
+          command: node scripts/artifact-gallery.mjs
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -89,6 +97,10 @@ jobs:
       - store_artifacts:
           path: playwright-report
           destination: combined-browser-report
+      - save_cache:
+          key: v2-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .ci/browser-timings.json
       - store_artifacts:
           path: .ci/browser-proof.json
           destination: browser-proof.json

@@ -11,7 +11,7 @@ async function pick(frame,selector,value){await expose(frame,selector);const bef
 test.beforeEach(async({page})=>{
   await page.addInitScript(installRenderAudit);
   await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
-  await page.goto('/');await expect((await frameOf(page)).locator('#lp-loading')).toBeHidden({timeout:45_000});
+  await page.goto('/');await expect((await frameOf(page)).locator('#lp-loading')).toBeHidden({timeout:45_000});await (await frameOf(page)).locator('#lp-quality').evaluate(el=>{el.value='mobile';el.dispatchEvent(new Event('change',{bubbles:true}));});
 });
 
 for(const target of controls.find(c=>c.selector==='#lp-color-target').values)test(`every palette swatch applied to ${target}`,async({page},info)=>{
@@ -70,7 +70,7 @@ test('rapid themes, colors and pending numeric edits coalesce without losing the
   const equal=samples.filter((_,i)=>i%2===1);expect(Math.max(...equal.map(s=>s.geometries))-Math.min(...equal.map(s=>s.geometries))).toBeLessThan(5);
   expect(Math.max(...samples.map(s=>s.textures))).toBeLessThanOrEqual(baseline.textures+1);
   await info.attach('rapid-switch-resources.json',{body:JSON.stringify(samples,null,2),contentType:'application/json'});
-  await page.reload();await expect((await frameOf(page)).locator('#lp-loading')).toBeHidden({timeout:45_000});
+  await page.reload();await expect((await frameOf(page)).locator('#lp-loading')).toBeHidden({timeout:45_000});await (await frameOf(page)).locator('#lp-quality').evaluate(el=>{el.value='mobile';el.dispatchEvent(new Event('change',{bubbles:true}));});
   const restored=await frameOf(page);await health(restored,'Reload after rapid changes');
   expect(await restored.evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(7);
 });

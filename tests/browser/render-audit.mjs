@@ -1,6 +1,6 @@
 // Installed before the bundled Three.js script. Instrument the real renderer;
 // production code does not expose a test API or replace WebGL with a mock.
-export function installRenderAudit() {
+export function installRenderAudit({fullResolution=false}={}) {
   let three;
   const audit=window.__renderAudit={frames:0,errors:[],renderer:null,scene:null,camera:null,pending:new Set()};
   const setTimer=window.setTimeout.bind(window),clearTimer=window.clearTimeout.bind(window);
@@ -17,7 +17,7 @@ export function installRenderAudit() {
     Object.defineProperty(value,'WebGLRenderer',{configurable:true,get:()=>Renderer,set(Original){
       Renderer=new Proxy(Original,{construct(Target,args){
         const renderer=Reflect.construct(Target,args),render=renderer.render.bind(renderer),setSize=renderer.setSize.bind(renderer);
-        renderer.setSize=(w,h)=>{const scale=Math.min(1,480/w,320/h);return setSize(Math.round(w*scale),Math.round(h*scale),false);};
+        renderer.setSize=(w,h)=>{const scale=fullResolution?1:Math.min(1,480/w,320/h);return setSize(Math.round(w*scale),Math.round(h*scale),false);};
         renderer.render=(scene,camera)=>{
           // Keep real geometry, shaders and shadows; reduce raster resolution for
           // the large option matrix. The original UI suite uses full resolution.

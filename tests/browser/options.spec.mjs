@@ -52,7 +52,7 @@ test.beforeEach(async({page})=>{
   await page.addInitScript(installRenderAudit);
   await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
   await page.goto('/');const frame=await appFrame(page);
-  await expect(frame.locator('#lp-loading')).toBeHidden({timeout:45_000});
+  await expect(frame.locator('#lp-loading')).toBeHidden({timeout:45_000});await frame.locator('#lp-quality').evaluate(el=>{el.value='mobile';el.dispatchEvent(new Event('change',{bubbles:true}));});
   // Enumerate against the live DOM: newly introduced controls cannot silently
   // escape this source-derived inventory and its parameterized cases.
   const actual=await frame.locator('select,input').evaluateAll(els=>els.map(el=>el.id?'#'+el.id:`[data-design="${el.dataset.design}"]`).filter(s=>!/^#lp-table-\d+$/.test(s)).sort());

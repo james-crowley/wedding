@@ -1,0 +1,9 @@
+import {readdir,writeFile,mkdir} from 'node:fs/promises';
+import {join,relative} from 'node:path';
+const root='test-results';
+async function walk(path){const out=[];for(const entry of await readdir(path,{withFileTypes:true})){const p=join(path,entry.name);if(entry.isDirectory())out.push(...await walk(p));else if(/\.(png|gif|webm)$/.test(entry.name))out.push(p);}return out;}
+await mkdir(root,{recursive:true});const files=(await walk(root)).sort();
+const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const cards=files.map(path=>{const name=relative(root,path),url=name.split('/').map(encodeURIComponent).join('/');return `<article><h2>${esc(name)}</h2>${path.endsWith('.webm')?`<video src="${url}" controls preload="metadata"></video>`:`<a href="${url}"><img src="${url}" loading="lazy" alt="${esc(name)}"></a>`}</article>`;}).join('\n');
+await writeFile(join(root,'visual-gallery.html'),`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Browser visual evidence</title><style>body{background:#f4f2eb;color:#25382a;font:15px system-ui;max-width:1400px;margin:auto;padding:24px}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}article{background:white;border:1px solid #d3dbcc;border-radius:12px;padding:15px;min-width:0}h2{font-size:12px;overflow-wrap:anywhere}img,video{width:100%;max-height:600px;object-fit:contain}</style><h1>Browser visual evidence</h1><p>Actual browser screenshots, animated comparisons and recordings. See the Playwright report for assertions, test status and traces. Emulated phones do not replace physical-device checks.</p><main>${cards||'<p>No visual files were produced; inspect test reports for runner failures.</p>'}</main></html>`);
+console.log(`Visual gallery: ${files.length} files → test-results/visual-gallery.html`);

@@ -2,11 +2,13 @@ import { describe,it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import {housePlan,houseWalkSurface,houseFloorPanels} from '../../src/planning.mjs';
+const planning={houseWalkSurface};
 
 const source=readFileSync(new URL('../../src/model.html',import.meta.url),'utf8');
 describe('Production walking surfaces',()=>{
   for(const rise of [1.5,3.5,20])it(`stairs connect to the upper floors and back at house rise ${rise}`,()=>{
-    const context=vm.createContext({config:{houseRise:rise,lakeDrop:7.5}});
+    const context=vm.createContext({planning,config:{houseRise:rise,lakeDrop:7.5}});
     vm.runInContext(source.slice(source.indexOf('    function gradeHeight('),source.indexOf('    function ribbon(')),context);
     const height=context.walkingHeight;let surface=height(-34.4,-60);
     for(let z=-60;z>=-67;z-=.25)surface=height(-34.4,z,surface);
@@ -62,15 +64,31 @@ describe('Production keyboard movement and sprint',()=>{
   });
 });
 
-describe('Photo-based interior stair support',()=>{
-  for(const rise of [1.5,3.5,20])it(`switchback, landing, catwalk and rooms at rise ${rise}`,()=>{
-    const context=vm.createContext({config:{houseRise:rise,lakeDrop:7.5}});vm.runInContext(source.slice(source.indexOf('    function gradeHeight('),source.indexOf('    function ribbon(')),context);const h=context.walkingHeight;
-    let surface=rise+8.16;for(let z=-99;z<=-91;z+=.125)surface=h(18.9,z,surface);assert.equal(surface,rise+13.23);
-    for(let x=18.9;x>=15.1;x-=.2)surface=h(x,-90,surface);assert.equal(surface,rise+13.23);
-    for(let z=-91;z>=-99;z-=.125)surface=h(15.1,z,surface);assert.ok(Math.abs(surface-(rise+18.41))<1e-9);
-    for(const [x,z]of [[15.1,-100],[0,-101],[0,-85],[-12,-84],[13,-84]])surface=h(x,z,surface);assert.ok(Math.abs(surface-(rise+18.41))<1e-9);
-    for(let x=0;x>=-12;x-=.25)assert.ok(Math.abs(h(x,-85,rise+18.41)-(rise+18.41))<1e-9,'Bridal room connects to the catwalk');for(let x=0;x<=13;x+=.25)assert.ok(Math.abs(h(x,-82.8,rise+18.41)-(rise+18.41))<1e-9,'Guest room connects to the catwalk');
-    assert.equal(h(13,-84,rise+8.16),rise+8.16,'Main living space below room keeps its own floor');assert.ok(h(18.9,-95,rise)<rise+2,'Ground-floor guest cannot jump onto the stair');
+describe('Owner-corrected house circulation',()=>{
+  for(const rise of [1.5,3.5,20])it(`all three floors, cross-house catwalk and return at rise ${rise}`,()=>{
+    const context=vm.createContext({planning,config:{houseRise:rise,lakeDrop:7.5}});vm.runInContext(source.slice(source.indexOf('    function gradeHeight('),source.indexOf('    function ribbon(')),context);const h=context.walkingHeight,p=housePlan(),stair=p.stair;
+    let surface=rise+p.levels[0];const move=(x,z)=>{const next=h(x,z,surface);assert.ok(Math.abs(next-surface)<.8,`Continuous support at ${x},${z}: ${surface} to ${next}`);surface=next;};
+    const flight=(ascending,level)=>{
+      const first=ascending?stair.outerX:stair.innerX,last=ascending?stair.innerX:stair.outerX;
+      for(let z=stair.startZ;z>=stair.turnZ-.6;z-=.1)move(first,z);
+      const delta=last>first?.1:-.1;for(let x=first;delta>0?x<=last:x>=last;x+=delta)move(x,stair.turnZ-.6);
+      for(let z=stair.turnZ-.6;z<=stair.startZ+.001;z+=.1)move(last,z);move(last,stair.startZ+.5);
+      assert.ok(Math.abs(surface-(rise+p.levels[level]))<1e-8);
+    };
+    flight(true,1);for(let x=stair.innerX;x>=stair.outerX;x-=.1)move(x,stair.startZ+.5);flight(true,2);
+    for(let x=stair.innerX;x<=20;x+=.1)move(x,-92.5);assert.ok(Math.abs(surface-(rise+p.levels[2]))<1e-8);
+    for(const room of p.rooms){assert.equal(h(room.x,room.z,rise+p.levels[2]),rise+p.levels[2]);for(let z=-91.5;z<room.z;z+=.1)assert.equal(h(room.x,z,rise+p.levels[2]),rise+p.levels[2]);}
+    for(let x=20;x>=stair.innerX;x-=.1)move(x,-92.5);flight(false,1);flight(false,0);
+    assert.equal(h(10,-84,rise+p.levels[1]),rise+p.levels[1]);assert.equal(h(stair.outerX,-97,rise+p.levels[0]),rise+p.levels[0],'A guest underneath cannot jump onto a stair');
+  });
+  it('gravel grade connects up the stone entry steps onto the main floor',()=>{
+    const rise=3.5,context=vm.createContext({planning,config:{houseRise:rise,lakeDrop:7.5}});vm.runInContext(source.slice(source.indexOf('    function gradeHeight('),source.indexOf('    function ribbon(')),context);let surface=rise+5.18;
+    for(let z=-109.65;z<=-102.75;z+=.1){const next=context.walkingHeight(-12,z,surface);assert.ok(Math.abs(next-surface)<.8);surface=next;}assert.ok(Math.abs(surface-(rise+8.16))<1e-8);
+  });
+  it('the main floor has a real stairwell opening with matching walking support',()=>{
+    const s=housePlan().stair.shaft,panels=houseFloorPanels();for(const p of panels){assert.ok(p.w>0&&p.d>0);assert.ok(!(p.x-p.w/2<s.x1&&p.x+p.w/2>s.x0&&p.z-p.d/2<s.z1&&p.z+p.d/2>s.z0),'Floor panels do not cover the stair shaft');}
+    const area=panels.reduce((n,p)=>n+p.w*p.d,0);assert.ok(Math.abs(area-(43.5*25.5-(s.x1-s.x0)*(s.z1-s.z0)))<1e-8);
+    assert.equal(houseWalkSurface(0,-93.5,18.41),18.41);assert.equal(houseWalkSurface(0,-84,18.41),8.16,'The old front-to-back walkway is no longer a floor');
   });
 });
 

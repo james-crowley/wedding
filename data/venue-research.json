@@ -1,7 +1,7 @@
 {
   "title": "Venue photo research and model improvements",
   "reviewed": "2026-10-29",
-  "scope": "Selected-post study with a fresh review of all seven house-tour photos, all four downstairs games-room photos and the bridal-redesign reel, alongside the earlier venue study. These references now inform the rendered house. This is not an exhaustive account review or an architectural survey; room sizes, upper-room positions and stair runs remain estimates. Public photos cannot establish exact room dimensions.",
+  "scope": "Selected-post study with a fresh review of all seven house-tour photos, all four downstairs games-room photos and the bridal-redesign reel, alongside the earlier venue study. These references now inform the rendered house. This is not an exhaustive account review or an architectural survey; room sizes, upper-room positions and stair runs remain estimates. Public photos cannot establish exact room dimensions. Owner corrections place the kitchen in the lake-facing right corner and stairs on the right when facing the water, with a side-to-side upper catwalk.",
   "sources": [
     {
       "id": "DfCzm2rFBBs",
@@ -242,7 +242,7 @@
         "DSx495EE95Q"
       ],
       "status": "modeled",
-      "currentModel": "A narrow central catwalk, rear landing and two timber stair flights with dark spindle rails are modeled, including walking support. Enclosed upper-room vignettes are distinct from the open catwalk. Stair position, room adjacency and dimensions are provisional."
+      "currentModel": "Owner-corrected orientation: the bridge spans side to side across the house. Two switchbacks on the right when facing the lake connect basement, main floor and upper level. Main-floor and bridge openings, landings and walking support share one circulation plan. Runs and dimensions remain estimates."
     },
     {
       "area": "House interior",
@@ -268,7 +268,7 @@
         "DfCzm2rFBBs"
       ],
       "status": "modeled",
-      "currentModel": "Dark mottled stone counters, timber cabinet faces/handles, sink, cooktop, stools and three pendants are modeled. The trestle table has six black ladder-back chairs, a pale bordered rug and a round clock/console. Table size and room placement are estimates."
+      "currentModel": "The owner confirmed the lake/porch-facing right corner for the kitchen. Cabinets, dark stone island, sink/cooktop, stools and three pendants now move together there. Dining sits on the opposite side with its clock and console. Dimensions remain estimates."
     },
     {
       "area": "House interior",
@@ -336,7 +336,7 @@
         "DWHyPRLk1Wz"
       ],
       "status": "modeled",
-      "currentModel": "The driveway view now includes segmented white siding, dark-framed windows, a glazed front entrance, short stone entry steps, tapered stone chimney, gray roof/clerestory, gravel forecourt and foundation planting. Entrance height and footprint remain estimates."
+      "currentModel": "The photo-based facade, chimney, glazed door and short stone entry steps are retained. A single connected gravel approach now widens into the front forecourt and reaches the entry steps; a dark board fence follows the outer approach. Driveway alignment and width are conceptual, not surveyed."
     },
     {
       "area": "Patio and paths",

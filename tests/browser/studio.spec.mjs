@@ -86,6 +86,7 @@ test('studio: rehearsal porch seats, buffet trays, bar and saved walkthrough',as
   },{name,p});for(const sight of sightlines){expect(sight.inFrame,JSON.stringify(sight)).toBe(true);expect(sight.visible,JSON.stringify(sight)).toBe(true);}}
   await stationVisible('rehearsalBuffet','Rehearsal tray buffet',[-4,2.8,0]);
   await stationVisible('rehearsalBar','Rehearsal bartending station',[0,3.57,0]);await capture(f,info,'rehearsal-bar');
+  for(const side of ['left','right']){await f.locator('#lp-rehearsal-side').selectOption(side);await healthy(f);await stationVisible('rehearsalBuffet','Rehearsal tray buffet',[-4,2.8,0]);await stationVisible('rehearsalBar','Rehearsal bartending station',[0,3.57,0]);const overlap=await f.evaluate(()=>{const s=window.__renderAudit.scene;s.updateMatrixWorld(true);const b=n=>new THREE.Box3().setFromObject(s.getObjectByName(n)),k=b('House kitchen');return ['Rehearsal tray buffet','Rehearsal bartending station'].some(n=>k.intersectsBox(b(n)));});expect(overlap,'Service stations clear the corrected kitchen on both sides').toBe(false);}
 
   await f.locator('#lp-rehearsal-bar').uncheck();await f.locator('#lp-rehearsal-buffet').uncheck();await healthy(f);expect(await counts()).toEqual({seats:35,tables:6,trays:0,bar:0});
   await f.locator('#lp-rehearsal-bar').check();await f.locator('#lp-rehearsal-buffet').check();await healthy(f);
@@ -179,4 +180,35 @@ test('studio: photo-based house rooms, outward rockers and actual transparent do
   const angle=await f.evaluate(()=>window.__renderAudit.scene.getObjectByName('House glazed door leaf').rotation.y);expect(Math.abs(angle)).toBeCloseTo(Math.PI*.43);
   await page.reload();const restored=await frameOf(page);await healthy(restored);expect(await restored.evaluate(()=>window.openai.widgetState.modelContent.houseGlassOpacity)).toBeCloseTo(.32);
   const fixed=()=>restored.evaluate(()=>{const colors=[];window.__renderAudit.scene.getObjectByName('House bridal suite').traverse(o=>{if(o.material?.color)colors.push(o.material.color.getHexString());});return colors;});const before=await fixed();await restored.locator('#lp-tab-decor').click();await restored.locator('[data-photo-look="cassidyAustin"][data-part="all"]').click();await healthy(restored);expect(await fixed()).toEqual(before);
+});
+
+test('studio: lake-facing right kitchen, cross-house bridge, three-level stairs and connected arrival',async({page},info)=>{
+  test.setTimeout(6*60_000);const f=await frameOf(page);
+  await f.locator('#lp-view').selectOption('houseInterior');await healthy(f);
+  const facts=await f.evaluate(()=>{
+    const {scene}=window.__renderAudit;scene.updateMatrixWorld(true);const bounds=name=>{const b=new THREE.Box3().setFromObject(scene.getObjectByName(name));return {min:b.min.toArray(),max:b.max.toArray(),size:b.getSize(new THREE.Vector3()).toArray()};};
+    const stair=scene.getObjectByName('House interior switchback staircase'),flights=[];stair.traverse(o=>{if(o.name==='House stair flight')flights.push(o.userData);});
+    const floor=scene.getObjectByName('House main floor with stair opening'),rise=window.openai.widgetState.modelContent.houseRise,hit=(x,z)=>new THREE.Raycaster(new THREE.Vector3(x,rise+9,z),new THREE.Vector3(0,-1,0),0,2).intersectObject(floor,true).length;
+    const drive=scene.getObjectByName('Connected gravel driveway and forecourt');return {kitchen:bounds('House kitchen'),bridge:bounds('House central catwalk'),stairs:bounds('House interior switchback staircase'),drive:bounds(drive.name),flights,shaftHits:hit(-19.35,-97),solidHits:hit(8,-90),surfaceCount:scene.getObjectsByProperty('name',drive.name).length,upward:[...drive.geometry.attributes.normal.array].filter((_,i)=>i%3===1).every(y=>y>.9)};
+  });
+  expect(facts.kitchen.max[0]).toBeLessThan(-2);expect(facts.kitchen.min[2]).toBeGreaterThan(-89);expect(facts.kitchen.max[2]).toBeLessThan(-77);
+  expect(facts.stairs.max[0]).toBeLessThan(-14);expect(facts.flights).toHaveLength(4);expect(Math.min(...facts.flights.map(f=>f.bottom))).toBeCloseTo(.055);expect(Math.max(...facts.flights.map(f=>f.top))).toBeCloseTo(18.41);
+  expect(facts.bridge.size[0]).toBeGreaterThan(39);expect(facts.bridge.size[0]).toBeGreaterThan(facts.bridge.size[2]*4);expect(facts.shaftHits).toBe(0);expect(facts.solidHits).toBeGreaterThan(0);
+  expect(facts.drive.min[2]).toBeLessThan(-150);expect(facts.drive.max[2]).toBeCloseTo(-109.5);expect(facts.drive.size[0]).toBeGreaterThan(70);expect(facts.surfaceCount).toBe(1);expect(facts.upward).toBe(true);
+  for(const view of ['houseInterior','houseKitchen','houseStairs','houseLoft','houseDriveway']){await f.locator('#lp-view').selectOption(view);await healthy(f);await capture(f,info,'orientation-'+view);}
+  // Exercise real imported walking state and keyboard controls at each stair.
+  const model=await f.evaluate(()=>window.openai.widgetState.modelContent),rise=model.houseRise;
+  for(const [x,z,surface,yaw,label]of [[-19.35,-93.7,.055,0,'basement up'],[-19.35,-93.7,8.16,0,'main up'],[-15.95,-93.7,18.41,0,'upper down'],[-15.95,-93.7,8.16,0,'main down']]){
+    await f.locator('#lp-load').setInputFiles({name:'stairs.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({schema:'venue-pavilion-v9',model,view:'walk',walk:{x,z,y:5.5,surface:rise+surface,yaw,pitch:0}}))});
+    await expect(f.locator('#lp-view')).toHaveValue('walk');
+    // FileReader completes asynchronously even when the prior view was already
+    // walking. Wait for this imported position before sending another key.
+    await expect.poll(()=>f.evaluate(({x,z,surface})=>{const w=window.openai.widgetState.privateContent.walk;return Math.abs(w.x-x)<.01&&Math.abs(w.z-z)<.01&&Math.abs(w.surface-surface)<.25;},{x,z,surface:rise+surface}),{message:label+' imported position'}).toBe(true);
+    await healthy(f);const before=await f.evaluate(()=>window.openai.widgetState.privateContent.walk.surface);
+    const beforeY=await f.evaluate(()=>window.__renderAudit.camera.position.y);await f.locator('#lp-canvas').focus();await page.keyboard.down('w');
+    try{const moved=expect.poll(()=>f.evaluate(()=>window.__renderAudit.camera.position.y),{timeout:10000});if(label.endsWith(' up'))await moved.toBeGreaterThan(beforeY+.02);else await moved.toBeLessThan(beforeY-.02);}finally{await page.keyboard.up('w');await page.keyboard.press('Escape');}
+    await healthy(f);const after=await f.evaluate(()=>window.openai.widgetState.privateContent.walk.surface);
+    expect(label.endsWith(' up')?after>before:after<before,label+' follows its stair rather than another floor').toBe(true);expect(Math.abs(after-before)).toBeLessThan(1.3);
+  }
+  await info.attach('house-orientation-and-floor-openings.json',{body:JSON.stringify(facts,null,2),contentType:'application/json'});
 });

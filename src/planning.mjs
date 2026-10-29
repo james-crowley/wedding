@@ -50,3 +50,30 @@ export function wallPanels(width,height,openings=[]){
     if(!holes.some(o=>x>o.left&&x<o.right&&y>o.bottom&&y<o.top))panels.push({x,y,w:xs[i]-xs[i-1],h:ys[j]-ys[j-1]});
   }return panels;
 }
+
+// Right/left use a person inside the house facing the lake (+Z). Their right
+// is -X. Locations follow the owner's orientation correction; sizes are estimates.
+const HOUSE_PLAN={levels:[.055,8.16,18.41],stair:{outerX:-19.35,innerX:-15.95,width:3.1,startZ:-93.5,turnZ:-100.25,shaft:{x0:-21,x1:-14.3,z0:-102.75,z1:-93.5}},bridge:{x0:-20.5,x1:20.5,z:-93.5,depth:4},rooms:[{id:'bridal',x:-12,z:-84.2,w:17,d:12},{id:'guest',x:13,z:-83.7,w:17,d:11}]};
+export function housePlan(){return HOUSE_PLAN;}
+export function houseFloorPanels(){
+  const s=HOUSE_PLAN.stair.shaft;
+  return [{x:(-21.75+s.x0)/2,z:-90,w:s.x0+21.75,d:25.5},{x:(s.x1+21.75)/2,z:-90,w:21.75-s.x1,d:25.5},{x:(s.x0+s.x1)/2,z:(s.z1-77.25)/2,w:s.x1-s.x0,d:-77.25-s.z1}];
+}
+export function houseWalkSurface(x,z,previous=-100){
+  if(Math.abs(x)>21.75||z< -102.75||z> -77.25)return null;
+  const p=HOUSE_PLAN,s=p.stair,b=p.bridge,inside=(x0,x1,z0,z1)=>x>=x0-.001&&x<=x1+.001&&z>=z0-.001&&z<=z1+.001;
+  const candidates=[p.levels[0]],stairs=[];
+  if(!inside(s.shaft.x0,s.shaft.x1,s.shaft.z0,s.shaft.z1-.001))candidates.push(p.levels[1]);
+  const bridge=inside(s.shaft.x1,b.x1,b.z-b.depth/2,b.z+b.depth/2)||inside(b.x0,s.shaft.x1,b.z,b.z+b.depth/2);
+  const rooms=p.rooms.some(r=>inside(r.x-r.w/2,r.x+r.w/2,r.z-r.d/2,r.z+r.d/2)||inside(r.x-1.7,r.x+1.7,b.z+b.depth/2,r.z-r.d/2));
+  if(bridge||rooms)candidates.push(p.levels[2]);
+  for(let level=0;level<2;level++){
+    const bottom=p.levels[level],top=p.levels[level+1],mid=(bottom+top)/2;
+    if(inside(s.outerX-s.width/2,s.outerX+s.width/2,s.turnZ,s.startZ))stairs.push(bottom+(mid-bottom)*(s.startZ-z)/(s.startZ-s.turnZ));
+    if(inside(s.innerX-s.width/2,s.innerX+s.width/2,s.turnZ,s.startZ))stairs.push(mid+(top-mid)*(z-s.turnZ)/(s.startZ-s.turnZ));
+    if(inside(s.shaft.x0,s.shaft.x1,s.turnZ-2.5,s.turnZ))stairs.push(mid);
+  }
+  const stair=stairs.filter(y=>Math.abs(y-previous)<=1.15).sort((a,b)=>Math.abs(a-previous)-Math.abs(b-previous));if(stair.length)return stair[0];
+  const near=candidates.filter(y=>Math.abs(y-previous)<=1.15).sort((a,b)=>Math.abs(a-previous)-Math.abs(b-previous));
+  return near[0]??Math.max(...candidates.filter(y=>y<=previous+.8),p.levels[0]);
+}

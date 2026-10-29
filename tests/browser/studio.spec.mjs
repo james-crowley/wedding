@@ -169,6 +169,10 @@ test('studio: photo-based house rooms, outward rockers and actual transparent do
     await f.locator('#lp-view').selectOption(view);await healthy(f);
     const visible=await f.evaluate(({name,p})=>{const {scene,camera}=window.__renderAudit;scene.updateMatrixWorld(true);const group=scene.getObjectByName(name),point=group.localToWorld(new THREE.Vector3(...p)),ray=new THREE.Raycaster(camera.position,point.clone().sub(camera.position).normalize());const hits=ray.intersectObjects(scene.children,true).filter(hit=>{let o=hit.object;while(o){if(!o.visible)return false;o=o.parent;}return hit.object.material&&!hit.object.material.transparent;});let o=hits[0]?.object;while(o){if(o===group)return true;o=o.parent;}return false;},{name,p});expect(visible,view+' has a clear view of its furniture').toBe(true);
   }
+  for(const [view,expected]of [['houseLoft',21.91],['houseBridal',21.91],['houseBedroom',21.91],['housePorch',11.55]]){
+    await f.locator('#lp-view').selectOption(view);await healthy(f);await f.locator('#lp-canvas').focus();await page.keyboard.press('w');await page.keyboard.press('Escape');await healthy(f);
+    expect(await f.evaluate(()=>window.openai.widgetState.privateContent.walk.surface),view+' retains the correct walking floor').toBeCloseTo(expected,1);
+  }
   const gif=info.outputPath('house-photo-study.gif');await makePreviewGif(houseFrames,gif);await info.attach('Photo-based house views',{path:gif,contentType:'image/gif'});
   await f.locator('#lp-tab-view').click();await f.locator('#lp-house-doors').check();await f.locator('#lp-house-glass').fill('.32');await f.locator('#lp-house-glass').press('Tab');await healthy(f);
   expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseDoorsOpen)).toBe(true);expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseGlassOpacity)).toBeCloseTo(.32);

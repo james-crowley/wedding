@@ -2504,7 +2504,11 @@
     function stopWalking(){held.clear();lastKeyAt.clear();pointerHeld.clear();forwardTapAt.clear();sprintKeys.clear();if(walkFrame)cancelAnimationFrame(walkFrame);walkFrame=0;}
     function takeManualControl(){
       const fromSeat=activeView==='seat';stopWalking();pauseTour(false);cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3());
-      const surface=walkingHeight(p.x,p.z,p.y-5.5);
+      // Interior preset cameras can sit below the usual 5.5 ft eye height.
+      // Carry their known floor into manual control instead of guessing a lower
+      // storey from eye height (especially the catwalk and screened porch).
+      const support=['houseBridal','houseBedroom','houseLoft'].includes(activeView)?config.houseRise+18.41:['houseInterior','houseKitchen','housePorch','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar'].includes(activeView)?config.houseRise+8.16:p.y-5.5;
+      const surface=walkingHeight(p.x,p.z,support);
       const next={x:p.x,z:p.z,y:fromSeat?5.5:n(p.y-surface,5.5,3,200),surface,yaw:Math.hypot(direction.x,direction.z)<.02?Math.PI:Math.atan2(direction.x,-direction.z),pitch:Math.asin(n(direction.y,0,-1,1))};
       restoreProjection('walk');walk=normalizeWalk(next);applyAppearance();syncControls();selectionText();draw();
     }

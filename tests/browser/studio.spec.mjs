@@ -66,6 +66,18 @@ test('studio: rehearsal porch seats, buffet trays, bar and saved walkthrough',as
   expect(bounds.length).toBe(35);for(const [x,,z]of bounds){expect(Math.abs(x)).toBeGreaterThanOrEqual(5);expect(Math.abs(x)).toBeLessThanOrEqual(22);expect(z).toBeGreaterThan(-75);expect(z).toBeLessThan(-66);}
   await f.locator('#lp-view').selectOption('rehearsalSeat');await healthy(f);await capture(f,info,'rehearsal-seated');expect(await f.evaluate(()=>window.__renderAudit.scene.getObjectByName('Porch ceiling').visible)).toBe(true);
   await f.locator('#lp-view').selectOption('rehearsalBuffet');await healthy(f);await capture(f,info,'rehearsal-buffet-bar');
+  async function stationVisible(view,name,p){await f.locator('#lp-view').selectOption(view);await healthy(f);const sightlines=await f.evaluate(({name,p})=>{
+    const {scene,camera}=window.__renderAudit;scene.updateMatrixWorld(true);
+    return [[name,p]].map(([name,p])=>{
+      const group=scene.getObjectByName(name),point=group.localToWorld(new THREE.Vector3(...p)),projected=point.clone().project(camera),ray=new THREE.Raycaster(camera.position,point.clone().sub(camera.position).normalize());
+      const hits=ray.intersectObjects(scene.children,true).filter(hit=>{let o=hit.object;while(o){if(!o.visible)return false;o=o.parent;}const m=hit.object.material;return hit.object.isMesh&&!hit.object.isLine&&!hit.object.isHelper&&m&&!Array.isArray(m)&&!(m.transparent&&m.opacity<.8);});
+      const first=hits[0];let owner=first?.object,visible=false;while(owner){if(owner===group)visible=true;owner=owner.parent;}
+      return {name,inFrame:Math.abs(projected.x)<.95&&Math.abs(projected.y)<.95&&projected.z<1,visible,first:first?.object.name};
+    });
+  },{name,p});for(const sight of sightlines){expect(sight.inFrame,JSON.stringify(sight)).toBe(true);expect(sight.visible,JSON.stringify(sight)).toBe(true);}}
+  await stationVisible('rehearsalBuffet','Rehearsal tray buffet',[-4,2.8,0]);
+  await stationVisible('rehearsalBar','Rehearsal bartending station',[0,3.57,0]);await capture(f,info,'rehearsal-bar');
+
   await f.locator('#lp-rehearsal-bar').uncheck();await f.locator('#lp-rehearsal-buffet').uncheck();await healthy(f);expect(await counts()).toEqual({seats:35,tables:6,trays:0,bar:0});
   await f.locator('#lp-rehearsal-bar').check();await f.locator('#lp-rehearsal-buffet').check();await healthy(f);
   await f.locator('#lp-rehearsal-walk').click();const h=await healthy(f);expect(h.camera[1]).toBeCloseTo(17.05,1);expect(h.camera[2]).toBeCloseTo(-66,1);

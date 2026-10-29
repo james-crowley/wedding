@@ -21,7 +21,7 @@
       <select class="form-select" id="lp-layout"><option value="separate">12 separate tables</option><option value="joined">3 joined rows</option></select>
     </label>
     <label class="form-label">View
-      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet & bar</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
+      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet inside</option><option value="rehearsalBar">Rehearsal · bartending station</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
     </label>
     <label class="form-label">Drag action
       <select class="form-select" id="lp-action"><option value="orbit">Rotate view</option><option value="move">Move furniture</option><option value="measure">Measure floor distance</option></select>
@@ -2069,7 +2069,8 @@
         if(!chosen){l.el.style.display='none';return;}occupied.push(chosen.b);l.el.style.left=xx+'px';l.el.style.top=chosen.yy+'px';
       });
     }
-    function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);for(const c of [perspectiveCamera,walkCamera]){c.aspect=w/h;c.updateProjectionMatrix();}draw();}
+    function adaptHouseLens(){perspectiveCamera.fov=['rehearsalBuffet','rehearsalBar'].includes(activeView)?Math.atan(Math.tan(43*Math.PI/360)/Math.min(1,stage.clientWidth/stage.clientHeight))*360/Math.PI:43;}
+    function resize(){const w=stage.clientWidth,h=stage.clientHeight;adaptHouseLens();renderer.setSize(w,h,false);for(const c of [perspectiveCamera,walkCamera]){c.aspect=w/h;c.updateProjectionMatrix();}draw();}
     function view(name,remember=true){
       stopWalking();pauseTour(false);activeView=name;restoreProjection(name);const factor=Math.max(1,1.35/(stage.clientWidth/stage.clientHeight));
       const presets={
@@ -2087,14 +2088,15 @@
         ceremony:{azimuth:Math.PI,polar:1.43,distance:32*factor,target:[0,gradeHeight(0,105)+3,105]},
         rehearsal:{azimuth:.32,polar:.63,distance:54,target:[0,config.houseRise+9,-74]},
         rehearsalSeat:{azimuth:0,polar:Math.PI/2,distance:9.5,target:[-13,config.houseRise+11.94,-77.65]},
-        rehearsalBuffet:{azimuth:.4,polar:1.20,distance:24,target:[1,config.houseRise+11,-84]},
+        rehearsalBuffet:{azimuth:.35,polar:Math.PI/2,distance:20,target:[-8,config.houseRise+13,-84]},
+        rehearsalBar:{azimuth:-.25,polar:Math.PI/2,distance:20,target:[15,config.houseRise+13,-83]},
         houseInterior:{azimuth:.7,polar:1.30,distance:18,target:[0,config.houseRise+12,-91]},
         houseLower:{azimuth:.5,polar:1.42,distance:14,target:[0,config.houseRise+3,-92]},
         residence:{azimuth:.12,polar:1.71,distance:66*factor,target:[0,config.houseRise+14,-85]},
         stairs:{azimuth:-.60,polar:1.30,distance:35,target:[-29,config.houseRise+5,-68]},
         kitchen:{azimuth:-.75,polar:.85,distance:70*factor,target:[-20,4,-40]}
       };
-      if(name.startsWith('rehearsal')){config.rehearsal=true;config.houseCutaway=true;config.context=true;rebuild();}
+      if(name.startsWith('rehearsal')){config.rehearsal=true;config.houseCutaway=true;config.context=true;config.roof=false;rebuild();}
       if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
       else if(!['tour','seat'].includes(name))orbit=presets[name]||presets.perspective;
@@ -2109,8 +2111,8 @@
       applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
-      walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
+      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      adaptHouseLens();walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;
     }

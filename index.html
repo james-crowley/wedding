@@ -1529,6 +1529,13 @@ html&gt;body{padding:0}&lt;/style&gt;
   let nextStateRequestId = 0;
   /** @type {Map&lt;number, { resolve: () =&gt; void; reject: (error: Error) =&gt; void; timeout: ReturnType&lt;typeof globalThis.setTimeout&gt;; serializedState: string }&gt;} */
   const pendingStateWrites = new Map();
+  let nextShareRequestId=0;
+  const pendingShareRequests=new Map();
+  const shareDesign=({action,snapshot}={})=&gt;{
+    if(!['create','copy','native','personal','original'].includes(action)||navigator.userActivation?.isActive!==true)return Promise.reject(new Error('Use a share button to continue.'));
+    const id=++nextShareRequestId,payload={id,action,...(action==='create'?{snapshot}: {})};
+    return new Promise((resolve,reject)=&gt;{const timeout=setTimeout(()=&gt;{pendingShareRequests.delete(id);reject(new Error('Sharing did not finish. Try again or copy the displayed link.'));},action==='native'?120000:20000);pendingShareRequests.set(id,{resolve,reject,timeout,payload});postToHost('design-share-request',payload);});
+  };
   const persistenceError = () =&gt;
     Object.assign(
       new Error(&quot;The host could not persist the widget state update&quot;),
@@ -1676,6 +1683,9 @@ html&gt;body{padding:0}&lt;/style&gt;
       ...globalThis.openai,
       openExternal,
       downloadFile,
+      shareDesign,
+      sharedDesign:initialGlobals.sharedDesign??null,
+      canShareDesign:initialGlobals.canShareDesign===true,
       sendFollowUpMessage,
       setWidgetState,
       theme,
@@ -1725,7 +1735,11 @@ html&gt;body{padding:0}&lt;/style&gt;
           &quot;message&quot;,
           (event) =&gt; {
             const data = apply(getMessageData, event, []);
-            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
+            if(typeof data==='object'&amp;&amp;data?.type==='design-share-result'){
+              const pending=pendingShareRequests.get(data.id);if(!pending)return;
+              pendingShareRequests.delete(data.id);clearTimeout(pending.timeout);
+              if(data.ok===true)pending.resolve(data);else pending.reject(new Error(typeof data.error==='string'?data.error:'Sharing did not finish.'));
+            } else if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
               setHostViewport(data.viewportHeight);
               sendHeight();
             } else if (
@@ -1758,6 +1772,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       for (const [id, { serializedState }] of pendingStateWrites) {
         postToHost(&quot;widget-state-write&quot;, { id, state: serializedState });
       }
+      for(const {payload}of pendingShareRequests.values())postToHost('design-share-request',payload);
       sendHeight();
     },
     { capture: true },
@@ -1817,9 +1832,10 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
 
 &lt;/script&gt;
 &lt;div id=&quot;venue-pavilion-3d&quot;&gt;
-  &lt;header class=&quot;lp-heading&quot;&gt;&lt;div&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;YOUR WEDDING, IN THE MAKING&lt;/span&gt;&lt;h2&gt;Lakeside Estate&lt;/h2&gt;&lt;p class=&quot;lp-subtitle&quot;&gt;Wedding planning studio · spaces, styling &amp; shared decisions&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;lp-heading-actions&quot;&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-undo&quot; type=&quot;button&quot; disabled&gt;Undo&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-redo&quot; type=&quot;button&quot; disabled&gt;Redo&lt;/button&gt;&lt;span id=&quot;lp-save-status&quot; class=&quot;text-small&quot; role=&quot;status&quot;&gt;Design stays on this device&lt;/span&gt;&lt;/div&gt;&lt;span class=&quot;text-small&quot; id=&quot;lp-capacity&quot;&gt;90 × 40 ft · 96 guest seats + couple&lt;/span&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-camera&quot;&gt;Reset camera&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-open&quot;&gt;Reset all…&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-undo-reset&quot; hidden&gt;Undo reset&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
+  &lt;header class=&quot;lp-heading&quot;&gt;&lt;div&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;YOUR WEDDING, IN THE MAKING&lt;/span&gt;&lt;h2&gt;Lakeside Estate&lt;/h2&gt;&lt;p class=&quot;lp-subtitle&quot;&gt;Wedding planning studio · spaces, styling &amp; shared decisions&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;lp-heading-actions&quot;&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-undo&quot; type=&quot;button&quot; disabled&gt;Undo&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-redo&quot; type=&quot;button&quot; disabled&gt;Redo&lt;/button&gt;&lt;span id=&quot;lp-save-status&quot; class=&quot;text-small&quot; role=&quot;status&quot;&gt;Design stays on this device&lt;/span&gt;&lt;/div&gt;&lt;span class=&quot;text-small&quot; id=&quot;lp-capacity&quot;&gt;90 × 40 ft · 96 guest seats + couple&lt;/span&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn btn-primary&quot; type=&quot;button&quot; id=&quot;lp-share-create&quot;&gt;Share design&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-camera&quot;&gt;Reset camera&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-reset-open&quot;&gt;Reset all…&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-undo-reset&quot; hidden&gt;Undo reset&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
   &lt;div class=&quot;lp-reset-prompt&quot; id=&quot;lp-reset-prompt&quot; role=&quot;group&quot; aria-label=&quot;Confirm reset&quot; hidden&gt;&lt;strong&gt;Start fresh?&lt;/strong&gt;&lt;span&gt;Reset furniture, styling, site options and camera to the original planning defaults. You can undo this.&lt;/span&gt;&lt;button class=&quot;btn btn-primary&quot; id=&quot;lp-reset-confirm&quot; type=&quot;button&quot;&gt;Reset everything&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-reset-cancel&quot; type=&quot;button&quot;&gt;Keep my design&lt;/button&gt;&lt;/div&gt;
   &lt;section class=&quot;lp-event-strip&quot; aria-label=&quot;Explore an event&quot;&gt;&lt;div&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;PLAN YOUR WEEKEND&lt;/span&gt;&lt;p id=&quot;lp-event-summary&quot; class=&quot;text-small&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;lp-event-buttons&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-event-reception&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Reception&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-event-patio&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Cocktail patio&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-event-ceremony&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Ceremony&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-event-rehearsal&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Rehearsal dinner&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
+  &lt;div class=&quot;lp-shared-banner&quot; id=&quot;lp-shared-banner&quot; hidden&gt;&lt;div&gt;&lt;strong&gt;Shared design · your own copy&lt;/strong&gt;&lt;p class=&quot;text-small&quot; id=&quot;lp-shared-note&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-share-original&quot; type=&quot;button&quot;&gt;Reload linked version&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-share-personal&quot; type=&quot;button&quot;&gt;Back to my design&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
   &lt;div id=&quot;lp-workspace&quot; class=&quot;lp-workspace&quot;&gt;&lt;section id=&quot;lp-viewer&quot; class=&quot;lp-viewer&quot; aria-label=&quot;Venue visualization&quot;&gt;&lt;/section&gt;&lt;div id=&quot;lp-divider&quot; role=&quot;separator&quot; aria-label=&quot;Resize render and options panels&quot; aria-orientation=&quot;vertical&quot; aria-valuemin=&quot;320&quot; aria-valuemax=&quot;740&quot; aria-valuenow=&quot;440&quot; tabindex=&quot;0&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;&lt;aside id=&quot;lp-editor&quot; class=&quot;lp-editor&quot; aria-label=&quot;Wedding design controls&quot;&gt;&lt;section class=&quot;lp-lookbook&quot; id=&quot;lp-lookbook&quot;&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;THE OVERALL FEEL&lt;/span&gt;&lt;h3&gt;Find your starting look&lt;/h3&gt;&lt;p&gt;Coordinated flowers, fabrics &amp; candlelight. Make it yours below.&lt;/p&gt;&lt;div id=&quot;lp-look-cards&quot; class=&quot;lp-look-cards&quot; role=&quot;group&quot; aria-label=&quot;Coordinated wedding looks&quot;&gt;&lt;/div&gt;&lt;/section&gt;&lt;/aside&gt;&lt;/div&gt;
   &lt;div class=&quot;viz-controls&quot; id=&quot;lp-main-nav&quot;&gt;
     &lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-orbit-mode&quot;&gt;Orbit&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-sit&quot;&gt;Sit at a table&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-walk-inside&quot;&gt;Walk inside&lt;/button&gt;&lt;button class=&quot;btn&quot; type=&quot;button&quot; id=&quot;lp-stop-motion&quot;&gt;Stop / Esc&lt;/button&gt;
@@ -1971,7 +1987,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       &lt;label class=&quot;form-label&quot;&gt;Graphics quality&lt;select class=&quot;form-select&quot; id=&quot;lp-quality&quot;&gt;&lt;option value=&quot;auto&quot;&gt;Automatic · lighter on phones&lt;/option&gt;&lt;option value=&quot;mobile&quot;&gt;Light · phone / battery saver&lt;/option&gt;&lt;option value=&quot;high&quot;&gt;Detailed · desktop&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;label class=&quot;form-label&quot;&gt;View height (px)&lt;input class=&quot;form-control&quot; id=&quot;lp-view-height&quot; type=&quot;number&quot; min=&quot;360&quot; max=&quot;1200&quot; step=&quot;40&quot; value=&quot;680&quot;&gt;&lt;/label&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;section role=&quot;tabpanel&quot; id=&quot;lp-panel-save&quot; aria-labelledby=&quot;lp-tab-save&quot; hidden&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;SAVE, COMPARE &amp; SHARE&lt;/span&gt;&lt;h3&gt;Your design versions&lt;/h3&gt;&lt;p class=&quot;text-small&quot;&gt;Keep up to six versions in this browser. Compare a summary, then load either version into the render. Download a layout to use it on another device.&lt;/p&gt;&lt;label class=&quot;form-label&quot;&gt;Version name&lt;input class=&quot;form-control&quot; id=&quot;lp-design-name&quot; type=&quot;text&quot; maxlength=&quot;56&quot; placeholder=&quot;For example: ivory linens &amp; wood dance floor&quot;&gt;&lt;/label&gt;&lt;button class=&quot;btn btn-primary&quot; id=&quot;lp-design-save&quot; type=&quot;button&quot;&gt;Save a version&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-design-restore&quot; type=&quot;button&quot; hidden&gt;Restore removed version&lt;/button&gt;&lt;p class=&quot;text-small&quot; id=&quot;lp-design-status&quot; role=&quot;status&quot;&gt;&lt;/p&gt;&lt;div id=&quot;lp-design-list&quot;&gt;&lt;/div&gt;&lt;div id=&quot;lp-design-comparison&quot;&gt;&lt;/div&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-snapshot&quot; type=&quot;button&quot;&gt;Download current view (PNG)&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-brief&quot; type=&quot;button&quot;&gt;Download planning brief&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
+  &lt;section role=&quot;tabpanel&quot; id=&quot;lp-panel-save&quot; aria-labelledby=&quot;lp-tab-save&quot; hidden&gt;&lt;span class=&quot;lp-eyebrow&quot;&gt;SAVE, COMPARE &amp; SHARE&lt;/span&gt;&lt;h3&gt;Your design versions&lt;/h3&gt;&lt;p class=&quot;text-small&quot;&gt;Keep up to six versions in this browser. Compare a summary, then load either version into the render. Share a link to open your current choices on another device. Links are snapshots; create a new link after making changes.&lt;/p&gt;&lt;section class=&quot;lp-share-card&quot; aria-labelledby=&quot;lp-share-title&quot;&gt;&lt;h4 id=&quot;lp-share-title&quot;&gt;Share this design&lt;/h4&gt;&lt;p class=&quot;text-small&quot;&gt;Includes the current layout, decor, rental choices and camera view. Your other saved versions stay in this browser. Anyone with the link can open and edit their own copy.&lt;/p&gt;&lt;label class=&quot;form-label&quot;&gt;Design link&lt;textarea class=&quot;form-control&quot; id=&quot;lp-share-url&quot; rows=&quot;3&quot; readonly placeholder=&quot;Select Share design above to create a link&quot;&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-share-copy&quot; type=&quot;button&quot; disabled&gt;Copy link&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-share-native&quot; type=&quot;button&quot; hidden&gt;Share…&lt;/button&gt;&lt;/div&gt;&lt;p class=&quot;text-small&quot; id=&quot;lp-share-status&quot; role=&quot;status&quot;&gt;Create a link after choosing your options. Later edits will need a new link.&lt;/p&gt;&lt;/section&gt;&lt;label class=&quot;form-label&quot;&gt;Version name&lt;input class=&quot;form-control&quot; id=&quot;lp-design-name&quot; type=&quot;text&quot; maxlength=&quot;56&quot; placeholder=&quot;For example: ivory linens &amp; wood dance floor&quot;&gt;&lt;/label&gt;&lt;button class=&quot;btn btn-primary&quot; id=&quot;lp-design-save&quot; type=&quot;button&quot;&gt;Save a version&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-design-restore&quot; type=&quot;button&quot; hidden&gt;Restore removed version&lt;/button&gt;&lt;p class=&quot;text-small&quot; id=&quot;lp-design-status&quot; role=&quot;status&quot;&gt;&lt;/p&gt;&lt;div id=&quot;lp-design-list&quot;&gt;&lt;/div&gt;&lt;div id=&quot;lp-design-comparison&quot;&gt;&lt;/div&gt;&lt;div class=&quot;viz-row&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-snapshot&quot; type=&quot;button&quot;&gt;Download current view (PNG)&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;lp-brief&quot; type=&quot;button&quot;&gt;Download planning brief&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
   &lt;details class=&quot;lp-details&quot; id=&quot;lp-design-tables&quot; open&gt;
     &lt;summary class=&quot;cursor-interaction&quot;&gt;Table styling&lt;/summary&gt;
     &lt;div class=&quot;viz-controls&quot;&gt;
@@ -2332,6 +2348,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
 #venue-pavilion-3d .lp-compare-table{font-size:11px;width:100%;border-collapse:collapse;table-layout:fixed}
 #venue-pavilion-3d .lp-compare-table th,#venue-pavilion-3d .lp-compare-table td{text-align:left;padding:9px 6px;border-bottom:1px solid #dce3d6;overflow-wrap:anywhere}
 #venue-pavilion-3d .lp-compare-table .lp-different{background:#f3eddf}
+#venue-pavilion-3d .lp-share-card{padding:18px;border:1px solid #ccd7c3;background:#f4f6ef;border-radius:12px;margin-bottom:20px}#venue-pavilion-3d .lp-share-card h4{margin:0;font:22px Georgia}#venue-pavilion-3d #lp-share-url{font:12px/1.5 monospace;overflow-wrap:anywhere;resize:vertical}#venue-pavilion-3d .lp-shared-banner{margin:0 0 16px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid #aabb98;border-radius:12px;background:#edf2e6}#venue-pavilion-3d .lp-shared-banner[hidden]{display:none}#venue-pavilion-3d .lp-shared-banner p{margin:5px 0 0}@media(max-width:760px){#venue-pavilion-3d .lp-shared-banner{flex-direction:column;align-items:stretch}}
 #venue-pavilion-3d #lp-save-status{font-size:10px;color:#5a7050}
 #venue-pavilion-3d .lp-navigation{background:#fafbf7!important;border-radius:0!important;border:0!important;border-top:1px solid var(--studio-line)!important}
 @media(max-width:1100px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr)}#venue-pavilion-3d #lp-divider{display:none}#venue-pavilion-3d .lp-editor{position:static;max-height:none;min-height:0;margin-top:16px}#venue-pavilion-3d .lp-event-strip{flex-direction:column;align-items:stretch;gap:12px}#venue-pavilion-3d #lp-settings-tabs{top:0;grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -2618,10 +2635,11 @@ return {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels};})();&
     function normalizeSeat(s){return {table:s.table==='couple'||/^table-(?:[1-9]|1[0-2])$/.test(s.table)?s.table:'couple',side:Number(s.side)===-1?-1:1,place:Math.round(n(s.place,1,1,4)),look:['across','couple','dance','lake','house'].includes(s.look)?s.look:'across',eye:n(s.eye,3.8,3.2,4.5),yaw:n(s.yaw,0,-100,100),pitch:n(s.pitch,-.04,-1.2,1.2)};}
     function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5),surface:Number.isFinite(w.surface)?n(w.surface,0,-30,60):null};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
+    let displayedShareSnapshot=null,sharingBusy=false;
     let lastPublished='';const publishedStates=new Set();
     let writeRevision=0;
     function saveState(){
-      if(workflowReady){noteHistory();syncWorkflow();}
+      if(workflowReady){noteHistory();syncWorkflow();if(displayedShareSnapshot&amp;&amp;displayedShareSnapshot!==JSON.stringify(currentSnapshot()))$('lp-share-status').textContent='Your design has changed. Select Share design to create an updated link.';}
       if(window.openai&amp;&amp;window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,seat,tour,navigation,studio}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size&gt;32)publishedStates.delete(publishedStates.values().next().value);const revision=++writeRevision;$('lp-save-status').textContent='Saving…';Promise.resolve(window.openai.setWidgetState(snapshot)).then(()=&gt;{if(revision===writeRevision)$('lp-save-status').textContent='Saved on this device';}).catch(()=&gt;{if(revision===writeRevision)$('lp-save-status').textContent='Browser save unavailable · download your layout';});}
     }
     function normalizeStudio(raw={}){
@@ -2656,12 +2674,29 @@ return {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels};})();&
     function drawBoards(){
       const list=$('lp-design-list');list.replaceChildren();
       for(const b of studio.boards){const card=rentalNode('article',undefined,'lp-version-card');card.dataset.board=b.id;card.append(rentalNode('h4',b.name));const facts=planning.planningFacts(b.snapshot.model);card.append(rentalNode('p',facts[1][1]+' reception seats · '+facts[6][1]+' rehearsal seats','text-small'));const row=rentalNode('div',undefined,'viz-row');
-        for(const [action,label]of [['load','View this version'],['compare','Compare'],['remove','Remove']]){const button=rentalButton(label,'boardAction',action);button.dataset.boardId=b.id;if(action==='compare')button.setAttribute('aria-pressed',String(studio.compare.includes(b.id)));row.append(button);}card.append(row);list.append(card);
+        for(const [action,label]of [['load','View this version'],['share','Share'],['compare','Compare'],['remove','Remove']]){const button=rentalButton(label,'boardAction',action);button.dataset.boardId=b.id;if(action==='compare')button.setAttribute('aria-pressed',String(studio.compare.includes(b.id)));row.append(button);}card.append(row);list.append(card);
       }
       if(!studio.boards.length)list.append(rentalNode('p','No saved versions yet. Give this design a name and save your first option.','text-small'));
       const comparison=$('lp-design-comparison');comparison.replaceChildren();
       const chosen=studio.compare.map(id=&gt;studio.boards.find(b=&gt;b.id===id)).filter(Boolean);
       if(chosen.length===2){comparison.append(rentalNode('h4','Compare your two versions'));const table=rentalNode('table');table.className='lp-compare-table';const head=rentalNode('tr');for(const text of ['Detail',chosen[0].name,chosen[1].name])head.append(rentalNode('th',text));const thead=rentalNode('thead');thead.append(head);table.append(thead);const body=rentalNode('tbody'),a=planning.planningFacts(chosen[0].snapshot.model),b=planning.planningFacts(chosen[1].snapshot.model);a.forEach(([label,value],i)=&gt;{const row=rentalNode('tr');if(value!==b[i][1])row.className='lp-different';for(const text of [label,value,b[i][1]])row.append(rentalNode('td',text));body.append(row);});table.append(body);comparison.append(table);}else comparison.append(rentalNode('p','Choose Compare on two saved versions to see what changes. Load either into the single render.','text-small'));
+    }
+    async function createDesignShare(raw,name='Current design'){
+      if(sharingBusy)return;
+      $('lp-tab-save').click();
+      const snapshot=cleanSnapshot(raw||currentSnapshot());sharingBusy=true;$('lp-share-create').disabled=true;$('lp-share-status').textContent='Creating your design link…';
+      try{
+        if(!window.openai?.shareDesign)throw new Error('Open the website to create a design link.');
+        const result=await window.openai.shareDesign({action:'create',snapshot});$('lp-share-url').value=result.url;$('lp-share-copy').disabled=false;$('lp-share-native').hidden=!window.openai.canShareDesign;displayedShareSnapshot=JSON.stringify(snapshot);
+        $('lp-share-status').textContent=(result.copied?'Link copied. ':'Link ready. ')+name+' · '+result.url.length.toLocaleString()+' characters. '+(result.url.length&gt;8000?'For apps that shorten long links, use the layout JSON download. ':'')+'The link keeps this version; later edits need a new link.';
+      }catch(error){$('lp-share-status').textContent=error.message;}finally{sharingBusy=false;$('lp-share-create').disabled=false;}
+    }
+    async function useDesignShare(action){
+      try{const result=await window.openai.shareDesign({action});if(['personal','original'].includes(action))return;
+        if(result.copied)$('lp-share-status').textContent='Design link copied. Anyone with the link can open this version.';
+        else if(result.shared)$('lp-share-status').textContent='Design link shared.';
+        else if(!result.canceled){$('lp-share-url').focus();$('lp-share-url').select();$('lp-share-status').textContent='Select and copy the design link above. Clipboard access is unavailable in this browser.';}
+      }catch(error){$('lp-share-status').textContent=error.message;}
     }
     function downloadFile(name,source){
       const blob=typeof source==='function'?Promise.resolve().then(source):source;
@@ -2704,10 +2739,12 @@ return {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels};})();&
       new ResizeObserver(syncWorkspace).observe($('lp-workspace'));setCatalog($('lp-tab-rentals'));
       $('lp-undo').onclick=()=&gt;historyStep(true);$('lp-redo').onclick=()=&gt;historyStep(false);
       window.addEventListener('keydown',event=&gt;{if(!(event.metaKey||event.ctrlKey)||/INPUT|TEXTAREA|SELECT/.test(event.target.tagName)||event.target.isContentEditable)return;const key=event.key.toLowerCase();if(key==='z'||key==='y'){event.preventDefault();historyStep(key==='z'&amp;&amp;!event.shiftKey);}});
-      $('lp-design-save').onclick=()=&gt;{clearTimeout(rebuildTimer);refreshDecor();if(studio.boards.length&gt;=6){$('lp-design-status').textContent='Six versions saved. Remove one before adding another; removal can be restored.';return;}const name=planning.cleanDesignName($('lp-design-name').value)||'Design '+(studio.boards.length+1);studio.boards.push({id:Date.now().toString(36)+'-'+studio.boards.length,name,snapshot:currentSnapshot()});drawBoards();saveState();$('lp-design-status').textContent='Version saved in this browser. Download a layout for another device.';};
-      $('lp-design-list').onclick=event=&gt;{const button=event.target.closest('[data-board-action]');if(!button)return;const b=studio.boards.find(b=&gt;b.id===button.dataset.boardId);if(!b)return;if(button.dataset.boardAction==='load')applySnapshot(b.snapshot);else if(button.dataset.boardAction==='compare'){studio.compare=studio.compare.filter(id=&gt;id!==b.id);studio.compare.push(b.id);studio.compare=studio.compare.slice(-2);}else{studio.trash=b;studio.boards=studio.boards.filter(x=&gt;x.id!==b.id);studio.compare=studio.compare.filter(id=&gt;id!==b.id);}drawBoards();syncWorkflow();saveState();};
+      $('lp-design-save').onclick=()=&gt;{clearTimeout(rebuildTimer);refreshDecor();if(studio.boards.length&gt;=6){$('lp-design-status').textContent='Six versions saved. Remove one before adding another; removal can be restored.';return;}const name=planning.cleanDesignName($('lp-design-name').value)||'Design '+(studio.boards.length+1);studio.boards.push({id:Date.now().toString(36)+'-'+studio.boards.length,name,snapshot:currentSnapshot()});drawBoards();saveState();$('lp-design-status').textContent='Version saved in this browser. Use its Share button to send this version.';};
+      $('lp-design-list').onclick=event=&gt;{const button=event.target.closest('[data-board-action]');if(!button)return;const b=studio.boards.find(b=&gt;b.id===button.dataset.boardId);if(!b)return;if(button.dataset.boardAction==='load')applySnapshot(b.snapshot);else if(button.dataset.boardAction==='share')createDesignShare(b.snapshot,b.name);else if(button.dataset.boardAction==='compare'){studio.compare=studio.compare.filter(id=&gt;id!==b.id);studio.compare.push(b.id);studio.compare=studio.compare.slice(-2);}else{studio.trash=b;studio.boards=studio.boards.filter(x=&gt;x.id!==b.id);studio.compare=studio.compare.filter(id=&gt;id!==b.id);}drawBoards();syncWorkflow();saveState();};
       $('lp-design-restore').onclick=()=&gt;{if(studio.trash&amp;&amp;studio.boards.length&lt;6){studio.boards.push(studio.trash);studio.trash=null;drawBoards();syncWorkflow();saveState();}};
       $('lp-snapshot').onclick=()=&gt;downloadFile('venue-design.png',()=&gt;{draw();const image=document.createElement('canvas');image.width=canvas.width;image.height=canvas.height+90;const ctx=image.getContext('2d');ctx.fillStyle='#fbfcf8';ctx.fillRect(0,0,image.width,image.height);ctx.fillStyle='#364033';ctx.font=Math.max(12,image.width/55)+'px sans-serif';ctx.fillText('Lakeside Estate · '+studio.event+' design',18,28);ctx.drawImage(canvas,0,48);ctx.font=Math.max(10,image.width/75)+'px sans-serif';ctx.fillText('Planning concept · unmeasured dimensions are estimates',18,image.height-14);const raw=atob(image.toDataURL('image/png').split(',')[1]),bytes=Uint8Array.from(raw,c=&gt;c.charCodeAt(0));return new Blob([bytes],{type:'image/png'});});
+      $('lp-share-create').onclick=()=&gt;createDesignShare();$('lp-share-copy').onclick=()=&gt;useDesignShare('copy');$('lp-share-native').onclick=()=&gt;useDesignShare('native');$('lp-share-personal').onclick=()=&gt;useDesignShare('personal');$('lp-share-original').onclick=()=&gt;useDesignShare('original');
+      const shared=window.openai?.sharedDesign;if(shared){$('lp-shared-banner').hidden=false;$('lp-shared-note').textContent=(shared.localCopy?'Your local edits to this link were restored. ':'The linked design is open. ')+'Changes are saved separately on this device. Your own working design is kept intact. Create a new link to share your changes.';}
       $('lp-brief').onclick=downloadBrief;workflowReady=true;drawBoards();syncWorkflow();
     }
     function color(token){
@@ -5254,7 +5291,49 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 &lt;/html&gt;
 "></iframe>
 
-<script>(() => {
+<script>(async () => {
+  const VenueSharing=(()=>{// Portable, versioned design links. This module is bundled into the host page;
+// it never needs a server, a third-party shortener or access to the model frame.
+const SHARE_LIMITS=Object.freeze({json:128*1024,token:32000});
+const ownObject=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+function shareSnapshot(raw){
+  if(!ownObject(raw)||!ownObject(raw.model)||!/^venue-pavilion-v[1-9]$|^lakeside-pavilion-v[1-9]$/.test(raw.model.schema))throw new Error('This is not a supported wedding design.');
+  const snapshot={};for(const key of ['model','camera','view','walk','seat','tour','event'])if(Object.hasOwn(raw,key))snapshot[key]=raw[key];
+  const json=JSON.stringify(snapshot,(key,value)=>{if(['__proto__','constructor','prototype'].includes(key))throw new Error('The design contains an unsupported property.');if(typeof value==='number'&&!Number.isFinite(value))throw new Error('The design contains an invalid number.');return value;});
+  if(new TextEncoder().encode(json).length>SHARE_LIMITS.json)throw new Error('This design is too large for a link. Download the layout JSON instead.');
+  const clean=JSON.parse(json);let nodes=0;const visit=(value,depth)=>{if(depth>32||++nodes>24000)throw new Error('The design is too complex for a link.');if(value&&typeof value==='object')for(const child of Object.values(value))visit(child,depth+1);};visit(clean,0);return clean;
+}
+async function boundedBytes(stream,limit){
+  const reader=stream.getReader(),chunks=[];let length=0;
+  try{for(;;){const {value,done}=await reader.read();if(done)break;length+=value.byteLength;if(length>limit){await reader.cancel();throw new Error('This design link exceeds the supported size.');}chunks.push(value);}}
+  finally{reader.releaseLock();}
+  const result=new Uint8Array(length);let at=0;for(const chunk of chunks){result.set(chunk,at);at+=chunk.length;}return result;
+}
+function base64url(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text).replaceAll('+','-').replaceAll('/','_').replace(/=+$/,'');}
+function unbase64url(text){if(!/^[A-Za-z0-9_-]+$/.test(text)||text.length%4===1)throw new Error('The design link is incomplete.');let raw;try{raw=atob(text.replaceAll('-','+').replaceAll('_','/'));}catch{throw new Error('The design link is incomplete.');}return Uint8Array.from(raw,c=>c.charCodeAt(0));}
+async function encodeDesign(snapshot,{compress=true}={}){
+  const bytes=new TextEncoder().encode(JSON.stringify({v:1,snapshot:shareSnapshot(snapshot)}));if(bytes.length>SHARE_LIMITS.json)throw new Error('This design is too large for a share link. Download the layout JSON instead.');let mode='j',body=bytes;
+  if(compress&&typeof CompressionStream==='function')try{const zipped=await boundedBytes(new Blob([bytes]).stream().pipeThrough(new CompressionStream('gzip')),SHARE_LIMITS.json);if(zipped.length<bytes.length){body=zipped;mode='g';}}catch{/* Plain JSON is interoperable when compression is unavailable. */}
+  const token='1.'+mode+'.'+base64url(body);if(token.length>SHARE_LIMITS.token)throw new Error('This design is too large for a share link. Download the layout JSON instead.');return token;
+}
+async function decodeDesign(token){
+  if(typeof token!=='string'||token.length>SHARE_LIMITS.token)throw new Error('This design link is too large.');
+  const match=/^1\.([gj])\.([A-Za-z0-9_-]+)$/.exec(token);if(!match)throw new Error('This design link is incomplete or uses an unsupported version.');let bytes=unbase64url(match[2]);
+  if(match[1]==='g'){
+    if(typeof DecompressionStream!=='function')throw new Error('Open this compressed design link in a current browser.');
+    try{bytes=await boundedBytes(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip')),SHARE_LIMITS.json);}catch{throw new Error('This design link is damaged or exceeds the supported size.');}
+  }
+  if(bytes.length>SHARE_LIMITS.json)throw new Error('This design link is too large.');let data;try{data=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{throw new Error('This design link is damaged.');}
+  if(!ownObject(data)||data.v!==1)throw new Error('This design link uses an unsupported version.');return shareSnapshot(data.snapshot);
+}
+function snapshotState(snapshot){const s=shareSnapshot(snapshot);return {modelContent:s.model,privateContent:{orbit:s.camera,view:s.view,walk:s.walk,seat:s.seat,tour:s.tour,studio:{event:s.event||'reception',boards:[],compare:[],trash:null}}};}
+function designLink(base,token){const url=new URL(base);if(!['https:','http:'].includes(url.protocol))throw new Error('Open the published website to create a shareable link.');url.search='';url.hash='design='+token;return url.href;}
+function designToken(hash){if(!hash?.startsWith('#design='))return null;const raw=hash.slice(8);try{return decodeURIComponent(raw);}catch{throw new Error('This design link is incomplete.');}}
+async function sharedStorageKey(baseKey,token){
+  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));return baseKey+':shared:'+Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+return {encodeDesign,decodeDesign,snapshotState,designLink,designToken,sharedStorageKey};})();
   const frame = document.getElementById("codex-visualization");
   if (!(frame instanceof HTMLIFrameElement)) {
     return;
@@ -5271,7 +5350,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     globalThis.location.pathname,
     globalThis.location.search,
   ])}`;
-  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([globalThis.location.pathname, ""])}`;
+  let storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([globalThis.location.pathname, ""])}`;
   const sizeStorageKey = `${storageKey}:share-size-v1`;
   const parseState = (serializedState) => {
     if (
@@ -5362,16 +5441,54 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   if (isShare) {
     globalThis.addEventListener("pagehide", persistSize);
   }
+  let sharedDesign=null,linkedState=null;
+  try {
+    const token=VenueSharing.designToken(globalThis.location.hash);
+    if(token!==null){
+      const snapshot=await VenueSharing.decodeDesign(token);linkedState=VenueSharing.snapshotState(snapshot);
+      storageKey=await VenueSharing.sharedStorageKey(storageKey,token);
+      let copy=null;try{const saved=storage?.getItem(storageKey);if(saved)copy=parseState(saved);}catch{}
+      state=copy||linkedState;sharedDesign={localCopy:Boolean(copy)};
+    }
+  }catch(error){const notice=document.createElement('p');notice.id='share-host-notice';notice.setAttribute('role','status');notice.style.cssText='margin:0;padding:14px 24px;background:#fff0cf;color:#503c20;font:14px/1.5 system-ui';notice.textContent='Could not open this design link. '+error.message+' Your own saved design is still available below.';document.body.prepend(notice);}
+  // A second shared link can target this already-open page without a full
+  // navigation. Reinitialize it rather than leaving the old design visible.
+  const loadedHash=globalThis.location.hash;
+  globalThis.addEventListener('hashchange',()=>{if(globalThis.location.hash.startsWith('#design=')||loadedHash.startsWith('#design='))globalThis.location.reload();});
+  let lastShareUrl=null;
   const initialGlobals = {
     widgetState: state,
+    sharedDesign,
+    canShareDesign: typeof navigator.share==='function',
     viewportHeight: globalThis.innerHeight,
     statePersistence: storage == null ? "none" : "local",
   };
 
   const channel = new MessageChannel();
-  channel.port1.addEventListener("message", (event) => {
+  channel.port1.addEventListener("message", async (event) => {
     const data = event.data;
     if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if(data.type==='design-share-request'){
+      if(!Number.isSafeInteger(data.id)||data.id<=0)return;
+      const reply=result=>channel.port1.postMessage({type:'design-share-result',id:data.id,...result});
+      try{
+        if(data.action==='create'){
+          const token=await VenueSharing.encodeDesign(data.snapshot);lastShareUrl=VenueSharing.designLink(globalThis.location.href,token);let copied=false;
+          try{if(navigator.userActivation?.isActive&&navigator.clipboard){await navigator.clipboard.writeText(lastShareUrl);copied=true;}}catch{}
+          reply({ok:true,url:lastShareUrl,copied});
+        }else if(data.action==='copy'&&lastShareUrl){
+          if(navigator.userActivation?.isActive!==true)throw new Error('Click Copy link again to allow clipboard access.');
+          try{await navigator.clipboard.writeText(lastShareUrl);reply({ok:true,url:lastShareUrl,copied:true});}catch{reply({ok:true,url:lastShareUrl,copied:false});}
+        }else if(data.action==='native'&&lastShareUrl){
+          if(navigator.userActivation?.isActive!==true)throw new Error('Click Share again to open your device’s share menu.');
+          if(typeof navigator.share!=='function')throw new Error('Select Copy link to share this design.');
+          try{await navigator.share({title:'Wedding design',url:lastShareUrl});reply({ok:true,url:lastShareUrl,shared:true});}catch(error){if(error.name==='AbortError')reply({ok:true,url:lastShareUrl,canceled:true});else throw error;}
+        }else if(data.action==='personal'&&sharedDesign&&navigator.userActivation?.isActive){const url=new URL(location.href);url.hash='';location.assign(url.href);}
+        else if(data.action==='original'&&sharedDesign&&navigator.userActivation?.isActive){storage?.removeItem(storageKey);location.reload();}
+        else throw new Error('Create a design link first.');
+      }catch(error){reply({ok:false,error:error.message||'The share link could not be created.'});}
       return;
     }
     if (data.type === "widget-state-write") {

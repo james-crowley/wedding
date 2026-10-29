@@ -1,8 +1,8 @@
 {
   "project": "wedding-planner",
   "schema": 1,
-  "commit": "24d686cf2def245ca106901419d8d7d576495279",
-  "sourceSha256": "c7878f24309feb43c4a82534704c6d8ba279690121b5d66d8c48858a7a3c9901",
-  "htmlSha256": "8d1eb6a50428deeefa6cd028baadef7b8f7aad0cd410244add6538eb3081f851",
+  "commit": "9b7dd4af4f9693a59cf15eae82ffb82646730090",
+  "sourceSha256": "5fb8cecafa51d8d4a838d898fcab17b423d207ad6ea266317b04d6cb816a2c57",
+  "htmlSha256": "08ea3c9fe133af9056d1bc5417f574d9179ed979f32cf2d962f5ab014eeabc19",
   "researchSha256": "f3dd7ac4b5499d70f475f1180adad04331c9f4b991946f6b8026213b3e5b04d2"
 }

@@ -2265,7 +2265,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         minimal:{clothColor:'#eae5da',runnerStyle:'none',greenery:'light',flowerStyle:'roses',flowerDensity:.6,flowerA:'#efeee6',flowerB:'#efeee6',flowerC:'#efeee6',vaseStyle:'ceramic',vaseColor:'#e9e4d9',vaseCount:1,candleCount:2,candleColor:'#eee7d8',metalFinish:'black',indoorArbor:'frame',outdoorArbor:'triangle',indoorArborColor:'#252525',outdoorArborColor:'#252525',sofaStyle:'classic',sofaColor:'#e8e3d9'}
       };
       const glassLooks={ivoryPlum:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},pistachio:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},plumGarden:{glassware:'tinted',glassColor:'#ad829a',trailingGreenery:true},blueMeadow:{glassware:'clear',trailingGreenery:true}};
-      if(!looks[name]){if(name==='custom'){config.design.look='custom';saveState();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;refreshDecor();saveState();
+      if(!looks[name]){if(name==='custom'){config.design.look='custom';queueDecorRefresh();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;queueDecorRefresh();
     }
     function normalize(raw){
       const out={schema:'venue-pavilion-v9',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete','wood'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&amp;&amp;Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
@@ -3163,6 +3163,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const arbor=new T.Group();arbor.position.set(0,arborBase,114.9);c.add(arbor);timberArbor(arbor,8.4,8.6,2.2,'outdoor');
     }
     function disposeGroup(group){const geometries=new Set();group.traverse(o=&gt;{if(o.geometry&amp;&amp;o.geometry!==unitBox&amp;&amp;o.geometry!==unitCylinder)geometries.add(o.geometry);if(o.isInstancedMesh)o.dispose();});group.clear();geometries.forEach(g=&gt;g.dispose());}
+    function queueDecorRefresh(){clearTimeout(rebuildTimer);rebuildTimer=setTimeout(()=&gt;{refreshDecor();saveState();},100);}
     function refreshDecor(){
       // Small styling edits must not recreate the forest, house and paving or stall navigation.
       const keys=['linen','lace','gold','candle','decorLeaf','decorCedar','flowerIvory','flowerBlue','flowerWine','flowerCenter','napkin','goblet','vase','vaseEtch','arborIndoor','arborOutdoor','arborFabric','sofaFabric','sofaFrame','sofaButton','hurricane'];
@@ -3269,7 +3270,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
         const rowBounds=[0,1,2].map(row=&gt;{
           const b=new T.Box3();objects.filter(o=&gt;/^table-/.test(o.userData.id)&amp;&amp;Math.floor((Number(o.userData.id.slice(6))-1)/4)===row).forEach(o=&gt;b.union(new T.Box3().setFromObject(o)));return b;
         });
-        for(let i=0;i&lt;2;i++)if(rowBounds[i+1].min.z&gt;rowBounds[i].max.z){
+        for(let i=0;i&lt;2;i++)if(!rowBounds[i].isEmpty()&amp;&amp;!rowBounds[i+1].isEmpty()&amp;&amp;rowBounds[i+1].min.z&gt;rowBounds[i].max.z){
           const a=rowBounds[i].max.z,b=rowBounds[i+1].min.z;
           dimension([-25,.20,a],[-25,.20,b],'Chairs: '+(b-a).toFixed(1)+' ft gap',ruler,'ruler');
         }
@@ -3545,7 +3546,7 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const button=$(id);button.onpointerdown=e=&gt;{e.preventDefault();button.setPointerCapture(e.pointerId);pointerHeld.add(key);moveWalker(f*.5,s*.5,0);draw();beginWalking(key);};
       button.onpointerup=button.onpointercancel=button.onlostpointercapture=()=&gt;{held.delete(key);pointerHeld.delete(key);saveState();};button.onclick=e=&gt;{if(e.detail===0){moveWalker(f*2,s*2,0);draw();saveState();}};
     }
-    $('lp-eye').onchange=e=&gt;{walk.y=n(e.target.value,5.5,3,200);selectionText();draw();saveState();};
+    $('lp-eye').onchange=e=&gt;{walk.y=n(e.target.value,5.5,3,200);e.target.value=walk.y.toFixed(2);selectionText();draw();saveState();};
     $('lp-walk-speed').onchange=e=&gt;{navigation.speed=Number(e.target.value);saveState();};
     $('lp-walk-inside').onclick=()=&gt;{view('walk',false);walk={x:1.7,y:5.5,z:-13,yaw:Math.PI,pitch:0};draw();syncControls();saveState();$('lp-walk-inside').focus({preventScroll:true});};
     $('lp-orbit-mode').onclick=()=&gt;{if(['walk','tour','seat'].includes(activeView)){cameraPosition();const p=camera.position.clone(),direction=camera.getWorldDirection(new T.Vector3()),center=p.clone().addScaledVector(direction,18);view('perspective',false);orbit={azimuth:Math.atan2(-direction.x,-direction.z),polar:Math.acos(n(-direction.y,0,-1,1)),distance:18,target:center.toArray()};draw();saveState();}else $('lp-orbit-mode').focus({preventScroll:true});};
@@ -3587,12 +3588,12 @@ function(t,e){&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!
       const key=el.dataset.design;if(key==='look'){applyLook(el.value);return;}
       config.design[key]=el.type==='checkbox'?el.checked:el.value;
       if(key==='vaseStyle')config.design.vaseColor=el.value==='amber'?'#b37f42':el.value==='ceramic'?'#e9e4d9':'#ecf0e5';
-      config.design.look='custom';config.design=normalizeDesign(config.design);clearTimeout(rebuildTimer);rebuildTimer=setTimeout(()=&gt;{refreshDecor();saveState();},100);
+      config.design.look='custom';config.design=normalizeDesign(config.design);queueDecorRefresh();
     });
     for(const [name,color]of COLOR_SWATCHES){
       const button=document.createElement('button');button.className='btn';button.type='button';button.dataset.color=color;button.setAttribute('aria-label',name+' '+color);button.setAttribute('aria-pressed','false');
       const sample=document.createElement('span');sample.setAttribute('aria-hidden','true');sample.style.cssText='display:inline-block;width:16px;height:16px;margin-right:6px;vertical-align:middle;background:'+color;button.append(sample,document.createTextNode(name));
-      button.onclick=()=&gt;{const key=$('lp-color-target').value;config.design[key]=color;config.design.look='custom';if(key==='napkinColor'&amp;&amp;config.design.napkinStyle==='none')config.design.napkinStyle='folded';if(key==='glassColor'&amp;&amp;['none','clear'].includes(config.design.glassware))config.design.glassware='tinted';if(key==='clothColor')config.linens=true;if(key==='runnerColor'&amp;&amp;config.design.runnerStyle==='none')config.design.runnerStyle='gauze';rebuild();saveState();};
+      button.onclick=()=&gt;{const key=$('lp-color-target').value;config.design[key]=color;config.design.look='custom';if(key==='napkinColor'&amp;&amp;config.design.napkinStyle==='none')config.design.napkinStyle='folded';if(key==='glassColor'&amp;&amp;['none','clear'].includes(config.design.glassware))config.design.glassware='tinted';if(key==='clothColor')config.linens=true;if(key==='runnerColor'&amp;&amp;config.design.runnerStyle==='none')config.design.runnerStyle='gauze';queueDecorRefresh();};
       $('lp-palette-swatches').append(button);
     }
     $('lp-color-target').onchange=()=&gt;syncControls();$('lp-focus-table').onclick=()=&gt;view('table');

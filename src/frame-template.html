@@ -1517,6 +1517,13 @@ html>body{padding:0}</style>
   let nextStateRequestId = 0;
   /** @type {Map<number, { resolve: () => void; reject: (error: Error) => void; timeout: ReturnType<typeof globalThis.setTimeout>; serializedState: string }>} */
   const pendingStateWrites = new Map();
+  let nextShareRequestId=0;
+  const pendingShareRequests=new Map();
+  const shareDesign=({action,snapshot}={})=>{
+    if(!['create','copy','native','personal','original'].includes(action)||navigator.userActivation?.isActive!==true)return Promise.reject(new Error('Use a share button to continue.'));
+    const id=++nextShareRequestId,payload={id,action,...(action==='create'?{snapshot}: {})};
+    return new Promise((resolve,reject)=>{const timeout=setTimeout(()=>{pendingShareRequests.delete(id);reject(new Error('Sharing did not finish. Try again or copy the displayed link.'));},action==='native'?120000:20000);pendingShareRequests.set(id,{resolve,reject,timeout,payload});postToHost('design-share-request',payload);});
+  };
   const persistenceError = () =>
     Object.assign(
       new Error("The host could not persist the widget state update"),
@@ -1664,6 +1671,9 @@ html>body{padding:0}</style>
       ...globalThis.openai,
       openExternal,
       downloadFile,
+      shareDesign,
+      sharedDesign:initialGlobals.sharedDesign??null,
+      canShareDesign:initialGlobals.canShareDesign===true,
       sendFollowUpMessage,
       setWidgetState,
       theme,
@@ -1713,7 +1723,11 @@ html>body{padding:0}</style>
           "message",
           (event) => {
             const data = apply(getMessageData, event, []);
-            if (typeof data === "object" && data?.type === "measure") {
+            if(typeof data==='object'&&data?.type==='design-share-result'){
+              const pending=pendingShareRequests.get(data.id);if(!pending)return;
+              pendingShareRequests.delete(data.id);clearTimeout(pending.timeout);
+              if(data.ok===true)pending.resolve(data);else pending.reject(new Error(typeof data.error==='string'?data.error:'Sharing did not finish.'));
+            } else if (typeof data === "object" && data?.type === "measure") {
               setHostViewport(data.viewportHeight);
               sendHeight();
             } else if (
@@ -1746,6 +1760,7 @@ html>body{padding:0}</style>
       for (const [id, { serializedState }] of pendingStateWrites) {
         postToHost("widget-state-write", { id, state: serializedState });
       }
+      for(const {payload}of pendingShareRequests.values())postToHost('design-share-request',payload);
       sendHeight();
     },
     { capture: true },

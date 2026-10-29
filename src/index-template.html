@@ -12,7 +12,8 @@
 <body>
 <iframe id="codex-visualization" sandbox="allow-scripts allow-downloads" referrerpolicy="no-referrer" title="Wedding Pavilion" data-srcdoc="__FRAME_HTML__"></iframe>
 
-<script>(() => {
+<script>(async () => {
+  /* Bundled share tools */
   const frame = document.getElementById("codex-visualization");
   if (!(frame instanceof HTMLIFrameElement)) {
     return;
@@ -29,7 +30,7 @@
     globalThis.location.pathname,
     globalThis.location.search,
   ])}`;
-  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([globalThis.location.pathname, ""])}`;
+  let storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([globalThis.location.pathname, ""])}`;
   const sizeStorageKey = `${storageKey}:share-size-v1`;
   const parseState = (serializedState) => {
     if (
@@ -120,16 +121,54 @@
   if (isShare) {
     globalThis.addEventListener("pagehide", persistSize);
   }
+  let sharedDesign=null,linkedState=null;
+  try {
+    const token=VenueSharing.designToken(globalThis.location.hash);
+    if(token!==null){
+      const snapshot=await VenueSharing.decodeDesign(token);linkedState=VenueSharing.snapshotState(snapshot);
+      storageKey=await VenueSharing.sharedStorageKey(storageKey,token);
+      let copy=null;try{const saved=storage?.getItem(storageKey);if(saved)copy=parseState(saved);}catch{}
+      state=copy||linkedState;sharedDesign={localCopy:Boolean(copy)};
+    }
+  }catch(error){const notice=document.createElement('p');notice.id='share-host-notice';notice.setAttribute('role','status');notice.style.cssText='margin:0;padding:14px 24px;background:#fff0cf;color:#503c20;font:14px/1.5 system-ui';notice.textContent='Could not open this design link. '+error.message+' Your own saved design is still available below.';document.body.prepend(notice);}
+  // A second shared link can target this already-open page without a full
+  // navigation. Reinitialize it rather than leaving the old design visible.
+  const loadedHash=globalThis.location.hash;
+  globalThis.addEventListener('hashchange',()=>{if(globalThis.location.hash.startsWith('#design=')||loadedHash.startsWith('#design='))globalThis.location.reload();});
+  let lastShareUrl=null;
   const initialGlobals = {
     widgetState: state,
+    sharedDesign,
+    canShareDesign: typeof navigator.share==='function',
     viewportHeight: globalThis.innerHeight,
     statePersistence: storage == null ? "none" : "local",
   };
 
   const channel = new MessageChannel();
-  channel.port1.addEventListener("message", (event) => {
+  channel.port1.addEventListener("message", async (event) => {
     const data = event.data;
     if (typeof data !== "object" || data == null) {
+      return;
+    }
+    if(data.type==='design-share-request'){
+      if(!Number.isSafeInteger(data.id)||data.id<=0)return;
+      const reply=result=>channel.port1.postMessage({type:'design-share-result',id:data.id,...result});
+      try{
+        if(data.action==='create'){
+          const token=await VenueSharing.encodeDesign(data.snapshot);lastShareUrl=VenueSharing.designLink(globalThis.location.href,token);let copied=false;
+          try{if(navigator.userActivation?.isActive&&navigator.clipboard){await navigator.clipboard.writeText(lastShareUrl);copied=true;}}catch{}
+          reply({ok:true,url:lastShareUrl,copied});
+        }else if(data.action==='copy'&&lastShareUrl){
+          if(navigator.userActivation?.isActive!==true)throw new Error('Click Copy link again to allow clipboard access.');
+          try{await navigator.clipboard.writeText(lastShareUrl);reply({ok:true,url:lastShareUrl,copied:true});}catch{reply({ok:true,url:lastShareUrl,copied:false});}
+        }else if(data.action==='native'&&lastShareUrl){
+          if(navigator.userActivation?.isActive!==true)throw new Error('Click Share again to open your device’s share menu.');
+          if(typeof navigator.share!=='function')throw new Error('Select Copy link to share this design.');
+          try{await navigator.share({title:'Wedding design',url:lastShareUrl});reply({ok:true,url:lastShareUrl,shared:true});}catch(error){if(error.name==='AbortError')reply({ok:true,url:lastShareUrl,canceled:true});else throw error;}
+        }else if(data.action==='personal'&&sharedDesign&&navigator.userActivation?.isActive){const url=new URL(location.href);url.hash='';location.assign(url.href);}
+        else if(data.action==='original'&&sharedDesign&&navigator.userActivation?.isActive){storage?.removeItem(storageKey);location.reload();}
+        else throw new Error('Create a design link first.');
+      }catch(error){reply({ok:false,error:error.message||'The share link could not be created.'});}
       return;
     }
     if (data.type === "widget-state-write") {

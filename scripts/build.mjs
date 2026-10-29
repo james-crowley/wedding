@@ -33,15 +33,16 @@ export async function build({ outDir = join(projectRoot, 'dist'), commit = proce
   // Only the project-owned output directory may be replaced by this build.
   outDir = resolve(outDir);
   if (outDir === projectRoot || !outDir.startsWith(projectRoot + '/')) throw new Error('Output must be a child of the project directory');
-  const inputs = ['src/model.html', 'src/frame-template.html', 'src/index-template.html', 'vendor/three-0.160.1.min.js', 'src/rentals.mjs', 'data/rental-catalog.json', 'src/planning.mjs', 'src/research.html'];
+  const inputs = ['src/model.html', 'src/frame-template.html', 'src/index-template.html', 'vendor/three-0.160.1.min.js', 'src/rentals.mjs', 'data/rental-catalog.json', 'src/planning.mjs', 'src/research.html', 'src/sharing.mjs'];
   const values = await Promise.all(inputs.map(path => readFile(join(projectRoot, path), 'utf8')));
-  let [model, frameTemplate, indexTemplate, three, rentalModule, rentalData, planningModule, research] = values;
+  let [model, frameTemplate, indexTemplate, three, rentalModule, rentalData, planningModule, research, sharingModule] = values;
   const library = rentalModule.replace(/^export /gm, "");
   const facts = JSON.stringify(JSON.parse(rentalData)).replaceAll("<", "\\u003c");
   model = replaceOnce(model, "/* Bundled rental library */", `window.VenueRentalLibrary=(()=>{${library}\nreturn createRentalLibrary(${facts});})();`);
   model = replaceOnce(model, '/* Bundled planning tools */', `window.VenuePlanning=(()=>{${planningModule.replace(/^export /gm, '')}\nreturn {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels};})();`);
   let frame = replaceOnce(frameTemplate, '__VENUE_MODEL__', await bundleModelFonts(model));
   frame = replaceOnce(frame, '__THREE_BUNDLE__', three.replaceAll('</script', '<\\/script'));
+  indexTemplate = replaceOnce(indexTemplate, '/* Bundled share tools */', `const VenueSharing=(()=>{${sharingModule.replace(/^export /gm, '')}\nreturn {encodeDesign,decodeDesign,snapshotState,designLink,designToken,sharedStorageKey};})();`);
   const html = replaceOnce(indexTemplate, '__FRAME_HTML__', escapeAttribute(frame));
   if (/\/(?:Users|home)\/[^/]+\/|file:\/\/|localhost:\d+/.test(html)) throw new Error('The published HTML contains a machine-specific path');
   if (/<script\b[^>]*\bsrc\s*=/i.test(frame) || /<link\b[^>]*\bhref\s*=\s*["']https?:/i.test(frame)) throw new Error('Runtime resources must be bundled, not loaded from a CDN');

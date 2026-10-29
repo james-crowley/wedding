@@ -20,8 +20,8 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   reporter: [['list'], ['junit', { outputFile: 'test-results/browser.xml' }], ['html', { outputFolder: 'playwright-report', open: 'never' }], ...process.env.CI_SHARD_REPORT_DIR ? [['blob', { outputDir: process.env.CI_SHARD_REPORT_DIR }]] : []],
   projects: [
-    {name:'phone-firefox',testMatch:/studio\.spec\.mjs/,use:{browserName:'firefox',viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,launchOptions:firefoxLaunch}},
-    {name:'phone-webkit',testMatch:/studio\.spec\.mjs/,use:{browserName:'webkit',viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,launchOptions:{args:[]}}},
+    {name:'phone-firefox',testMatch:/(studio|sharing)\.spec\.mjs/,use:{browserName:'firefox',viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,launchOptions:firefoxLaunch}},
+    {name:'phone-webkit',testMatch:/(studio|sharing)\.spec\.mjs/,use:{browserName:'webkit',viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,launchOptions:{args:[]}}},
     {name:'chromium',use:{browserName:'chromium'}}
   ],
   use: {

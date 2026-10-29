@@ -2,7 +2,9 @@
 
 A static, interactive Three.js venue model. Visitors need only a browser with WebGL. There is no application server, database, paid hosting service, or runtime Node.js dependency.
 
-The production build is a self-contained `dist/index.html` with inline HTML, CSS, JavaScript and the pinned Three.js library. It works at a GitHub Pages project URL and can also be downloaded and opened locally. Layout changes save in each visitor's own browser; they are **not shared between visitors**. Use Save layout / Load saved layout to exchange design choices.
+The production build is a self-contained `dist/index.html` with inline HTML, CSS, JavaScript and the pinned Three.js library. It works at a GitHub Pages project URL and can also be downloaded and opened locally. Layout changes save in each visitor's own browser. Use **Share design** to copy a self-contained URL with the current layout, decor, rental choices and camera view, or share a saved version from **Saved designs**. A recipient can edit their own copy and generate a new link. Links are snapshots, not live collaboration; later edits need a new link. Opening a link preserves the recipient's personal working design. **Reload linked version** restores the original snapshot, and **Back to my design** returns to their personal workspace.
+
+Sharing works on GitHub Pages without a server: versioned JSON is gzip-compressed in a `#design=…` URL fragment using native browser APIs, with an uncompressed fallback. No design is uploaded to a service. Anyone with the link can read its contents; it is not an access-controlled link. Links exclude other saved versions, history and device preferences. The codec bounds decoded data to 128 KiB and links to 32,000 characters; for apps that truncate long links, use the layout JSON export/import. Create links from the published HTTP(S) site; a downloaded HTML file still supports JSON export/import.
 
 ## Local work
 

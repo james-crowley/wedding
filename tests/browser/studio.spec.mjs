@@ -42,8 +42,9 @@ test('studio: repeated phone styling, photo looks and material-only updates rema
   expect(await f.evaluate(()=>{let id;window.__renderAudit.scene.traverse(o=>{if(o.name==='Rental china')id=o.uuid;});return id;})).toBe(before);
   const after=await healthy(f);expect(after.geometries).toBeLessThanOrEqual(baseline.geometries+5);expect(after.textures).toBeLessThanOrEqual(baseline.textures+2);
   await info.attach('render-resource-budget.json',{body:JSON.stringify({baseline,after,notes:'Color edits retain furniture geometry; full-resolution browser render.'},null,2),contentType:'application/json'});
+  const tableColors=await f.evaluate(()=>{const d=window.openai.widgetState.modelContent.design;return[d.flowerA,d.flowerB,d.flowerC];});
   await f.locator('[data-photo-look="cassidyAustin"][data-part="ceremony"]').click();await healthy(f);await capture(f,info,'ceremony-pedestals',frames);
-  const stands=await f.evaluate(()=>{let count=0;window.__renderAudit.scene.traverse(o=>{if(o.name==='Ceremony pedestal')count++;});return count;});expect(stands).toBe(2);
+  const stands=await f.evaluate(()=>{let count=0;window.__renderAudit.scene.traverse(o=>{if(o.name==='Ceremony pedestal')count++;});return count;});expect(stands).toBe(2);expect(await f.evaluate(()=>{const d=window.openai.widgetState.modelContent.design;return[d.flowerA,d.flowerB,d.flowerC];})).toEqual(tableColors);
   await f.evaluate(()=>{const color=document.querySelector('[data-design="flowerA"]'),vases=document.querySelector('[data-design="vaseCount"]');for(let i=0;i<45;i++){color.value=['#f4eddd','#642c38','#829db5'][i%3];color.dispatchEvent(new Event('change',{bubbles:true}));vases.value=String(i%8);vases.dispatchEvent(new Event('input',{bubbles:true}));vases.dispatchEvent(new Event('change',{bubbles:true}));}});await healthy(f);
   expect(await f.evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(4);
   const gif=info.outputPath('wedding-looks.gif');await makePreviewGif(frames,gif);await info.attach('Photo-inspired looks',{path:gif,contentType:'image/gif'});

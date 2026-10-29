@@ -3,7 +3,7 @@ import { controls } from '../../scripts/ui-controls.mjs';
 import { installRenderAudit, renderHealth } from './render-audit.mjs';
 
 const auditControls=controls.filter(c=>c.type!=='file');
-const noDraw=['#lp-walk-speed','#lp-tour-speed','#lp-color-target'];
+const noDraw=['#lp-walk-speed','#lp-tour-speed','#lp-color-target','#lp-rental-vendor','#lp-rental-category','#lp-rental-mode','#lp-rental-search'];
 
 async function appFrame(page) { return page.frames().find(frame=>frame.parentFrame()===page.mainFrame()); }
 async function healthy(frame,label,allowSky=false) {
@@ -35,7 +35,7 @@ async function choose(frame,selector,value) {
   const changed=await frame.evaluate(()=>window.__renderAudit.frames)>before;
   if(!changed&&!noDraw.includes(selector)&&type!=='checkbox')await expect.poll(()=>frame.evaluate(()=>window.__renderAudit.frames),{message:`No new frame after ${selector}=${value}`}).toBeGreaterThan(before);
   await healthy(frame,`${selector}=${value}`,selector==='#lp-eye');
-  if(type==='select'||type==='color')await expect(el).toHaveValue(String(value));
+  if(type==='select'||type==='color'||type==='search')await expect(el).toHaveValue(String(value));
   if(type==='checkbox')await expect(el).toBeChecked({checked:value});
   if(type==='number'){
     const validity=await el.evaluate(el=>({valid:el.checkValidity(),value:Number(el.value),min:Number(el.min),max:Number(el.max)}));

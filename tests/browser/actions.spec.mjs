@@ -8,8 +8,9 @@ const groups={
   tour:['lp-tour-start','lp-tour-play','lp-tour-prev','lp-tour-next','lp-tour-restart','lp-tour-control','lp-tour-exit'],
   furniture:['lp-fit-guests','lp-clear-couple','lp-turn','lp-remove-table'],
   reset:['lp-reset-open','lp-reset-confirm','lp-reset-cancel','lp-undo-reset'],
-  tabs:['lp-tab-layout','lp-tab-decor','lp-tab-ceremony','lp-tab-view','lp-tab-save'],
+  tabs:['lp-tab-layout','lp-tab-decor','lp-tab-ceremony','lp-tab-view','lp-tab-rentals','lp-tab-save'],
   focus:['lp-focus-table','lp-focus-arbor','lp-focus-ceremony','lp-focus-sofas'],
+  rentals:['lp-rental-prev','lp-rental-next','lp-rental-export'],
   save:['lp-save']
 };
 const source=readFileSync(new URL('../../src/model.html',import.meta.url),'utf8');
@@ -44,6 +45,8 @@ for(const group of Object.keys(groups))test(`action audit: ${group}`,async({page
     const original=await frame.evaluate(()=>window.openai.widgetState.modelContent);
     await act('lp-reset-open');await act('lp-reset-cancel');expect(await frame.evaluate(()=>window.openai.widgetState.modelContent)).toEqual(original);
     await act('lp-reset-open');await act('lp-reset-confirm');await act('lp-undo-reset');expect(await frame.evaluate(()=>window.openai.widgetState.modelContent)).toEqual(original);
+  }else if(group==='rentals'){
+    await act('lp-rental-next');await act('lp-rental-prev');const [download]=await Promise.all([page.waitForEvent('download'),act('lp-rental-export')]);expect(download.suggestedFilename()).toBe('wedding-rental-shortlist.csv');
   }else if(group==='save'){
     const [download]=await Promise.all([page.waitForEvent('download'),act('lp-save')]);expect(download.suggestedFilename()).toBe('venue-pavilion-layout.json');
     const data=JSON.parse(await frame.locator('#lp-layout-json').inputValue());data.model.design.flowerA='#642c38';

@@ -49,6 +49,10 @@ The wine/olive/twilight looks combine ivory flowers, wine accents, dusty-blue sp
 
 Saved v1–v8 layouts migrate to v9. Existing seating, table positions, styling and dance floor dimensions are retained. The former unmeasured 32 × 38 ft ceremony default migrates to a more compact 28 × 34 ft estimate; custom dimensions are preserved. Public source includes the permitted venue title but contains no addresses, guest data or private photo links.
 
+## Supplier rental choices
+
+The **Rental catalogs** tab adds attributed choices from Classic Party Rentals of Virginia and Party Perfect while preserving the original custom styling controls. Search/filter products, preview supported options, and save alternatives for a rental quote. The palette records which supplier each applied product came from; manual edits remove stale matches. CSV and saved-layout JSON retain the source references. The catalog is a dated, bundled snapshot, and previews are schematic. See [catalog coverage and limitations](docs/rental-catalog.md).
+
 ## CircleCI pipeline
 
 ```mermaid
@@ -89,7 +93,7 @@ The original interaction tests are supplemented by a source-derived control inve
 
 | Coverage | What runs |
 | --- | --- |
-| 108 form controls | Every dropdown choice; both checkbox states; numeric minima, maxima, empty and out-of-range values; black, white and accent colors for every color field |
+| 124 form controls | Every dropdown choice; both checkbox states; numeric minima, maxima, empty and out-of-range values; black, white and accent colors for every color field |
 | Generated choices | Every table toggle, furniture selection, tour stop, guest table and seat choice; valid and invalid layout-file imports |
 | Palette and themes | Every coordinating swatch applied to all 11 color targets; every look card; repeated rapid theme/color/numeric bursts and reload persistence |
 | Risk combinations | All 84 arbor shape/dressing/location pairs, 64 flower/arrangement pairs and 42 vase/candle pairs |
@@ -101,7 +105,7 @@ The large option matrix uses a smaller canvas and shadow-map resolution while re
 
 CI retries collect diagnostic traces, but a flaky result now fails the publication gate even if its retry passes. The broader matrix increases test duration; the timing comparison below describes the earlier 13-case suite.
 
-Local full runs use two workers and a two-hour overall ceiling; CI uses one worker per shard and a 40-minute ceiling per shard. Per-case timeouts still detect stalled interactions. Use `npm run test:browser -- --workers=1` on a machine with limited memory.
+Local full runs use two workers and a three-hour overall ceiling; CI uses one worker per shard and a 60-minute ceiling per shard. Per-case timeouts still detect stalled interactions. Use `npm run test:browser -- --workers=1` on a machine with limited memory.
 
 ### Measured workflow times
 

@@ -75,6 +75,7 @@
     <button class="nav-link" role="tab" id="lp-tab-decor" aria-controls="lp-panel-decor" aria-selected="false" type="button">Decor & furniture</button>
     <button class="nav-link" role="tab" id="lp-tab-ceremony" aria-controls="lp-panel-ceremony" aria-selected="false" type="button">Ceremony & tents</button>
     <button class="nav-link" role="tab" id="lp-tab-view" aria-controls="lp-panel-view" aria-selected="false" type="button">View & lighting</button>
+    <button class="nav-link" role="tab" id="lp-tab-rentals" aria-controls="lp-panel-rentals" aria-selected="false" type="button">Rental catalogs</button>
     <button class="nav-link" role="tab" id="lp-tab-save" aria-controls="lp-panel-save" aria-selected="false" type="button">Move, measure & save</button>
   </div>
   <div role="tabpanel" id="lp-panel-layout" aria-labelledby="lp-tab-layout">
@@ -92,6 +93,24 @@
     <div class="text-small">Floor plan: house above, lake below. Power markers use the house-side entertainment corner and lake-side dining corner; exact sockets and capacity need venue confirmation.</div>
   </div>
   <div role="tabpanel" id="lp-panel-decor" aria-labelledby="lp-tab-decor" hidden></div>
+  <section role="tabpanel" id="lp-panel-rentals" aria-labelledby="lp-tab-rentals" hidden>
+    <span class="lp-eyebrow">FROM CATALOG TO CELEBRATION</span><h3>Explore the rentals</h3>
+    <p class="text-small" id="lp-rental-coverage"></p>
+    <p class="text-small">Keep your custom designs, or try a supplier’s product. Previews use simplified shapes and approximate colors; source photos and fabric samples are the reference. Prices are published unit prices, not an event quote. Availability, taxes, delivery, labor and setup need vendor confirmation.</p>
+    <div id="lp-rental-vendors" class="lp-rental-vendors"></div>
+    <div class="viz-controls">
+      <label class="form-label">Rental company<select class="form-select" id="lp-rental-vendor"><option value="all">Both companies</option><option value="classic">Classic Party Rentals</option><option value="party">Party Perfect</option></select></label>
+      <label class="form-label">Category<select class="form-select" id="lp-rental-category"><option value="all">All categories</option></select></label>
+      <label class="form-label">Show<select class="form-select" id="lp-rental-mode"><option value="all">All catalog options</option><option value="preview">Can preview in 3D</option><option value="saved">Saved for a quote</option></select></label>
+    </div>
+    <label class="form-label">Search products, colors or fabrics<input class="form-control" id="lp-rental-search" type="search" maxlength="120" placeholder="Try olive, blue goblet, gold or sofa"></label>
+    <p class="text-small" id="lp-rental-results-status" role="status" aria-live="polite"></p>
+    <div class="lp-rental-results" id="lp-rental-results"></div>
+    <div class="viz-controls lp-rental-pagination"><button class="btn" type="button" id="lp-rental-prev">Previous</button><span class="text-small" id="lp-rental-page"></span><button class="btn" type="button" id="lp-rental-next">Next</button></div>
+    <div class="lp-rental-selections"><h3>Your rental palette</h3><p class="text-small">Supplier matches below apply to the current model. Changing a matched setting makes it custom; the item stays saved for your quote. Saving an item alone does not change the model.</p><div id="lp-rental-applied"></div>
+    <details class="lp-details" open><summary>Saved for a rental quote <span id="lp-rental-saved-count"></span></summary><div id="lp-rental-shortlist"></div></details>
+    <button class="btn" type="button" id="lp-rental-export">Download rental list (CSV)</button><p class="text-small">Up to 60 saved options. Product references are included in Save layout / Load saved layout. Quantities and booking are handled with the rental company.</p></div>
+  </section>
   <div role="tabpanel" id="lp-panel-ceremony" aria-labelledby="lp-tab-ceremony" hidden>
     <div class="viz-controls">
       <label class="form-label">Bench rows per side<input class="form-control" id="lp-bench-rows" type="number" min="0" max="10" step="1" value="8"></label>
@@ -127,15 +146,29 @@
     <div class="text-small" id="lp-style-summary" role="status" aria-live="polite"></div>
     <details class="lp-details" id="lp-style-linens"><summary class="cursor-interaction">Linens & napkins</summary><div class="viz-controls">
       <label class="form-label">Tablecloth color<input class="form-control form-control-color" type="color" data-design="clothColor"></label>
-      <label class="form-label">Tablecloth fabric<select class="form-select" data-design="clothFinish"><option value="linen">Woven linen</option><option value="satin">Satin</option></select></label>
+      <label class="form-label">Tablecloth fabric<select class="form-select" data-design="clothFinish"><option value="linen">Woven linen</option><option value="satin">Satin</option><option value="velvet">Velvet</option><option value="pattern">Patterned fabric · schematic</option></select></label>
       <label class="form-label">Runner<select class="form-select" data-design="runnerStyle"><option value="lace">Crochet lace</option><option value="gauze">Soft gauze</option><option value="satin">Satin ribbon</option><option value="none">No runner</option></select></label>
       <label class="form-label">Runner color<input class="form-control form-control-color" type="color" data-design="runnerColor"></label>
       <label class="form-label">Runner width (in)<input class="form-control" type="number" min="6" max="18" step="1" data-design="runnerWidth"></label>
       <label class="form-label">Napkin styling<select class="form-select" data-design="napkinStyle"><option value="none">No napkins shown</option><option value="folded">Folded rectangle</option><option value="gathered">Soft gathered fold</option><option value="draped">Draped over the edge</option></select></label>
       <label class="form-label">Napkin color<input class="form-control form-control-color" type="color" data-design="napkinColor"></label>
-      <label class="form-label">Glassware<select class="form-select" data-design="glassware"><option value="none">No glassware shown</option><option value="clear">Clear wine goblets</option><option value="tinted">Colored goblets</option><option value="ribbed">Ribbed vintage goblets</option></select></label>
+      <label class="form-label">Glassware<select class="form-select" data-design="glassware"><option value="none">No glassware shown</option><option value="clear">Clear wine goblets</option><option value="tinted">Colored goblets</option><option value="ribbed">Ribbed vintage goblets</option><option value="flute">Champagne flutes</option><option value="coupe">Champagne coupes</option><option value="tumbler">Stemless / tumblers</option></select></label>
       <label class="form-label">Goblet tint<input class="form-control form-control-color" type="color" data-design="glassColor"></label>
     </div></details>
+    <details class="lp-details" id="lp-style-place-settings"><summary>Chairs, tables & place settings</summary><div class="viz-controls">
+      <label class="form-label">Table construction<select class="form-select" data-design="tableStyle"><option value="original">Original farmhouse</option><option value="farm">Rental farmhouse</option><option value="banquet">Rental banquet</option></select></label>
+      <label class="form-label">Rental table finish<input class="form-control form-control-color" type="color" data-design="tableColor"></label>
+      <label class="form-label">Dining chairs<select class="form-select" data-design="chairStyle"><option value="venue">Original venue chairs</option><option value="crossback">Cross-back wood</option><option value="chiavari">Chiavari</option><option value="folding">Garden folding</option><option value="bentwood">Bentwood</option><option value="willow">Willow fan back</option><option value="ghost">Clear ghost</option></select></label>
+      <label class="form-label">Chair frame color<input class="form-control form-control-color" type="color" data-design="chairColor"></label>
+      <label class="form-label">Dinner plates<select class="form-select" data-design="chinaStyle"><option value="none">No plates shown</option><option value="round">Classic round</option><option value="coupe">Coupe</option><option value="square">Square</option><option value="scallop">Scalloped rim</option></select></label>
+      <label class="form-label">Plate color<input class="form-control form-control-color" type="color" data-design="chinaColor"></label>
+      <label class="form-check"><input class="form-check-input" type="checkbox" data-design="chinaRim"><span class="form-check-label">Plate rim</span></label>
+      <label class="form-label">Plate rim color<input class="form-control form-control-color" type="color" data-design="chinaRimColor"></label>
+      <label class="form-label">Flatware<select class="form-select" data-design="flatwareStyle"><option value="none">No flatware shown</option><option value="silver">Silver stainless</option><option value="gold">Brushed gold</option><option value="black">Matte black</option><option value="blackGold">Black handles & gold</option><option value="hammered">Hammered silver</option></select></label>
+      <label class="form-label">Charger finish<select class="form-select" data-design="chargerMaterial"><option value="metal">Metal</option><option value="glass">Glass</option><option value="wood">Wood veneer</option><option value="rattan">Rattan weave</option><option value="pearl">Pearl edge</option></select></label>
+      <label class="form-label">Charger color<input class="form-control form-control-color" type="color" data-design="chargerColor"></label>
+      <label class="form-label">Charger rim<input class="form-control form-control-color" type="color" data-design="chargerRimColor"></label>
+    </div><p class="text-small">Dining chairs, plates and flatware apply to pavilion tables only. Decorative details and unlisted dimensions are estimates. The rental catalogs provide named supplier choices.</p></details>
     <details class="lp-details" id="lp-style-flowers"><summary class="cursor-interaction">Flowers & vases</summary><div class="viz-controls">
       <label class="form-label">Greenery<select class="form-select" data-design="greenery"><option value="lush">Lush garland</option><option value="light">Light sprigs</option><option value="none">No greenery</option></select></label>
       <label class="form-label">Greenery color<input class="form-control form-control-color" type="color" data-design="greeneryColor"></label>
@@ -159,7 +192,7 @@
       <label class="form-label">Candles per table<input class="form-control" type="number" min="0" max="5" step="1" data-design="candleCount"></label>
       <label class="form-label">Candle height (in; votives fixed at 3)<input class="form-control" type="number" min="3" max="18" step="1" data-design="candleHeight"></label>
       <label class="form-label">Candle color<input class="form-control form-control-color" type="color" data-design="candleColor"></label>
-      <label class="form-label">Holders and chargers<select class="form-select" data-design="metalFinish"><option value="gold">Gold</option><option value="silver">Silver</option><option value="black">Black</option></select></label>
+      <label class="form-label">Candle holder finish<select class="form-select" data-design="metalFinish"><option value="gold">Gold</option><option value="silver">Silver</option><option value="black">Black</option></select></label>
       <label class="form-check"><input class="form-check-input" type="checkbox" data-design="chargers"><span class="form-check-label">Chargers</span></label>
     </div>
     </details>
@@ -183,10 +216,10 @@
   <details class="lp-details" id="lp-design-sofas">
     <summary class="cursor-interaction">Sofa styles</summary>
     <div class="viz-controls">
-      <label class="form-label">Sofa style<select class="form-select" data-design="sofaStyle"><option value="classic">Classic square arm</option><option value="tufted">Tufted Chesterfield</option><option value="curved">Curved lounge</option><option value="rattan">Rattan frame</option></select></label>
+      <label class="form-label">Sofa style<select class="form-select" data-design="sofaStyle"><option value="classic">Classic square arm</option><option value="tufted">Tufted Chesterfield</option><option value="curved">Curved lounge</option><option value="rattan">Rattan frame</option><option value="channel">Channel-tufted lounge</option></select></label>
       <label class="form-label">Upholstery color<input class="form-control form-control-color" type="color" data-design="sofaColor"></label>
       <label class="form-label">Frame color<input class="form-control form-control-color" type="color" data-design="sofaFrameColor"></label>
-      <label class="form-label">Sofa length (ft)<input class="form-control" type="number" min="5" max="8" step="0.25" data-design="sofaLength"></label>
+      <label class="form-label">Sofa length (ft)<input class="form-control" type="number" min="5" max="8" step="any" data-design="sofaLength"></label>
     </div>
     <div class="text-small" id="lp-sofa-spec">Sofa dimensions are estimates.</div>
     <button class="btn" type="button" id="lp-focus-sofas">View lounge</button>
@@ -194,7 +227,7 @@
   <details class="lp-details" id="lp-finishes">
     <summary class="cursor-interaction">Dance floor and site grade</summary>
     <div class="viz-controls">
-      <label class="form-label">Dance floor<select class="form-select" id="lp-dance-pattern"><option value="checker">Checkerboard tiles</option><option value="solid">Solid color</option><option value="concrete">Bare concrete</option><option value="wood">Warm wood parquet</option></select></label>
+      <label class="form-label">Dance floor<select class="form-select" id="lp-dance-pattern"><option value="checker">Checkerboard tiles</option><option value="solid">Solid color</option><option value="concrete">Bare concrete</option><option value="wood">Warm wood parquet</option><option value="plank">Wood plank panels</option><option value="woodChecker">Wood & color checkerboard</option></select></label>
       <label class="form-label">Tile color A<input class="form-control form-control-color" type="color" id="lp-dance-a" value="#101010"></label>
       <label class="form-label">Tile color B<input class="form-control form-control-color" type="color" id="lp-dance-b" value="#ffffff"></label>
       <label class="form-label">Approx. tile size (ft)<input class="form-control" type="number" id="lp-tile-size" min="1" max="4" step="0.5" value="2"></label>
@@ -208,7 +241,7 @@
     <summary class="cursor-interaction">Dimensions and furniture</summary>
     <div class="viz-controls">
       <label class="form-label">Table length (ft)<input class="form-control" id="lp-length" type="number" min="4" max="10" step="0.25" value="8"></label>
-      <label class="form-label">Table width (ft, estimated)<input class="form-control" id="lp-width" type="number" min="2" max="5" step="0.25" value="3"></label>
+      <label class="form-label">Table width (ft, estimated)<input class="form-control" id="lp-width" type="number" min="2" max="5" step="any" value="3"></label>
       <label class="form-label">Table-end gap (ft)<input class="form-control" id="lp-gap" type="number" min="0" max="5" step="0.25" value="1.5"></label>
       <label class="form-label">Selected furniture<select class="form-select" id="lp-object"></select></label>
       <label class="form-label">From left end (ft)<input class="form-control" id="lp-x" type="number" min="0" max="90" step="0.5"></label>
@@ -243,6 +276,28 @@
 #venue-pavilion-3d .lp-details summary {margin-bottom:10px}
 #venue-pavilion-3d .lp-assumptions {margin-top:10px;color:var(--muted-foreground)}
 @media(max-width:480px){#venue-pavilion-3d .lp-heading {display:block;padding-right:75px}}
+
+#venue-pavilion-3d .lp-rental-vendors{display:flex;flex-direction:column;gap:5px;margin:15px 0}
+#venue-pavilion-3d .lp-rental-link{color:#526b45;text-decoration:underline;text-underline-offset:3px;font-size:11px;overflow-wrap:anywhere}
+#venue-pavilion-3d .lp-rental-results{display:grid;gap:12px}
+#venue-pavilion-3d .lp-rental-card{border:1px solid var(--studio-line);background:#fcfdf9;padding:17px 14px;border-radius:2px}
+#venue-pavilion-3d .lp-rental-card h4{font:400 17px/1.45 Georgia,serif;color:#3f5037;margin:10px 0;overflow-wrap:anywhere}
+#venue-pavilion-3d .lp-rental-card p{margin:8px 0;font-size:11px;line-height:1.6}
+#venue-pavilion-3d .lp-rental-card .lp-rental-price{font:500 12px/1.5 "Studio Raleway",Arial,sans-serif;color:#44583a}
+#venue-pavilion-3d .lp-rental-vendor{font-size:9px;text-transform:uppercase;letter-spacing:.85px;color:#6f5d43;border-left:3px solid #c6ae87;padding-left:8px}
+#venue-pavilion-3d .lp-rental-vendor[data-vendor=party]{color:#516d76;border-color:#93b2bc}
+#venue-pavilion-3d .lp-rental-swatches{display:flex;gap:5px;margin:10px 0}
+#venue-pavilion-3d .lp-rental-swatches span{width:22px;height:22px;border-radius:50%;border:1px solid #50604030}
+#venue-pavilion-3d .lp-rental-preview-label{color:#62794e;font-weight:500}
+#venue-pavilion-3d .lp-rental-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:13px}
+#venue-pavilion-3d .lp-rental-actions .btn{min-height:35px;padding:8px 10px;font-size:10px}
+#venue-pavilion-3d .lp-rental-pagination{justify-content:space-between;align-items:center}
+#venue-pavilion-3d .lp-rental-selections{border-top:2px solid var(--studio-accent);margin-top:24px;padding-top:15px}
+#venue-pavilion-3d .lp-rental-pick{display:flex;flex-direction:column;align-items:flex-start;gap:7px;font-size:12px;padding:13px 0;border-bottom:1px solid var(--studio-line)}
+#venue-pavilion-3d .lp-rental-pick strong{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b7c5f}
+#venue-pavilion-3d .lp-rental-pick small{font-size:10px;color:#6b735f}
+#venue-pavilion-3d .lp-rental-pick .btn{font-size:10px;min-height:32px;padding:7px 10px}
+@media(min-width:601px) and (max-width:1100px){#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Lakeside-inspired studio: airy white, sage, fine rules and editorial type. */
 #venue-pavilion-3d{--studio-ink:#364033;--studio-sage:#79896c;--studio-accent:#a6b09d;--studio-line:#d9ded2;--studio-paper:#fbfcf8;--studio-soft:#eef0e9;box-sizing:border-box;padding:28px;color:var(--studio-ink);background:var(--studio-paper);font-family:"Studio Raleway",Arial,sans-serif;font-weight:400;line-height:1.55;color-scheme:light}
@@ -297,7 +352,7 @@
 #venue-pavilion-3d input[type=checkbox]{accent-color:#7d926b;width:15px;height:15px;margin:0}
 #venue-pavilion-3d #lp-settings-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;padding:0;background:#fff;border-radius:0;margin-bottom:16px;border-top:1px solid #d9e0d0;border-bottom:1px solid #d9e0d0}
 #venue-pavilion-3d #lp-settings-tabs button{min-width:0;width:100%;height:100%;text-align:center;padding:12px 7px;border:0;border-radius:0;font:500 11px/1.45 "Studio Raleway",Arial,sans-serif;letter-spacing:.3px;white-space:normal;color:#637657;background:none;cursor:pointer;box-shadow:inset 0 -1px 0 #e7ebdf}
-#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:1/-1;box-shadow:none}
+#venue-pavilion-3d #lp-settings-tabs button:last-child{box-shadow:none}
 #venue-pavilion-3d #lp-settings-tabs button.active{background:#eff3e8;color:#34462a;box-shadow:inset 0 -2px 0 #849974}
 #venue-pavilion-3d [role=tabpanel]{padding-top:2px}
 #venue-pavilion-3d .lp-details{margin:19px 0;border-top:1px solid #e0e6d8;padding-top:16px}
@@ -318,8 +373,8 @@
 #venue-pavilion-3d .lp-reset-prompt{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px solid #becbad;padding:18px;border-radius:1px;background:#f0f4e9;margin-bottom:20px;font-size:12px}
 #venue-pavilion-3d .lp-reset-prompt span{flex:1 1 280px}
 @media(min-width:1700px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) 395px;gap:30px}#venue-pavilion-3d .lp-editor{padding:26px}}
-@media(max-width:1100px){#venue-pavilion-3d{padding:20px}#venue-pavilion-3d .lp-workspace{grid-template-columns:1fr}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible;padding:24px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:repeat(4,1fr)}#venue-pavilion-3d .lp-look-card{flex-direction:row;align-items:center;gap:10px}#venue-pavilion-3d .lp-look-colors{gap:2px}#venue-pavilion-3d .lp-look-colors i{width:15px;height:20px;border-radius:8px}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:180px}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:repeat(5,1fr)}}
-@media(max-width:600px){#venue-pavilion-3d{padding:12px}#venue-pavilion-3d .lp-heading{display:block;padding:14px 5px 22px;margin-bottom:18px}#venue-pavilion-3d .lp-heading h2{font-size:48px}#venue-pavilion-3d .lp-heading-actions{justify-items:start;margin-top:19px;gap:10px}#venue-pavilion-3d .lp-subtitle{font-size:11px;letter-spacing:.3px}#venue-pavilion-3d #lp-capacity{font-size:13px}#venue-pavilion-3d .lp-stage{height:520px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:1/-1}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-main-nav .btn{flex:1 1 95px}#venue-pavilion-3d #lp-main-nav label{max-width:none;flex-basis:100%}#venue-pavilion-3d .lp-editor{padding:20px 16px}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:135px}#venue-pavilion-3d .form-control,#venue-pavilion-3d .form-select{font-size:16px;height:44px}#venue-pavilion-3d .btn{min-height:44px}#venue-pavilion-3d #lp-resize{min-height:32px}}
+@media(max-width:1100px){#venue-pavilion-3d{padding:20px}#venue-pavilion-3d .lp-workspace{grid-template-columns:1fr}#venue-pavilion-3d .lp-editor{max-height:none;overflow:visible;padding:24px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:repeat(4,1fr)}#venue-pavilion-3d .lp-look-card{flex-direction:row;align-items:center;gap:10px}#venue-pavilion-3d .lp-look-colors{gap:2px}#venue-pavilion-3d .lp-look-colors i{width:15px;height:20px;border-radius:8px}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:180px}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:600px){#venue-pavilion-3d{padding:12px}#venue-pavilion-3d .lp-heading{display:block;padding:14px 5px 22px;margin-bottom:18px}#venue-pavilion-3d .lp-heading h2{font-size:48px}#venue-pavilion-3d .lp-heading-actions{justify-items:start;margin-top:19px;gap:10px}#venue-pavilion-3d .lp-subtitle{font-size:11px;letter-spacing:.3px}#venue-pavilion-3d #lp-capacity{font-size:13px}#venue-pavilion-3d .lp-stage{height:520px}#venue-pavilion-3d .lp-look-cards{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}#venue-pavilion-3d #lp-palette-swatches{grid-template-columns:1fr 1fr}#venue-pavilion-3d #lp-main-nav .btn{flex:1 1 95px}#venue-pavilion-3d #lp-main-nav label{max-width:none;flex-basis:100%}#venue-pavilion-3d .lp-editor{padding:20px 16px}#venue-pavilion-3d .lp-editor .viz-controls>.form-label{flex-basis:135px}#venue-pavilion-3d .form-control,#venue-pavilion-3d .form-select{font-size:16px;height:44px}#venue-pavilion-3d .btn{min-height:44px}#venue-pavilion-3d #lp-resize{min-height:32px}}
 @media(prefers-reduced-motion:reduce){#venue-pavilion-3d .btn,#venue-pavilion-3d .lp-look-card{transition:none}}
 @media(max-width:699px){
 #venue-pavilion-3d .lp-viewer{display:flex;flex-direction:column}
@@ -336,6 +391,7 @@
 }
 </style>
 <script type="application/json" id="lp-initial-state">{"modelContent":{"danceWidth":20,"danceDepth":20,"doorSetback":2,"barSide":"house","dessert":true,"doorGuides":true,"power":true,"disabledTables":[],"targetGuests":100,"benchRows":8,"benchLength":9.5,"deckWidth":28,"deckDepth":34,"aisleDecor":"none","aislePairs":4,"aisleColor":"#eee7d5","tentSide":"right","tentStyle":"frame","tentWidth":20,"tentDepth":20,"lighting":"original","ceilingDecor":"none","schema":"venue-pavilion-v9","layout":"separate","length":8,"width":3,"gap":1.5,"roof":false,"labels":true,"context":true,"walls":"real","measurements":false,"measureScope":"overall","grid":false,"arbor":true,"kitchen":false,"decor":true,"linens":false,"dancePattern":"checker","danceA":"#101010","danceB":"#ffffff","tileSize":2,"houseRise":3.5,"lakeDrop":7.5,"positions":{"separate":{},"joined":{}},"design":{"look":"custom","clothColor":"#c9b09e","clothFinish":"linen","runnerStyle":"lace","runnerColor":"#f4ecd9","runnerWidth":11,"greenery":"lush","greeneryColor":"#57684e","flowerStyle":"mixed","flowerDensity":1,"flowerA":"#eee7d5","flowerB":"#7f9eaf","flowerC":"#602e46","vaseStyle":"cut","vaseCount":5,"vaseHeight":10,"vaseColor":"#ecf0e5","candleStyle":"taper","candleCount":3,"candleHeight":12,"candleColor":"#bd9b56","metalFinish":"gold","chargers":true,"indoorArbor":"timber","outdoorArbor":"timber","indoorArborColor":"#6c4d36","outdoorArborColor":"#6c4d36","indoorArborDecor":"drape","outdoorArborDecor":"greenery","arborFabricColor":"#f1e9d8","sofaStyle":"classic","sofaColor":"#ece6da","sofaFrameColor":"#704b31","sofaLength":6},"rowOffsets":[2,0,2]},"privateContent":{"orbit":{"azimuth":0.4,"polar":0.72,"distance":150,"target":[0,1,0]},"view":"perspective","walk":{"x":13.602396554743555,"y":6.849232191304194,"z":-95.09435646675702,"yaw":28.277757420244395,"pitch":-0.11518749999999969},"tour":{"time":1.7670720000000475,"speed":1},"navigation":{"height":680,"speed":8}}}</script>
+<script>/* Bundled rental library */</script>
 <script>
 (function(){
   const root=document.getElementById('venue-pavilion-3d');
@@ -349,13 +405,15 @@
     script.onload=start;script.onerror=()=>{loading.textContent='The 3D library could not load. Reopen this view with an internet connection.';};document.head.appendChild(script);
   }
   function initialize(){
-    const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas');
+    const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary;
+    let rentalPage=0,rentalFilterTimer=0;
     const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'none',napkinColor:'#62314c',glassware:'none',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
+    Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'none',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'none',chargerMaterial:'metal',chargerColor:'#c4a466',chargerRimColor:'#c4a466',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0});
     const COLOR_SWATCHES=[['Olive','#59632a'],['Cabernet','#642c38'],['Twilight','#4f6875'],['Ivory','#f4eddd'],['Champagne','#dfc9aa'],['Dusty blue','#829db5'],['Steel blue','#526d83'],['Plum','#62314c'],['Mauve','#ad829a'],['Pistachio','#a9b48c'],['Moss','#566447'],['Cocoa','#665249'],['Warm gold','#c7a76c']];
     const designFields=[...root.querySelectorAll('[data-design]')];
-    let config={...PLAN_DEFAULTS,schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
+    let config={...PLAN_DEFAULTS,rentals:{applied:{},shortlist:[]},schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
     const resetDefaults=JSON.parse(JSON.stringify(config));
     let resetUndo=null,rebuildTimer=0;
     let navigation={height:680,speed:8};
@@ -406,7 +464,7 @@
       // Camera height and speed are available without starting a tour or walking.
       navDetails.append($('lp-eye').closest('label'),$('lp-walk-speed').closest('label'));
       editor.append($('lp-settings-tabs'));
-      for(const name of ['layout','decor','ceremony','view','save'])editor.append($('lp-panel-'+name));
+      for(const name of ['layout','decor','ceremony','view','rentals','save'])editor.append($('lp-panel-'+name));
       $('lp-lookbook').append(root.querySelector('[data-design="look"]').closest('label'));
       const looks=[['florist','Wine, olive & twilight',['#59632a','#642c38','#4f6875']],['vasesOnly','Seven-vase garden',['#f4eddd','#642c38','#59632a']],['ivoryGarden','Ivory & olive',['#f4eddd','#59632a','#dfc9aa']],['twilightGarden','Twilight garden',['#4f6875','#f4eddd','#642c38']],['ivoryPlum','Ivory & plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
       for(const [key,name,swatches]of looks){const b=document.createElement('button');b.type='button';b.className='lp-look-card';b.dataset.look=key;b.setAttribute('aria-pressed','false');const samples=document.createElement('span');samples.className='lp-look-colors';samples.setAttribute('aria-hidden','true');for(const color of swatches){const dot=document.createElement('i');dot.style.background=color;samples.append(dot);}b.append(samples,document.createTextNode(name));b.onclick=()=>applyLook(key);$('lp-look-cards').append(b);}
@@ -420,6 +478,7 @@
       for(const id of ['lp-arbor','lp-decor','lp-linens'])$('lp-panel-decor').prepend($(id).closest('label'));
       for(const tab of root.querySelectorAll('#lp-settings-tabs button'))tab.addEventListener('click',()=>{
         for(const peer of root.querySelectorAll('#lp-settings-tabs button')){const on=peer===tab;peer.setAttribute('aria-selected',String(on));peer.classList.toggle('active',on);$(peer.getAttribute('aria-controls')).hidden=!on;}
+        $('lp-lookbook').hidden=tab.id==='lp-tab-rentals';$('lp-editor').scrollTop=0;
       });
       for(let i=1;i<=12;i++){
         const label=document.createElement('label');label.className='form-check';const input=document.createElement('input');input.type='checkbox';input.className='form-check-input';input.id='lp-table-'+i;input.checked=true;
@@ -447,6 +506,8 @@
         else if(el.type==='number')out[key]=n(value,out[key],Number(el.min),Number(el.max));
       }
       for(const key of ['vaseCount','candleCount','stemsPerVase'])out[key]=Math.round(out[key]);
+      for(const [key,lo,hi]of [['sofaDepth',0,4],['sofaHeight',0,4],['barLength',4,8]])out[key]=n(raw[key],out[key],lo,hi);
+      out.chairSeatColor=hex(raw.chairSeatColor,out.chairSeatColor);out.barStyle=raw.barStyle==='panel'?'panel':'original';out.barColor=hex(raw.barColor,out.barColor);
       return out;
     }
     function applyLook(name){
@@ -466,14 +527,14 @@
         minimal:{clothColor:'#eae5da',runnerStyle:'none',greenery:'light',flowerStyle:'roses',flowerDensity:.6,flowerA:'#efeee6',flowerB:'#efeee6',flowerC:'#efeee6',vaseStyle:'ceramic',vaseColor:'#e9e4d9',vaseCount:1,candleCount:2,candleColor:'#eee7d8',metalFinish:'black',indoorArbor:'frame',outdoorArbor:'triangle',indoorArborColor:'#252525',outdoorArborColor:'#252525',sofaStyle:'classic',sofaColor:'#e8e3d9'}
       };
       const glassLooks={ivoryPlum:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},pistachio:{glassware:'ribbed',glassColor:'#a9b48c',trailingGreenery:true},plumGarden:{glassware:'tinted',glassColor:'#ad829a',trailingGreenery:true},blueMeadow:{glassware:'clear',trailingGreenery:true}};
-      if(!looks[name]){if(name==='custom'){config.design.look='custom';queueDecorRefresh();}return;}config.design={...DESIGN_DEFAULTS,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;queueDecorRefresh();
+      if(!looks[name]){if(name==='custom'){config.design.look='custom';queueDecorRefresh();}return;}const retained=Object.fromEntries(['chairStyle','chairColor','chairSeatColor','chinaStyle','chinaColor','chinaRim','chinaRimColor','flatwareStyle','chargerMaterial','chargerColor','chargerRimColor','tableStyle','tableColor','barStyle','barColor','barLength'].map(key=>[key,config.design[key]]));config.design={...DESIGN_DEFAULTS,...retained,...looks[name],...glassLooks[name],look:name};config.decor=true;config.linens=true;config.arbor=true;queueDecorRefresh();
     }
     function normalize(raw){
-      const out={schema:'venue-pavilion-v9',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete','wood'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&&Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
+      const out={schema:'venue-pavilion-v9',layout:raw.layout==='joined'?'joined':'separate',length:n(raw.length,8,4,10),width:n(raw.width,3,2,5),gap:n(raw.gap,1.5,0,5),roof:!!raw.roof,labels:raw.labels!==false,context:raw.context!==false,walls:['real','ghost','hidden'].includes(raw.walls)?raw.walls:'real',measurements:!!raw.measurements,measureScope:['sections','overall','selected','all'].includes(raw.measureScope)?raw.measureScope:'sections',grid:!!raw.grid,arbor:raw.arbor!==false,kitchen:!!raw.kitchen,decor:raw.decor!==false,linens:raw.linens!==false,dancePattern:['checker','solid','concrete','wood','plank','woodChecker'].includes(raw.dancePattern)?raw.dancePattern:'checker',danceA:hex(raw.danceA,'#101010'),danceB:hex(raw.danceB,'#ffffff'),tileSize:n(raw.tileSize,2,1,4),houseRise:/^venue-pavilion-v[123]$/.test(raw.schema)&&Number(raw.houseRise)===6?3.5:n(raw.houseRise,3.5,1.5,20),lakeDrop:n(raw.lakeDrop,7.5,2,18),positions:{separate:{},joined:{}}};
       for(const mode of ['separate','joined'])for(const [id,p]of Object.entries((raw.positions&&raw.positions[mode])||{})){
         if(!/^table-\d+$|^couple$|^dance$|^bar$|^dj$|^photo$|^dessert$|^sofa-\d+$|^cocktail-\d+$/.test(id)||!p)continue;
         const mirror=/^(?:venue|lakeside)-pavilion-v[3456789]$/.test(raw.schema)?1:-1;out.positions[mode][id]={x:mirror*n(p.x,0,-45,45),z:n(p.z,0,-20,20),r:mirror*n(p.r,0,-Math.PI*20,Math.PI*20)};
-      }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));if(!/v9$/.test(raw.schema)&&Number(raw.deckWidth)===32&&Number(raw.deckDepth)===38){out.deckWidth=28;out.deckDepth=34;if(Number(raw.benchLength)===11)out.benchLength=9.5;}return out;
+      }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));if(!/v9$/.test(raw.schema)&&Number(raw.deckWidth)===32&&Number(raw.deckDepth)===38){out.deckWidth=28;out.deckDepth=34;if(Number(raw.benchLength)===11)out.benchLength=9.5;}out.rentals=rentalLibrary.cleanState(raw.rentals,out);return out;
     }
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
     function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8};stage.style.height=navigation.height+'px';}
@@ -495,7 +556,6 @@
       const standard=(c,extra={})=>new T.MeshStandardMaterial({color:c,roughness:.8,...extra});
       const concrete=surfaceTexture('concrete'),grain=surfaceTexture('wood'),roofTexture=surfaceTexture('fabric'),paver=surfaceTexture('paver');
       materials={wood:standard(colors.wood,{map:grain,roughness:.65}),darkwood:standard(colors.wood.clone().lerp(dark,.23),{map:grain}),frame:standard(colors.frame,{roughness:.42,metalness:.18}),floor:standard(colors.concrete,{map:concrete,roughness:.95,bumpMap:concrete,bumpScale:.018}),fabric:standard(colors.fabric),metal:standard(dark.clone().lerp(bright,.10),{roughness:.42,metalness:.45}),green:standard(colors.green,{side:T.DoubleSide}),leaf2:standard(colors.green.clone().lerp(bright,.17),{side:T.DoubleSide}),lawn:standard(colors.green.clone().lerp(bright,.08),{map:concrete}),water:standard(colors.water,{roughness:.17,metalness:.25,transparent:true,opacity:.92}),glass:new T.MeshPhysicalMaterial({color:bright,roughness:.06,metalness:.03,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide,clearcoat:1,clearcoatRoughness:.05}),ghostFrame:standard(colors.frame,{transparent:true,opacity:.14,depthWrite:false,side:T.DoubleSide}),ghost:standard(bright,{transparent:true,opacity:.045,depthWrite:false,side:T.DoubleSide}),roof:standard(colors.frame,{map:roofTexture,side:T.DoubleSide,roughness:.95,emissive:colors.frame,emissiveIntensity:.36}),dance:standard(colors.wood.clone().lerp(bright,.25),{map:grain}),stone:standard(colors.concrete.clone().lerp(colors.wood,.17),{map:concrete}),siding:standard(bright.clone().lerp(dark,.18)),houseRoof:standard(colors.frame,{side:T.DoubleSide,roughness:.5,metalness:.35}),houseGlass:new T.MeshPhysicalMaterial({color:dark.clone().lerp(color('--blue'),.15),roughness:.14,metalness:.3,clearcoat:1}),screen:standard(dark,{transparent:true,opacity:.23,depthWrite:false,side:T.DoubleSide}),rope:standard(bright.clone().lerp(colors.wood,.25)),accent:new T.MeshBasicMaterial({color:color('--viz-series-1'),depthTest:false}),bulb:new T.MeshStandardMaterial({color:color('--yellow').lerp(bright,.55),emissive:color('--orange').lerp(color('--yellow'),.55),emissiveIntensity:2.5}),line:new T.LineBasicMaterial({color:colors.border,transparent:true,opacity:.7}),ruler:new T.LineBasicMaterial({color:color('--viz-series-1'),depthTest:false}),wire:new T.LineBasicMaterial({color:dark})};
-      materials.danceA=new T.MeshPhysicalMaterial({color:new T.Color(config.danceA),roughness:.20,clearcoat:.7,clearcoatRoughness:.18});materials.danceB=new T.MeshPhysicalMaterial({color:new T.Color(config.danceB),roughness:.20,clearcoat:.7,clearcoatRoughness:.18});
       materials.paver=standard(colors.concrete.clone().lerp(bright,.19),{map:paver,roughness:.96,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});materials.paverEdge=standard(colors.wood.clone().lerp(colors.concrete,.55),{map:concrete});materials.gravel=standard(bright.clone().lerp(dark,.32),{map:concrete,roughness:1});
       materials.guide=new T.MeshBasicMaterial({color:color('--viz-series-1'),transparent:true,opacity:.10,depthWrite:false,side:T.DoubleSide});
       materials.power=standard(color('--viz-series-1'),{emissive:color('--viz-series-1'),emissiveIntensity:.35});
@@ -514,9 +574,10 @@
       stage.style.background=getComputedStyle(root).getPropertyValue('--muted');
     }
     function decorPalette(){
+      materials.danceA=new T.MeshPhysicalMaterial({color:new T.Color(config.danceA),roughness:.20,clearcoat:.7,clearcoatRoughness:.18});materials.danceB=new T.MeshPhysicalMaterial({color:new T.Color(config.danceB),roughness:.20,clearcoat:.7,clearcoatRoughness:.18});
       const standard=(c,extra={})=>new T.MeshStandardMaterial({color:c,roughness:.8,...extra});
       const d=config.design;
-      materials.linen=standard(new T.Color(d.clothColor),{map:d.clothFinish==='linen'?decorTexture('linen'):null,roughness:d.clothFinish==='linen'?1:.30,side:T.DoubleSide});
+      materials.linen=standard(new T.Color(d.clothColor),{map:['linen','velvet','pattern'].includes(d.clothFinish)?decorTexture(d.clothFinish==='pattern'?'pattern':'linen'):null,roughness:d.clothFinish==='satin'?.3:1,side:T.DoubleSide});
       materials.lace=standard(new T.Color(d.runnerColor),{map:d.runnerStyle==='gauze'?decorTexture('linen'):null,alphaMap:d.runnerStyle==='lace'?decorTexture('lace'):null,alphaTest:d.runnerStyle==='lace'?.25:0,transparent:d.runnerStyle==='gauze',opacity:d.runnerStyle==='gauze'?.75:1,side:T.DoubleSide,roughness:d.runnerStyle==='satin'?.27:1});
       materials.gold=standard(new T.Color({gold:'#cfad65',silver:'#c6cbd0',black:'#242424'}[d.metalFinish]),{metalness:d.metalFinish==='black'?.1:.45,roughness:.28});
       materials.candle=standard(new T.Color(d.candleColor),{roughness:.48});
@@ -534,6 +595,14 @@
       materials.arborFabric=standard(new T.Color(d.arborFabricColor),{side:T.DoubleSide,roughness:1,transparent:true,opacity:.88});
       materials.sofaFabric=standard(new T.Color(d.sofaColor),{roughness:d.sofaStyle==='tufted'?.58:.95});materials.sofaFrame=standard(new T.Color(d.sofaFrameColor),{roughness:.75});
       materials.sofaButton=standard(new T.Color(d.sofaColor).multiplyScalar(.72),{roughness:.8});
+      materials.rentalTable=standard(new T.Color(d.tableColor),{map:materials.wood&&materials.wood.map,roughness:.6});
+      materials.rentalChair=standard(new T.Color(d.chairColor),{roughness:.55,transparent:d.chairStyle==='ghost',opacity:d.chairStyle==='ghost'?.30:1,depthWrite:d.chairStyle!=='ghost'});
+      materials.rentalSeat=standard(new T.Color(d.chairSeatColor));
+      materials.china=standard(new T.Color(d.chinaColor),{roughness:.22,metalness:.03});materials.chinaRim=standard(new T.Color(d.chinaRimColor),{roughness:.3,metalness:.6});
+      const flatColor={gold:'#c4a466',black:'#282727',blackGold:'#c4a466',silver:'#bfc2c4',hammered:'#bfc2c4',none:'#bfc2c4'}[d.flatwareStyle];
+      materials.flatware=standard(new T.Color(flatColor),{roughness:d.flatwareStyle==='hammered'?.5:.28,metalness:.72});materials.flatwareHandle=standard(new T.Color(d.flatwareStyle==='blackGold'?'#282727':flatColor),{roughness:.4,metalness:.65});
+      materials.rentalCharger=standard(new T.Color(d.chargerColor),{roughness:['wood','rattan'].includes(d.chargerMaterial)?.9:.3,metalness:d.chargerMaterial==='metal'?.6:0,transparent:d.chargerMaterial==='glass',opacity:d.chargerMaterial==='glass'?.38:1,depthWrite:d.chargerMaterial!=='glass'});
+      materials.chargerRim=standard(new T.Color(d.chargerRimColor),{roughness:.35,metalness:.5});materials.rentalBar=standard(new T.Color(d.barColor),{roughness:.6});
       materials.hurricane=new T.MeshPhysicalMaterial({color:new T.Color('#ecf0e5'),roughness:.08,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide});
     }
     function surfaceTexture(kind){
@@ -557,6 +626,8 @@
         ctx.fillStyle='#f2e8df';ctx.fillRect(0,0,256,256);
         for(let i=0;i<256;i+=2){ctx.strokeStyle=i%8?'#e3d4ca':'#d8c9bf';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(256,i);ctx.stroke();}
         ctx.strokeStyle='#fff9ef';ctx.lineWidth=.6;for(let i=0;i<256;i+=4){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,256);ctx.stroke();}
+      }else if(kind==='pattern'){
+        ctx.fillStyle='#eee9dc';ctx.fillRect(0,0,256,256);ctx.strokeStyle='#b6b0a4';ctx.lineWidth=2;for(let y=0;y<256;y+=64)for(let x=0;x<256;x+=64){ctx.beginPath();ctx.ellipse(x+32,y+32,23,14,Math.PI/4,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.ellipse(x+32,y+32,14,23,Math.PI/4,0,Math.PI*2);ctx.stroke();}
       }else{
         ctx.fillStyle='#000';ctx.fillRect(0,0,256,256);ctx.strokeStyle='#fff';ctx.fillStyle='#fff';
         for(let y=-32;y<=288;y+=32)for(let x=0;x<=256;x+=32){
@@ -565,7 +636,7 @@
         }
         for(const x of [5,14,242,251]){ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,256);ctx.stroke();}
       }
-      const texture=new T.CanvasTexture(cv);texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(6,kind==='linen'?3:1);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(kind==='linen')texture.colorSpace=T.SRGBColorSpace;textures.push(texture);decorTextureCache[kind]=texture;return texture;
+      const texture=new T.CanvasTexture(cv);texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(6,kind==='linen'?3:1);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(kind!=='lace')texture.colorSpace=T.SRGBColorSpace;textures.push(texture);decorTextureCache[kind]=texture;return texture;
     }
     function box(parent,w,h,d,x,y,z,mat,rotation=0){const m=new T.Mesh(unitBox,mat);m.scale.set(w,h,d);m.position.set(x,y,z);m.rotation.y=rotation;m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
     function cylinder(parent,r,h,x,y,z,mat){const m=new T.Mesh(unitCylinder,mat);m.scale.set(r,h,r);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
@@ -697,8 +768,65 @@
         for(let i=0;i<p.count;i++){const xx=p.getX(i),z=p.getY(i),u=(z+19)/38;p.setXYZ(i,x+xx,10.4+3.5*Math.sin(u*Math.PI)+.05*Math.sin(xx*15),z);}geom.computeVertexNormals();ceilingLights.add(new T.Mesh(geom,materials.arborFabric));
       }
     }
+    function rentalChair(g){
+      const d=config.design,m=materials.rentalChair,style=d.chairStyle;
+      box(g,1.55,.14,1.5,0,1.52,0,style==='ghost'?m:materials.rentalSeat);
+      for(const x of [-.64,.64])for(const z of [-.6,.6])box(g,.09,1.5,.09,x,.75,z,m);
+      for(const x of [-.67,.67])box(g,.085,1.68,.085,x,2.30,.64,m);
+      if(style==='chiavari'){
+        for(const y of [1.85,2.88,3.10])box(g,1.45,.065,.08,0,y,.64,m);
+        for(let x=-.43;x<=.44;x+=.215)box(g,.045,.95,.045,x,2.36,.64,m);
+        for(const side of [-1,1])box(g,.07,.07,1.32,side*.64,.65,0,m);
+      }else if(style==='folding'){
+        box(g,1.43,.65,.10,0,2.65,.64,m);for(const x of [-.64,.64])beam(g,[x,.2,-.6],[x,1.65,.60],.04,m);
+      }else if(style==='willow'||style==='bentwood'){
+        const arc=new T.Mesh(new T.TorusGeometry(.67,.045,5,20,Math.PI),m);arc.position.set(0,2.50,.64);g.add(arc);
+        if(style==='willow')for(let i=-2;i<=2;i++)beam(g,[0,1.72,.64],[i*.22,2.83,.64],.025,m);
+        else {const inner=new T.Mesh(new T.TorusGeometry(.40,.035,5,18,Math.PI),m);inner.position.set(0,2.25,.64);g.add(inner);}
+      }else if(style==='ghost'){
+        const back=new T.Mesh(new T.SphereGeometry(1,14,10),m);back.scale.set(.66,.71,.055);back.position.set(0,2.55,.64);g.add(back);
+      }else{
+        box(g,1.45,.13,.12,0,3.05,.64,m);beam(g,[-.6,1.8,.64],[.6,2.9,.64],.035,m);beam(g,[.6,1.8,.64],[-.6,2.9,.64],.035,m);
+      }
+    }
+    function placeSettings(g,places,top){
+      const d=config.design,dummy=new T.Object3D();
+      const instances=(name,geometry,material,entries)=>{
+        if(!entries.length){if(geometry!==unitBox)geometry.dispose();return;}
+        const mesh=new T.InstancedMesh(geometry,material,entries.length);mesh.name=name;
+        entries.forEach((entry,i)=>{dummy.position.set(...entry.p);dummy.rotation.set(...(entry.r||[0,0,0]));dummy.scale.set(...(entry.s||[1,1,1]));dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});
+        mesh.instanceMatrix.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.computeBoundingSphere();g.add(mesh);
+      };
+      if(d.chinaStyle!=='none'){
+        let geometry;
+        if(d.chinaStyle==='square')geometry=new T.BoxGeometry(.84,.035,.84);
+        else{
+          const profile=d.chinaStyle==='coupe'?[[0,0],[.30,.005],[.44,.055],[.45,.07],[.43,.075],[.29,.025],[0,.02]]:[[0,0],[.29,0],[.34,.035],[.44,.045],[.45,.055],[.44,.065],[.33,.05],[.28,.02],[0,.02]];
+          geometry=new T.LatheGeometry(profile.map(p=>new T.Vector2(...p)),32);
+          if(d.chinaStyle==='scallop'){const p=geometry.attributes.position;for(let i=0;i<p.count;i++){const r=Math.hypot(p.getX(i),p.getZ(i));if(r>.34){const f=1+.035*Math.cos(Math.atan2(p.getZ(i),p.getX(i))*12);p.setX(i,p.getX(i)*f);p.setZ(i,p.getZ(i)*f);}}geometry.computeVertexNormals();}
+        }
+        instances('Rental dinner plates',geometry,materials.china,places.map(p=>({p:[p.x,top+.085,p.z]})));
+        if(d.chinaRim){
+          if(d.chinaStyle==='square'){const lines=[];for(const p of places)for(const side of [-1,1]){lines.push({p:[p.x+side*.40,top+.108,p.z],s:[.009,.004,.80]});lines.push({p:[p.x,top+.108,p.z+side*.40],s:[.80,.004,.009]});}instances('Rental china rims',unitBox,materials.chinaRim,lines);}
+          else instances('Rental china rims',new T.TorusGeometry(.43,.006,4,32),materials.chinaRim,places.map(p=>({p:[p.x,top+.145,p.z],r:[Math.PI/2,0,0]})));
+        }
+      }
+      if(d.flatwareStyle!=='none'){
+        const heads=[],handles=[],spoons=[];
+        for(const p of places){
+          for(const [x,kind]of [[-.62,'fork'],[.62,'knife'],[.78,'spoon']]){
+            handles.push({p:[p.x+x,top+.09,p.z+p.side*.13],s:[.035,.022,.26]});
+            if(kind==='fork')for(let i=0;i<4;i++)heads.push({p:[p.x+x+(i-1.5)*.020,top+.09,p.z-p.side*.09],s:[.012,.020,.16]});
+            else if(kind==='knife')heads.push({p:[p.x+x,top+.09,p.z-p.side*.075],s:[.055,.022,.24]});
+            else spoons.push({p:[p.x+x,top+.09,p.z-p.side*.10],s:[.055,.014,.085]});
+          }
+        }
+        instances('Rental cutlery heads',unitBox,materials.flatware,heads);instances('Rental cutlery handles',unitBox,materials.flatwareHandle,handles);instances('Rental spoons',new T.SphereGeometry(1,8,5),materials.flatware,spoons);
+      }
+    }
     function chair(parent,x,z,r){
       const g=new T.Group();g.position.set(x,0,z);g.rotation.y=r;parent.add(g);
+      if(config.design.chairStyle!=='venue'&&/^(table-\d+|couple)$/.test(parent.userData.id||'')){rentalChair(g);return;}
       box(g,1.55,.16,1.5,0,1.52,0,materials.fabric);
       for(const a of [-.64,.64])for(const b of [-.6,.6])box(g,.105,1.48,.105,a,.74,b,materials.wood);
       for(const a of [-.67,.67])box(g,.1,1.55,.1,a,2.3,.64,materials.wood);
@@ -706,13 +834,15 @@
       beam(g,[-.6,1.8,.64],[.6,2.9,.64],.035,materials.wood);beam(g,[.6,1.8,.64],[-.6,2.9,.64],.035,materials.wood);
     }
     function table(parent,length,width,withChairs=true){
+      if(config.design.tableStyle==='banquet'&&/^table-/.test(parent.userData.id||'')){box(parent,length,.16,width,0,2.42,0,materials.fabric);for(const x of [-length*.36,length*.36])for(const z of [-width*.33,width*.33])box(parent,.10,2.33,.10,x,1.16,z,materials.metal);if(withChairs)for(const side of [-1,1])for(let i=0;i<4;i++)chair(parent,-length/2+(i+.5)*length/4,side*(width/2+1),side===1?0:Math.PI);if(config.decor||config.linens)tableDecor(parent,length,width,withChairs);return;}
+      const rentalWood=config.design.tableStyle==='farm'&&/^table-/.test(parent.userData.id||''),tableWood=rentalWood?materials.rentalTable:materials.wood,tableDark=rentalWood?materials.rentalTable:materials.darkwood;
       const boards=Math.max(4,Math.round(width/.45));
-      for(let i=0;i<boards;i++)box(parent,length,.18,width/boards-.025,0,2.41,-width/2+(i+.5)*width/boards,materials.wood);
+      for(let i=0;i<boards;i++)box(parent,length,.18,width/boards-.025,0,2.41,-width/2+(i+.5)*width/boards,tableWood);
       for(const x of [-length*.36,length*.36]){
-        for(const z of [-width*.35,width*.35])box(parent,.19,2.25,.19,x,1.13,z,materials.darkwood);
-        box(parent,.23,.20,width*.86,x,.40,0,materials.darkwood);beam(parent,[x,.38,-width*.33],[x,2.25,width*.33],.10,materials.darkwood);beam(parent,[x,.38,width*.33],[x,2.25,-width*.33],.10,materials.darkwood);
+        for(const z of [-width*.35,width*.35])box(parent,.19,2.25,.19,x,1.13,z,tableDark);
+        box(parent,.23,.20,width*.86,x,.40,0,tableDark);beam(parent,[x,.38,-width*.33],[x,2.25,width*.33],.10,tableDark);beam(parent,[x,.38,width*.33],[x,2.25,-width*.33],.10,tableDark);
       }
-      box(parent,length*.75,.16,.16,0,.6,0,materials.darkwood);
+      box(parent,length*.75,.16,.16,0,.6,0,tableDark);
       if(withChairs)for(const side of [-1,1])for(let i=0;i<4;i++)chair(parent,-length/2+(i+.5)*length/4,side*(width/2+1),side===1?0:Math.PI);
       if(config.decor||config.linens)tableDecor(parent,length,width,withChairs);
     }
@@ -851,23 +981,31 @@
         if(d.candleStyle==='enclosedTaper'){const height=candleHeight+.28,glass=new T.Mesh(new T.CylinderGeometry(.16,.16,height,20,1,true),materials.hurricane);glass.position.set(x,top+height/2+.025,z);g.add(glass);}
       }
       // Gold rope-edged chargers, positioned in front of the modeled chairs.
+      const chargerBeads=[],chargerWeave=[];
       const charger=(x,z)=>{
         const points=[[0,0],[.37,.003],[.46,.025],[.54,.042],[.55,.035],[.47,.01],[.36,-.009],[0,-.01]].map(p=>new T.Vector2(...p));
-        const plate=new T.Mesh(new T.LatheGeometry(points,40),materials.gold);plate.position.set(x,top+.025,z);plate.castShadow=true;plate.receiveShadow=true;g.add(plate);
-        for(const [r,tube]of [[.531,.008],[.548,.006]]){const ring=new T.Mesh(new T.TorusGeometry(r,tube,5,48),materials.gold);ring.rotation.x=Math.PI/2;ring.position.set(x,top+.065,z);g.add(ring);}
+        const plate=new T.Mesh(new T.LatheGeometry(points,40),materials.rentalCharger);plate.position.set(x,top+.025,z);plate.castShadow=true;plate.receiveShadow=true;g.add(plate);
+        for(const [r,tube]of [[.531,.008],[.548,.006]]){const ring=new T.Mesh(new T.TorusGeometry(r,tube,5,48),materials.chargerRim);ring.rotation.x=Math.PI/2;ring.position.set(x,top+.065,z);g.add(ring);}
+        if(d.chargerMaterial==='pearl')for(let i=0;i<24;i++)chargerBeads.push({p:[x+Math.cos(i*Math.PI/12)*.53,top+.07,z+Math.sin(i*Math.PI/12)*.53],s:[1,1,1]});
+        if(d.chargerMaterial==='rattan')for(const r of [.24,.30,.36,.42,.48])chargerWeave.push({p:[x,top+.06,z],r:[Math.PI/2,0,0],s:[r,r,r]});
       };
       if(d.chargers){if(guestTable)for(const side of [-1,1])for(let i=0;i<4;i++)charger(-length/2+(i+.5)*length/4,side*(width/2-.56));else for(const x of [-1.2,1.2])charger(x,width/2-.56);}
+      if(chargerBeads.length)instances(new T.SphereGeometry(.018,5,4),materials.chargerRim,chargerBeads);if(chargerWeave.length)instances(new T.TorusGeometry(1,.015,4,32),materials.chargerRim,chargerWeave);
       const places=guestTable?[-1,1].flatMap(side=>Array.from({length:4},(_,i)=>({x:-length/2+(i+.5)*length/4,z:side*(width/2-.56),side}))):[-1.2,1.2].map(x=>({x,z:width/2-.56,side:1}));
+      placeSettings(g,places,top);
       if(d.napkinStyle!=='none'){
         const geom=new T.PlaneGeometry(.42,d.napkinStyle==='draped'?1.4:.75,8,16),p=geom.attributes.position;
         for(let i=0;i<p.count;i++){
           const x=p.getX(i),v=p.getY(i),z=d.napkinStyle==='draped'?v+.40:v;
           p.setXYZ(i,x,Math.min(0,.56-z)+.014*Math.sin(x*32)+(d.napkinStyle==='gathered'?.045*Math.cos(v*8):0),z);
         }geom.computeVertexNormals();
-        instances(geom,materials.napkin,places.map(p=>({p:[p.x,top+.10,p.z],s:[1,1,1],r:[0,p.side<0?Math.PI:0,0]})));
+        instances(geom,materials.napkin,places.map(p=>({p:[p.x,top+(d.chinaStyle!=='none'?.18:.10),p.z],s:[1,1,1],r:[0,p.side<0?Math.PI:0,0]})));
       }
       if(d.glassware!=='none'){
-        const profile=[[.13,0],[.14,.025],[.03,.05],[.025,.31],[.10,.34],[.15,.43],[.17,.64],[.15,.78],[.14,.78],[.15,.64],[.13,.44],[.07,.36]].map(p=>new T.Vector2(...p));
+        let profile=[[.13,0],[.14,.025],[.03,.05],[.025,.31],[.10,.34],[.15,.43],[.17,.64],[.15,.78],[.14,.78],[.15,.64],[.13,.44],[.07,.36]].map(p=>new T.Vector2(...p));
+        if(d.glassware==='flute')profile=[[.12,0],[.12,.02],[.025,.04],[.022,.38],[.07,.40],[.09,.9],[.085,.9],[.07,.42]].map(p=>new T.Vector2(...p));
+        if(d.glassware==='coupe')profile=[[.13,0],[.13,.025],[.025,.05],[.025,.35],[.10,.36],[.24,.50],[.23,.55],[.21,.53],[.09,.38]].map(p=>new T.Vector2(...p));
+        if(d.glassware==='tumbler')profile=[[.13,0],[.15,.015],[.17,.42],[.155,.42],[.135,.03]].map(p=>new T.Vector2(...p));
         const geometry=new T.LatheGeometry(profile,20),p=geometry.attributes.position;
         if(d.glassware==='ribbed'){for(let i=0;i<p.count;i++)if(p.getY(i)>.38){const a=Math.atan2(p.getZ(i),p.getX(i)),r=1+.045*Math.cos(a*12);p.setX(i,p.getX(i)*r);p.setZ(i,p.getZ(i)*r);}geometry.computeVertexNormals();}
         instances(geometry,materials.goblet,places.map(p=>({p:[p.x+.55,top+.02,p.side*(width/2-.85)],s:[1,1,1]})));
@@ -894,7 +1032,7 @@
       const dj=makeObject('dj','DJ',-41.5,-1,Math.PI/2);box(dj,6,2.7,2.7,0,1.35,0,materials.metal);box(dj,1.3,.1,.8,-1,2.76,0,materials.frame);box(dj,1.3,.1,.8,1,2.76,0,materials.frame);
       for(const x of [-4.5,4.5]){box(dj,1.1,2.4,1,x,3.5,.2,materials.metal);cylinder(dj,.1,3,x,1.5,.2,materials.metal);}
       const barZ=config.barSide==='house'?-17.4:17.4;
-      const bar=makeObject('bar','Bar',-23,barZ);box(bar,6,3.4,2.6,0,1.7,0,materials.wood);box(bar,6.3,.15,3,0,3.48,0,materials.darkwood);for(let i=-2;i<=2;i+=1)cylinder(bar,.13,.8,i,3.95,0,materials.green);
+      const bar=makeObject('bar','Bar',-23,barZ);const barL=config.design.barLength,barMat=config.design.barStyle==='panel'?materials.rentalBar:materials.wood;box(bar,barL,3.4,2.6,0,1.7,0,barMat);box(bar,barL+.3,.15,3,0,3.48,0,config.design.barStyle==='panel'?materials.rentalBar:materials.darkwood);if(config.design.barStyle==='panel')for(const x of [-barL/2+.2,0,barL/2-.2])box(bar,.065,2.9,.04,x,1.65,1.32,materials.chargerRim);for(let i=-2;i<=2;i+=1)cylinder(bar,.13,.8,i,3.95,0,materials.green);
       const photo=makeObject('photo','Photo booth',-17,-barZ,barZ<0?Math.PI:0);
       box(photo,5.8,7.1,.12,0,3.55,-1.75,materials.linen);
       for(let i=0;i<25;i++){const fold=box(photo,.09,7.0,.09,-2.8+i*.233,3.55,-1.66+.08*Math.sin(i),materials.linen);fold.castShadow=false;}
@@ -921,6 +1059,7 @@
     }
     function danceSurface(parent){
       const w=config.danceWidth,d=config.danceDepth;
+      if(config.dancePattern==='plank'){box(parent,w+.15,.08,d+.15,0,.04,0,materials.darkwood);for(let row=0;row<Math.ceil(d/.5);row++)for(let col=0;col<Math.ceil(w/4);col++){const pw=Math.min(4,w-col*4),pd=Math.min(.5,d-row*.5);box(parent,pw-.015,.035,pd-.012,-w/2+col*4+pw/2,.10,-d/2+row*.5+pd/2,materials.dance);}return;}
       if(config.dancePattern==='wood'){
         box(parent,w+.15,.08,d+.15,0,.04,0,materials.darkwood);
         const module=2,cols=Math.ceil(w/module),rows=Math.ceil(d/module);
@@ -931,11 +1070,14 @@
       const cols=Math.ceil(w/config.tileSize),rows=Math.ceil(d/config.tileSize);
       for(let x=0;x<cols;x++)for(let z=0;z<rows;z++){
         const a=x*config.tileSize,b=Math.min(w,a+config.tileSize),c=z*config.tileSize,e=Math.min(d,c+config.tileSize);
-        box(parent,b-a-.012,.025,e-c-.012,-w/2+(a+b)/2,.092,-d/2+(c+e)/2,config.dancePattern==='solid'||(x+z)%2===0?materials.danceA:materials.danceB);
+        box(parent,b-a-.012,.025,e-c-.012,-w/2+(a+b)/2,.092,-d/2+(c+e)/2,config.dancePattern==='woodChecker'?((x+z)%2===0?materials.dance:materials.danceA):config.dancePattern==='solid'||(x+z)%2===0?materials.danceA:materials.danceB);
       }
     }
-    function sofaSpec(){const d=config.design;return {length:d.sofaLength,depth:{classic:2.8,tufted:3.1,curved:3.2,rattan:2.9}[d.sofaStyle],height:{classic:2.55,tufted:2.9,curved:2.7,rattan:2.85}[d.sofaStyle]};}
+    function sofaSpec(){const d=config.design;return {length:d.sofaLength,depth:d.sofaDepth||{classic:2.8,tufted:3.1,curved:3.2,rattan:2.9,channel:2.8}[d.sofaStyle],height:d.sofaHeight||{classic:2.55,tufted:2.9,curved:2.7,rattan:2.85,channel:2.55}[d.sofaStyle]};}
     function sofa(g){
+      const spec=sofaSpec(),body=new T.Group();g.add(body);sofaGeometry(body);const bounds=new T.Box3().setFromObject(body),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());body.scale.set(spec.length/size.x,spec.height/size.y,spec.depth/size.z);body.position.set(-center.x*body.scale.x,-bounds.min.y*body.scale.y,-center.z*body.scale.z);g.userData.sofaSize=spec;
+    }
+    function sofaGeometry(g){
       const d=config.design,s=sofaSpec(),L=s.length,D=s.depth,m=materials.sofaFabric,f=materials.sofaFrame;g.userData.sofaSize=s;
       for(const x of [-L*.38,L*.38])for(const z of [-D*.31,D*.31])cylinder(g,.08,.38,x,.19,z,f);
       if(d.sofaStyle==='curved'){
@@ -946,6 +1088,7 @@
         const back=new T.Mesh(new T.TubeGeometry(curve,40,.28,12,false),m);back.scale.y=1.4;back.position.y=-.5;g.add(back);return;
       }
       box(g,L-.1,.48,D-.15,0,.65,0,f);
+      if(d.sofaStyle==='channel'){box(g,L-.1,.42,D-.1,0,.65,0,m);box(g,L-.45,.36,D-.5,0,1.04,.10,m);box(g,L-.35,s.height-1.15,.38,0,(s.height+1.15)/2,-D/2+.2,m);for(const x of [-L/2+.16,L/2-.16])box(g,.32,1.25,D,x,1.35,0,m);for(let x=-L/2+.35;x<L/2-.3;x+=.22)box(g,.025,s.height-1.3,.045,x,(s.height+1.2)/2,-D/2+.405,materials.sofaButton);return;}
       const seats=d.sofaStyle==='tufted'?2:3;
       for(let i=0;i<seats;i++)box(g,(L-.55)/seats-.035,.42,D-.6,-(L-.55)/2+(i+.5)*(L-.55)/seats,1.08,.14,m);
       if(d.sofaStyle==='rattan'){
@@ -1367,7 +1510,7 @@
     function queueDecorRefresh(){clearTimeout(rebuildTimer);rebuildTimer=setTimeout(()=>{refreshDecor();saveState();},100);}
     function refreshDecor(){
       // Small styling edits must not recreate the forest, house and paving or stall navigation.
-      const keys=['linen','lace','gold','candle','decorLeaf','decorCedar','flowerIvory','flowerBlue','flowerWine','flowerCenter','napkin','goblet','vase','vaseEtch','arborIndoor','arborOutdoor','arborFabric','sofaFabric','sofaFrame','sofaButton','hurricane'];
+      const keys=['rentalTable','danceA','danceB','rentalChair','rentalSeat','china','chinaRim','flatware','flatwareHandle','rentalCharger','chargerRim','rentalBar','linen','lace','gold','candle','decorLeaf','decorCedar','flowerIvory','flowerBlue','flowerWine','flowerCenter','napkin','goblet','vase','vaseEtch','arborIndoor','arborOutdoor','arborFabric','sofaFabric','sofaFrame','sofaButton','hurricane'];
       clearTimeout(rebuildTimer);const old=Object.fromEntries(keys.map(k=>[k,materials[k]]));disposeGroup(furniture);objects=[];
       labels=labels.filter(l=>{if(l.owner||l.kind==='furniture'){l.el.remove();return false;}return true;});
       if(ceremonyGroup){const stale=ceremonyGroup;walkSurfaces=walkSurfaces.filter(o=>{let p=o;while(p){if(p===stale)return false;p=p.parent;}return true;});disposeGroup(stale);context.remove(stale);}
@@ -1409,7 +1552,76 @@
       else $('lp-selection').textContent='Drag to rotate · Scroll or pinch to zoom · Right-drag to pan';
     }
     function persistObject(o){config.positions[config.layout][o.userData.id]={x:o.position.x,z:o.position.z,r:o.rotation.y};if(selectionBox)selectionBox.update();$('lp-x').value=(o.position.x+45).toFixed(1);$('lp-z').value=(o.position.z+20).toFixed(1);clearance();rebuildRulers();}
+    function rentalNode(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;}
+    function rentalLink(item){const a=rentalNode('a','View vendor listing ↗');a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';a.className='lp-rental-link';a.setAttribute('aria-label','View supplier listing for '+(item.name||'rental catalog'));return a;}
+    function rentalButton(text,key,id){const b=rentalNode('button',text,'btn');b.type='button';b.dataset[key]=id;return b;}
+    function renderRentalLibrary(){
+      const state=config.rentals,opts={vendor:$('lp-rental-vendor').value,category:$('lp-rental-category').value,mode:$('lp-rental-mode').value,search:$('lp-rental-search').value};
+      const found=rentalLibrary.filter(opts,state),pages=Math.max(1,Math.ceil(found.length/8));rentalPage=Math.max(0,Math.min(rentalPage,pages-1));
+      const results=$('lp-rental-results');results.replaceChildren();
+      for(const item of found.slice(rentalPage*8,rentalPage*8+8)){
+        const card=rentalNode('article',undefined,'lp-rental-card');card.dataset.rentalId=item.id;
+        const vendor=rentalNode('div',rentalLibrary.data.vendors[item.vendor].name,'lp-rental-vendor');vendor.dataset.vendor=item.vendor;
+        const heading=rentalNode('h4',item.name),price=rentalNode('p',rentalLibrary.price(item),'lp-rental-price');
+        card.append(vendor,heading,price);
+        if(item.spec)card.append(rentalNode('p',item.spec,'text-small'));
+        if(item.preview){
+          const colors=Object.entries(item.preview.design).filter(([key,value])=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value));
+          if(colors.length){const swatches=rentalNode('div',undefined,'lp-rental-swatches');swatches.setAttribute('aria-label','Approximate preview colors');for(const [key,color]of colors){const dot=rentalNode('span');dot.style.backgroundColor=color;dot.title=key+' · '+color;swatches.append(dot);}card.append(swatches);}
+          card.append(rentalNode('p','3D preview · '+rentalLibrary.slots[item.preview.slot],'lp-rental-preview-label'));
+        }else card.append(rentalNode('p','Catalog reference · save for quote','text-small'));
+        card.append(rentalNode('p',item.note,'text-small'));
+        const actions=rentalNode('div',undefined,'lp-rental-actions');
+        if(item.preview){const button=rentalButton(state.applied[item.preview.slot]===item.id?'Applied to model':'Try in the model','rentalApply',item.id);button.setAttribute('aria-pressed',String(state.applied[item.preview.slot]===item.id));actions.append(button);}
+        const saved=state.shortlist.includes(item.id),save=rentalButton(saved?'Remove from list':'Save for quote','rentalSave',item.id);save.setAttribute('aria-pressed',String(saved));actions.append(save,rentalLink(item));card.append(actions);results.append(card);
+      }
+      if(!found.length)results.append(rentalNode('p','No matching products. Try another color, category or company.','text-small'));
+      $('lp-rental-page').textContent='Page '+(rentalPage+1)+' of '+pages;
+      $('lp-rental-results-status').textContent=found.length+' matching catalog options'+(found.length?' · showing '+(rentalPage*8+1)+'–'+Math.min(found.length,(rentalPage+1)*8):'');
+      $('lp-rental-prev').disabled=rentalPage===0;$('lp-rental-next').disabled=rentalPage>=pages-1;
+      const applied=$('lp-rental-applied');applied.replaceChildren();
+      for(const [slot,id]of Object.entries(state.applied)){
+        const item=rentalLibrary.get(id),row=rentalNode('div',undefined,'lp-rental-pick');
+        row.append(rentalNode('strong',rentalLibrary.slots[slot]),rentalNode('span',item.name),rentalNode('small',rentalLibrary.data.vendors[item.vendor].name),rentalLink(item),rentalButton('Keep appearance as custom','rentalCustom',slot));applied.append(row);
+      }
+      if(!Object.keys(state.applied).length)applied.append(rentalNode('p','Your current look is custom. Choose “Try in the model” to attach a supplier match.','text-small'));
+      const list=$('lp-rental-shortlist');list.replaceChildren();$('lp-rental-saved-count').textContent='('+state.shortlist.length+'/60)';
+      for(const id of state.shortlist){const item=rentalLibrary.get(id),row=rentalNode('div',undefined,'lp-rental-pick');row.append(rentalNode('span',item.name),rentalNode('small',rentalLibrary.data.vendors[item.vendor].name+' · '+rentalLibrary.price(item)),rentalLink(item),rentalButton('Remove','rentalSave',id));list.append(row);}
+      if(!state.shortlist.length)list.append(rentalNode('p','Save alternatives from either company to compare with your rental quote.','text-small'));
+    }
+    function initializeRentalControls(){
+      for(const [value,label]of Object.entries(rentalLibrary.categories)){const option=rentalNode('option',label);option.value=value;$('lp-rental-category').append(option);}
+      for(const vendor of Object.values(rentalLibrary.data.vendors))$('lp-rental-vendors').append(rentalLink({url:vendor.url}));
+      [...$('lp-rental-vendors').children].forEach((a,i)=>a.textContent=Object.values(rentalLibrary.data.vendors)[i].name+' ↗');
+      const coverage=rentalLibrary.data.coverage;
+      $('lp-rental-coverage').textContent=coverage.listingCount+' public listings · '+coverage.choiceCount+' size/product options · reviewed '+rentalLibrary.data.reviewedAt+'. This is a saved catalog snapshot, not live inventory.';
+      for(const id of ['lp-rental-vendor','lp-rental-category','lp-rental-mode'])$(id).onchange=()=>{rentalPage=0;renderRentalLibrary();};
+      $('lp-rental-search').oninput=()=>{clearTimeout(rentalFilterTimer);rentalFilterTimer=setTimeout(()=>{rentalPage=0;renderRentalLibrary();},120);};
+      $('lp-rental-prev').onclick=()=>{rentalPage--;renderRentalLibrary();};$('lp-rental-next').onclick=()=>{rentalPage++;renderRentalLibrary();};
+      $('lp-panel-rentals').addEventListener('click',event=>{
+        const button=event.target.closest('button');if(!button)return;
+        if(button.dataset.rentalApply){
+          const item=rentalLibrary.get(button.dataset.rentalApply);if(!item?.preview)return;
+          stopWalking();config=normalize(rentalLibrary.apply(config,item.id));
+          // Full rebuilds are necessary for tent structure and pavilion lighting.
+          // Tabletop and lounge selections reuse the static property geometry.
+          if(['tent','lighting'].includes(item.preview.slot))rebuild();else refreshDecor();
+          view(item.preview.slot==='tent'?'kitchen':item.preview.slot==='sofa'?'lounge':item.preview.slot==='arbor'?'ceremony':['dance','bar','lighting'].includes(item.preview.slot)?'inside':'table',false);
+          saveState();$('lp-selection').textContent='Previewing '+item.name+' · '+rentalLibrary.data.vendors[item.vendor].name+'. Shapes/colors are approximate.';
+        }else if(button.dataset.rentalSave){
+          const id=button.dataset.rentalSave;if(!rentalLibrary.get(id))return;const list=config.rentals.shortlist;
+          if(list.includes(id))config.rentals.shortlist=list.filter(value=>value!==id);
+          else if(list.length<60)list.push(id);else{$('lp-rental-results-status').textContent='Your list has 60 options. Remove one before adding another.';return;}
+          renderRentalLibrary();saveState();
+        }else if(button.dataset.rentalCustom){delete config.rentals.applied[button.dataset.rentalCustom];renderRentalLibrary();saveState();}
+      });
+      $('lp-rental-export').onclick=()=>{
+        const url=URL.createObjectURL(new Blob(['\ufeff'+rentalLibrary.csv(config)],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='wedding-rental-shortlist.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+      };
+      renderRentalLibrary();
+    }
     function syncControls(){
+      config.rentals=rentalLibrary.cleanState(config.rentals,config);renderRentalLibrary();
       for(const [id,key]of [['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-bar-side','barSide'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).value=config[key];
       for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).checked=config[key];
       const seats=(12-config.disabledTables.length)*8;
@@ -1837,6 +2049,7 @@
     new ResizeObserver(resize).observe(stage);
     let themeTimer;const themeObserver=new MutationObserver(()=>{clearTimeout(themeTimer);themeTimer=setTimeout(()=>rebuild(),100);});themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
     if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>rebuild());
+    initializeRentalControls();
     restoreProjection(currentSaved&&existing.privateContent&&existing.privateContent.view);rebuild();resize();if(!currentSaved||!existing.privateContent||!existing.privateContent.orbit)view('perspective',false);loading.style.display='none';
 
   }

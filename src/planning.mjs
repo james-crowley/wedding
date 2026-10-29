@@ -77,3 +77,20 @@ export function houseWalkSurface(x,z,previous=-100){
   const near=candidates.filter(y=>Math.abs(y-previous)<=1.15).sort((a,b)=>Math.abs(a-previous)-Math.abs(b-previous));
   return near[0]??Math.max(...candidates.filter(y=>y<=previous+.8),p.levels[0]);
 }
+
+// Older builds could enable houseCutaway as a side effect of a camera preset.
+// Migrate that legacy state once; subsequent explicit cutaway choices persist.
+export function houseDisplayState(raw={}){
+  return {houseDisplayVersion:1,houseCutaway:raw.houseDisplayVersion===1&&raw.houseCutaway===true};
+}
+export function porchEnvelope(){
+  const half=24.6,houseHalf=22,back=-77,front=-64.7,bottom=8.1,top=17.15,doorZ=-70,doorWidth=3.8,doorTop=15.75;
+  const panels=[],add=(id,x,z,w,d,y0=bottom,y1=top)=>panels.push({id,x,z,w,d,y:(y0+y1)/2,h:y1-y0});
+  add('front',0,front,half*2,.035);
+  add('far side',half,(back+front)/2,.035,front-back);
+  add('stair side rear',-half,(back+doorZ-doorWidth/2)/2,.035,doorZ-doorWidth/2-back);
+  add('stair side front',-half,(doorZ+doorWidth/2+front)/2,.035,front-doorZ-doorWidth/2);
+  add('screen door header',-half,doorZ,.035,doorWidth,doorTop,top);
+  for(const side of [-1,1])add(side<0?'stair-side return':'far-side return',side*(houseHalf+half)/2,back,half-houseHalf,.035);
+  return {half,houseHalf,back,front,bottom,top,doorZ,doorWidth,doorTop,panels};
+}

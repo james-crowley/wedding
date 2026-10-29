@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import { createRentalLibrary,RENTAL_CATEGORIES,RENTAL_SLOTS } from '../../src/rentals.mjs';
+import * as planning from '../../src/planning.mjs';
 import { controls } from '../../scripts/ui-controls.mjs';
 const data=JSON.parse(readFileSync(new URL('../../data/rental-catalog.json',import.meta.url),'utf8'));
 const library=createRentalLibrary(data),source=readFileSync(new URL('../../src/model.html',import.meta.url),'utf8');
 const designFields=controls.filter(c=>c.design).map(c=>({dataset:{design:c.design},type:c.type,tagName:c.type==='select'?'SELECT':'INPUT',min:c.min,max:c.max,options:c.values.map(value=>({value}))}));
 function productionModel(){
-  const context=vm.createContext({designFields,rentalLibrary:library});
+  const context=vm.createContext({designFields,rentalLibrary:library,planning});
   const defaults=source.slice(source.indexOf('    const PLAN_DEFAULTS='),source.indexOf('    const COLOR_SWATCHES='));
   const numbers=source.slice(source.indexOf('    function n('),source.indexOf('    function organizeControls('));
   const normalizeDesign=source.slice(source.indexOf('    function normalizePlan('),source.indexOf('    function applyLook('));

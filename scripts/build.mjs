@@ -39,7 +39,7 @@ export async function build({ outDir = join(projectRoot, 'dist'), commit = proce
   const library = rentalModule.replace(/^export /gm, "");
   const facts = JSON.stringify(JSON.parse(rentalData)).replaceAll("<", "\\u003c");
   model = replaceOnce(model, "/* Bundled rental library */", `window.VenueRentalLibrary=(()=>{${library}\nreturn createRentalLibrary(${facts});})();`);
-  model = replaceOnce(model, '/* Bundled planning tools */', `window.VenuePlanning=(()=>{${planningModule.replace(/^export /gm, '')}\nreturn {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels,housePlan,houseFloorPanels,houseWalkSurface};})();`);
+  model = replaceOnce(model, '/* Bundled planning tools */', `window.VenuePlanning=(()=>{${planningModule.replace(/^export /gm, '')}\nreturn {rehearsalPlan,patioPlan,planningFacts,cleanDesignName,wallPanels,housePlan,houseFloorPanels,houseWalkSurface,houseDisplayState,porchEnvelope};})();`);
   let frame = replaceOnce(frameTemplate, '__VENUE_MODEL__', await bundleModelFonts(model));
   frame = replaceOnce(frame, '__THREE_BUNDLE__', three.replaceAll('</script', '<\\/script'));
   indexTemplate = replaceOnce(indexTemplate, '/* Bundled share tools */', `const VenueSharing=(()=>{${sharingModule.replace(/^export /gm, '')}\nreturn {encodeDesign,decodeDesign,snapshotState,designLink,designToken,sharedStorageKey};})();`);

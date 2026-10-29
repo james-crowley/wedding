@@ -212,3 +212,42 @@ test('studio: lake-facing right kitchen, cross-house bridge, three-level stairs 
   }
   await info.attach('house-orientation-and-floor-openings.json',{body:JSON.stringify(facts,null,2),contentType:'application/json'});
 });
+
+test('studio: solid house default, reversible cutaway and closed porch screen corners',async({page},info)=>{
+  test.setTimeout(8*60_000);let f=await frameOf(page);
+  const exterior=()=>f.evaluate(()=>window.__renderAudit.scene.getObjectByName('House exterior').visible);
+  expect(await exterior()).toBe(true);
+  const model=await f.evaluate(()=>window.openai.widgetState.modelContent);
+  expect(model.houseCutaway).toBe(false);expect(model.houseDisplayVersion).toBe(1);
+  // An older release saved automatic cutaway changes. Migrate just the house
+  // presentation while retaining the couple's layout and styling choices.
+  const legacy={...model,houseCutaway:true,targetGuests:82,layout:'joined',design:{...model.design,clothColor:'#445566'}};delete legacy.houseDisplayVersion;
+  await f.locator('#lp-load').setInputFiles({name:'older-design.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({schema:'venue-pavilion-v9',model:legacy,view:'residence'}))});
+  await expect.poll(()=>f.evaluate(()=>window.openai.widgetState.modelContent.targetGuests)).toBe(82);await healthy(f);
+  const migrated=await f.evaluate(()=>window.openai.widgetState.modelContent);expect(migrated.houseCutaway).toBe(false);expect(migrated.layout).toBe('joined');expect(migrated.design.clothColor).toBe('#445566');expect(await exterior()).toBe(true);await f.locator('#lp-view').selectOption('residence');await healthy(f);
+  const shell=await f.evaluate(()=>{
+    const s=window.__renderAudit.scene,rise=window.openai.widgetState.modelContent.houseRise;s.updateMatrixWorld(true);
+    const roofs=['House solid main roof','House solid dormer roof'].map(name=>{const root=s.getObjectByName(name),materials=[];root.traverse(o=>{if(o.isMesh)materials.push(o.material);});return {name,count:materials.length,solid:materials.every(m=>!m.transparent&&m.opacity===1&&m.depthWrite)};});
+    const gables=[];for(const [name,x,y,z]of [['House solid main roof',28,29,-90],['House solid dormer roof',12,34,-84]])for(const side of [-1,1])gables.push(new THREE.Raycaster(new THREE.Vector3(side*x,rise+y,z),new THREE.Vector3(-side,0,0),0,5).intersectObject(s.getObjectByName(name),true).length>0);
+    const screens=s.getObjectByName('House screened porch enclosure'),hits=[];
+    for(const side of [-1,1])for(const y of [9,13,17]){
+      for(const x of [22.15,23.3,24.45])hits.push(new THREE.Raycaster(new THREE.Vector3(side*x,rise+y,-78),new THREE.Vector3(0,0,1),0,2).intersectObject(screens,true).length>0);
+      hits.push(new THREE.Raycaster(new THREE.Vector3(side*26,rise+y,-76.9),new THREE.Vector3(-side,0,0),0,2).intersectObject(screens,true).length>0);
+    }
+    const leftDoorClear=new THREE.Raycaster(new THREE.Vector3(-26,rise+12,-70),new THREE.Vector3(1,0,0),0,2).intersectObject(screens,true).length===0;
+    return {roofs,gables,hits,leftDoorClear,returns:['Porch screen · stair-side return','Porch screen · far-side return'].map(n=>Boolean(s.getObjectByName(n)))};
+  });
+  for(const r of shell.roofs){expect(r.count).toBeGreaterThan(0);expect(r.solid,r.name+' stays opaque').toBe(true);}expect(shell.gables.every(Boolean),'Both main-roof and dormer gables block exterior sightlines').toBe(true);expect(shell.hits.every(Boolean),'Screening covers both rear wings and side seams at every height').toBe(true);expect(shell.leftDoorClear).toBe(true);expect(shell.returns.every(Boolean)).toBe(true);
+  await capture(f,info,'solid-house-exterior');
+  await f.locator('#lp-view').selectOption('rehearsal');await healthy(f);expect(await exterior()).toBe(false);expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseCutaway)).toBe(false);
+  for(const view of ['rehearsalSeat','site','housePorch','houseDriveway']){await f.locator('#lp-view').selectOption(view);await healthy(f);expect(await exterior(),view+' restores solid exterior').toBe(true);}
+  for(const side of [-1,1]){
+    const current=await f.evaluate(()=>window.openai.widgetState.modelContent);
+    await f.locator('#lp-load').setInputFiles({name:'porch-corner.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({schema:'venue-pavilion-v9',model:current,view:'housePorch',camera:{azimuth:side*1.05,polar:1.48,distance:19,target:[side*20,current.houseRise+12,-74]}}))});
+    await expect.poll(()=>f.evaluate(()=>window.openai.widgetState.privateContent.orbit.azimuth)).toBe(side*1.05);await healthy(f);await capture(f,info,side<0?'porch-stair-side-return':'porch-far-side-return');
+  }
+  await f.locator('#lp-tab-view').click();await f.locator('#lp-house-cutaway').check();await healthy(f);expect(await exterior()).toBe(false);
+  await page.reload();f=await frameOf(page);await healthy(f);expect(await exterior()).toBe(false);expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseCutaway)).toBe(true);
+  await f.locator('#lp-tab-view').click();await f.locator('#lp-house-cutaway').uncheck();await healthy(f);expect(await exterior()).toBe(true);
+  await info.attach('house-shell-and-porch-seams.json',{body:JSON.stringify(shell,null,2),contentType:'application/json'});
+});

@@ -1,0 +1,515 @@
+{
+  "title": "Venue photo research and model improvements",
+  "reviewed": "2026-10-29",
+  "scope": "Retains the earlier selected-post study. This follow-up rechecked both fire-table photos, a fire-table reel frame, all three wide-reception carousel images and the central-catwalk photo. It is not an exhaustive review of the account. Public photos support appearances and relationships; they do not establish exact room dimensions or a complete wedding floor plan.",
+  "sources": [
+    {
+      "id": "DfCzm2rFBBs",
+      "title": "Wedding weekend and getting ready",
+      "kind": "photo",
+      "imagesReviewed": 4,
+      "url": "https://www.instagram.com/p/DfCzm2rFBBs/",
+      "observed": "Stone entrance steps; timber posts; white walls; wood floors; older bedroom details."
+    },
+    {
+      "id": "Dcg274Jk7aU",
+      "title": "Property overview",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/Dcg274Jk7aU/",
+      "observed": "Gravel drive with dark board fencing; lawn slope; pavilion facade."
+    },
+    {
+      "id": "DdpLfMuDaPF",
+      "title": "Patio fire table",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/DdpLfMuDaPF/",
+      "observed": "Rechecked both images: narrow stone island with a gray counter and recessed lava-rock burner; its axis runs toward the pavilion rather than across the main approach. Exact footprint and coordinates are not measurable from these crops."
+    },
+    {
+      "id": "DcM1oyRm-tA",
+      "title": "Bridal room",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/DcM1oyRm-tA/",
+      "observed": "White walls and trim, honey timber framing, wood floors, tall window and curtains."
+    },
+    {
+      "id": "DdKoRUBFQDm",
+      "title": "Empty ceremony and arbor",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/DdKoRUBFQDm/",
+      "observed": "Backless benches; pale posts and sagging rope rails; timber arbor with diagonal corner braces."
+    },
+    {
+      "id": "DcWwjtcIDMw",
+      "title": "Ceremony approach and seating",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/DcWwjtcIDMw/",
+      "observed": "Narrow approach opens to wider seating deck; ornamental grasses and trees close to edges."
+    },
+    {
+      "id": "Dbgazs8E8dJ",
+      "title": "House catwalk",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/Dbgazs8E8dJ/",
+      "observed": "Rechecked first image: a narrow straight central timber catwalk, open voids on both sides, dark vertical spindle balusters, heavy timber framing and white walls. Exact orientation within the full house and stair connection remain unmeasured."
+    },
+    {
+      "id": "DbLynH7kxcT",
+      "title": "Groom suite",
+      "kind": "photo",
+      "imagesReviewed": 4,
+      "url": "https://www.instagram.com/p/DbLynH7kxcT/",
+      "observed": "Pool table; separate shuffleboard; knotty wood TV cabinet; slate-like entrance tile; glazed black double doors."
+    },
+    {
+      "id": "DbvpJCujfpx",
+      "title": "Screened porch walkthrough",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/DbvpJCujfpx/",
+      "observed": "Gray plank floor, wood ceiling, exposed beams, recessed lights, fans and rocking chairs."
+    },
+    {
+      "id": "Db1SGDGkwlf",
+      "title": "Woodland footbridge",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/Db1SGDGkwlf/",
+      "observed": "Separate narrow brown plank bridge with simple timber posts and rope, beside the wooded house slope."
+    },
+    {
+      "id": "Da3jC30Phll",
+      "title": "Bridal suite redesign",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/Da3jC30Phll/",
+      "observed": "Venue caption identifies redesign; cream seating, ornate arched mirror, pale rug, curtains and chandelier."
+    },
+    {
+      "id": "DaYpz5dE3HS",
+      "title": "Indoor staircase",
+      "kind": "photo",
+      "imagesReviewed": 1,
+      "url": "https://www.instagram.com/p/DaYpz5dE3HS/",
+      "observed": "Timber open stair and landing; dark vertical balusters; dark tile at entry; white infill walls."
+    },
+    {
+      "id": "DaDmZZuDDGm",
+      "title": "Farmhouse table setup",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/DaDmZZuDDGm/",
+      "observed": "Substantial rustic tops/aprons, braced legs and visible casters; natural wood folding chairs."
+    },
+    {
+      "id": "DYIm0Rvmaw3",
+      "title": "Pavilion wide interior",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/DYIm0Rvmaw3/",
+      "observed": "Rechecked all three slides: three long dining rows with ivory gauze and folded napkins, greenery on ring chandeliers; separate tall framed mirror seating chart with strung cards; wood photo/card table with ivory drape outside the pavilion. The entertainment end is outside frame."
+    },
+    {
+      "id": "DXuyufDCfj7",
+      "title": "Pavilion walkthrough",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/DXuyufDCfj7/",
+      "observed": "Soft roof-liner folds, cafe strands following roof bays, ring lights, clear glazing and concrete floor."
+    },
+    {
+      "id": "DXaMQuegFNM",
+      "title": "Fire-table walkthrough",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/DXaMQuegFNM/",
+      "observed": "Full island profile; long rectangular counter and fire opening; pavers extend around all sides."
+    },
+    {
+      "id": "DW7RJYKlOt-",
+      "title": "Side path and cocktail patio",
+      "kind": "reel",
+      "imagesReviewed": 0,
+      "url": "https://www.instagram.com/reel/DW7RJYKlOt-/",
+      "observed": "Curved interlocking paver path joins lower terrace; broad paver gathering area under/along porch."
+    },
+    {
+      "id": "DV9iZ3FEqjG",
+      "title": "House exterior pair",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/DV9iZ3FEqjG/",
+      "observed": "Driveway-side stone chimney, white siding and metal roof; opposite facade with screened porch and lower patio."
+    },
+    {
+      "id": "DVO7tM-k4Uo",
+      "title": "Catwalk close view",
+      "kind": "photo",
+      "imagesReviewed": 1,
+      "url": "https://www.instagram.com/p/DVO7tM-k4Uo/",
+      "observed": "Narrow timber catwalk with dark vertical railing, white walls, exposed structural posts."
+    },
+    {
+      "id": "DSx495EE95Q",
+      "title": "Seven house reference photos",
+      "kind": "photo",
+      "imagesReviewed": 7,
+      "url": "https://www.instagram.com/p/DSx495EE95Q/",
+      "observed": "Porch; dining; bedroom; opposite bedroom angle; kitchen; fireplace lounge and stair; driveway facade."
+    },
+    {
+      "id": "DOJvtnkkgBT",
+      "title": "Dusk exterior collection",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/DOJvtnkkgBT/",
+      "observed": "Pavilion entry ramp and perimeter walk; warm interior light; house screened porch and stone lower level."
+    },
+    {
+      "id": "DNinV9zMJQD",
+      "title": "House exterior and patio",
+      "kind": "photo",
+      "imagesReviewed": 2,
+      "url": "https://www.instagram.com/p/DNinV9zMJQD/",
+      "observed": "Driveway-side chimney and entrance; opposite lower patio, broad terrace and stairs."
+    },
+    {
+      "id": "DWHyPRLk1Wz",
+      "title": "Stone front-entry steps",
+      "kind": "photo",
+      "imagesReviewed": 1,
+      "url": "https://www.instagram.com/p/DWHyPRLk1Wz/",
+      "observed": "Stone-faced risers and piers, gray slab treads, dark horizontal rails; separate from white porch stair."
+    },
+    {
+      "id": "DcRlBq4ICtj",
+      "title": "Pinned guide first three slides",
+      "kind": "photo",
+      "imagesReviewed": 3,
+      "url": "https://www.instagram.com/p/DcRlBq4ICtj/",
+      "observed": "House exterior cover and fenced landscape; guide notes indoor ceremony alternative. Remaining slides not reviewed."
+    },
+    {
+      "id": "DWXKjH0Es28",
+      "title": "Ceremony guest view",
+      "kind": "photo",
+      "imagesReviewed": 1,
+      "url": "https://www.instagram.com/p/DWXKjH0Es28/",
+      "observed": "Close crop of guests and arbor; little additional architectural evidence."
+    },
+    {
+      "id": "DX5Ex2xHPo4",
+      "title": "Samantha and Ryan wedding",
+      "kind": "photo",
+      "imagesReviewed": 4,
+      "url": "https://www.instagram.com/p/DX5Ex2xHPo4/",
+      "observed": "Cream fabric swags on timber ceremony arbor with asymmetric mauve/ivory flowers; timber couple table; venue string lights. Reception place-setting detail not established. Photo-inspired concept added to planner."
+    },
+    {
+      "id": "DW2F0vlEsh9",
+      "title": "Cassidy and Austin wedding",
+      "kind": "photo",
+      "imagesReviewed": 4,
+      "url": "https://www.instagram.com/p/DW2F0vlEsh9/",
+      "observed": "White square pedestals at ceremony aisle entrance with ivory and rust florals. Greenery backdrop and lighted sign behind couple table, ivory runner, glass cylinders. Photo-inspired concept and modular stands/backdrop added."
+    },
+    {
+      "id": "Dem6hpdGnOj",
+      "title": "Emily and Ryan rainy wedding",
+      "kind": "photo",
+      "imagesReviewed": 11,
+      "url": "https://www.instagram.com/amandaarnoldphotography/p/Dem6hpdGnOj/",
+      "observed": "Clear frame tent over backless ceremony benches; white aisle petals; timber arbor with two asymmetric ivory/tan/rust floral cascades. Reception: exposed farmhouse tables, rust cloth/napkin drapes, white plates with gold-toned chargers, silver-toned cutlery and clear goblets; both low and tall floral arrangements; trailing greenery on ring chandeliers. Caption credits Classic Party Rentals and Rent-E-Quip but does not identify individual SKUs. Further reference, not a new preset in the current build."
+    }
+  ],
+  "findings": [
+    {
+      "area": "House interior",
+      "priority": "First",
+      "title": "Central catwalk and real stair",
+      "observed": "Two separate house posts show a narrow bridge with dark vertical balusters, an open void on each side, heavy timber posts and white wall infill. The seven-photo tour shows an open timber staircase next to the fireplace.",
+      "modelChange": "houseInterior() currently creates two long side loft strips and no internal staircase. Replace that simplified arrangement with a central catwalk, connected landing and stair. Keep its exact orientation and dimensions provisional until an interior plan is available.",
+      "sources": [
+        "Dbgazs8E8dJ",
+        "DVO7tM-k4Uo",
+        "DaYpz5dE3HS",
+        "DSx495EE95Q"
+      ],
+      "status": "partial",
+      "currentModel": "Replaced the two broad side loft strips with a central narrow catwalk and dark spindle rails. The internal stair route, landing and measured room boundaries remain unresolved."
+    },
+    {
+      "area": "House interior",
+      "priority": "First",
+      "title": "Separate house finishes from wedding decor",
+      "observed": "House photos show honey-colored wood, white walls, dark metal balusters, a brown leather lounge sofa and dark stone kitchen counters.",
+      "modelChange": "houseInterior() reuses sofa() and shared wedding materials. Give fixed house furniture its own materials and geometry so rental couch choices and wedding color themes cannot alter the house interior.",
+      "sources": [
+        "DSx495EE95Q",
+        "Dbgazs8E8dJ"
+      ],
+      "status": "partial",
+      "currentModel": "House leather, rug, counters and stone use fixed house materials. A few pre-existing house/game-room accents still share generic materials; review separately from rental decor."
+    },
+    {
+      "area": "House interior",
+      "priority": "First",
+      "title": "Kitchen island and dining area",
+      "observed": "The tour shows a timber-cabinet island with dark mottled stone counters and cooktop, wood bar stools and three hanging metal shades. The dining table is a wood trestle table with black ladder-back chairs on a pale rug with a dark border; a large round wall clock hangs above a console.",
+      "modelChange": "Replace the pale kitchen-counter material and plain blocks; add cabinet faces, counter overhang, stove, stools and pendants. Add the dining rug and clock. Do not treat the current 14 ft dining-table length or twelve-chair count as measured.",
+      "sources": [
+        "DSx495EE95Q",
+        "DfCzm2rFBBs"
+      ],
+      "status": "partial",
+      "currentModel": "Dark counters, cabinet fronts/handles, island stools and three pendant shades are modeled. Exact kitchen/dining placement, table length, room limits and remaining clock/rug details need confirmation."
+    },
+    {
+      "area": "House interior",
+      "priority": "First",
+      "title": "Stone fireplace and leather seating",
+      "observed": "The tour shows a broad irregular-stone fireplace, raised hearth, dark wood mantel, framed art, brown leather sofa and patterned rug next to the indoor staircase.",
+      "modelChange": "The current fireplace is a narrow tower with a black rectangle, and the couch shares rental styling. Build the hearth and wider stone surround with dedicated brown leather seating; align the interior fireplace with the driveway-side exterior chimney.",
+      "sources": [
+        "DSx495EE95Q",
+        "DV9iZ3FEqjG"
+      ],
+      "status": "partial",
+      "currentModel": "Wider stone surround, raised hearth, dark mantel, framed art, brown leather seating and checked rug are modeled. Their location remains a room-layout approximation."
+    },
+    {
+      "area": "House interior",
+      "priority": "Next",
+      "title": "Current bridal suite",
+      "observed": "The redesign reel shows cream upholstered seating, a tall ornate arched floor mirror, a pale patterned rug, long light curtains, warm wood ceiling and a small chandelier. Other posts show dark bedroom furniture in separate or earlier room setups.",
+      "modelChange": "Add a distinct bridal-suite concept instead of treating every getting-ready photo as the same bedroom. Prefer the redesign for suite furnishings; keep room boundaries and position estimated.",
+      "sources": [
+        "Da3jC30Phll",
+        "DcM1oyRm-tA",
+        "DSx495EE95Q"
+      ],
+      "status": "open",
+      "currentModel": "Current bridal-suite furnishings are documented but not yet reconstructed; older bedroom references must not be silently combined with the newer redesign."
+    },
+    {
+      "area": "House interior",
+      "priority": "Next",
+      "title": "Groom suite games and entry",
+      "observed": "A pool table and a separate long shuffleboard are visible. There is knotty-wood built-in TV cabinetry, white walls, a mottled warm floor and a dark tile threshold at black glazed double doors.",
+      "modelChange": "Current lower room has a pool table, generic bar and wall TV. Add the shuffleboard and built-in cabinet, pool pockets and cues, tiled entrance, and double-door connection to the patio; sizes/adjacency remain approximate.",
+      "sources": [
+        "DbLynH7kxcT",
+        "DNinV9zMJQD"
+      ],
+      "status": "partial",
+      "currentModel": "Pool table and a distinct shuffleboard are modeled. Built-in cabinetry, threshold and room connection details are incomplete."
+    },
+    {
+      "area": "House exterior",
+      "priority": "First",
+      "title": "Screened porch materials and furnishings",
+      "observed": "Both stills and a walkthrough show gray painted floorboards, a wood plank ceiling with exposed beams, ceiling fans, recessed lights, dark screen frames/rails and dark rocking chairs with pale green cushions.",
+      "modelChange": "house() currently has a dark wood porch slab, flat light ceiling and empty porch. Add separate gray-board flooring, wood soffit and beams, lightweight fans and a few rocking chairs while keeping the exterior stair opening clear.",
+      "sources": [
+        "DbvpJCujfpx",
+        "DSx495EE95Q"
+      ],
+      "status": "modeled",
+      "currentModel": "Gray porch boards, timber ceiling, fans and dark cushioned rockers are modeled. Rehearsal mode replaces rockers with configurable seating; porch dimensions remain estimates."
+    },
+    {
+      "area": "House exterior",
+      "priority": "First",
+      "title": "Driveway facade and chimney",
+      "observed": "Two exterior collections show a tall tapered irregular-stone chimney on the driveway side, white horizontal siding, dark window frames, standing-seam gray roof and raised central clerestory. The short stone front-entry stair is distinct from the white lake-side porch stair.",
+      "modelChange": "house() mostly models the lake-facing facade and omits the exterior chimney and driveway entrance. Add that chimney, rear windows/door, short masonry entrance steps and limited gravel forecourt. Preserve the existing house-to-lake orientation.",
+      "sources": [
+        "DV9iZ3FEqjG",
+        "DNinV9zMJQD",
+        "DSx495EE95Q",
+        "DWHyPRLk1Wz"
+      ],
+      "status": "partial",
+      "currentModel": "White horizontal siding, metal roof, clerestory and driveway-side chimney are modeled. Exact facade dimensions and front entrance detailing remain approximate."
+    },
+    {
+      "area": "Patio and paths",
+      "priority": "First",
+      "title": "Long patio fire-table island",
+      "observed": "A close carousel and walkthrough show a long rectangular stone-clad island with a broad gray slab counter, recessed rectangular lava-rock burner and working surface at the ends.",
+      "modelChange": "Replace house() small 3.4 ft square metal-topped pit with a long counter-height island. Approximate its proportions from the wide patio views; exact length, width and height need venue confirmation. No need for expensive animated fire in the first revision.",
+      "sources": [
+        "DdpLfMuDaPF",
+        "DXaMQuegFNM",
+        "DNinV9zMJQD"
+      ],
+      "status": "partial",
+      "currentModel": "Corrected the island from 12 ft sideways across the route to an estimated 3.6 × 8.4 ft footprint with its long axis toward the pavilion. It is placed off the central approach in the covered terrace, with a gray counter and recessed stone burner. Coordinates and dimensions need a measurement. Six photo-based support piers replace the duplicated seven-pier pattern, leaving the modeled central approach open. Exact pier spacing remains estimated."
+    },
+    {
+      "area": "Patio and paths",
+      "priority": "First",
+      "title": "Broader paver terrace with connected side route",
+      "observed": "The cocktail-hour walkthrough follows a curved tan/gray interlocking-paver path beside the house into a broad gathering terrace along the stone-columned lower patio. The covered floor differs from the exterior pavers.",
+      "modelChange": "courtyardPaving() currently gives the exterior terrace a 56 × 5.5 ft rectangular strip. Rework its footprint into a broader continuous terrace with the side path joining at the patio, preserve the covered-floor cutout, and keep all joins on one non-overlapping surface. Exact terrace bounds remain estimated.",
+      "sources": [
+        "DW7RJYKlOt-",
+        "DNinV9zMJQD",
+        "DOJvtnkkgBT"
+      ],
+      "status": "partial",
+      "currentModel": "Continuous union paving connects the terrace and side path without layered coplanar path meshes. Extents remain photo-based; the modeled route is not an accessibility approval."
+    },
+    {
+      "area": "Patio and paths",
+      "priority": "First",
+      "title": "Different materials for separate bridge types",
+      "observed": "The woodland photo bridge has brown planks, simple timber posts and rope. The central pavilion approach has pale posts and dark horizontal metal rails. They are separate structures with different surroundings.",
+      "modelChange": "Retain metal-railed timberRamp() at pavilion doors and the clear perimeter sidewalk gap. If adding the woodland bridge, make a separate object; do not replace the pavilion rails with rope based on the woodland photos. Locate the woodland bridge provisionally until its site position is confirmed.",
+      "sources": [
+        "Db1SGDGkwlf",
+        "DOJvtnkkgBT",
+        "DV9iZ3FEqjG"
+      ],
+      "status": "partial",
+      "currentModel": "Pavilion ramps have metal rails and pale surfaces; the separate woodland timber/rope footbridge is not fully reconstructed."
+    },
+    {
+      "area": "Patio and paths",
+      "priority": "Next",
+      "title": "Natural stone and paver textures",
+      "observed": "Exterior masonry contains distinct tan, ochre and charcoal irregular stone pieces with pale mortar. Paths have tan/gray interlocking pavers with a perimeter border; porch floor is gray boards.",
+      "modelChange": "materials.stone currently uses the same mottled concrete texture as other surfaces. Use separate procedural irregular masonry, concrete/aggregate, gray board and paver textures at consistent world scale. Preserve the single paving union and avoid stacked coplanar surfaces.",
+      "sources": [
+        "DWHyPRLk1Wz",
+        "DdpLfMuDaPF",
+        "DW7RJYKlOt-",
+        "DSx495EE95Q"
+      ],
+      "status": "partial",
+      "currentModel": "Procedural stone, concrete, wood and paver textures are present. They are schematic materials, not photographic texture scans."
+    },
+    {
+      "area": "Pavilion",
+      "priority": "First",
+      "title": "Three ring chandeliers and finer cafe strings",
+      "observed": "A wide interior image clearly shows three candle-style ring chandeliers receding along the ridge, with dark suspension members, greenery dressing and fine black cafe strings following the pitched roof bays. Greenery varies by event.",
+      "modelChange": "lighting() original preset currently has two rings at x = -25 and 25. Add a three-ring venue reference preset with estimated spacing, retain user lighting alternatives and make greenery optional. Avoid confusing decorative garlands with permanent structure.",
+      "sources": [
+        "DYIm0Rvmaw3",
+        "DXuyufDCfj7"
+      ],
+      "status": "modeled",
+      "currentModel": "Three ring lights and finer cafe strands exist; hanging greenery and fabric options are configurable. Light counts/spacing remain interpreted from the views."
+    },
+    {
+      "area": "Pavilion",
+      "priority": "Next",
+      "title": "Glazing, roof liner and high-level equipment",
+      "observed": "Interior views show slim pale glazing mullions, lower opaque strips, visible roof liner folds, wall-mounted white HVAC units near the eaves, and a neutral concrete slab.",
+      "modelChange": "Keep the existing glass walls/concrete and improve small frame details and roof fabric normals. Add simplified high-level HVAC units where clear photos support them; do not infer outlets or exact HVAC counts from these crops.",
+      "sources": [
+        "DYIm0Rvmaw3",
+        "DXuyufDCfj7",
+        "DaDmZZuDDGm"
+      ],
+      "status": "partial",
+      "currentModel": "Framed glazing, lined roof bays and high-level equipment are approximated. Hardware, pane widths and every roof fold are not measured."
+    },
+    {
+      "area": "Pavilion",
+      "priority": "Next",
+      "title": "Venue farmhouse tables and folding chairs",
+      "observed": "Close table views show thick rustic tops and aprons, braced underframes and casters, paired with natural wood folding chairs with light seats.",
+      "modelChange": "Add a fixed venue-furniture reference style with these details while keeping rental catalog alternatives. The 8 ft table length comes from prior contract context; width, height and chair dimensions remain estimates without new measurements.",
+      "sources": [
+        "DaDmZZuDDGm",
+        "DYIm0Rvmaw3"
+      ],
+      "status": "partial",
+      "currentModel": "Rustic tables, optional rental farmhouse/banquet forms, folding-chair options and visible place settings are modeled. Only venue table length is confirmed; widths and chair dimensions are estimates unless the rental listing supplies them."
+    },
+    {
+      "area": "Ceremony",
+      "priority": "First",
+      "title": "Deck footprint and backless benches",
+      "observed": "Several clear empty-aisle images show a narrow boardwalk opening into a wider deck with a central aisle and closely spaced backless wood benches. A straight-on image appears to show roughly twelve rows on each side, but crops and occlusion prevent a reliable inventory count.",
+      "modelChange": "ceremony() already has backless benches, which should remain. Do not assert the current default eight rows or 28 × 34 ft footprint matches the venue. Add a photo-matched layout separately from the chosen guest-count layout only after confirming bench count/deck size; do not enlarge the deck solely to fit an inferred count.",
+      "sources": [
+        "DdKoRUBFQDm",
+        "DcWwjtcIDMw"
+      ],
+      "status": "partial",
+      "currentModel": "Benches are backless and deck/row settings are adjustable. Row count and deck geometry are still estimates; no claim of a measured capacity."
+    },
+    {
+      "area": "Ceremony",
+      "priority": "Next",
+      "title": "Arbor and rope posts",
+      "observed": "The main arbor is a rectangular brown timber frame with top-beam overhangs and visible diagonal corner braces. Pale square posts with visibly sagging rope frame the deck. Florals and drapery differ between weddings.",
+      "modelChange": "Refine timberArbor() rectangular option and ceremony rope posts from these details; retain optional floral/drape designs. Do not add post caps or extra rails merely as generic decoration when not visible in the source.",
+      "sources": [
+        "DdKoRUBFQDm",
+        "DcWwjtcIDMw"
+      ],
+      "status": "modeled",
+      "currentModel": "Timber arbor, rope-post edges, independent floral stands, drapes and aisle arrangements are modeled. Rental supplier matching is only attached when an actual catalog item is applied."
+    },
+    {
+      "area": "Grounds",
+      "priority": "Next",
+      "title": "Less uniform woodland and restrained slope",
+      "observed": "Wide views place the house above the pavilion with lawn between them; ceremony edges are close to trees and ornamental grass clumps. The separate wooded bridge is nestled in denser vegetation.",
+      "modelChange": "Use uneven tree spacing and clustered undergrowth, keep a gentle lawn descent and level pavilion slab. Preserve slope controls and estimated labels; photography does not establish survey elevations or exact inter-building distances.",
+      "sources": [
+        "Dcg274Jk7aU",
+        "DNinV9zMJQD",
+        "DcWwjtcIDMw",
+        "Db1SGDGkwlf"
+      ],
+      "status": "partial",
+      "currentModel": "Irregular instanced woodland and a restrained estimated grade are present. Exact terrain survey, tree locations and lake shoreline remain unknown."
+    },
+    {
+      "area": "Patio and paths",
+      "priority": "First",
+      "title": "Cocktail-hour setup as a separate event",
+      "observed": "The terrace photos show movable high-top tables, gray stone/pavers, covered stone piers and a fire island. They do not establish the couple’s final catering layout.",
+      "modelChange": "Add separately configured cocktail tables, table coverings, flowers/candles, grazing, guest book, welcome drinks and a staffed bar; reserve the center route.",
+      "sources": [
+        "DdpLfMuDaPF",
+        "DXaMQuegFNM",
+        "DW7RJYKlOt-"
+      ],
+      "status": "modeled",
+      "currentModel": "Cocktail patio has its own controls. The shared geometry planner reserves fixed/service footprints and reports the actual placed table count. New service arrangements are proposals."
+    },
+    {
+      "area": "Pavilion",
+      "priority": "First",
+      "title": "Spatial inspiration from the wide banquet reception",
+      "observed": "The three-image carousel shows three long farmhouse dining rows, ivory gauze, folded ivory napkins and greenery on ring chandeliers. Other images show a framed mirror seating chart and a white-dressed photo/card table outside the pavilion.",
+      "modelChange": "Offer a visible-area reconstruction that changes joined table rows, overhead greenery and entry displays, while keeping a palette-only action.",
+      "sources": [
+        "DYIm0Rvmaw3"
+      ],
+      "status": "partial",
+      "currentModel": "A spatial preset now changes these actual scene parts. Exact table count and distances remain estimated. The bar, DJ, dance floor, lounge and unseen ceremony layout are not established by this set and remain the current user proposal."
+    }
+  ],
+  "limits": [
+    "90 × 40 ft pavilion and 8 ft venue-table length come from earlier supplied contract context; this report does not reproduce the private contract.",
+    "Photo-based house, porch, patio, terrain, ceremony deck and furniture dimensions remain estimates.",
+    "A photo crop without a dance floor or DJ is not evidence that the wedding had none.",
+    "Supplier colors and preview meshes are schematic. Multiple preview swatches represent components, not selectable variants.",
+    "No private album links, guest information or downloaded Instagram media are included."
+  ],
+  "implementationReview": "Current working refinement; the source model is checked against the observations below. Implemented means a photo-based model feature exists, not that its dimensions are certified.",
+  "baselineRelease": "37f95b937c040f268b9b27a37fde2b04cb708de4"
+}

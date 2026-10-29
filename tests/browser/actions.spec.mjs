@@ -8,7 +8,10 @@ const groups={
   tour:['lp-tour-start','lp-tour-play','lp-tour-prev','lp-tour-next','lp-tour-restart','lp-tour-control','lp-tour-exit'],
   furniture:['lp-fit-guests','lp-clear-couple','lp-turn','lp-remove-table'],
   reset:['lp-reset-open','lp-reset-confirm','lp-reset-cancel','lp-undo-reset'],
-  tabs:['lp-tab-layout','lp-tab-decor','lp-tab-ceremony','lp-tab-view','lp-tab-rentals','lp-tab-save'],
+  events:['lp-event-reception','lp-event-patio','lp-event-ceremony','lp-event-rehearsal'],
+  patio:['lp-patio-show','lp-patio-walk'],
+  versions:['lp-design-save','lp-design-restore','lp-snapshot','lp-brief','lp-undo','lp-redo'],
+  tabs:['lp-tab-lounge','lp-tab-patio','lp-tab-layout','lp-tab-decor','lp-tab-ceremony','lp-tab-view','lp-tab-rentals','lp-tab-save'],
   focus:['lp-focus-table','lp-focus-arbor','lp-focus-ceremony','lp-focus-sofas'],
   rentals:['lp-rental-prev','lp-rental-next','lp-rental-export'],
   studio:['lp-table-closeup','lp-table-overview','lp-place-setting'],
@@ -55,7 +58,11 @@ for(const group of Object.keys(groups))test(`action audit: ${group}`,async({page
     await expose(frame,'lp-restore-render');await frame.locator('#lp-restore-render').click();seen.add('lp-restore-render');await expect(frame.locator('#lp-recovery')).toBeHidden();await healthy(frame,'Recovery action');
   }else if(group==='studio'){
     for(const id of groups.studio)await act(id);
-    for(const category of await frame.locator('[data-category]').evaluateAll(els=>els.map(el=>el.dataset.category))){await frame.locator(`[data-category="${category}"]`).click();await healthy(frame,'Component '+category);await expect(frame.locator('#lp-rental-category')).toHaveValue(category);}
+    for(const tab of ['rentals','lounge']){await frame.locator('#lp-tab-'+tab).click();for(const category of await frame.locator('[data-category]').evaluateAll(els=>els.filter(el=>!el.hidden).map(el=>el.dataset.category))){await frame.locator(`[data-category="${category}"]`).click();await healthy(frame,'Component '+category);await expect(frame.locator('#lp-rental-category')).toHaveValue(category);}}
+  }else if(group==='versions'){
+    await act('lp-design-save');await frame.locator('[data-board-action="remove"]').click();await act('lp-design-restore');
+    await expose(frame,'lp-guests');await frame.locator('#lp-guests').fill('80');await frame.locator('#lp-guests').press('Tab');await act('lp-undo');await act('lp-redo');
+    for(const id of ['lp-snapshot','lp-brief']){const [download]=await Promise.all([page.waitForEvent('download'),act(id)]);expect(download.suggestedFilename()).toBe(id==='lp-snapshot'?'venue-design.png':'venue-planning-brief.html');}
   }else if(group==='save'){
     const [download]=await Promise.all([page.waitForEvent('download'),act('lp-save')]);expect(download.suggestedFilename()).toBe('venue-pavilion-layout.json');
     const data=JSON.parse(await frame.locator('#lp-layout-json').inputValue());data.model.design.flowerA='#642c38';

@@ -27,7 +27,9 @@ async function publish() {
   verifyProof(manifest, proof);
   const html = await readFile(join(dist, 'index.html'));
   if (createHash('sha256').update(html).digest('hex') !== manifest.htmlSha256) throw new Error('Built HTML checksum does not match its manifest');
-  const allowed = new Set(['index.html', '.nojekyll', 'build-info.json', 'licenses']);
+  const research = await readFile(join(dist, 'research.html'));
+  if (createHash('sha256').update(research).digest('hex') !== manifest.researchSha256) throw new Error('Research report checksum does not match its manifest');
+  const allowed = new Set(['index.html', 'research.html', '.nojekyll', 'build-info.json', 'licenses']);
   for (const entry of await readdir(dist)) if (!allowed.has(entry)) throw new Error(`Unexpected publish file: ${entry}`);
   const temp = await mkdtemp(join(tmpdir(), 'wedding-pages-'));
   try {

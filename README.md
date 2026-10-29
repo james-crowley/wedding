@@ -10,7 +10,7 @@ Use Node.js 22 or newer:
 
 ```sh
 npm ci
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 npm test
 npm run serve
 ```
@@ -24,7 +24,9 @@ Open the local URL printed by the server. `npm run build` alone needs no browser
 | `src/index-template.html` | Outer page and browser-local save/restore bridge |
 | `vendor/` | Pinned Three.js 0.160.1 and its MIT license |
 | `scripts/build.mjs` | Deterministic bundling, checksums and `.nojekyll` |
-| `tests/` | Source/build/deployment checks and Chromium interaction tests |
+| `tests/` | Source/build/deployment checks and Chromium, Firefox and WebKit interaction tests |
+| `src/planning.mjs` | Shared rehearsal/patio counts and furniture geometry |
+| `data/venue-research.json`, `src/research.html` | Attributed photo research ledger and generated public report |
 | `.circleci/config.yml` | Build, test, artifact upload and Pages publication |
 
 Edit the source, then rebuild. Do not edit `dist/`; it is generated. The page shown in Codex and this repository are separate copies; future website changes belong in `src/model.html` and must be committed to trigger CI. The repository contains only this website, not the surrounding chat attachments or private wedding files.
@@ -35,10 +37,17 @@ The Lakeside-inspired interface uses pale sage, white surfaces, fine rules, an A
 
 The visualization is the main workspace, with camera/navigation controls beneath it and a separate design panel. Coordinated looks provide a starting palette; all individual colors and arrangements remain editable.
 
-- **Layout:** guest capacity, per-row offsets, table removal, bar/photo-booth sides, cupcake presentation, dance floor sizes and checkerboard/solid/concrete/wood finishes.
-- **Decor:** tablecloths, runners, napkins, bud vases, flower types, candles, arbors and lounge furniture. Vase counts are bounded to 0–7 and small styling edits retain the static property geometry.
-- **Ceremony:** compact backless benches, estimated deck dimensions, aisle florals and catering tent concepts.
-- **Camera:** orbit, seated views at every dining table, WASD walking, guided tour, measurements and the house interior cutaway. Interior furniture positions, unmeasured site features and ceremony proportions are approximations from reference photos.
+- **Floor plan:** capacity, dining rows/offsets, table removal, dessert and furniture positions.
+- **Tables & rentals:** tablecloths, runners, napkins, flowers, candles, chairs and attributed supplier place settings.
+- **Lounge & dance:** sofas, bars, dance-floor sizes, materials and supplier choices.
+- **Cocktail patio:** highboys, cloth/fitted covers, grazing, guest book, welcome drinks, bar and entry displays.
+- **Ceremony:** backless benches, aisle flowers, pedestals, arbors and tent concepts.
+- **Wedding looks:** coordinated palettes plus photo-supported spatial concepts; unseen zones stay explicitly unverified.
+- **View settings:** walls, roof, measurements, quality, lighting and house cutaway. Camera and movement stay by the render.
+- **Saved designs:** six local versions, comparison summaries, undo/redo, layout JSON, PNG and a printable supplier brief.
+
+Drag the desktop divider to resize the render/inspector. Keyboard arrows also adjust it; Enter/double-click restores the default. Saves persist across release query strings. See [the studio guide](docs/design-studio.md) for controls, estimates and the [photo research report](https://james-crowley.github.io/wedding/research.html).
+
 Seated views offer the couple’s two positions or either side of any active guest table, with selectable seats, direction and an estimated eye height. They follow table moves/rotation and omit removed tables. Drag to look, choose Stand up here, or use WASD to leave the seat. Camera choices are saved with the layout.
 
 Walking follows the exterior stairs onto the upper porch and main living floor while retaining ground-level access underneath. Double-tap W or ↑ within 300 ms and hold the second press to sprint at twice the selected movement speed. Release to stop sprinting; holding Shift also doubles movement speed. Esc, switching views, leaving the window and hidden tabs clear movement and sprint state. The current walking surface is included in saved camera state; older layouts remain compatible.
@@ -51,7 +60,7 @@ Saved v1–v8 layouts migrate to v9. Existing seating, table positions, styling 
 
 ## Supplier rental choices
 
-The **Rental catalogs** tab adds attributed choices from Classic Party Rentals of Virginia and Party Perfect while preserving the original custom styling controls. Search/filter products, preview supported options, and save alternatives for a rental quote. The palette records which supplier each applied product came from; manual edits remove stale matches. CSV and saved-layout JSON retain the source references. The catalog is a dated, bundled snapshot, and previews are schematic. See [catalog coverage and limitations](docs/rental-catalog.md).
+**Tables & rentals** and **Lounge & dance** add attributed choices from Classic Party Rentals of Virginia and Party Perfect while preserving the original custom styling controls. Search/filter products, preview supported options, and save alternatives for a rental quote. The palette records which supplier each applied product came from; manual edits remove stale matches. CSV and saved-layout JSON retain the source references. The catalog is a dated, bundled snapshot, and previews are schematic. See [catalog coverage and limitations](docs/rental-catalog.md).
 
 ## CircleCI pipeline
 
@@ -64,7 +73,7 @@ flowchart LR
   Build --> Ready[All three checks pass]
   Unit --> Ready
   Inventory --> Ready
-  Ready --> Split[8 browser shards · 1 worker each]
+  Ready --> Split[8 browser shards · 2 workers each]
   Split --> Merge[Merge reports · verify complete coverage]
   Merge --> Artifacts[Combined report and validation receipt]
   Merge --> Main{main branch?}
@@ -74,7 +83,7 @@ flowchart LR
 
 All branches except `gh-pages` build and test. Pull requests never publish. The publish job runs only after build/unit checks and every browser shard succeed on `main`, uses a protected context, and runs in a serial group. It checks the artifact's source commit, HTML checksum and complete browser-validation receipt, skips superseded main commits, and pushes normally without force-pushing. It refuses to replace an unrelated existing Pages site.
 
-The Playwright package and Docker image are pinned to the same version. Browser tests block external resources and exercise real WebGL initialization, table counts, saved dimensions/bar positions, keyboard release, resizing, ceremony/tent/ceiling controls and tour navigation. Named Node test suites keep unit JUnit reports compatible with CircleCI’s results parser. Reports include per-shard JUnit and HTML reports, a combined HTML report, failure screenshots, retry traces and a successful floor-plan screenshot. Browser tests still block external resources and use real software WebGL. Each shard has one worker to avoid competing for its container’s CPU. Deterministic weighted test lists spread the heavier catalog batches among all eight workers; a unit check invokes Playwright against each actual list and proves every collected case is assigned exactly once. Each CI worker also validates its selected IDs before running. The expanded option matrix uses eight shards.
+The Playwright package and Docker image are pinned to the same version. Browser tests block external resources and exercise real WebGL initialization, table counts, saved dimensions/bar positions, keyboard release, resizing, ceremony/tent/ceiling controls and tour navigation. Named Node test suites keep unit JUnit reports compatible with CircleCI’s results parser. Reports include per-shard JUnit and HTML reports, a combined HTML report, failure screenshots, retry traces and a successful floor-plan screenshot. Browser tests still block external resources and use real software WebGL. Each four-CPU shard uses two browser workers. Deterministic weighted test lists spread the heavier catalog batches among all eight shards; a unit check invokes Playwright against each actual list and proves every collected case is assigned exactly once. Each CI worker also validates its selected IDs before running. The expanded option matrix uses eight shards.
 
 ### Speed and change selection
 

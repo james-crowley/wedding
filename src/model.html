@@ -1,7 +1,8 @@
 <div id="venue-pavilion-3d">
-  <header class="lp-heading"><div><span class="lp-eyebrow">YOUR WEDDING, IN THE MAKING</span><h2>Lakeside Estate</h2><p class="lp-subtitle">Wedding pavilion · a space to imagine together</p></div><div class="lp-heading-actions"><span class="text-small" id="lp-capacity">90 × 40 ft · 96 guest seats + couple</span><div class="viz-row"><button class="btn" type="button" id="lp-reset-camera">Reset camera</button><button class="btn" type="button" id="lp-reset-open">Reset all…</button><button class="btn" type="button" id="lp-undo-reset" hidden>Undo reset</button></div></div></header>
+  <header class="lp-heading"><div><span class="lp-eyebrow">YOUR WEDDING, IN THE MAKING</span><h2>Lakeside Estate</h2><p class="lp-subtitle">Wedding planning studio · spaces, styling & shared decisions</p></div><div class="lp-heading-actions"><div class="viz-row"><button class="btn" id="lp-undo" type="button" disabled>Undo</button><button class="btn" id="lp-redo" type="button" disabled>Redo</button><span id="lp-save-status" class="text-small" role="status">Design stays on this device</span></div><span class="text-small" id="lp-capacity">90 × 40 ft · 96 guest seats + couple</span><div class="viz-row"><button class="btn" type="button" id="lp-reset-camera">Reset camera</button><button class="btn" type="button" id="lp-reset-open">Reset all…</button><button class="btn" type="button" id="lp-undo-reset" hidden>Undo reset</button></div></div></header>
   <div class="lp-reset-prompt" id="lp-reset-prompt" role="group" aria-label="Confirm reset" hidden><strong>Start fresh?</strong><span>Reset furniture, styling, site options and camera to the original planning defaults. You can undo this.</span><button class="btn btn-primary" id="lp-reset-confirm" type="button">Reset everything</button><button class="btn" id="lp-reset-cancel" type="button">Keep my design</button></div>
-  <div id="lp-workspace" class="lp-workspace"><section id="lp-viewer" class="lp-viewer" aria-label="Venue visualization"></section><aside id="lp-editor" class="lp-editor" aria-label="Wedding design controls"><section class="lp-lookbook" id="lp-lookbook"><span class="lp-eyebrow">THE OVERALL FEEL</span><h3>Find your starting look</h3><p>Coordinated flowers, fabrics & candlelight. Make it yours below.</p><div id="lp-look-cards" class="lp-look-cards" role="group" aria-label="Coordinated wedding looks"></div></section></aside></div>
+  <section class="lp-event-strip" aria-label="Explore an event"><div><span class="lp-eyebrow">PLAN YOUR WEEKEND</span><p id="lp-event-summary" class="text-small"></p></div><div class="lp-event-buttons"><button class="btn" id="lp-event-reception" type="button" aria-pressed="true">Reception</button><button class="btn" id="lp-event-patio" type="button" aria-pressed="false">Cocktail patio</button><button class="btn" id="lp-event-ceremony" type="button" aria-pressed="false">Ceremony</button><button class="btn" id="lp-event-rehearsal" type="button" aria-pressed="false">Rehearsal dinner</button></div></section>
+  <div id="lp-workspace" class="lp-workspace"><section id="lp-viewer" class="lp-viewer" aria-label="Venue visualization"></section><div id="lp-divider" role="separator" aria-label="Resize render and options panels" aria-orientation="vertical" aria-valuemin="320" aria-valuemax="740" aria-valuenow="440" tabindex="0"><span></span></div><aside id="lp-editor" class="lp-editor" aria-label="Wedding design controls"><section class="lp-lookbook" id="lp-lookbook"><span class="lp-eyebrow">THE OVERALL FEEL</span><h3>Find your starting look</h3><p>Coordinated flowers, fabrics & candlelight. Make it yours below.</p><div id="lp-look-cards" class="lp-look-cards" role="group" aria-label="Coordinated wedding looks"></div></section></aside></div>
   <div class="viz-controls" id="lp-main-nav">
     <button class="btn" type="button" id="lp-orbit-mode">Orbit</button><button class="btn" type="button" id="lp-sit">Sit at a table</button><button class="btn" type="button" id="lp-walk-inside">Walk inside</button><button class="btn" type="button" id="lp-stop-motion">Stop / Esc</button>
   </div>
@@ -21,7 +22,7 @@
       <select class="form-select" id="lp-layout"><option value="separate">12 separate tables</option><option value="joined">3 joined rows</option></select>
     </label>
     <label class="form-label">View
-      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet inside</option><option value="rehearsalBar">Rehearsal · bartending station</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
+      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet inside</option><option value="rehearsalBar">Rehearsal · bartending station</option><option value="patio">Cocktail patio · overview</option><option value="patioInside">Cocktail patio · guest view</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
     </label>
     <label class="form-label">Drag action
       <select class="form-select" id="lp-action"><option value="orbit">Rotate view</option><option value="move">Move furniture</option><option value="measure">Measure floor distance</option></select>
@@ -72,18 +73,20 @@
   </div>
   <div class="text-small lp-selection" id="lp-selection" aria-live="polite">Drag to rotate · Scroll or pinch to zoom · Right-drag to pan</div>
   <div class="nav nav-pills viz-row" role="tablist" aria-label="Venue planning controls" id="lp-settings-tabs">
-    <button class="nav-link active" role="tab" id="lp-tab-layout" aria-controls="lp-panel-layout" aria-selected="true" type="button">Layout</button>
-    <button class="nav-link" role="tab" id="lp-tab-decor" aria-controls="lp-panel-decor" aria-selected="false" type="button">Looks & decor</button>
-    <button class="nav-link" role="tab" id="lp-tab-ceremony" aria-controls="lp-panel-ceremony" aria-selected="false" type="button">Ceremony & tents</button>
-    <button class="nav-link" role="tab" id="lp-tab-view" aria-controls="lp-panel-view" aria-selected="false" type="button">View & lighting</button>
-    <button class="nav-link" role="tab" id="lp-tab-rentals" aria-controls="lp-panel-rentals" aria-selected="false" type="button">Table settings & rentals</button>
-    <button class="nav-link" role="tab" id="lp-tab-save" aria-controls="lp-panel-save" aria-selected="false" type="button">Move, measure & save</button>
+    <button class="nav-link active" role="tab" id="lp-tab-layout" aria-controls="lp-panel-layout" aria-selected="true" type="button">Floor plan</button>
+    <button class="nav-link" role="tab" id="lp-tab-lounge" aria-controls="lp-panel-lounge" aria-selected="false" type="button">Lounge & dance</button><button class="nav-link" role="tab" id="lp-tab-patio" aria-controls="lp-panel-patio" aria-selected="false" type="button">Cocktail patio</button>
+    <button class="nav-link" role="tab" id="lp-tab-decor" aria-controls="lp-panel-decor" aria-selected="false" type="button">Wedding looks</button>
+    <button class="nav-link" role="tab" id="lp-tab-ceremony" aria-controls="lp-panel-ceremony" aria-selected="false" type="button">Ceremony</button>
+    <button class="nav-link" role="tab" id="lp-tab-view" aria-controls="lp-panel-view" aria-selected="false" type="button">View settings</button>
+    <button class="nav-link" role="tab" id="lp-tab-rentals" aria-controls="lp-panel-rentals" aria-selected="false" type="button">Tables & rentals</button>
+    <button class="nav-link" role="tab" id="lp-tab-save" aria-controls="lp-panel-save" aria-selected="false" type="button">Saved designs</button>
   </div>
   <div role="tabpanel" id="lp-panel-layout" aria-labelledby="lp-tab-layout">
-    <section class="lp-details" aria-label="Rehearsal dinner setup"><span class="lp-eyebrow">THE NIGHT BEFORE</span><h3>Rehearsal dinner at the house</h3><p class="text-small">Two banquet rows on the upstairs screened porch, with a central route to the house and stairs. Buffet trays and a staffed drinks station sit just inside.</p>
-      <div class="viz-controls"><label class="form-check"><input class="form-check-input" type="checkbox" id="lp-rehearsal"><span>Show rehearsal setup</span></label><label class="form-label">Porch seats<input class="form-control" id="lp-rehearsal-seats" type="number" min="30" max="35" step="1" value="35"></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-buffet" type="checkbox" checked><span>Tray buffet inside</span></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-bar" type="checkbox" checked><span>Bartending station inside</span></label></div>
+    <details class="lp-details" id="lp-rehearsal-section"><summary>Rehearsal dinner · porch seating & service</summary><section aria-label="Rehearsal dinner setup"><span class="lp-eyebrow">THE NIGHT BEFORE</span><h3>Rehearsal dinner at the house</h3><p class="text-small">Two banquet rows on the upstairs screened porch, with a central route to the house and stairs. Buffet trays and a staffed drinks station sit just inside.</p>
+      <div class="viz-controls"><label class="form-check"><input class="form-check-input" type="checkbox" id="lp-rehearsal"><span>Show rehearsal setup</span></label><label class="form-label">Porch seats<input class="form-control" id="lp-rehearsal-seats" type="number" min="12" max="40" step="1" value="35"></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-buffet" type="checkbox" checked><span>Tray buffet inside</span></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-bar" type="checkbox" checked><span>Bartending station inside</span></label></div>
       <div class="viz-row"><button class="btn btn-primary" id="lp-rehearsal-show" type="button">Preview rehearsal dinner</button><button class="btn" id="lp-rehearsal-walk" type="button">Walk onto the porch</button></div><p class="text-small" id="lp-rehearsal-status" role="status"></p><p class="text-small">Planning concept: six 6 × 2.5 ft banquet tables form two 18 ft rows. Porch footprint, furniture, clearances and bar appearance are estimates. Confirm fit, furniture, occupancy and service arrangements with the venue and bartender; existing house dining chairs are not included in this count.</p>
-    </section>
+      <div class="viz-controls"><label class="form-label">Table arrangement<select class="form-select" id="lp-rehearsal-layout"><option value="banquet">Two 18 ft banquet rows · up to 36</option><option value="farmhouse">Four 8 ft farmhouse tables · up to 32</option><option value="cafe">Four round café tables · up to 24</option></select></label><label class="form-label">Rehearsal linens<select class="form-select" id="lp-rehearsal-textile"><option value="runner">Runner on wood</option><option value="full">Full tablecloth</option><option value="bare">Bare wood</option></select></label><label class="form-label">Centerpieces<select class="form-select" id="lp-rehearsal-decor"><option value="vases">Bud vases</option><option value="candles">Enclosed candles</option><option value="greenery">Greenery & candles</option><option value="none">Clear tables</option></select></label><label class="form-label">Serving trays<input class="form-control" type="number" min="2" max="5" step="1" id="lp-rehearsal-trays" value="3"></label><label class="form-label">Service arrangement<select class="form-select" id="lp-rehearsal-side"><option value="right">Bar right · buffet left</option><option value="left">Bar left · buffet right</option></select></label></div>
+    </section></details>
     <div class="viz-controls" id="lp-layout-tools">
       <label class="form-label">Guest count<input class="form-control" type="number" min="0" max="200" step="1" id="lp-guests" value="100"></label>
       <details class="lp-details" id="lp-row-offsets" open><summary>Dining row offsets</summary><p class="text-small">Shift each entire row toward the couple’s end. Row 1 is house-side; row 3 is lake-side. Individual dragged positions in that row are reset when its offset changes.</p><div class="viz-controls"><label class="form-label">Row 1 · house side (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-1" value="2"></label><label class="form-label">Row 2 · middle (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-2" value="0"></label><label class="form-label">Row 3 · lake side (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-3" value="2"></label></div><label class="form-label">Quick outer-row setback (ft)<input class="form-control" type="number" min="0" max="4" step="0.5" id="lp-door-setback" value="2"></label></details>
@@ -97,9 +100,14 @@
     <details class="lp-details"><summary class="cursor-interaction">Choose which tables to keep · 8 seats each</summary><div id="lp-table-toggles" class="lp-table-toggles"></div></details>
     <div class="text-small">Floor plan: house above, lake below. Power markers use the house-side entertainment corner and lake-side dining corner; exact sockets and capacity need venue confirmation.</div>
   </div>
+  <section role="tabpanel" id="lp-panel-lounge" aria-labelledby="lp-tab-lounge" hidden><span class="lp-eyebrow">THE ENTERTAINMENT SIDE</span><h3>Lounge, bar & dance floor</h3><p class="text-small">Sofas, dance-floor finishes and their supplier options live here. Move furniture in Floor plan.</p><div id="lp-lounge-catalog-slot"></div></section>
+  <section role="tabpanel" id="lp-panel-patio" aria-labelledby="lp-tab-patio" hidden><span class="lp-eyebrow">COCKTAIL HOUR</span><h3>A patio to gather on</h3><p class="text-small">Style the lower terrace with cocktail tables, grazing, a guest book and welcome drinks. Positions reserve the center approach; sizes and clearances are estimates.</p><div class="viz-controls">
+    <label class="form-check"><input class="form-check-input" id="lp-patio-enabled" type="checkbox" checked><span>Show cocktail-hour setup</span></label><label class="form-label">Cocktail tables<input class="form-control" id="lp-patio-tables" type="number" min="0" max="6" step="1" value="4"></label><label class="form-label">Cocktail-table finish<select class="form-select" id="lp-patio-table-style"><option value="linen">Draped tablecloth</option><option value="fitted">Fitted stretch cover</option><option value="wood">Exposed timber</option><option value="metal">Black metal café</option></select></label><label class="form-label">Patio linen color<input class="form-control form-control-color" id="lp-patio-color" type="color" value="#f4eddd"></label><label class="form-label">Patio arrangements<select class="form-select" id="lp-patio-decor"><option value="buds">Bud vases</option><option value="candles">Enclosed candles</option><option value="both">Flowers & candles</option><option value="none">Clear tabletops</option></select></label>
+    <label class="form-check"><input class="form-check-input" id="lp-patio-grazing" type="checkbox" checked><span>Grazing table</span></label><label class="form-check"><input class="form-check-input" id="lp-patio-guestbook" type="checkbox" checked><span>Guest book & card box</span></label><label class="form-check"><input class="form-check-input" id="lp-patio-welcome" type="checkbox" checked><span>Welcome-drinks station</span></label><label class="form-check"><input class="form-check-input" id="lp-patio-bar" type="checkbox" checked><span>Staffed patio bar</span></label><label class="form-label">Pavilion welcome displays<select class="form-select" id="lp-entry-display"><option value="none">None</option><option value="mirror">Framed mirror seating chart</option><option value="memory">Photo & card table</option><option value="both">Mirror chart + photo/card table</option></select></label><label class="form-check"><input class="form-check-input" id="lp-patio-fire" type="checkbox" checked><span>Show fixed venue fire table</span></label><label class="form-check"><input class="form-check-input" id="lp-patio-guides" type="checkbox"><span>Show center circulation route</span></label>
+    </div><p id="lp-patio-status" class="text-small" role="status"></p><div class="viz-row"><button class="btn btn-primary" id="lp-patio-show" type="button">See cocktail patio</button><button class="btn" id="lp-patio-walk" type="button">Walk the patio</button></div><p class="text-small">The fire table is fixed venue furniture; hiding it is for inspection only. Its revised orientation follows the photos; its exact size and location still need a measurement. Decorative setups are proposals, not a capacity approval.</p></section>
   <div role="tabpanel" id="lp-panel-decor" aria-labelledby="lp-tab-decor" hidden></div>
   <section role="tabpanel" id="lp-panel-rentals" aria-labelledby="lp-tab-rentals" hidden>
-    <span class="lp-eyebrow">BUILD YOUR PLACE SETTING</span><h3>Dress the table</h3>
+    <span class="lp-eyebrow">DINING & TABLE DECOR</span><h3>Dress the table</h3><div id="lp-dining-custom"></div><div id="lp-catalog-body"></div>
     <p class="text-small">Select a component, then apply a supplier item. Mix vendors freely.</p>
     <div id="lp-rental-components" class="lp-component-grid" role="group" aria-label="Choose a rental component"></div>
     <div class="lp-table-tools"><button class="btn btn-primary" id="lp-table-closeup" type="button">Close-up</button><button class="btn" id="lp-table-overview" type="button">Pavilion</button><button class="btn" id="lp-place-setting" type="button">Show all settings</button></div>
@@ -145,7 +153,7 @@
       <label class="form-label">Graphics quality<select class="form-select" id="lp-quality"><option value="auto">Automatic · lighter on phones</option><option value="mobile">Light · phone / battery saver</option><option value="high">Detailed · desktop</option></select></label><label class="form-label">View height (px)<input class="form-control" id="lp-view-height" type="number" min="360" max="1200" step="40" value="680"></label>
     </div>
   </div>
-  <div role="tabpanel" id="lp-panel-save" aria-labelledby="lp-tab-save" hidden></div>
+  <section role="tabpanel" id="lp-panel-save" aria-labelledby="lp-tab-save" hidden><span class="lp-eyebrow">SAVE, COMPARE & SHARE</span><h3>Your design versions</h3><p class="text-small">Keep up to six versions in this browser. Compare a summary, then load either version into the render. Download a layout to use it on another device.</p><label class="form-label">Version name<input class="form-control" id="lp-design-name" type="text" maxlength="56" placeholder="For example: ivory linens & wood dance floor"></label><button class="btn btn-primary" id="lp-design-save" type="button">Save a version</button><button class="btn" id="lp-design-restore" type="button" hidden>Restore removed version</button><p class="text-small" id="lp-design-status" role="status"></p><div id="lp-design-list"></div><div id="lp-design-comparison"></div><div class="viz-row"><button class="btn" id="lp-snapshot" type="button">Download current view (PNG)</button><button class="btn" id="lp-brief" type="button">Download planning brief</button></div></section>
   <details class="lp-details" id="lp-design-tables" open>
     <summary class="cursor-interaction">Table styling</summary>
     <div class="viz-controls">
@@ -237,7 +245,7 @@
   <details class="lp-details" id="lp-finishes">
     <summary class="cursor-interaction">Dance floor and site grade</summary>
     <div class="viz-controls">
-      <label class="form-label">Dance floor<select class="form-select" id="lp-dance-pattern"><option value="checker">Checkerboard tiles</option><option value="solid">Solid color</option><option value="concrete">Bare concrete</option><option value="wood">Warm wood parquet</option><option value="plank">Wood plank panels</option><option value="woodChecker">Wood & color checkerboard</option></select></label>
+      <label class="form-check"><input class="form-check-input" id="lp-dance-visible" type="checkbox" checked><span>Show rented dance floor</span></label><label class="form-label">Dance floor<select class="form-select" id="lp-dance-pattern"><option value="checker">Checkerboard tiles</option><option value="solid">Solid color</option><option value="concrete">Bare concrete</option><option value="wood">Warm wood parquet</option><option value="plank">Wood plank panels</option><option value="woodChecker">Wood & color checkerboard</option></select></label>
       <label class="form-label">Tile color A<input class="form-control form-control-color" type="color" id="lp-dance-a" value="#101010"></label>
       <label class="form-label">Tile color B<input class="form-control form-control-color" type="color" id="lp-dance-b" value="#ffffff"></label>
       <label class="form-label">Approx. tile size (ft)<input class="form-control" type="number" id="lp-tile-size" min="1" max="4" step="0.5" value="2"></label>
@@ -460,8 +468,60 @@
 @media(max-width:600px){#venue-pavilion-3d .lp-heading h2{font-size:33px}#venue-pavilion-3d .lp-heading{gap:12px}#venue-pavilion-3d .lp-editor{padding:0 12px 20px}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d .lp-table-tools{top:100px}#venue-pavilion-3d .lp-view-shortcuts .btn{flex:1;padding:7px;font-size:11px}#venue-pavilion-3d .lp-stage{height:440px}#venue-pavilion-3d #lp-main-nav{padding:9px;gap:5px}#venue-pavilion-3d #lp-main-nav .btn{padding:8px;font-size:10px}#venue-pavilion-3d .lp-rental-card{padding:8px}}
 
 </style>
+<style>
+/* Area-based planning workspace. Keep the canvas and inspector independently usable. */
+#venue-pavilion-3d{--editor-width:440px;--studio-ink:#314537;--studio-line:#d9e0d5;padding:24px;background:#f7f8f3}
+#venue-pavilion-3d .lp-heading{padding-right:0;margin-bottom:16px;gap:20px}
+#venue-pavilion-3d .lp-heading-actions{gap:8px}
+#venue-pavilion-3d .lp-heading h2{font-size:48px}
+#venue-pavilion-3d .lp-subtitle{font-size:12px;letter-spacing:.1px}
+#venue-pavilion-3d .lp-event-strip{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 20px;margin-bottom:16px;border:1px solid var(--studio-line);border-radius:12px;background:#fff}
+#venue-pavilion-3d .lp-event-strip p{margin:5px 0 0;font-size:12px;color:#506449}
+#venue-pavilion-3d .lp-event-buttons{display:grid;grid-template-columns:repeat(4,minmax(90px,1fr));gap:6px;flex-shrink:0}
+#venue-pavilion-3d .lp-event-buttons .btn[aria-pressed=true]{background:#455d42;border-color:#455d42;color:#fff;box-shadow:0 2px 6px #31453720}
+#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(380px,1fr) 16px var(--editor-width);gap:0;align-items:start}
+#venue-pavilion-3d .lp-viewer{border-radius:12px;box-shadow:0 6px 25px #31453708}
+#venue-pavilion-3d .lp-editor{max-height:calc(100vh - 40px);min-height:600px;padding:16px 18px 24px;border-radius:12px;border-top:1px solid var(--studio-line);position:sticky;top:16px}
+#venue-pavilion-3d #lp-divider{height:calc(100vh - 60px);min-height:600px;cursor:col-resize;touch-action:none;display:grid;place-items:center;position:sticky;top:16px;outline-offset:-3px}
+#venue-pavilion-3d #lp-divider span{height:58px;width:4px;border-radius:4px;background:#b9c5b1;box-shadow:4px 0 #dce3d5}
+#venue-pavilion-3d #lp-divider:hover span,#venue-pavilion-3d #lp-divider:focus-visible span{background:#586f4c}
+#venue-pavilion-3d.lp-resizing{user-select:none;cursor:col-resize}
+#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;position:sticky;top:-16px;background:#fff;padding:8px 0 14px;margin:0 0 16px;border-bottom:1px solid var(--studio-line);z-index:4}
+#venue-pavilion-3d #lp-settings-tabs button{min-height:42px;font-size:12px;text-transform:none;letter-spacing:0;border:1px solid #e1e7db;border-radius:7px;padding:9px 8px;line-height:1.3}
+#venue-pavilion-3d #lp-settings-tabs button:last-child{grid-column:auto}
+#venue-pavilion-3d #lp-settings-tabs button[aria-selected=true]{background:#edf2e7;color:#344f32;border-color:#8da27d;box-shadow:none}
+#venue-pavilion-3d .lp-details{border:1px solid #e0e6d9;border-radius:9px;padding:13px 14px;margin:12px 0;background:#fcfdf9}
+#venue-pavilion-3d .lp-details>summary{font-size:12px;line-height:1.5;letter-spacing:.2px;text-transform:none;color:#40563a;cursor:pointer;font-weight:600}
+#venue-pavilion-3d .lp-details[open]>summary{margin-bottom:10px}
+#venue-pavilion-3d .btn{min-height:42px;border-radius:7px;font-size:12px;letter-spacing:.1px}
+#venue-pavilion-3d .form-control,#venue-pavilion-3d .form-select{border-radius:6px;font-size:13px;min-height:42px}
+#venue-pavilion-3d h3{font-size:25px;color:#41593c}
+#venue-pavilion-3d .text-small{font-size:12px;line-height:1.65}
+#venue-pavilion-3d #lp-dining-custom>.form-check{margin-bottom:12px}
+#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+#venue-pavilion-3d .lp-rental-card{padding:12px;border-radius:9px;min-width:0}
+#venue-pavilion-3d .lp-rental-card h4{font-size:17px}
+#venue-pavilion-3d .lp-rental-swatches{display:flex;flex-direction:column;gap:5px}
+#venue-pavilion-3d .lp-rental-swatches label{display:flex;align-items:center;gap:7px;font-size:10px;overflow-wrap:anywhere}
+#venue-pavilion-3d .lp-rental-swatches span{width:15px;height:15px;flex-shrink:0}
+#venue-pavilion-3d .lp-swatch-note{font-size:10px!important;color:#68745f;line-height:1.4!important}
+#venue-pavilion-3d .lp-table-tools{position:static;border-radius:8px;flex-wrap:wrap}
+#venue-pavilion-3d .lp-version-card{padding:14px;margin:12px 0;border:1px solid #dce4d4;border-radius:10px;background:#fafcf6}
+#venue-pavilion-3d .lp-version-card h4{font:21px Georgia,serif;margin:0 0 8px;overflow-wrap:anywhere;color:#40583b}
+#venue-pavilion-3d .lp-version-card .viz-row{flex-wrap:wrap}
+#venue-pavilion-3d #lp-design-comparison{overflow:auto}
+#venue-pavilion-3d .lp-compare-table{font-size:11px;width:100%;border-collapse:collapse;table-layout:fixed}
+#venue-pavilion-3d .lp-compare-table th,#venue-pavilion-3d .lp-compare-table td{text-align:left;padding:9px 6px;border-bottom:1px solid #dce3d6;overflow-wrap:anywhere}
+#venue-pavilion-3d .lp-compare-table .lp-different{background:#f3eddf}
+#venue-pavilion-3d #lp-save-status{font-size:10px;color:#5a7050}
+#venue-pavilion-3d .lp-navigation{background:#fafbf7!important;border-radius:0!important;border:0!important;border-top:1px solid var(--studio-line)!important}
+@media(max-width:1100px){#venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr)}#venue-pavilion-3d #lp-divider{display:none}#venue-pavilion-3d .lp-editor{position:static;max-height:none;min-height:0;margin-top:16px}#venue-pavilion-3d .lp-event-strip{flex-direction:column;align-items:stretch;gap:12px}#venue-pavilion-3d #lp-settings-tabs{top:0;grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){#venue-pavilion-3d{padding:10px}#venue-pavilion-3d .lp-heading h2{font-size:40px}#venue-pavilion-3d .lp-heading{padding:10px 5px 16px}#venue-pavilion-3d .lp-event-strip{padding:12px;border-radius:10px}#venue-pavilion-3d .lp-event-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d #lp-settings-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d .lp-editor{padding:12px}#venue-pavilion-3d .form-select,#venue-pavilion-3d .form-control{font-size:16px}#venue-pavilion-3d .lp-heading-actions{justify-items:start}#venue-pavilion-3d .lp-rental-results{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-pavilion-3d .btn{min-height:44px}}
+
+</style>
 <script type="application/json" id="lp-initial-state">{"modelContent":{"danceWidth":20,"danceDepth":20,"doorSetback":2,"barSide":"house","dessert":true,"doorGuides":true,"power":true,"disabledTables":[],"targetGuests":100,"benchRows":8,"benchLength":9.5,"deckWidth":28,"deckDepth":34,"aisleDecor":"none","aislePairs":4,"aisleColor":"#eee7d5","tentSide":"right","tentStyle":"frame","tentWidth":20,"tentDepth":20,"lighting":"original","ceilingDecor":"none","schema":"venue-pavilion-v9","layout":"separate","length":8,"width":3,"gap":1.5,"roof":false,"labels":true,"context":true,"walls":"real","measurements":false,"measureScope":"overall","grid":false,"arbor":true,"kitchen":false,"decor":true,"linens":false,"dancePattern":"checker","danceA":"#101010","danceB":"#ffffff","tileSize":2,"houseRise":3.5,"lakeDrop":7.5,"positions":{"separate":{},"joined":{}},"design":{"look":"custom","clothColor":"#c9b09e","clothFinish":"linen","runnerStyle":"lace","runnerColor":"#f4ecd9","runnerWidth":11,"greenery":"lush","greeneryColor":"#57684e","flowerStyle":"mixed","flowerDensity":1,"flowerA":"#eee7d5","flowerB":"#7f9eaf","flowerC":"#602e46","vaseStyle":"cut","vaseCount":5,"vaseHeight":10,"vaseColor":"#ecf0e5","candleStyle":"taper","candleCount":3,"candleHeight":12,"candleColor":"#bd9b56","metalFinish":"gold","chargers":true,"indoorArbor":"timber","outdoorArbor":"timber","indoorArborColor":"#6c4d36","outdoorArborColor":"#6c4d36","indoorArborDecor":"drape","outdoorArborDecor":"greenery","arborFabricColor":"#f1e9d8","sofaStyle":"classic","sofaColor":"#ece6da","sofaFrameColor":"#704b31","sofaLength":6},"rowOffsets":[2,0,2]},"privateContent":{"orbit":{"azimuth":0.4,"polar":0.72,"distance":150,"target":[0,1,0]},"view":"perspective","walk":{"x":13.602396554743555,"y":6.849232191304194,"z":-95.09435646675702,"yaw":28.277757420244395,"pitch":-0.11518749999999969},"tour":{"time":1.7670720000000475,"speed":1},"navigation":{"height":680,"speed":8}}}</script>
 <script>/* Bundled rental library */</script>
+<script>/* Bundled planning tools */</script>
 <script>
 (function(){
   const root=document.getElementById('venue-pavilion-3d');
@@ -475,9 +535,9 @@
     script.onload=start;script.onerror=()=>{loading.textContent='The 3D library could not load. Reopen this view with an internet connection.';};document.head.appendChild(script);
   }
   function initialize(){
-    const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary;
+    const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary,planning=window.VenuePlanning;
     let rentalPage=0,rentalFilterTimer=0;
-    const PLAN_DEFAULTS={rehearsal:false,rehearsalSeats:35,rehearsalBuffet:true,rehearsalBar:true,danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
+    const PLAN_DEFAULTS={rehearsal:false,rehearsalSeats:35,rehearsalLayout:'banquet',rehearsalTextile:'runner',rehearsalDecor:'vases',rehearsalTrays:3,rehearsalSide:'right',patioEnabled:true,patioTables:4,patioTableStyle:'linen',patioColor:'#f4eddd',patioDecor:'buds',patioGrazing:true,patioGuestbook:true,patioWelcome:true,patioBar:true,patioFire:true,patioGuides:false,entryDisplay:'none',danceVisible:true,rehearsalBuffet:true,rehearsalBar:true,danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'folded',napkinColor:'#62314c',glassware:'clear',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
     Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'round',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'silver',chargerMaterial:'metal',chargerColor:'#cfad65',chargerRimColor:'#cfad65',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0,coupleBackdrop:'arbor'});
@@ -487,7 +547,9 @@
     let config={...PLAN_DEFAULTS,rentals:{applied:{},shortlist:[]},schema:'venue-pavilion-v9',layout:'separate',length:8,width:3,gap:1.5,roof:false,labels:true,context:true,walls:'real',measurements:false,measureScope:'sections',grid:false,arbor:true,kitchen:false,decor:true,linens:true,dancePattern:'checker',danceA:'#101010',danceB:'#ffffff',tileSize:2,houseRise:3.5,lakeDrop:7.5,positions:{separate:{},joined:{}},design:{...DESIGN_DEFAULTS}};
     const resetDefaults=JSON.parse(JSON.stringify(config));
     let resetUndo=null,rebuildTimer=0;
-    let navigation={height:680,speed:8,quality:'auto'};
+    let navigation={height:680,speed:8,quality:'auto',editorWidth:440};
+    let studio={event:'reception',boards:[],compare:[],trash:null},workflowReady=false;const editHistory={past:[],future:[],current:null,suspended:false};
+    const workflowFields=[['lp-patio-enabled','patioEnabled'],['lp-patio-tables','patioTables'],['lp-patio-table-style','patioTableStyle'],['lp-patio-color','patioColor'],['lp-patio-decor','patioDecor'],['lp-patio-grazing','patioGrazing'],['lp-patio-guestbook','patioGuestbook'],['lp-patio-welcome','patioWelcome'],['lp-patio-bar','patioBar'],['lp-patio-fire','patioFire'],['lp-patio-guides','patioGuides'],['lp-entry-display','entryDisplay'],['lp-rehearsal-layout','rehearsalLayout'],['lp-rehearsal-textile','rehearsalTextile'],['lp-rehearsal-decor','rehearsalDecor'],['lp-rehearsal-trays','rehearsalTrays'],['lp-rehearsal-side','rehearsalSide'],['lp-dance-visible','danceVisible']];
     organizeControls();
     let orbit={azimuth:0.35,polar:0.67,distance:150,target:[0,1,0]}, selected='table-1', activeView='perspective';
     let walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0},seat=normalizeSeat({});
@@ -501,8 +563,9 @@
     if(currentSaved&&existing.privateContent&&existing.privateContent.orbit)orbit=normalizeOrbit(existing.privateContent.orbit);
     if(currentSaved&&existing.privateContent&&existing.privateContent.walk)walk=normalizeWalk(existing.privateContent.walk);
     if(currentSaved&&existing.privateContent&&existing.privateContent.tour)tour=normalizeTour(existing.privateContent.tour);
-    if(currentSaved&&existing.privateContent&&existing.privateContent.navigation)navigation={height:n(existing.privateContent.navigation.height,680,360,1200),speed:n(existing.privateContent.navigation.speed,8,4,16),quality:['auto','mobile','high'].includes(existing.privateContent.navigation.quality)?existing.privateContent.navigation.quality:'auto'};
+    if(currentSaved&&existing.privateContent&&existing.privateContent.navigation)navigation={height:n(existing.privateContent.navigation.height,680,360,1200),speed:n(existing.privateContent.navigation.speed,8,4,16),quality:['auto','mobile','high'].includes(existing.privateContent.navigation.quality)?existing.privateContent.navigation.quality:'auto',editorWidth:n(existing.privateContent.navigation.editorWidth,440,320,740)};
     if(currentSaved&&existing.privateContent&&existing.privateContent.seat)seat=normalizeSeat(existing.privateContent.seat);
+    studio=normalizeStudio(existing?.privateContent?.studio);
     stage.style.height=navigation.height+'px';
     const phonePreview=()=>navigation.quality==='mobile'||navigation.quality==='auto'&&(window.matchMedia('(pointer: coarse)').matches||window.innerWidth<760);
     const renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:true,preserveDrawingBuffer:true,powerPreference:'default'});
@@ -542,7 +605,7 @@
       // Camera height and speed are available without starting a tour or walking.
       navDetails.append($('lp-eye').closest('label'),$('lp-walk-speed').closest('label'));
       editor.append($('lp-settings-tabs'));
-      for(const name of ['layout','decor','ceremony','view','rentals','save'])editor.append($('lp-panel-'+name));
+      for(const name of ['layout','rentals','lounge','patio','ceremony','decor','view','save'])editor.append($('lp-panel-'+name));
       $('lp-lookbook').append(root.querySelector('[data-design="look"]').closest('label'));
       const looks=[['florist','Wine, olive & twilight',['#59632a','#642c38','#4f6875']],['vasesOnly','Seven-vase garden',['#f4eddd','#642c38','#59632a']],['ivoryGarden','Ivory & olive',['#f4eddd','#59632a','#dfc9aa']],['twilightGarden','Twilight garden',['#4f6875','#f4eddd','#642c38']],['ivoryPlum','Ivory & plum',['#f4eddd','#829db5','#62314c']],['pistachio','Pistachio',['#a9b48c','#dfc9aa','#f4eddd']],['plumGarden','Plum garden',['#62314c','#ad829a','#c7a76c']],['blueMeadow','Blue meadow',['#829db5','#f4eddd','#566447']]];
       for(const [key,name,swatches]of looks){const b=document.createElement('button');b.type='button';b.className='lp-look-card';b.dataset.look=key;b.setAttribute('aria-pressed','false');const samples=document.createElement('span');samples.className='lp-look-colors';samples.setAttribute('aria-hidden','true');for(const color of swatches){const dot=document.createElement('i');dot.style.background=color;samples.append(dot);}b.append(samples,document.createTextNode(name));b.onclick=()=>applyLook(key);$('lp-look-cards').append(b);}
@@ -558,8 +621,6 @@
       $('lp-style-place-settings').querySelector('.viz-controls').prepend(root.querySelector('[data-design="chargers"]').closest('label'));
       $('lp-style-place-settings').querySelector('summary').textContent='Custom plates, chargers, flatware & chairs';
       $('lp-style-linens').querySelector('summary').textContent='Custom fabric, napkins & glassware';
-      const toolbar=document.createElement('div');toolbar.className='lp-view-shortcuts';
-      for(const [label,tab]of [['Style a table','rentals'],['Wedding looks','decor'],['Arrange space','layout']]){const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=label;b.onclick=()=>{$('lp-tab-'+tab).click();if(tab==='rentals'){$('lp-rental-components').querySelector('[data-category=china]').click();view('table');}$('lp-editor').scrollIntoView({block:'nearest',behavior:'auto'});};toolbar.append(b);}const rehearsalShortcut=document.createElement('button');rehearsalShortcut.type='button';rehearsalShortcut.className='btn';rehearsalShortcut.textContent='Rehearsal dinner';rehearsalShortcut.onclick=()=>{$('lp-tab-layout').click();view('rehearsal');};toolbar.append(rehearsalShortcut);viewer.prepend(toolbar);
       $('lp-panel-ceremony').querySelector('.viz-controls').prepend($('lp-kitchen').closest('label'));
       for(const id of ['lp-arbor','lp-decor','lp-linens'])$('lp-panel-decor').prepend($(id).closest('label'));
       for(const tab of root.querySelectorAll('#lp-settings-tabs button'))tab.addEventListener('click',()=>{
@@ -574,13 +635,13 @@
     }
     function normalizePlan(raw){
       const out={...PLAN_DEFAULTS};
-      for(const [key,lo,hi] of [['rehearsalSeats',30,35],['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
-      for(const key of ['targetGuests','benchRows','aislePairs','rehearsalSeats'])out[key]=Math.round(out[key]);
-      for(const [key,choices]of Object.entries({flowerStands:['none','pedestal','plinth','urn'],standPosition:['entry','arbor','both'],barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
-      for(const key of ['dessert','doorGuides','power','houseCutaway','rehearsal','rehearsalBuffet','rehearsalBar'])if(typeof raw[key]==='boolean')out[key]=raw[key];
+      for(const [key,lo,hi] of [['patioTables',0,6],['rehearsalTrays',2,5],['rehearsalSeats',12,40],['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
+      for(const key of ['targetGuests','benchRows','aislePairs','rehearsalSeats','rehearsalTrays','patioTables'])out[key]=Math.round(out[key]);
+      for(const [key,choices]of Object.entries({entryDisplay:['none','mirror','memory','both'],rehearsalLayout:['banquet','farmhouse','cafe'],rehearsalTextile:['runner','full','bare'],rehearsalDecor:['vases','candles','greenery','none'],rehearsalSide:['right','left'],patioTableStyle:['linen','fitted','wood','metal'],patioDecor:['buds','candles','both','none'],flowerStands:['none','pedestal','plinth','urn'],standPosition:['entry','arbor','both'],barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
+      for(const key of ['dessert','doorGuides','power','houseCutaway','rehearsal','rehearsalBuffet','rehearsalBar','patioEnabled','patioGrazing','patioGuestbook','patioWelcome','patioBar','patioFire','patioGuides','danceVisible'])if(typeof raw[key]==='boolean')out[key]=raw[key];
       out.rowOffsets=Array.isArray(raw.rowOffsets)?[0,1,2].map(i=>n(raw.rowOffsets[i],[out.doorSetback,0,out.doorSetback][i],-3,6)):[out.doorSetback,0,out.doorSetback];
       out.cupcakeCount=Math.round(n(raw.cupcakeCount,48,12,96));out.dessertStyle=['tiers','platters','mixed'].includes(raw.dessertStyle)?raw.dessertStyle:'tiers';
-      out.aisleColor=hex(raw.aisleColor,out.aisleColor);out.disabledTables=Array.isArray(raw.disabledTables)?[...new Set(raw.disabledTables.filter(id=>/^table-(?:[1-9]|1[0-2])$/.test(id)))]:[];return out;
+      out.patioColor=hex(raw.patioColor,out.patioColor);out.aisleColor=hex(raw.aisleColor,out.aisleColor);out.disabledTables=Array.isArray(raw.disabledTables)?[...new Set(raw.disabledTables.filter(id=>/^table-(?:[1-9]|1[0-2])$/.test(id)))]:[];return out;
     }
     function normalizeDesign(raw){
       const out={...DESIGN_DEFAULTS};
@@ -624,12 +685,102 @@
       }out.design=normalizeDesign(raw.design||{});Object.assign(out,normalizePlan(raw));if(!/v9$/.test(raw.schema)&&Number(raw.deckWidth)===32&&Number(raw.deckDepth)===38){out.deckWidth=28;out.deckDepth=34;if(Number(raw.benchLength)===11)out.benchLength=9.5;}out.rentals=rentalLibrary.cleanState(raw.rentals,out);return out;
     }
     function normalizeOrbit(o){return {azimuth:n(o.azimuth,.35,-100,100),polar:n(o.polar,.67,.015,1.75),distance:n(o.distance,150,8,520),target:Array.isArray(o.target)?[n(o.target[0],0,-180,180),n(o.target[1],1,-30,200),n(o.target[2],0,-160,260)]:[0,1,0]};}
-    function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8,quality:['auto','mobile','high'].includes(raw?.quality)?raw.quality:'auto'};stage.style.height=navigation.height+'px';}
+    function restoreNavigation(raw){navigation={height:n(raw&&raw.height,680,360,1200),speed:raw&&[4,8,16].includes(Number(raw.speed))?Number(raw.speed):8,quality:['auto','mobile','high'].includes(raw?.quality)?raw.quality:'auto',editorWidth:n(raw?.editorWidth,440,320,740)};stage.style.height=navigation.height+'px';}
     function normalizeSeat(s){return {table:s.table==='couple'||/^table-(?:[1-9]|1[0-2])$/.test(s.table)?s.table:'couple',side:Number(s.side)===-1?-1:1,place:Math.round(n(s.place,1,1,4)),look:['across','couple','dance','lake','house'].includes(s.look)?s.look:'across',eye:n(s.eye,3.8,3.2,4.5),yaw:n(s.yaw,0,-100,100),pitch:n(s.pitch,-.04,-1.2,1.2)};}
     function normalizeWalk(w){return {x:n(w.x,0,-110,110),y:n(w.y,5.5,3,200),z:n(w.z,-16,-145,220),yaw:n(w.yaw,Math.PI,-100,100),pitch:n(w.pitch,0,-1.5,1.5),surface:Number.isFinite(w.surface)?n(w.surface,0,-30,60):null};}
     function normalizeTour(t){return {time:n(t.time,0,0,600),speed:[.5,1,1.5,2].includes(Number(t.speed))?Number(t.speed):1};}
     let lastPublished='';const publishedStates=new Set();
-    function saveState(){if(window.openai&&window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,seat,tour,navigation}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size>32)publishedStates.delete(publishedStates.values().next().value);Promise.resolve(window.openai.setWidgetState(snapshot)).catch(()=>{});}}
+    let writeRevision=0;
+    function saveState(){
+      if(workflowReady){noteHistory();syncWorkflow();}
+      if(window.openai&&window.openai.setWidgetState){const snapshot={modelContent:config,privateContent:{orbit,view:activeView,walk,seat,tour,navigation,studio}};lastPublished=JSON.stringify(snapshot);publishedStates.add(lastPublished);if(publishedStates.size>32)publishedStates.delete(publishedStates.values().next().value);const revision=++writeRevision;$('lp-save-status').textContent='Saving…';Promise.resolve(window.openai.setWidgetState(snapshot)).then(()=>{if(revision===writeRevision)$('lp-save-status').textContent='Saved on this device';}).catch(()=>{if(revision===writeRevision)$('lp-save-status').textContent='Browser save unavailable · download your layout';});}
+    }
+    function normalizeStudio(raw={}){
+      const out={event:['reception','patio','ceremony','rehearsal'].includes(raw.event)?raw.event:'reception',boards:[],compare:[],trash:null};
+      for(const b of Array.isArray(raw.boards)?raw.boards.slice(0,6):[]){try{if(!b||typeof b.id!=='string'||out.boards.some(x=>x.id===b.id)||!b.snapshot?.model)continue;out.boards.push({id:b.id.slice(0,80),name:planning.cleanDesignName(b.name)||'Saved design',snapshot:cleanSnapshot(b.snapshot)});}catch{}}
+      out.compare=(Array.isArray(raw.compare)?raw.compare:[]).filter(id=>out.boards.some(b=>b.id===id)).slice(-2);
+      if(raw.trash?.snapshot?.model){try{out.trash={id:String(raw.trash.id).slice(0,80),name:planning.cleanDesignName(raw.trash.name)||'Saved design',snapshot:cleanSnapshot(raw.trash.snapshot)};}catch{}}
+      return out;
+    }
+    function cleanSnapshot(raw){return {model:normalize(raw.model),camera:normalizeOrbit(raw.camera||{}),walk:normalizeWalk(raw.walk||{}),seat:normalizeSeat(raw.seat||{}),tour:normalizeTour(raw.tour||{}),view:typeof raw.view==='string'?raw.view.slice(0,30):'perspective',event:['reception','patio','ceremony','rehearsal'].includes(raw.event)?raw.event:'reception'};}
+    function currentSnapshot(){return JSON.parse(JSON.stringify({model:config,camera:orbit,walk,seat,tour,view:activeView,event:studio.event}));}
+    function applySnapshot(raw){const s=cleanSnapshot(raw);stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=s.model;orbit=s.camera;walk=s.walk;seat=s.seat;tour=s.tour;studio.event=s.event;restoreProjection(s.view);rebuild();syncWorkflow();saveState();}
+    function noteHistory(){
+      const next=currentSnapshot();if(editHistory.current&&JSON.stringify(next.model)!==JSON.stringify(editHistory.current.model)&&!editHistory.suspended){editHistory.past.push(editHistory.current);if(editHistory.past.length>30)editHistory.past.shift();editHistory.future=[];}
+      editHistory.current=next;$('lp-undo').disabled=!editHistory.past.length;$('lp-redo').disabled=!editHistory.future.length;
+    }
+    function historyStep(back){clearTimeout(rebuildTimer);refreshDecor();noteHistory();const from=back?editHistory.past:editHistory.future,to=back?editHistory.future:editHistory.past;if(!from.length)return;to.push(currentSnapshot());const snapshot=from.pop();editHistory.suspended=true;try{applySnapshot(snapshot);}finally{editHistory.suspended=false;noteHistory();}}
+    function activateTab(name){$('lp-tab-'+name).click();}
+    function setEvent(name){studio.event=name;activateTab(name==='patio'?'patio':name==='ceremony'?'ceremony':'layout');if(name==='rehearsal')$('lp-rehearsal-section').open=true;view(name==='reception'?'perspective':name);syncWorkflow();saveState();}
+    function syncWorkspace(){const max=Math.max(320,Math.min(740,$('lp-workspace').clientWidth-394));navigation.editorWidth=n(navigation.editorWidth,440,320,740);root.style.setProperty('--editor-width',Math.min(navigation.editorWidth,max)+'px');$('lp-divider').setAttribute('aria-valuenow',String(Math.round(Math.min(navigation.editorWidth,max))));}
+    function syncWorkflow(){
+      if(!workflowReady)return;
+      const spec=planning.rehearsalPlan(config),patio=planning.patioPlan(config);
+      for(const event of ['reception','patio','ceremony','rehearsal'])$('lp-event-'+event).setAttribute('aria-pressed',String(studio.event===event));
+      const count=(12-config.disabledTables.length)*8;
+      $('lp-event-summary').textContent=studio.event==='rehearsal'?spec.shown+' seats shown / '+spec.requested+' guests · '+spec.tables.length+' tables'+(spec.missing?' · '+spec.missing+' seats still needed':''):studio.event==='patio'?patio.shown+' cocktail tables · '+patio.services.length+' service stations · center approach reserved':studio.event==='ceremony'?ceremonySpec().rows+' bench rows per side · photo-based deck':count+' guest seats / '+config.targetGuests+' guests · '+(count<config.targetGuests?(config.targetGuests-count)+' more seats needed':'seating count covered');
+      $('lp-patio-status').textContent=(config.patioEnabled?'Showing ':'Proposed ')+patio.shown+' of '+patio.requested+' requested cocktail tables. '+(patio.missing?'Some positions are reserved for service stations. Reduce service stations to free space. ':'')+'Furniture avoids the modeled center route; confirm guest and service circulation with the venue.';
+      $('lp-rehearsal-status').textContent=spec.shown+' seats shown / '+spec.requested+' requested · '+spec.tables.length+' tables · approx. '+spec.aisle+' ft center aisle. '+(spec.missing?spec.missing+' additional seats needed; try the banquet rows or use another room.':'');
+      for(const [id,key]of workflowFields)$(id)[typeof config[key]==='boolean'?'checked':'value']=config[key];
+      $('lp-design-restore').hidden=!studio.trash;syncWorkspace();
+    }
+    function drawBoards(){
+      const list=$('lp-design-list');list.replaceChildren();
+      for(const b of studio.boards){const card=rentalNode('article',undefined,'lp-version-card');card.dataset.board=b.id;card.append(rentalNode('h4',b.name));const facts=planning.planningFacts(b.snapshot.model);card.append(rentalNode('p',facts[1][1]+' reception seats · '+facts[6][1]+' rehearsal seats','text-small'));const row=rentalNode('div',undefined,'viz-row');
+        for(const [action,label]of [['load','View this version'],['compare','Compare'],['remove','Remove']]){const button=rentalButton(label,'boardAction',action);button.dataset.boardId=b.id;if(action==='compare')button.setAttribute('aria-pressed',String(studio.compare.includes(b.id)));row.append(button);}card.append(row);list.append(card);
+      }
+      if(!studio.boards.length)list.append(rentalNode('p','No saved versions yet. Give this design a name and save your first option.','text-small'));
+      const comparison=$('lp-design-comparison');comparison.replaceChildren();
+      const chosen=studio.compare.map(id=>studio.boards.find(b=>b.id===id)).filter(Boolean);
+      if(chosen.length===2){comparison.append(rentalNode('h4','Compare your two versions'));const table=rentalNode('table');table.className='lp-compare-table';const head=rentalNode('tr');for(const text of ['Detail',chosen[0].name,chosen[1].name])head.append(rentalNode('th',text));const thead=rentalNode('thead');thead.append(head);table.append(thead);const body=rentalNode('tbody'),a=planning.planningFacts(chosen[0].snapshot.model),b=planning.planningFacts(chosen[1].snapshot.model);a.forEach(([label,value],i)=>{const row=rentalNode('tr');if(value!==b[i][1])row.className='lp-different';for(const text of [label,value,b[i][1]])row.append(rentalNode('td',text));body.append(row);});table.append(body);comparison.append(table);}else comparison.append(rentalNode('p','Choose Compare on two saved versions to see what changes. Load either into the single render.','text-small'));
+    }
+    function downloadFile(name,source){
+      const blob=typeof source==='function'?Promise.resolve().then(source):source;
+      const result=window.openai?.downloadFile?window.openai.downloadFile({name,blob}):Promise.resolve(blob).then(file=>{const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);});
+      return Promise.resolve(result).catch(()=>{$('lp-design-status').textContent='The download could not be created. Try Light graphics mode or download layout JSON.';});
+    }
+    function downloadBrief(){
+      const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const facts=planning.planningFacts(config),items=[...new Set([...Object.values(config.rentals.applied),...config.rentals.shortlist])].map(id=>rentalLibrary.get(id)).filter(Boolean);
+      const rows=facts.map(([k,v])=>'<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>').join('');
+      const rentals=items.map(item=>'<li>'+esc(rentalLibrary.data.vendors[item.vendor].name)+' · '+esc(item.name)+' · '+esc(rentalLibrary.price(item))+'<br><a href="'+esc(item.url)+'">Supplier listing</a></li>').join('');
+      const html='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Venue planning brief</title><style>body{font:15px/1.6 system-ui;max-width:900px;margin:40px auto;padding:24px;color:#2d4537}h1,h2{font-family:Georgia}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid #ddd}li{margin:14px 0}a{color:#476245}@media print{body{margin:0}li,tr{break-inside:avoid}}</style><h1>Wedding design · planning brief</h1><p>Use this working brief with your venue and suppliers. Dimensions, arrangements and counts describe the model; they are not a booking or a venue capacity approval.</p><h2>Current setup</h2><table>'+rows+'</table><h2>Saved design versions</h2><ul>'+studio.boards.map(b=>'<li>'+esc(b.name)+'</li>').join('')+'</ul><h2>Rental references</h2><ul>'+rentals+'</ul><p>Published unit prices exclude unconfirmed quantities, availability, delivery, setup, fees and taxes. Photos and supplier samples are the reference for exact finishes.</p><p>House and grounds are photo-based approximations. Confirm the porch and patio furniture fit, fixed fire-table position, accessible routes and service arrangements with the venue.</p></html>';
+      downloadFile('venue-planning-brief.html',new Blob([html],{type:'text/html'}));
+    }
+    function initializeWorkflow(){
+      // Each custom control has one canonical home. The same catalog moves to
+      // the appropriate area instead of maintaining duplicate rental selectors.
+      const dining=$('lp-dining-custom'),lounge=$('lp-panel-lounge');
+      dining.append($('lp-design-tables'),$('lp-style-linens'),$('lp-style-place-settings'));
+      for(const id of ['lp-decor','lp-linens'])dining.prepend($(id).closest('label'));
+      lounge.prepend($('lp-design-sofas'));lounge.append($('lp-finishes'));
+      for(const id of ['lp-house-rise','lp-lake-drop'])$('lp-display-tools').append($(id).closest('label'));
+      $('lp-finishes').querySelector('summary').textContent='Dance floor · size, material & colors';
+      const research=rentalNode('a','Photo research & model accuracy ↗');research.href='https://james-crowley.github.io/wedding/research.html';research.target='_blank';research.rel='noopener noreferrer';$('lp-panel-view').append(research);
+      $('lp-panel-ceremony').append($('lp-design-arbors'),$('lp-arbor').closest('label'));
+      const saveRow=$('lp-save').parentElement;$('lp-panel-save').append(saveRow,$('lp-json-wrap'));$('lp-panel-layout').append($('lp-furniture'),$('lp-action').closest('label'));
+      const nav=$('lp-viewer').querySelector('.lp-navigation'),old=nav.querySelector('.viz-controls');$('lp-display-tools').append(old);
+      for(const id of ['lp-roof','lp-label-toggle','lp-context','lp-grid'])$('lp-display-tools').append($(id).closest('label'));
+      nav.querySelector('summary').textContent='Camera & movement';
+      const catalog=$('lp-catalog-body');for(const el of [...$('lp-panel-rentals').children])if(![catalog,dining].includes(el)&&!el.matches('h3,.lp-eyebrow'))catalog.append(el);
+      const setCatalog=tab=>{if(!['lp-tab-rentals','lp-tab-lounge'].includes(tab.id))return;const isLounge=tab.id==='lp-tab-lounge';(isLounge?$('lp-lounge-catalog-slot'):$('lp-panel-rentals')).append(catalog);for(const button of $('lp-rental-components').children)button.hidden=button.dataset.category!=='all'&&(isLounge?!['lounge','dance','bars'].includes(button.dataset.category):['lounge','dance','bars'].includes(button.dataset.category));const category=$('lp-rental-category').value;if(isLounge&&!['lounge','dance','bars','all'].includes(category))$('lp-rental-category').value='lounge';else if(!isLounge&&['lounge','dance','bars'].includes(category))$('lp-rental-category').value='china';rentalPage=0;renderRentalLibrary();};
+      for(const name of ['layout','rentals','lounge','patio','ceremony','decor','view','save'])$('lp-settings-tabs').append($('lp-tab-'+name));
+      const tabs=[...root.querySelectorAll('#lp-settings-tabs [role=tab]')];
+      tabs.forEach(tab=>{tab.tabIndex=tab.getAttribute('aria-selected')==='true'?0:-1;tab.addEventListener('click',()=>{for(const peer of tabs)peer.tabIndex=peer===tab?0:-1;setCatalog(tab);});tab.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();event.stopPropagation();const i=tabs.indexOf(tab),next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(i+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();tabs[next].focus({preventScroll:true});});});
+      for(const event of ['reception','patio','ceremony','rehearsal'])$('lp-event-'+event).onclick=()=>setEvent(event);
+      for(const [id,key]of workflowFields)$(id).addEventListener('change',event=>{config[key]=event.target.type==='checkbox'?event.target.checked:event.target.value;Object.assign(config,normalizePlan(config));if(id.startsWith('lp-patio'))config.context=true;rebuild();syncWorkflow();saveState();});
+      $('lp-patio-show').onclick=()=>setEvent('patio');$('lp-patio-walk').onclick=()=>{config.patioEnabled=true;config.context=true;rebuild();stopWalking();pauseTour(false);studio.event='patio';restoreProjection('walk');walk={x:0,y:5.5,z:-61,yaw:Math.PI,pitch:0,surface:config.houseRise};applyAppearance();syncControls();draw();saveState();};
+      const divider=$('lp-divider');divider.addEventListener('pointerdown',event=>{if(!matchMedia('(min-width:1101px)').matches)return;event.preventDefault();divider.setPointerCapture(event.pointerId);root.classList.add('lp-resizing');});divider.addEventListener('pointermove',event=>{if(!divider.hasPointerCapture(event.pointerId))return;const rect=$('lp-workspace').getBoundingClientRect();navigation.editorWidth=n(rect.right-event.clientX,440,320,Math.min(740,rect.width-394));syncWorkspace();});
+      const finish=()=>{root.classList.remove('lp-resizing');saveState();};divider.addEventListener('pointerup',finish);divider.addEventListener('lostpointercapture',finish);divider.addEventListener('dblclick',()=>{navigation.editorWidth=440;syncWorkspace();saveState();});divider.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End','Enter'].includes(event.key))return;event.preventDefault();event.stopPropagation();const step=event.shiftKey?40:20;navigation.editorWidth=event.key==='Home'?320:event.key==='End'?740:event.key==='Enter'?440:navigation.editorWidth+(event.key==='ArrowLeft'?step:-step);syncWorkspace();saveState();});
+      new ResizeObserver(syncWorkspace).observe($('lp-workspace'));setCatalog($('lp-tab-rentals'));
+      $('lp-undo').onclick=()=>historyStep(true);$('lp-redo').onclick=()=>historyStep(false);
+      window.addEventListener('keydown',event=>{if(!(event.metaKey||event.ctrlKey)||/INPUT|TEXTAREA|SELECT/.test(event.target.tagName)||event.target.isContentEditable)return;const key=event.key.toLowerCase();if(key==='z'||key==='y'){event.preventDefault();historyStep(key==='z'&&!event.shiftKey);}});
+      $('lp-design-save').onclick=()=>{clearTimeout(rebuildTimer);refreshDecor();if(studio.boards.length>=6){$('lp-design-status').textContent='Six versions saved. Remove one before adding another; removal can be restored.';return;}const name=planning.cleanDesignName($('lp-design-name').value)||'Design '+(studio.boards.length+1);studio.boards.push({id:Date.now().toString(36)+'-'+studio.boards.length,name,snapshot:currentSnapshot()});drawBoards();saveState();$('lp-design-status').textContent='Version saved in this browser. Download a layout for another device.';};
+      $('lp-design-list').onclick=event=>{const button=event.target.closest('[data-board-action]');if(!button)return;const b=studio.boards.find(b=>b.id===button.dataset.boardId);if(!b)return;if(button.dataset.boardAction==='load')applySnapshot(b.snapshot);else if(button.dataset.boardAction==='compare'){studio.compare=studio.compare.filter(id=>id!==b.id);studio.compare.push(b.id);studio.compare=studio.compare.slice(-2);}else{studio.trash=b;studio.boards=studio.boards.filter(x=>x.id!==b.id);studio.compare=studio.compare.filter(id=>id!==b.id);}drawBoards();syncWorkflow();saveState();};
+      $('lp-design-restore').onclick=()=>{if(studio.trash&&studio.boards.length<6){studio.boards.push(studio.trash);studio.trash=null;drawBoards();syncWorkflow();saveState();}};
+      $('lp-snapshot').onclick=()=>downloadFile('venue-design.png',()=>{draw();const image=document.createElement('canvas');image.width=canvas.width;image.height=canvas.height+90;const ctx=image.getContext('2d');ctx.fillStyle='#fbfcf8';ctx.fillRect(0,0,image.width,image.height);ctx.fillStyle='#364033';ctx.font=Math.max(12,image.width/55)+'px sans-serif';ctx.fillText('Lakeside Estate · '+studio.event+' design',18,28);ctx.drawImage(canvas,0,48);ctx.font=Math.max(10,image.width/75)+'px sans-serif';ctx.fillText('Planning concept · unmeasured dimensions are estimates',18,image.height-14);const raw=atob(image.toDataURL('image/png').split(',')[1]),bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));return new Blob([bytes],{type:'image/png'});});
+      $('lp-brief').onclick=downloadBrief;workflowReady=true;drawBoards();syncWorkflow();
+    }
     function color(token){
       const probe=document.createElement('span');probe.style.color='var('+token+')';root.appendChild(probe);const s=getComputedStyle(probe).color;probe.remove();
       const c=document.createElement('canvas');c.width=c.height=1;const ctx=c.getContext('2d');ctx.fillStyle=s;ctx.fillRect(0,0,1,1);const d=ctx.getImageData(0,0,1,1).data;
@@ -653,7 +804,7 @@
       materials.stoneLight=standard(stoneTone.clone().lerp(bright,.17),{roughness:1});
       materials.stoneDark=standard(stoneTone.clone().lerp(dark,.23),{roughness:1});
       materials.stoneWarm=standard(stoneTone.clone().lerp(colors.wood,.22),{roughness:1});
-      materials.houseLeather=standard(new T.Color('#624332'),{roughness:.6});materials.houseCream=standard(new T.Color('#eee5d5'));
+      materials.mirror=standard(new T.Color('#b7c3bf'),{metalness:.75,roughness:.18});materials.patioLinen=standard(new T.Color(config.patioColor),{roughness:1,side:T.DoubleSide});materials.houseRug=standard(new T.Color('#8d8070'));materials.houseLeather=standard(new T.Color('#624332'),{roughness:.6});materials.houseCream=standard(new T.Color('#eee5d5'));
       materials.porchFloor=standard(colors.concrete.clone().lerp(bright,.27),{map:concrete,roughness:1});
       materials.deckwood.color.copy(colors.wood).lerp(colors.concrete,.35).lerp(bright,.13);
       // Physical finish colors follow the supplied decor photos, independent of the interface theme.
@@ -1207,7 +1358,7 @@
       timberRamp(-32,-24.5,10,'metal');
       pavilionGrounds();timberRamp(24.5,32,10,'metal');
       ribbon([[0,32],[0,39],[0,52]],8,materials.floor,.06,true);ribbon([[0,52],[0,57.5]],10,materials.paver,.07,true);
-      house();ceremony();courtyardLights();if(config.kitchen)kitchenTent();
+      house();ceremony();courtyardLights();welcomeDisplay();if(config.kitchen)kitchenTent();
       // Woodland edges visible in the supplied house, pavilion and dock photos.
       const canopy=new T.SphereGeometry(1,10,8),trunk=new T.CylinderGeometry(.40,.70,1,9),trees=[];
       let seed=781;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
@@ -1471,8 +1622,8 @@
       porchCeiling=new T.Group();porchCeiling.name='Porch ceiling';h.add(porchCeiling);box(porchCeiling,50,.35,13,0,17.4,-70.7,materials.frame);
       // Stone lower facade and the open lower patio under the screened porch.
       for(const x of [-14,0,14])windowHouse(exterior,x,3.5,front+.35,5.6,6.6);
-      for(const x of [-24,-16,-8,0,8,16,24]){
-        box(h,1.2,8,1.2,x,3.8,-64.8,materials.stone);
+      for(const x of [-24,-15,-6,6,15,24]){
+        const pier=new T.Group();pier.name='Patio support pier';pier.position.set(x,0,-64.8);h.add(pier);box(pier,1.2,8,1.2,0,3.8,0,materials.stone);
         box(h,.36,9.4,.36,x,12.5,-64.8,materials.wood);
         box(h,.11,8.8,.11,x,12.5,-64.65,materials.metal);
       }
@@ -1482,11 +1633,15 @@
       box(h,50,.18,.18,0,10.4,-64.5,materials.wood);
       box(h,50,.15,12.5,0,.02,-70.5,materials.porchFloor);
       box(h,50,.14,12.5,0,7.54,-70.5,materials.siding);
-      for(const x of [-24,-16,-8,0,8,16,24])box(h,1.35,8,1.35,x,3.75,-64.8,materials.stone);
-      // Long stone-clad fire island, gray counter and recessed burner (photo-based; dimensions estimated).
-      box(h,12,2.5,3.4,5,1.25,-60.5,materials.stone);box(h,12.5,.18,3.9,5,2.59,-60.5,materials.stoneLight);
-      box(h,6.8,.035,1.25,5,2.70,-60.5,materials.metal);
-      for(let i=0;i<20;i++)cylinder(h,.09,.06,2+ i*.31,2.75,-60.5+Math.sin(i*2.4)*.36,materials.darkwood);
+      // Six photo-based support piers leave the central approach open.
+      // Their exact spacing is unmeasured; avoid duplicated coplanar piers.
+      // Fire-table axis follows the two photo angles: toward the pavilion,
+      // within the covered terrace, away from the central paver approach.
+      const fireSpec=planning.patioPlan(config).fire;
+      if(config.patioFire){const fire=new T.Group();fire.name='Venue fire table';fire.position.set(fireSpec.x,0,fireSpec.z);h.add(fire);
+        box(fire,fireSpec.w-.25,2.6,fireSpec.d-.25,0,1.3,0,materials.stone);box(fire,fireSpec.w,.18,fireSpec.d,0,2.69,0,materials.stoneLight);box(fire,2.1,.06,5.6,0,2.81,0,materials.metal);
+        for(let i=0;i<48;i++)cylinder(fire,.10+(i%3)*.025,.08,Math.sin(i*2.4)*.8,2.86,-2.6+(i%16)*.34,materials.stoneDark);
+      }
       // Porch has gray planks, warm wood ceiling and cushioned black rockers.
       for(let z=-76.5;z< -64.8;z+=.55)box(h,49,.045,.52,0,8.08,z,materials.porchFloor);
       box(porchCeiling,49,.07,12,0,17.15,-70.7,materials.wood);
@@ -1496,7 +1651,7 @@
       box(exterior,5,23,3.2,-12,11,-104,materials.stone);box(exterior,3.6,7,2.9,-12,26,-104,materials.stone);
       staircase(h);houseInterior(h);
       // Patio tables and the strings across the courtyard seen in the photographs.
-      for(const x of [-18,18]){cylinder(h,1.7,.12,x,2,-59,materials.darkwood);cylinder(h,.1,2,x,1,-59,materials.metal);}
+      if(config.patioEnabled)cocktailPatio(h);
 
     }
     function houseInterior(h){
@@ -1511,10 +1666,18 @@
       if(!config.rehearsal||!config.rehearsalBuffet){const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i<6;i++)chair(dining,-5.7+i*2.25,side*2.6,side>0?0:Math.PI);}
       for(let i=0;i<5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.darkwood);}
       box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.darkwood);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
-      box(h,5.5,12,1.4,13,14.2,-101.2,materials.stone);box(h,3,3,.2,13,10,-100.42,materials.metal);box(h,6,.20,2.1,13,12,-100.2,materials.darkwood);
       const couch=new T.Group();couch.position.set(13,8.2,-94.4);h.add(couch);box(couch,6.8,.65,2.9,0,.7,0,materials.houseLeather);box(couch,6.8,1.7,.5,0,1.65,1.2,materials.houseLeather);for(const x of [-3.1,3.1])box(couch,.55,1.4,2.9,x,1.2,0,materials.houseLeather);for(const x of [-2,0,2])box(couch,1.9,.3,2.3,x,1.2,-.1,materials.houseLeather);box(h,4.4,.18,2.5,13,9.6,-97.6,materials.wood);
-      // Loft edge and dark spindle railing, leaving the central living space open.
-      for(const side of [-1,1]){box(h,7,.22,25,side*16.5,18.3,-90,materials.wood);for(let z=-101;z<=-78;z+=.65)box(h,.055,2.7,.055,side*13.05,19.75,z,materials.metal);box(h,.13,.15,25,side*13.05,21.1,-90,materials.darkwood);}
+      // The photos show one narrow central catwalk, not two broad side lofts.
+      // Span, orientation and stair connection remain architectural estimates.
+      const catwalk=new T.Group();catwalk.name='House central catwalk';h.add(catwalk);
+      box(catwalk,4,.22,21,0,18.3,-90,materials.wood);box(catwalk,40,.22,3.5,0,18.3,-101,materials.wood);
+      for(const side of [-1,1]){for(let z=-99.5;z<=-79.5;z+=.45)box(catwalk,.055,2.8,.055,side*2,19.8,z,materials.metal);box(catwalk,.16,.16,20.5,side*2,21.25,-89.7,materials.darkwood);box(catwalk,.10,.10,20.5,side*2,18.6,-89.7,materials.metal);}
+      // Room details observed in the house tour; room boundaries are provisional.
+      for(const x of [-14,-10,-6]){cylinder(h,.65,.14,x,10.1,-92.8,materials.wood);for(const dx of [-.4,.4])for(const dz of [-.4,.4])box(h,.09,1.8,.09,x+dx,9.1,-92.8+dz,materials.darkwood);cylinder(h,.045,2.2,x,16.9,-95.4,materials.metal);cylinder(h,.65,.38,x,15.65,-95.4,materials.metal);cylinder(h,.25,.06,x,15.43,-95.4,materials.bulb);}
+      for(let i=0;i<5;i++){const x=-17+i*3.4;box(h,3.0,2.5,.045,x,9.75,-99.76,materials.darkwood);box(h,.06,.3,.07,x+1.1,10,-99.7,materials.gold);}
+      box(h,10,.2,3,13,8.3,-100.2,materials.stoneLight);box(h,9,10,1.35,13,13.2,-101.15,materials.stone);box(h,4.6,3.1,.12,13,10.1,-100.4,materials.metal);box(h,9.5,.27,1.9,13,12.2,-100.1,materials.darkwood);
+      box(h,3.2,2.7,.09,13,15,-100.4,materials.darkwood);box(h,2.8,2.3,.10,13,15,-100.3,materials.houseCream);
+      box(h,12,.025,8,13,8.18,-94.5,materials.houseRug);for(let i=0;i<7;i++)box(h,.09,.026,7.8,7.5+i*1.8,8.205,-94.5,materials.houseCream);for(let i=0;i<5;i++)box(h,11.8,.026,.09,13,8.21,-98+i*1.7,materials.houseCream);
       // Ground-level pool table, shuffleboard, TV and bar visible in the reference album.
       box(h,4.7,2.3,8.3,0,1.25,-89,materials.darkwood);box(h,4.3,.10,7.8,0,2.46,-89,materials.decorLeaf);for(const x of [-2.3,2.3])box(h,.2,.3,8.3,x,2.6,-89,materials.wood);for(const z of [-93.1,-84.9])box(h,4.8,.3,.22,0,2.6,z,materials.wood);
       for(let i=0;i<10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.gold);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
@@ -1525,40 +1688,74 @@
     }
     function rehearsalDinner(h){
       const dinner=new T.Group();dinner.name='Rehearsal dinner';dinner.position.y=8.14;h.add(dinner);
-      // Two 18 ft rows leave an 8 ft center route. No end chairs obstruct it.
-      let remaining=config.rehearsalSeats;
-      for(const [row,cx]of [[0,-13],[1,13]]){
-        const rowSeats=Math.ceil(remaining/(2-row));remaining-=rowSeats;
-        for(let i=0;i<3;i++){
-          const t=new T.Group();t.name='Rehearsal banquet table';t.position.set(cx-6+i*6,0,-70.5);dinner.add(t);
-          box(t,6,.18,2.5,0,2.42,0,materials.linen);for(const x of [-2.3,2.3])for(const z of [-.9,.9])box(t,.12,2.3,.12,x,1.15,z,materials.metal);
-          box(t,5.8,.035,.65,0,2.53,0,materials.napkin);
-          cylinder(t,.13,.5,0,2.8,0,materials.vase);for(const dx of [-.17,0,.17]){cylinder(t,.015,.7,dx,3.2,0,materials.decorLeaf);cylinder(t,.13,.12,dx,3.56,0,materials.flowerIvory);}
-        }
-        for(const [side,count]of [[-1,Math.ceil(rowSeats/2)],[1,Math.floor(rowSeats/2)]])for(let i=0;i<count;i++){
-          const x=cx-9+(i+.5)*18/count,z=-70.5+side*2.35;
-          const place=new T.Group();place.name='Rehearsal seat';place.userData.rehearsalSeat=true;dinner.add(place);chair(place,x,z,side>0?0:Math.PI);
-          cylinder(dinner,.37,.04,x,2.55,-70.5+side*.77,materials.china);
-          for(const dx of [-.52,.52])box(dinner,.045,.035,.5,x+dx,2.56,-70.5+side*.77,materials.flatware);
-          cylinder(dinner,.12,.34,x+.4,2.72,-70.5+side*.4,materials.goblet);
-        }
+      const spec=planning.rehearsalPlan(config);
+      for(const t of spec.tables){
+        const g=new T.Group();g.name='Rehearsal banquet table';g.position.set(t.x,0,t.z);dinner.add(g);
+        const top=config.rehearsalTextile==='full'?materials.linen:materials.wood;
+        if(t.round)cylinder(g,t.length/2,.18,0,2.42,0,top);else box(g,t.length,.18,t.width,0,2.42,0,top);
+        for(const x of [-t.length*.34,t.length*.34])for(const z of [-t.width*.3,t.width*.3])box(g,.12,2.3,.12,x,1.15,z,materials.metal);
+        if(config.rehearsalTextile==='full'&&!t.round){for(const side of [-1,1])box(g,t.length,.9,.03,0,2.0,side*t.width/2,materials.linen);}
+        if(config.rehearsalTextile==='runner')box(g,t.length-.2,.025,.65,0,2.53,0,materials.napkin);
+        smallArrangement(g,2.56,config.rehearsalDecor==='vases'?'buds':config.rehearsalDecor==='none'?'none':config.rehearsalDecor==='greenery'?'both':'candles');
+      }
+      for(const seat of spec.seats){
+        const place=new T.Group();place.name='Rehearsal seat';place.userData.rehearsalSeat=true;dinner.add(place);chair(place,seat.x,seat.z,seat.r);
+        const dx=Math.sin(seat.r)*1.55,dz=Math.cos(seat.r)*1.55,x=seat.x-dx,z=seat.z-dz;
+        cylinder(dinner,.37,.04,x,2.55,z,materials.china);for(const offset of [-.52,.52])box(dinner,.045,.035,.5,x+offset,2.56,z,materials.flatware);cylinder(dinner,.12,.34,x+.4,2.72,z-.35,materials.goblet);
       }
       if(config.rehearsalBuffet){
-        const buffet=new T.Group();buffet.name='Rehearsal tray buffet';buffet.position.set(-8,0,-84);dinner.add(buffet);
+        const buffet=new T.Group();buffet.name='Rehearsal tray buffet';buffet.position.set(config.rehearsalSide==='left'?8:-8,0,-84);dinner.add(buffet);
         box(buffet,12,.2,2.5,0,2.45,0,materials.linen);for(const x of [-5,5])for(const z of [-.9,.9])box(buffet,.12,2.4,.12,x,1.2,z,materials.metal);
-        for(const x of [-4,-1.4,1.2]){const tray=new T.Group();tray.name='Buffet serving tray';buffet.add(tray);box(tray,2,.13,1.5,x,2.64,0,materials.flatware);box(tray,1.75,.09,1.25,x,2.75,0,materials.gold);for(const dx of [-.85,.85])box(tray,.06,.35,1.3,x+dx,2.4,0,materials.metal);box(tray,.04,.05,1,x,2.85,.2,materials.flatware);}
-        for(let i=0;i<10;i++)cylinder(buffet,.40,.035,4.3,2.58+i*.04,0,materials.china);
-        tag('Tray buffet · serve from porch side',[-8,config.houseRise+12,-84],'context');
+        for(let trayIndex=0;trayIndex<config.rehearsalTrays;trayIndex++){const x=-4.5+trayIndex*2;const tray=new T.Group();tray.name='Buffet serving tray';buffet.add(tray);box(tray,2,.13,1.5,x,2.64,0,materials.flatware);box(tray,1.75,.09,1.25,x,2.75,0,materials.gold);for(const dx of [-.85,.85])box(tray,.06,.35,1.3,x+dx,2.4,0,materials.metal);box(tray,.04,.05,1,x,2.85,.2,materials.flatware);}
+        for(let i=0;i<10;i++)cylinder(buffet,.40,.035,5.1,2.58+i*.04,0,materials.china);
+        tag('Tray buffet · serve from porch side',[config.rehearsalSide==='left'?8:-8,config.houseRise+12,-84],'context');
       }
       if(config.rehearsalBar){
-        const bar=new T.Group();bar.name='Rehearsal bartending station';bar.position.set(15,0,-83);dinner.add(bar);
+        const bar=new T.Group();bar.name='Rehearsal bartending station';bar.position.set(config.rehearsalSide==='left'?-15:15,0,-83);dinner.add(bar);
         box(bar,6,3.4,2.2,0,1.7,0,materials.rentalBar);box(bar,6.3,.16,2.5,0,3.48,0,materials.darkwood);
         for(let i=0;i<6;i++){cylinder(bar,.12,.65,-2+i*.38,3.86,.45,materials.goblet);cylinder(bar,.065,.16,-2+i*.38,4.26,.45,materials.metal);}
         for(let i=0;i<8;i++)cylinder(bar,.12,.35,.7+i%4*.33,3.75,-.5+Math.floor(i/4)*.4,materials.goblet);
         box(bar,1.5,.5,1,2,3.8,.5,materials.flatware);
-        tag('Bartending station · staffed service',[15,config.houseRise+13,-83],'context');
+        tag('Bartending station · staffed service',[config.rehearsalSide==='left'?-15:15,config.houseRise+13,-83],'context');
       }
-      tag(config.rehearsalSeats+' porch seats · rehearsal dinner',[0,config.houseRise+13,-70.5],'context');
+      tag(spec.shown+' porch seats · rehearsal dinner',[0,config.houseRise+13,-70.5],'context');
+    }
+    function welcomeDisplay(){
+      if(config.entryDisplay==='none')return;
+      if(['mirror','both'].includes(config.entryDisplay)){const g=new T.Group();g.name='Framed mirror seating chart';g.position.set(8,.04,-22);g.rotation.x=-.06;context.add(g);box(g,2.6,5.5,.12,0,2.8,0,materials.mirror);for(const x of [-1.4,1.4])box(g,.17,5.9,.20,x,2.8,0,materials.darkwood);for(const y of [-.05,5.7])box(g,2.95,.17,.20,0,y,0,materials.darkwood);for(let row=0;row<12;row++){beam(g,[-1.2,1+row*.34,.13],[1.2,1+row*.34,.13],.01,materials.wire);for(const x of [-.75,0,.75])box(g,.65,.23,.015,x,1+row*.34,.16,materials.china);}box(g,2.7,.12,1,0,0,.25,materials.darkwood);}
+      if(['memory','both'].includes(config.entryDisplay)){const g=new T.Group();g.name='Welcome photo and card table';g.position.set(-9,.04,-22);context.add(g);box(g,6,.18,2.5,0,2.45,0,materials.wood);for(const x of [-2.4,2.4])for(const z of [-.8,.8])box(g,.15,2.4,.15,x,1.2,z,materials.darkwood);box(g,5.9,.03,1.2,0,2.56,0,materials.linen);for(const x of [-1.9,-.5,.9]){box(g,.85,1.2,.12,x,3.15,.2,materials.gold);box(g,.70,1,.13,x,3.15,.12,materials.houseCream);}box(g,.95,.95,.95,2,3.05,0,materials.patioLinen);box(g,.5,.02,.05,2,3.54,0,materials.metal);}
+    }
+    function smallArrangement(parent,y,style){
+      if(style==='none')return;
+      const g=new T.Group();g.position.y=y;parent.add(g);
+      if(['buds','both'].includes(style)){
+        cylinder(g,.12,.45,0,.225,0,materials.vase);
+        for(let i=0;i<5;i++){const x=Math.sin(i*2.4)*.18,z=Math.cos(i*2.4)*.18;beam(g,[0,.25,0],[x,.78+i*.035,z],.015,materials.decorLeaf);cylinder(g,.13,.13,x,.82+i*.035,z,[materials.flowerIvory,materials.flowerBlue,materials.flowerWine][i%3]);}
+      }
+      if(['candles','both'].includes(style))for(const x of [-.42,.42]){cylinder(g,.16,.4,x,.2,0,materials.hurricane);cylinder(g,.11,.28,x,.14,0,materials.candle);cylinder(g,.035,.07,x,.31,0,materials.bulb);}
+    }
+    function cocktailPatio(h){
+      const plan=planning.patioPlan(config),g=new T.Group();g.name='Cocktail patio';h.add(g);
+      for(const t of plan.tables){const table=new T.Group();table.name='Patio cocktail table';table.position.set(t.x,0,t.z);g.add(table);const style=config.patioTableStyle,top=style==='wood'?materials.wood:style==='metal'?materials.metal:materials.patioLinen;
+        cylinder(table,1.35,.13,0,3.5,0,top);cylinder(table,.10,3.4,0,1.7,0,materials.metal);cylinder(table,.75,.10,0,.1,0,materials.metal);
+        if(['linen','fitted'].includes(style)){
+          const geom=new T.CylinderGeometry(1.35,style==='fitted'?.65:1.4,3.35,32,8,true),pos=geom.attributes.position;
+          for(let i=0;i<pos.count;i++){const a=Math.atan2(pos.getZ(i),pos.getX(i)),r=1+.035*Math.sin(a*14);pos.setX(i,pos.getX(i)*r);pos.setZ(i,pos.getZ(i)*r);}geom.computeVertexNormals();const cloth=new T.Mesh(geom,materials.patioLinen);cloth.position.y=1.78;table.add(cloth);
+        }smallArrangement(table,3.58,config.patioDecor);
+      }
+      for(const item of plan.services){const station=new T.Group();station.name='Patio '+item.id;station.position.set(item.x,0,item.z);g.add(station);const height=item.id==='bar'?3.4:2.5;
+        box(station,item.w,.16,item.d,0,height,0,item.id==='bar'?materials.rentalBar:materials.wood);
+        if(item.id==='bar'){box(station,item.w,height-.15,item.d-.2,0,height/2,0,materials.rentalBar);box(station,item.w+.2,.1,item.d+.2,0,height+.12,0,materials.darkwood);for(let i=0;i<6;i++)cylinder(station,.10,.65,-2+i*.35,height+.48,.45,materials.goblet);}
+        else for(const x of [-item.w*.4,item.w*.4])for(const z of [-item.d*.36,item.d*.36])box(station,.12,height,.12,x,height/2,z,materials.metal);
+        if(item.id==='grazing'){
+          for(const x of [-2.4,0,2.4]){box(station,1.9,.08,1.4,x,height+.13,0,materials.darkwood);for(let i=0;i<12;i++){cylinder(station,.12,.05,x+Math.sin(i*2.4)*.65,height+.2,Math.cos(i*2.4)*.4,i%2?materials.gold:materials.flowerIvory);}}
+          smallArrangement(station,height+.1,'buds');
+        }
+        if(item.id==='guestbook'){box(station,1.1,.12,.8,-.7,height+.14,0,materials.houseCream);box(station,1,.08,.72,-.7,height+.23,0,materials.china);box(station,.04,.035,.65,0,height+.18,0,materials.gold);box(station,.9,.9,.8,1,height+.5,0,materials.patioLinen);box(station,.45,.035,.04,1,height+.97,0,materials.metal);}
+        if(item.id==='welcome'){for(const x of [-1.4,0]){cylinder(station,.36,.95,x,height+.56,0,materials.goblet);cylinder(station,.38,.08,x,height+1.07,0,materials.gold);box(station,.08,.08,.23,x,height+.3,.4,materials.metal);}for(let i=0;i<8;i++)cylinder(station,.10,.26,1+i%4*.28,height+.21,-.3+Math.floor(i/4)*.4,materials.goblet);}
+        tag({bar:'Patio bar',grazing:'Grazing table',welcome:'Welcome drinks',guestbook:'Guest book & cards'}[item.id],[item.x,config.houseRise+height+2,item.z],'context');
+      }
+      if(config.patioGuides){box(g,10,.02,17,0,.14,-67,materials.guide);tag('Approx. 10 ft center approach · keep clear',[0,config.houseRise+.5,-66],'context');}
     }
     function staircase(parent){
       // Upper flight runs straight out of the porch. Lower flights split lakeward and houseward.
@@ -1691,6 +1888,7 @@
       applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();lastDecorShape=decorShape();resize();
     }
     function applyAppearance(){
+      const danceObject=objects.find(o=>o.userData.id==='dance');if(danceObject)for(const child of danceObject.children)child.visible=config.danceVisible;
       if(houseExterior)houseExterior.visible=!config.houseCutaway;
       if(porchCeiling)porchCeiling.visible=activeView!=='rehearsal';
       roof.visible=(config.roof&&activeView!=='plan')||['tour','seat'].includes(activeView);context.visible=config.context||activeView==='tour';walls.visible=config.walls!=='hidden';dimensions.visible=config.measurements&&!['tour','seat'].includes(activeView);grid.visible=config.grid&&!['tour','seat'].includes(activeView);ruler.visible=!['tour','seat'].includes(activeView)&&(config.measurements||$('lp-action').value==='measure');
@@ -1726,7 +1924,7 @@
     function rentalNode(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;}
     function rentalLink(item){const a=rentalNode('a','View vendor listing ↗');a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';a.className='lp-rental-link';a.setAttribute('aria-label','View supplier listing for '+(item.name||'rental catalog'));return a;}
     function rentalButton(text,key,id){const b=rentalNode('button',text,'btn');b.type='button';b.dataset[key]=id;return b;}
-    const studioComponents=[['china','China & plates'],['chargers','Chargers'],['flatware','Flatware'],['glassware','Glassware'],['napkins','Napkins'],['linens','Tablecloths'],['runners','Runners'],['chairs','Chairs'],['tables','Tables'],['accessories','Vases & candles'],['lounge','Lounge'],['all','Full catalog']];
+    const studioComponents=[['china','China & plates'],['chargers','Chargers'],['flatware','Flatware'],['glassware','Glassware'],['napkins','Napkins'],['linens','Tablecloths'],['runners','Runners'],['chairs','Chairs'],['tables','Tables'],['accessories','Vases & candles'],['lounge','Lounge'],['dance','Dance floors'],['bars','Bars'],['all','Full catalog']];
     function updateTableSettingStatus(){
       const d=config.design,parts=[['china',d.chinaStyle!=='none','plates'],['charger',d.chargers,'chargers'],['flatware',d.flatwareStyle!=='none','flatware'],['glass',d.glassware!=='none','glasses'],['napkin',d.napkinStyle!=='none','napkins']];
       $('lp-table-setting-status').textContent=(config.decor?'On your tables: '+parts.filter(p=>p[1]).map(p=>p[2]).join(', ')+'.':'Table decor is hidden. Apply an item or show complete place settings.')+' Select any component to replace it.';
@@ -1759,23 +1957,24 @@
     function initializeStudio(){
       for(const [category,label]of studioComponents){const button=rentalButton(label,'category',category);button.append(rentalNode('small','Explore options'));button.onclick=()=>{
         $('lp-rental-category').value=category;$('lp-rental-search').value='';$('lp-rental-mode').value=category==='all'?'all':'preview';rentalPage=0;renderRentalLibrary();
-        if(['china','chargers','flatware','glassware','napkins','linens','runners','chairs','tables'].includes(category))view('table');else if(category==='lounge')view('lounge');
+        if(['china','chargers','flatware','glassware','napkins','linens','runners','chairs','tables'].includes(category))view('table');else if(['lounge','dance','bars'].includes(category)){activateTab('lounge');view(category==='lounge'?'lounge':'inside');}
       };$('lp-rental-components').append(button);}
       $('lp-table-closeup').onclick=()=>{view('table');stage.scrollIntoView({block:'nearest',behavior:'auto'});};$('lp-table-overview').onclick=()=>{view('inside');stage.scrollIntoView({block:'nearest',behavior:'auto'});};
       $('lp-place-setting').onclick=()=>{const d=config.design;config.decor=true;if(d.chinaStyle==='none')d.chinaStyle='round';if(d.flatwareStyle==='none')d.flatwareStyle='silver';if(d.glassware==='none')d.glassware='clear';if(d.napkinStyle==='none')d.napkinStyle='folded';d.chargers=true;refreshDecor();view('table');saveState();};
-      const section=rentalNode('section',undefined,'lp-photo-looks');section.append(rentalNode('h3','From real celebrations'),rentalNode('p','Photo-inspired starting points. Colors and unphotographed settings are suggestions; table counts and distances are not measured from photographs. Apply a complete concept or borrow just one part.','text-small'));
+      const section=rentalNode('section',undefined,'lp-photo-looks');section.append(rentalNode('h3','From real celebrations'),rentalNode('p','Photo-inspired starting points. Reconstruct photographed areas or borrow a palette. Each card states what the photos show. Unseen stations and exact furniture counts are not treated as verified wedding layouts.','text-small'));
       const sources=[
+        {id:'greeneryBanquet',name:'Greenery banquet reception',url:'https://www.instagram.com/p/DYIm0Rvmaw3/',credit:'Blessed Beginnings Photography · three long farmhouse dining rows, ivory gauze, greenery on ring lights, framed mirror seating chart and a photo/card table visible. Exact table count and the entertainment end are not visible; DJ, bar and dance-floor placement remain your current proposal.',spatial:{layout:'joined',rowOffsets:[2,0,2],entryDisplay:'both',ceilingDecor:'greenery'},design:{runnerStyle:'gauze',runnerColor:'#f4eddd',napkinStyle:'gathered',napkinColor:'#f4eddd',flowerA:'#f4eddd',flowerB:'#eee7d5',flowerC:'#f4eddd',greenery:'lush',vaseCount:3,chairStyle:'folding',chairColor:'#97704b',chinaStyle:'round',chinaColor:'#f5f1e7',chargers:true},ceremony:{},linens:false},
         {id:'blueGarden',name:'Blue-glass garden',url:'https://www.instagram.com/p/DaDmZZuDDGm/',credit:'Venue gallery · blue runner, colored goblets, ivory flowers and wood tables visible.',design:{runnerStyle:'gauze',runnerColor:'#829db5',clothColor:'#f4eddd',flowerStyle:'hydrangea',flowerA:'#f7f1e7',flowerB:'#e9e6d7',flowerC:'#eae3d2',greenery:'light',greeneryColor:'#62774f',glassware:'tinted',glassColor:'#7698ad',vaseStyle:'smooth',vaseCount:3,arrangement:'mixed',chairStyle:'folding',chairColor:'#97704b',napkinStyle:'folded',napkinColor:'#829db5'},ceremony:{flowerStands:'urn',standPosition:'arbor',aisleDecor:'ferns'},linens:false},
         {id:'samanthaRyan',name:'Samantha & Ryan · soft garden',url:'https://www.instagram.com/p/DX5Ex2xHPo4/',credit:'Rachel Reid Photos · cream arbor draping, mauve/ivory flowers and timber couple’s table visible. Reception settings are a coordinating suggestion.',design:{runnerStyle:'gauze',runnerColor:'#f1e9d8',flowerStyle:'roses',flowerA:'#eee7da',flowerB:'#c6a4a8',flowerC:'#8b6575',greenery:'light',vaseStyle:'smooth',vaseCount:3,arrangement:'bud',napkinColor:'#a58a94',napkinStyle:'gathered',coupleBackdrop:'arbor',outdoorArborDecor:'drape',arborFabricColor:'#f1e9d8'},ceremony:{flowerStands:'none',aisleDecor:'none'},linens:false},
         {id:'cassidyAustin',name:'Cassidy & Austin · autumn ivory',url:'https://www.instagram.com/p/DW2F0vlEsh9/',credit:'Ruffner Photography · white aisle pedestals with ivory/rust flowers, greenery backdrop and ivory runner visible. Guest-table layout is a suggestion.',design:{runnerStyle:'gauze',runnerColor:'#f0e6d5',flowerStyle:'roses',flowerA:'#f4eddd',flowerB:'#bc7a44',flowerC:'#a45c41',greenery:'light',greeneryColor:'#4c6040',vaseStyle:'smooth',arrangement:'bud',vaseCount:3,coupleBackdrop:'hedge',napkinStyle:'folded',napkinColor:'#dfc9aa',candleStyle:'hurricane',candleColor:'#f4eddd'},ceremony:{flowerStands:'pedestal',standPosition:'entry',aisleDecor:'none'},linens:false}
       ];
       for(const look of sources){const card=rentalNode('article',undefined,'lp-photo-look');card.append(rentalNode('h4',look.name),rentalNode('p',look.credit,'text-small'));const link=rentalNode('a','See original wedding ↗');link.href=look.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);const actions=rentalNode('div',undefined,'viz-row');
-        for(const [part,label]of [['all','Apply complete concept'],['tables','Table decor only'],['ceremony','Ceremony only'],['layout','Suggested table layout']]){const b=rentalButton(label,'photoLook',look.id);b.dataset.part=part;b.onclick=()=>{
+        for(const [part,label]of [['all','Build venue concept'],['tables','Table decor only'],['ceremony','Ceremony only'],['layout',look.spatial?'Reconstruct visible setup':'Proposed table layout']]){const b=rentalButton(label,'photoLook',look.id);b.dataset.part=part;b.onclick=()=>{
           stopWalking();clearTimeout(rebuildTimer);
           if(['all','tables'].includes(part)){config.design=normalizeDesign({...config.design,...look.design,look:'custom'});config.decor=true;config.linens=look.linens;}
           if(['all','ceremony'].includes(part)){Object.assign(config,look.ceremony,{aisleColor:look.design.flowerA});config.design=normalizeDesign({...config.design,outdoorArborDecor:look.design.outdoorArborDecor||'corners',arborFabricColor:look.design.arborFabricColor||'#f1e9d8'});}
-          if(['all','layout'].includes(part)){config.layout='separate';config.rowOffsets=[2,0,2];config.positions.separate={};}
-          rebuild();view(part==='ceremony'?'ceremony':part==='layout'?'plan':'table');saveState();$('lp-selection').textContent=look.name+' · '+(part==='all'?'photo-inspired concept':label.toLowerCase())+' · unmeasured details are suggestions.';
+          if(['all','layout'].includes(part)){if(look.spatial){Object.assign(config,look.spatial);config.positions.joined={};}else if(part==='layout'){config.layout='separate';config.rowOffsets=[2,0,2];config.positions.separate={};}}
+          rebuild();view(part==='ceremony'?'ceremony':part==='layout'?'plan':'table');saveState();$('lp-selection').textContent=look.name+' · '+(look.spatial?'visible setup reconstructed; table count and unseen entertainment remain estimates':'partial photo evidence; unphotographed layout remains a proposal');
         };actions.append(b);}card.append(actions);section.append(card);
       }$('lp-lookbook').append(section);
     }
@@ -1792,7 +1991,7 @@
         if(item.spec)card.append(rentalNode('p',item.spec,'text-small'));
         if(item.preview){
           const colors=Object.entries(item.preview.design).filter(([key,value])=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value));
-          if(colors.length){const swatches=rentalNode('div',undefined,'lp-rental-swatches');swatches.setAttribute('aria-label','Approximate preview colors');for(const [key,color]of colors){const dot=rentalNode('span');dot.style.backgroundColor=color;dot.title=key+' · '+color;swatches.append(dot);}card.append(swatches);}
+          if(colors.length){const swatches=rentalNode('div',undefined,'lp-rental-swatches');swatches.setAttribute('aria-label','Approximate preview colors');for(const [key,color]of colors){const dot=rentalNode('span');dot.style.backgroundColor=color;const names={chinaColor:'Plate body',chinaRimColor:'Plate rim',chargerColor:'Charger body',chargerRimColor:'Charger rim',chairColor:'Chair frame',chairSeatColor:'Seat cushion',sofaColor:'Upholstery',sofaFrameColor:'Sofa frame',clothColor:'Fabric',napkinColor:'Napkin',glassColor:'Glass tint'};const label=rentalNode('label');dot.title=(names[key]||key)+' · '+color;label.append(dot,document.createTextNode((names[key]||key)+' '+color));swatches.append(label);}card.append(swatches,rentalNode('p','Preview components, not selectable variants. Choose a separate listing for another product/color.','lp-swatch-note'));}
           card.append(rentalNode('p','3D preview · '+rentalLibrary.slots[item.preview.slot],'lp-rental-preview-label'));
         }else card.append(rentalNode('p','Catalog reference · save for quote','text-small'));
         card.append(rentalNode('p',item.note,'text-small'));
@@ -1831,7 +2030,7 @@
       for(const id of ['lp-rental-vendor','lp-rental-category','lp-rental-mode'])$(id).onchange=()=>{rentalPage=0;renderRentalLibrary();};
       $('lp-rental-search').oninput=()=>{clearTimeout(rentalFilterTimer);rentalFilterTimer=setTimeout(()=>{rentalPage=0;renderRentalLibrary();},120);};
       $('lp-rental-prev').onclick=()=>{rentalPage--;renderRentalLibrary();};$('lp-rental-next').onclick=()=>{rentalPage++;renderRentalLibrary();};
-      $('lp-panel-rentals').addEventListener('click',event=>{
+      $('lp-catalog-body').addEventListener('click',event=>{
         const button=event.target.closest('button');if(!button)return;
         if(button.dataset.rentalApply){
           const item=rentalLibrary.get(button.dataset.rentalApply);if(!item?.preview)return;
@@ -1849,14 +2048,14 @@
         }else if(button.dataset.rentalCustom){delete config.rentals.applied[button.dataset.rentalCustom];renderRentalLibrary();saveState();}
       });
       $('lp-rental-export').onclick=()=>{
-        const url=URL.createObjectURL(new Blob(['\ufeff'+rentalLibrary.csv(config)],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='wedding-rental-shortlist.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+        downloadFile('wedding-rental-shortlist.csv',new Blob(['\ufeff'+rentalLibrary.csv(config)],{type:'text/csv;charset=utf-8'}));
       };
       renderRentalLibrary();
     }
     function syncControls(){
       config.rentals=rentalLibrary.cleanState(config.rentals,config);renderRentalLibrary();
       $('lp-rehearsal').checked=config.rehearsal;$('lp-rehearsal-seats').value=config.rehearsalSeats;$('lp-rehearsal-buffet').checked=config.rehearsalBuffet;$('lp-rehearsal-bar').checked=config.rehearsalBar;
-      $('lp-rehearsal-status').textContent=(config.rehearsal?'Showing ':'Preview ')+config.rehearsalSeats+' porch seats · 6 banquet tables · 2 rows · approx. 8 ft center aisle. Buffet and bar inside are optional.';
+      const rehearsal=planning.rehearsalPlan(config);$('lp-rehearsal-status').textContent=rehearsal.shown+' seats shown / '+rehearsal.requested+' requested · '+rehearsal.tables.length+' tables · approx. '+rehearsal.aisle+' ft center aisle.';
       for(const [id,key]of [['lp-flower-stands','flowerStands'],['lp-stand-position','standPosition'],['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-bar-side','barSide'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).value=config[key];
       for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).checked=config[key];
       const seats=(12-config.disabledTables.length)*8;
@@ -1866,6 +2065,7 @@
       const ceremony=ceremonySpec(),ceremonySeats=ceremony.rows*2*Math.floor(ceremony.bench/1.8);
       $('lp-ceremony-status').textContent=ceremony.rows+' rows per side · '+ceremony.rows*2+' backless benches, '+ceremony.bench.toFixed(1)+' ft long · approx. '+ceremonySeats+' seats at 22 in/person. '+(ceremony.rows<config.benchRows?'Rows reduced to fit the selected deck depth. ':'')+'Deck '+ceremony.width+' × '+ceremony.depth+' ft (estimated).';
       config.rowOffsets.forEach((v,i)=>$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
+      syncWorkflow();
       for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
       $('lp-quality').value=navigation.quality||'auto';$('lp-flower-stands').value=config.flowerStands;$('lp-stand-position').value=config.standPosition;$('lp-view-height').value=navigation.height;$('lp-walk-speed').value=navigation.speed;
       for(const [id,key]of [['lp-layout','layout'],['lp-length','length'],['lp-width','width'],['lp-gap','gap'],['lp-walls','walls'],['lp-measure-scope','measureScope'],['lp-dance-pattern','dancePattern'],['lp-dance-a','danceA'],['lp-dance-b','danceB'],['lp-tile-size','tileSize'],['lp-house-rise','houseRise'],['lp-lake-drop','lakeDrop']])$(id).value=config[key];
@@ -2062,6 +2262,7 @@
         let enabled=!['tour','seat'].includes(activeView)&&(isMeasure?((config.measurements||(l.kind==='ruler'&&$('lp-action').value==='measure'))&&(l.kind!=='height'||activeView!=='plan')):(config.labels&&!['walk','seat','table'].includes(activeView)&&(activeView!=='site'||['context','site'].includes(l.kind))&&(l.kind!=='site'||activeView==='site')));
         if(l.kind==='power')enabled=config.power&&!['walk','tour','seat','table'].includes(activeView);
         if(l.kind==='door')enabled=config.doorGuides&&!['walk','tour','seat','table','site'].includes(activeView);
+        if(activeView.startsWith('patio')&&!isMeasure&&!(l.kind==='context'&&l.pos.z< -55&&l.pos.y<config.houseRise+8))enabled=false;
         const visible=enabled&&(l.kind!=='context'||config.context)&&pos.z>-1&&pos.z<1&&x>20&&x<rect.width-20&&y>15&&y<rect.height-15;
         l.el.style.display=visible?'block':'none';if(!visible)return;
         const w=l.el.offsetWidth,h=l.el.offsetHeight,xx=Math.max(w/2+5,Math.min(rect.width-w/2-5,x));let chosen=null;
@@ -2088,14 +2289,17 @@
         ceremony:{azimuth:Math.PI,polar:1.43,distance:32*factor,target:[0,gradeHeight(0,105)+3,105]},
         rehearsal:{azimuth:.32,polar:.63,distance:54,target:[0,config.houseRise+9,-74]},
         rehearsalSeat:{azimuth:0,polar:Math.PI/2,distance:9.5,target:[-13,config.houseRise+11.94,-77.65]},
-        rehearsalBuffet:{azimuth:.35,polar:Math.PI/2,distance:20,target:[-8,config.houseRise+13,-84]},
-        rehearsalBar:{azimuth:-.25,polar:Math.PI/2,distance:20,target:[15,config.houseRise+13,-83]},
+        rehearsalBuffet:{azimuth:.35,polar:Math.PI/2,distance:20,target:[config.rehearsalSide==='left'?8:-8,config.houseRise+13,-84]},
+        rehearsalBar:{azimuth:-.25,polar:Math.PI/2,distance:20,target:[config.rehearsalSide==='left'?-15:15,config.houseRise+13,-83]},
         houseInterior:{azimuth:.7,polar:1.30,distance:18,target:[0,config.houseRise+12,-91]},
         houseLower:{azimuth:.5,polar:1.42,distance:14,target:[0,config.houseRise+3,-92]},
+        patio:{azimuth:.35,polar:1.20,distance:56*factor,target:[0,config.houseRise+1.2,-67]},
+        patioInside:{azimuth:.10,polar:Math.PI/2,distance:16,target:[0,config.houseRise+4.6,-76]},
         residence:{azimuth:.12,polar:1.71,distance:66*factor,target:[0,config.houseRise+14,-85]},
         stairs:{azimuth:-.60,polar:1.30,distance:35,target:[-29,config.houseRise+5,-68]},
         kitchen:{azimuth:-.75,polar:.85,distance:70*factor,target:[-20,4,-40]}
       };
+      if(name.startsWith('patio')){config.patioEnabled=true;config.context=true;rebuild();}
       if(name.startsWith('rehearsal')){config.rehearsal=true;config.houseCutaway=true;config.context=true;config.roof=false;rebuild();}
       if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
@@ -2111,7 +2315,7 @@
       applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar','patio','patioInside','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
       adaptHouseLens();walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;
@@ -2208,6 +2412,7 @@
     $('lp-stop-motion').onclick=()=>{stopWalking();pauseTour();saveState();};
     const resizeHandle=$('lp-resize');let resizing=null;
     const setHeight=value=>{navigation.height=Math.round(n(value,680,360,1200));stage.style.height=navigation.height+'px';config.rowOffsets.forEach((v,i)=>$('lp-row-'+(i+1)).value=v);$('lp-house-cutaway').checked=config.houseCutaway;$('lp-dessert-style').value=config.dessertStyle;$('lp-cupcake-count').value=config.cupcakeCount;
+      syncWorkflow();
       for(const card of $('lp-look-cards').children)card.setAttribute('aria-pressed',String(card.dataset.look===config.design.look));
       $('lp-quality').value=navigation.quality||'auto';$('lp-flower-stands').value=config.flowerStands;$('lp-stand-position').value=config.standPosition;$('lp-view-height').value=navigation.height;resize();};
     resizeHandle.onpointerdown=e=>{stopWalking();resizeHandle.focus({preventScroll:true});resizing={y:e.clientY,height:stage.clientHeight};resizeHandle.setPointerCapture(e.pointerId);e.preventDefault();};
@@ -2237,7 +2442,7 @@
     $('lp-rehearsal-walk').onclick=()=>{config.rehearsal=true;config.context=true;config.houseCutaway=true;rebuild();stopWalking();pauseTour(false);restoreProjection('walk');walk={x:0,y:5.5,z:-66,yaw:0,pitch:0,surface:config.houseRise+8.05};applyAppearance();syncControls();draw();saveState();};
     for(const [id,key]of [['lp-rehearsal','rehearsal'],['lp-rehearsal-seats','rehearsalSeats'],['lp-rehearsal-buffet','rehearsalBuffet'],['lp-rehearsal-bar','rehearsalBar']])$(id).onchange=e=>{config[key]=e.target.type==='checkbox'?e.target.checked:e.target.value;Object.assign(config,normalizePlan(config));if(config.rehearsal)config.context=true;rebuild();saveState();};
     $('lp-reset-open').onclick=()=>{$('lp-reset-prompt').hidden=false;};$('lp-reset-cancel').onclick=()=>{$('lp-reset-prompt').hidden=true;};
-    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8,quality:'auto'};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
+    $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8,quality:'auto',editorWidth:440};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
     $('lp-undo-reset').onclick=()=>{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);seat=normalizeSeat(resetUndo.seat||{});tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};
     // Capture the new value before a pending refresh can synchronize the form.
     // In particular, rapid edits of the same numeric field must not be clobbered.
@@ -2271,11 +2476,11 @@
     for(const [id,key,offset,limit]of [['lp-x','x',45,90],['lp-z','z',20,40]])$(id).addEventListener('change',e=>{const o=selectedObject();o.position[key]=n(e.target.value,offset,0,limit)-offset;persistObject(o);draw();saveState();});
     $('lp-turn').onclick=()=>{const o=selectedObject();o.rotation.y+=Math.PI/2;persistObject(o);draw();saveState();};
     $('lp-save').onclick=()=>{
-      const text=JSON.stringify({schema:config.schema,model:config,camera:orbit,walk,seat,tour,navigation,view:activeView},null,2);$('lp-json-wrap').hidden=false;$('lp-layout-json').value=text;
-      const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='venue-pavilion-layout.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);$('lp-selection').textContent='Layout JSON is available below to select and copy.';saveState();
+      const text=JSON.stringify({schema:config.schema,model:config,camera:orbit,walk,seat,tour,navigation,studio,view:activeView},null,2);$('lp-json-wrap').hidden=false;$('lp-layout-json').value=text;
+      downloadFile('venue-pavilion-layout.json',new Blob([text],{type:'application/json'}));$('lp-selection').textContent='Layout JSON is available below to select and copy.';saveState();
     };
     $('lp-load').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{
-      try{const raw=JSON.parse(reader.result);if(!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);seat=normalizeSeat(raw.seat||{});tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
+      try{const raw=JSON.parse(reader.result);if(!/^(?:venue|lakeside)-pavilion-v[1-9]$/.test(raw.schema))throw new Error('Choose a saved venue layout.');stopWalking();pauseTour(false);config=normalize(raw.model||raw);if(raw.camera)orbit=normalizeOrbit(raw.camera);if(raw.walk)walk=normalizeWalk(raw.walk);seat=normalizeSeat(raw.seat||{});tour=normalizeTour(raw.tour||{});if(raw.navigation)restoreNavigation(raw.navigation);if(raw.studio){studio=normalizeStudio(raw.studio);drawBoards();}restoreProjection(raw.view);rebuild();saveState();$('lp-selection').textContent='Saved layout loaded.';}catch(error){$('lp-selection').textContent=error.message;}
     };reader.readAsText(file);e.target.value='';});
     window.addEventListener('openai:set_globals',e=>{
       const state=e.detail&&e.detail.globals&&e.detail.globals.widgetState;
@@ -2286,7 +2491,7 @@
         if(state.privateContent&&state.privateContent.orbit)orbit=normalizeOrbit(state.privateContent.orbit);
         if(state.privateContent&&state.privateContent.walk)walk=normalizeWalk(state.privateContent.walk);seat=normalizeSeat(state.privateContent&&state.privateContent.seat||{});
         tour=normalizeTour(state.privateContent&&state.privateContent.tour||{});
-        if(state.privateContent&&state.privateContent.navigation)restoreNavigation(state.privateContent.navigation);
+        if(state.privateContent&&state.privateContent.navigation)restoreNavigation(state.privateContent.navigation);if(state.privateContent?.studio)studio=normalizeStudio(state.privateContent.studio);
         restoreProjection(state.privateContent&&state.privateContent.view);rebuild();
       }else{rebuild();view('perspective',false);}
     });
@@ -2294,8 +2499,8 @@
     new ResizeObserver(resize).observe(stage);
     let themeTimer;const themeObserver=new MutationObserver(()=>{clearTimeout(themeTimer);themeTimer=setTimeout(()=>rebuild(),100);});themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
     if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>rebuild());
-    initializeRentalControls();
-    restoreProjection(currentSaved&&existing.privateContent&&existing.privateContent.view);rebuild();resize();if(!currentSaved||!existing.privateContent||!existing.privateContent.orbit)view('perspective',false);loading.style.display='none';
+    initializeRentalControls();initializeWorkflow();
+    restoreProjection(currentSaved&&existing.privateContent&&existing.privateContent.view);rebuild();resize();if(!currentSaved||!existing.privateContent||!existing.privateContent.orbit)view('perspective',false);loading.style.display='none';saveState();
 
   }
 })();

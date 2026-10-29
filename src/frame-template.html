@@ -1552,6 +1552,16 @@ html>body{padding:0}</style>
       postToHost("open-external", { href });
     }
   };
+  // Opaque sandbox origins cannot reliably download their own blob URLs in
+  // Firefox/WebKit. Transfer bounded bytes over the private host channel.
+  const downloadFile = async ({ name, blob }) => {
+    if (globalThis.navigator.userActivation?.isActive !== true) return;
+    // Check the gesture before rendering/encoding a screenshot can use it up.
+    const file = await blob;
+    if (!(file instanceof Blob) || file.size > 16 * 1024 * 1024) throw new Error("The download exceeds the supported size.");
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    postToHost("download-file", { name, mime: file.type, bytes });
+  };
   const sendFollowUpMessage = ({ context, prompt, title }) => {
     if (globalThis.navigator.userActivation?.isActive === true) {
       postToHost("follow-up", { context, prompt, title });
@@ -1599,9 +1609,9 @@ html>body{padding:0}</style>
       ...parsedState,
     };
     const serializedState = stringify(storedState);
-    if (encode(serializedState).length > 16 * 1024) {
+    if (encode(serializedState).length > 128 * 1024) {
       throw new TypeError(
-        "Widget state must be a JSON object of at most 16 KiB",
+        "Widget state must be a JSON object of at most 128 KiB",
       );
     }
     if (
@@ -1645,6 +1655,7 @@ html>body{padding:0}</style>
     globalThis.openai = {
       ...globalThis.openai,
       openExternal,
+      downloadFile,
       sendFollowUpMessage,
       setWidgetState,
       theme,

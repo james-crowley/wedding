@@ -42,13 +42,13 @@ test('table removal updates capacity and can be reversed', async ({ page }) => {
 
 test('dance dimensions and reversible bar sides persist', async ({ page }) => {
   const app = page.frameLocator('#codex-visualization');
-  await app.locator('#lp-finishes summary').click();
+  await app.locator('#lp-tab-lounge').click();await app.locator('#lp-finishes summary').click();
   await app.locator('#lp-dance-width').fill('16');
   await app.locator('#lp-dance-width').press('Tab');
-  await app.locator('#lp-bar-side').selectOption('lake');
+  await app.locator('#lp-tab-layout').click();await app.locator('#lp-bar-side').selectOption('lake');
   await page.reload();
   await expect(app.locator('#lp-loading')).toBeHidden({ timeout: 45_000 });
-  await app.locator('#lp-finishes summary').click();
+  await app.locator('#lp-tab-lounge').click();await app.locator('#lp-finishes summary').click();
   await expect(app.locator('#lp-dance-width')).toHaveValue('16');
   await expect(app.locator('#lp-bar-side')).toHaveValue('lake');
 });
@@ -130,7 +130,7 @@ test('coordinated decor looks render without changing the floor plan', async ({ 
     for (const key of ['layout','length','width','danceWidth','danceDepth','disabledTables','positions']) expect(state[key]).toEqual(initial[key]);
   }
   await expect(app.locator('#lp-style-summary')).toContainText('votives');
-  await app.locator('#lp-style-candles summary').click();
+  await app.locator('#lp-tab-rentals').click();await app.locator('#lp-style-candles summary').click();
   await expect(app.locator('[data-design="candleHeight"]')).toBeDisabled();
   await expect(app.locator('[data-design="candleHeight"]')).toHaveValue('3');
 });
@@ -140,7 +140,7 @@ test('decor color swatches and flower choices persist after reloading', async ({
   const app = page.frameLocator('#codex-visualization');
   await app.locator('#lp-tab-decor').click();
   await app.locator('[data-design="look"]').selectOption('ivoryPlum');
-  await app.locator('#lp-color-target').selectOption('flowerC');
+  await app.locator('#lp-tab-rentals').click();await app.locator('#lp-color-target').selectOption('flowerC');
   await app.getByRole('button', { name: 'Mauve #ad829a', exact: true }).click();
   await expect(app.locator('[data-design="flowerC"]')).toHaveValue('#ad829a');
   await expect(app.getByRole('button', { name: 'Mauve #ad829a', exact: true })).toHaveAttribute('aria-pressed','true');
@@ -180,7 +180,7 @@ test('bounded vase edits, new flowers, wood floor and cupcake displays stay rend
   test.setTimeout(180_000);
   const app=page.frameLocator('#codex-visualization');
   const consoleErrors=[];page.on('console',msg=>{if(msg.type()==='error')consoleErrors.push(msg.text());});
-  await app.locator('#lp-tab-decor').click();await app.locator('#lp-style-flowers summary').click();
+  await app.locator('#lp-tab-rentals').click();await app.locator('#lp-style-flowers summary').click();
   await app.locator('[data-design="arrangement"]').selectOption('bud');
   let staleSnapshot;
   for(const value of ['0','1','999999','2','5','0','5']){
@@ -193,8 +193,8 @@ test('bounded vase edits, new flowers, wood floor and cupcake displays stay rend
   await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('5');
   for(const flower of ['ranunculus','anthurium','carnations'])await app.locator('[data-design="flowerStyle"]').selectOption(flower);
   await expect(app.locator('[data-design="flowerStyle"]')).toHaveValue('carnations');
-  await app.locator('#lp-tab-layout').click();await app.locator('#lp-finishes summary').click();await app.locator('#lp-dance-pattern').selectOption('wood');
-  await app.locator('#lp-dessert-options summary').click();await app.locator('#lp-dessert-style').selectOption('mixed');
+  await app.locator('#lp-tab-lounge').click();await app.locator('#lp-finishes summary').click();await app.locator('#lp-dance-pattern').selectOption('wood');
+  await app.locator('#lp-tab-layout').click();await app.locator('#lp-dessert-options summary').click();await app.locator('#lp-dessert-style').selectOption('mixed');
   await app.locator('#lp-cupcake-count').fill('72');await app.locator('#lp-cupcake-count').press('Tab');
   const state=await app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
   expect(state.dancePattern).toBe('wood');expect(state.cupcakeCount).toBe(72);expect(state.design.vaseCount).toBe(5);
@@ -249,10 +249,10 @@ test('florist looks and dress colors render with five or seven bud vases', async
   await app.locator('#lp-look-cards [data-look="vasesOnly"]').click();
   await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('7');
   m=await model();expect(m.design.vaseCount).toBe(7);expect(m.design.candleCount).toBe(0);expect(m.design.candleStyle).toBe('none');
-  await app.locator('#lp-tab-decor').click();await app.locator('#lp-style-flowers summary').click();
+  await app.locator('#lp-tab-rentals').click();await app.locator('#lp-style-flowers summary').click();
   await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('7');
   for(const flower of ['hellebore','astrantia','sprayroses','florist'])await app.locator('[data-design="flowerStyle"]').selectOption(flower);
-  await app.locator('#lp-color-target').selectOption('napkinColor');
+  await app.locator('#lp-tab-rentals').click();await app.locator('#lp-color-target').selectOption('napkinColor');
   await app.getByRole('button',{name:'Twilight #4f6875',exact:true}).click();
   await app.locator('#lp-sit').click();await app.locator('#lp-seat-table').selectOption('table-1');
   await page.reload();await expect(app.locator('#lp-loading')).toBeHidden({timeout:45_000});

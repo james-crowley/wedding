@@ -7,7 +7,7 @@ describe('UI option coverage inventory',()=>{
     assert.ok(controls.length>=108);
     assert.deepEqual(controls.filter(c=>c.type==='file').map(c=>c.selector),['#lp-load'],'New file inputs require a dedicated import workflow');
     for(const c of controls){
-      assert.ok(['select','checkbox','number','color','file','search'].includes(c.type),`New control type needs audit support: ${c.type}`);
+      assert.ok(['select','checkbox','number','color','file','search','text'].includes(c.type),`New control type needs audit support: ${c.type}`);
       if(c.type==='number'){assert.ok(Number.isFinite(Number(c.min)));assert.ok(Number.isFinite(Number(c.max)));assert.ok(c.values.includes(''));assert.ok(c.values.includes(c.min));assert.ok(c.values.includes(c.max));}
       if(c.type==='color')assert.deepEqual(c.values,['#000000','#ffffff','#642c38']);
       if(c.type==='checkbox')assert.deepEqual(c.values,[false,true,false]);

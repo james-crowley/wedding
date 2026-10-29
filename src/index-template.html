@@ -25,18 +25,19 @@
   let sizeWriteTimeout;
   let lastSize = null;
   let pendingSize = null;
-  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
+  const legacyStorageKey = `codex:visualization-widget-state-v2:${JSON.stringify([
     globalThis.location.pathname,
     globalThis.location.search,
   ])}`;
+  const storageKey = `codex:visualization-widget-state-v2:${JSON.stringify([globalThis.location.pathname, ""])}`;
   const sizeStorageKey = `${storageKey}:share-size-v1`;
   const parseState = (serializedState) => {
     if (
       typeof serializedState !== "string" ||
-      new TextEncoder().encode(serializedState).length > 16 * 1024
+      new TextEncoder().encode(serializedState).length > 128 * 1024
     ) {
       throw new TypeError(
-        "Widget state must be a JSON object of at most 16 KiB",
+        "Widget state must be a JSON object of at most 128 KiB",
       );
     }
     /** @type {unknown} */
@@ -60,9 +61,9 @@
         return value;
       },
     );
-    if (new TextEncoder().encode(canonicalState).length > 16 * 1024) {
+    if (new TextEncoder().encode(canonicalState).length > 128 * 1024) {
       throw new TypeError(
-        "Widget state must be a JSON object of at most 16 KiB",
+        "Widget state must be a JSON object of at most 128 KiB",
       );
     }
     return storedState;
@@ -75,7 +76,25 @@
     localStorage.setItem(probeKey, "1");
     localStorage.removeItem(probeKey);
     storage = localStorage;
-    const savedState = storage.getItem(storageKey);
+    let savedState = storage.getItem(storageKey) ?? storage.getItem(legacyStorageKey);
+    if (savedState == null) {
+      // Recover query-specific saves from an older release URL on this exact
+      // path. Keep every legacy entry intact. Last-created key wins only when
+      // there is no canonical/current-URL save; future saves use one stable key.
+      const prefix = "codex:visualization-widget-state-v2:";
+      for (let i = storage.length - 1; i >= 0; i--) {
+        const key = storage.key(i);
+        if (!key?.startsWith(prefix)) continue;
+        try {
+          const scope = JSON.parse(key.slice(prefix.length));
+          if (!Array.isArray(scope) || scope.length !== 2 || scope[0] !== globalThis.location.pathname || typeof scope[1] !== "string") continue;
+          const candidate = storage.getItem(key);
+          parseState(candidate);
+          savedState = candidate;
+          break;
+        } catch { /* Ignore unrelated/corrupt keys without deleting them. */ }
+      }
+    }
     if (savedState != null) {
       try {
         state = parseState(savedState);
@@ -131,6 +150,24 @@
         id: data.id,
         ok,
       });
+      return;
+    }
+    if (data.type === "download-file") {
+      const types = {
+        "venue-design.png": "image/png",
+        "venue-planning-brief.html": "text/html",
+        "venue-pavilion-layout.json": "application/json",
+        "wedding-rental-shortlist.csv": "text/csv;charset=utf-8",
+      };
+      if (!Object.hasOwn(types, data.name) || types[data.name] !== data.mime || !(data.bytes instanceof Uint8Array) || data.bytes.byteLength > 16 * 1024 * 1024) return;
+      const url = URL.createObjectURL(new Blob([data.bytes], { type: data.mime }));
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = data.name;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      globalThis.setTimeout(() => URL.revokeObjectURL(url), 30_000);
       return;
     }
     if (data.type === "height") {

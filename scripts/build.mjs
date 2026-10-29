@@ -33,12 +33,13 @@ export async function build({ outDir = join(projectRoot, 'dist'), commit = proce
   // Only the project-owned output directory may be replaced by this build.
   outDir = resolve(outDir);
   if (outDir === projectRoot || !outDir.startsWith(projectRoot + '/')) throw new Error('Output must be a child of the project directory');
-  const inputs = ['src/model.html', 'src/frame-template.html', 'src/index-template.html', 'vendor/three-0.160.1.min.js', 'src/rentals.mjs', 'data/rental-catalog.json'];
+  const inputs = ['src/model.html', 'src/frame-template.html', 'src/index-template.html', 'vendor/three-0.160.1.min.js', 'src/rentals.mjs', 'data/rental-catalog.json', 'src/planning.mjs', 'src/research.html'];
   const values = await Promise.all(inputs.map(path => readFile(join(projectRoot, path), 'utf8')));
-  let [model, frameTemplate, indexTemplate, three, rentalModule, rentalData] = values;
+  let [model, frameTemplate, indexTemplate, three, rentalModule, rentalData, planningModule, research] = values;
   const library = rentalModule.replace(/^export /gm, "");
   const facts = JSON.stringify(JSON.parse(rentalData)).replaceAll("<", "\\u003c");
   model = replaceOnce(model, "/* Bundled rental library */", `window.VenueRentalLibrary=(()=>{${library}\nreturn createRentalLibrary(${facts});})();`);
+  model = replaceOnce(model, '/* Bundled planning tools */', `window.VenuePlanning=(()=>{${planningModule.replace(/^export /gm, '')}\nreturn {rehearsalPlan,patioPlan,planningFacts,cleanDesignName};})();`);
   let frame = replaceOnce(frameTemplate, '__VENUE_MODEL__', await bundleModelFonts(model));
   frame = replaceOnce(frame, '__THREE_BUNDLE__', three.replaceAll('</script', '<\\/script'));
   const html = replaceOnce(indexTemplate, '__FRAME_HTML__', escapeAttribute(frame));
@@ -50,12 +51,13 @@ export async function build({ outDir = join(projectRoot, 'dist'), commit = proce
     const path = 'vendor/fonts/' + name + suffix;
     sourceHash.update(path + '\0').update(await readFile(join(projectRoot, path)));
   }
-  const manifest = { project: 'wedding-planner', schema: 1, commit, sourceSha256: sourceHash.digest('hex'), htmlSha256: createHash('sha256').update(html).digest('hex') };
+  const manifest = { project: 'wedding-planner', schema: 1, commit, sourceSha256: sourceHash.digest('hex'), htmlSha256: createHash('sha256').update(html).digest('hex'), researchSha256: createHash('sha256').update(research).digest('hex') };
   await rm(outDir, { recursive: true, force: true });
   await mkdir(join(outDir, 'licenses'), { recursive: true });
   await mkdir(join(projectRoot, 'test-results'), { recursive: true });
   await writeFile(join(outDir, 'index.html'), html);
   await writeFile(join(outDir, '.nojekyll'), '');
+  await copyFile(join(projectRoot,'src/research.html'),join(outDir,'research.html'));
   await writeFile(join(outDir, 'build-info.json'), JSON.stringify(manifest, null, 2) + '\n');
   await copyFile(join(projectRoot, 'vendor/THREE-LICENSE.txt'), join(outDir, 'licenses/THREE-LICENSE.txt'));
   for (const name of fontFiles) await copyFile(join(projectRoot, 'vendor/fonts', name + '-OFL.txt'), join(outDir, 'licenses', name + '-OFL.txt'));

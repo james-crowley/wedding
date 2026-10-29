@@ -86,3 +86,8 @@ test('publication refuses PRs, unverified artifacts and missing credentials', ()
   assert.throws(() => deploymentPlan({ ...env, GITHUB_REPOSITORY: '../venue' }, manifest), /owner\/repository/);
 });
 });
+
+ test('lockfile uses portable public npm tarballs',async()=>{
+  const lock=JSON.parse(await readFile(join(projectRoot,'package-lock.json'),'utf8'));
+  for(const entry of Object.values(lock.packages))if(entry.resolved)assert.ok(entry.resolved.startsWith('https://registry.npmjs.org/'),'Dependencies must not require a local mirror login');
+ });

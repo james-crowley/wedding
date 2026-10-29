@@ -242,9 +242,12 @@ test('seated views follow guest tables, persist, and hand over to walking', asyn
 test('florist looks and dress colors render with five or seven bud vases', async ({ page }, info) => {
   const app=page.frameLocator('#codex-visualization');
   const model=()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
+  await app.locator('#lp-tab-decor').click();
   await app.locator('#lp-look-cards [data-look="florist"]').click();
+  await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('5');
   let m=await model();expect(m.design.flowerStyle).toBe('florist');expect(m.design.vaseCount).toBe(5);expect(m.design.outdoorArborDecor).toBe('corners');expect(m.design.napkinColor).toBe('#642c38');
   await app.locator('#lp-look-cards [data-look="vasesOnly"]').click();
+  await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('7');
   m=await model();expect(m.design.vaseCount).toBe(7);expect(m.design.candleCount).toBe(0);expect(m.design.candleStyle).toBe('none');
   await app.locator('#lp-tab-decor').click();await app.locator('#lp-style-flowers summary').click();
   await expect(app.locator('[data-design="vaseCount"]')).toHaveValue('7');

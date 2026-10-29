@@ -503,10 +503,11 @@
     const phonePreview=()=>navigation.quality==='mobile'||navigation.quality==='auto'&&(window.matchMedia('(pointer: coarse)').matches||window.innerWidth<760);
     const renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:true,preserveDrawingBuffer:true,powerPreference:'default'});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,phonePreview()?1:1.5));renderer.shadowMap.enabled=!phonePreview();renderer.shadowMap.type=T.PCFSoftShadowMap;
+    const contextRecovery=renderer.getContext().getExtension('WEBGL_lose_context');
     let graphicsLost=false;
     canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();graphicsLost=true;stopWalking();pauseTour(false);saveState();$('lp-recovery').hidden=false;});
     canvas.addEventListener('webglcontextrestored',()=>{graphicsLost=false;rebuild();$('lp-recovery').hidden=true;});
-    $('lp-restore-render').onclick=()=>{navigation.quality='mobile';saveState();if(graphicsLost)renderer.getContext().getExtension('WEBGL_lose_context')?.restoreContext();else {rebuild();$('lp-recovery').hidden=true;}};
+    $('lp-restore-render').onclick=()=>{navigation.quality='mobile';saveState();if(graphicsLost){if(contextRecovery)contextRecovery.restoreContext();else $('lp-recovery').querySelector('p').textContent='Please reload this page to restore the preview. Your design has been saved.';}else {rebuild();$('lp-recovery').hidden=true;}};
     $('lp-quality').onchange=event=>{navigation.quality=event.target.value;rebuild();saveState();};
     renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.90;
     const scene=new T.Scene(),perspectiveCamera=new T.PerspectiveCamera(43,1,0.1,1600),planCamera=new T.OrthographicCamera(-60,60,30,-30,.1,1600),walkCamera=new T.PerspectiveCamera(66,1,.08,1200);

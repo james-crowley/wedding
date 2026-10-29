@@ -11,6 +11,8 @@ const groups={
   tabs:['lp-tab-layout','lp-tab-decor','lp-tab-ceremony','lp-tab-view','lp-tab-rentals','lp-tab-save'],
   focus:['lp-focus-table','lp-focus-arbor','lp-focus-ceremony','lp-focus-sofas'],
   rentals:['lp-rental-prev','lp-rental-next','lp-rental-export'],
+  studio:['lp-table-closeup','lp-table-overview','lp-place-setting'],
+  recovery:['lp-restore-render'],
   save:['lp-save']
 };
 const source=readFileSync(new URL('../../src/model.html',import.meta.url),'utf8');
@@ -24,7 +26,7 @@ async function click(frame,id,seen){await expose(frame,id);await frame.locator('
 test.beforeEach(async({page})=>{
   await page.addInitScript(installRenderAudit);await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
   await page.goto('/');await expect((await frameOf(page)).locator('#lp-loading')).toBeHidden({timeout:45_000});
-  await (await frameOf(page)).locator('#lp-reset-camera').click();
+  const frame=await frameOf(page);await frame.locator('#lp-reset-camera').click();await frame.locator('#lp-quality').evaluate(el=>{el.value='mobile';el.dispatchEvent(new Event('change',{bubbles:true}));});await frame.locator('#lp-tab-decor').click();
   expect([...new Set(Object.values(groups).flat())].sort(),'Every identified button needs an action workflow').toEqual(buttonIds);
 });
 
@@ -47,6 +49,12 @@ for(const group of Object.keys(groups))test(`action audit: ${group}`,async({page
     await act('lp-reset-open');await act('lp-reset-confirm');await act('lp-undo-reset');expect(await frame.evaluate(()=>window.openai.widgetState.modelContent)).toEqual(original);
   }else if(group==='rentals'){
     await act('lp-rental-next');await act('lp-rental-prev');const [download]=await Promise.all([page.waitForEvent('download'),act('lp-rental-export')]);expect(download.suggestedFilename()).toBe('wedding-rental-shortlist.csv');
+  }else if(group==='recovery'){
+    await frame.evaluate(()=>window.__renderAudit.renderer.getContext().getExtension('WEBGL_lose_context').loseContext());await expect(frame.locator('#lp-recovery')).toBeVisible();
+    await expose(frame,'lp-restore-render');await frame.locator('#lp-restore-render').click();seen.add('lp-restore-render');await expect(frame.locator('#lp-recovery')).toBeHidden();await healthy(frame,'Recovery action');
+  }else if(group==='studio'){
+    for(const id of groups.studio)await act(id);
+    for(const category of await frame.locator('[data-category]').evaluateAll(els=>els.map(el=>el.dataset.category))){await frame.locator(`[data-category="${category}"]`).click();await healthy(frame,'Component '+category);await expect(frame.locator('#lp-rental-category')).toHaveValue(category);}
   }else if(group==='save'){
     const [download]=await Promise.all([page.waitForEvent('download'),act('lp-save')]);expect(download.suggestedFilename()).toBe('venue-pavilion-layout.json');
     const data=JSON.parse(await frame.locator('#lp-layout-json').inputValue());data.model.design.flowerA='#642c38';

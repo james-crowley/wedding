@@ -31,3 +31,9 @@ Automatic quality caps phone rendering at 1× pixel density, disables shadows an
 Local focused run: `npm run build && npm run test:browser -- tests/browser/studio.spec.mjs tests/browser/recovery.spec.mjs`. Install the pinned Firefox/WebKit engines with `npx playwright install firefox webkit` if needed.
 
 Linux Firefox runs with software graphics under Xvfb. A real WebGL pixel-readback preflight runs alongside build/unit/inventory and fails before the full matrix if the CI graphics environment cannot initialize. Mobile browser projects are scheduled first to surface platform-specific failures earlier.
+
+## Rehearsal dinner concept
+
+Use **Rehearsal dinner** above the viewer, or **Layout → Rehearsal dinner at the house**. The upstairs screened porch holds a configurable 30–35 illustrated seats at six 6 × 2.5 ft banquet tables arranged into two 18 ft rows. An approximately 8 ft center route stays free of end chairs. House dining seats are separate. Rockers are removed while this layout is active.
+
+The optional tray buffet and staffed bar sit inside the main house; these are generic setup concepts rather than confirmed vendor furniture. Switch between porch overview, seated porch view and buffet/bar views, or start the porch walkthrough. The overhead rehearsal view opens the porch ceiling for visibility; seated and walking views retain the ceiling. Choices persist with other saved designs, and toggling rehearsal off preserves pavilion styling. Floor area, furniture fit, occupancy and service routes need venue confirmation.

@@ -49,3 +49,27 @@ test('studio: repeated phone styling, photo looks and material-only updates rema
   expect(await f.evaluate(()=>window.openai.widgetState.modelContent.design.vaseCount)).toBe(4);
   const gif=info.outputPath('wedding-looks.gif');await makePreviewGif(frames,gif);await info.attach('Photo-inspired looks',{path:gif,contentType:'image/gif'});
 });
+
+test('studio: rehearsal porch seats, buffet trays, bar and saved walkthrough',async({page},info)=>{
+  test.setTimeout(8*60_000);const f=await frameOf(page);
+  await f.getByRole('button',{name:'Rehearsal dinner',exact:true}).click();await healthy(f);
+  await expect(f.locator('#lp-view')).toHaveValue('rehearsal');
+  const counts=()=>f.evaluate(()=>{const counts={seats:0,tables:0,trays:0,bar:0};window.__renderAudit.scene.traverse(o=>{if(o.userData.rehearsalSeat)counts.seats++;if(o.name==='Rehearsal banquet table')counts.tables++;if(o.name==='Buffet serving tray')counts.trays++;if(o.name==='Rehearsal bartending station')counts.bar++;});return counts;});
+  expect(await counts()).toEqual({seats:35,tables:6,trays:3,bar:1});
+  expect(await f.evaluate(()=>window.__renderAudit.scene.getObjectByName('Porch ceiling').visible)).toBe(false);
+  await capture(f,info,'rehearsal-35-porch');
+  for(const seats of [30,32,35]){
+    await f.locator('#lp-rehearsal-seats').fill(String(seats));await f.locator('#lp-rehearsal-seats').press('Tab');await healthy(f);expect((await counts()).seats).toBe(seats);
+  }
+  // Real chair positions prove the center route and porch edges stay clear.
+  const bounds=await f.evaluate(()=>{const points=[];window.__renderAudit.scene.updateMatrixWorld(true);window.__renderAudit.scene.traverse(o=>{if(o.userData.rehearsalSeat)points.push(o.children[0].getWorldPosition(new THREE.Vector3()).toArray());});return points;});
+  expect(bounds.length).toBe(35);for(const [x,,z]of bounds){expect(Math.abs(x)).toBeGreaterThanOrEqual(5);expect(Math.abs(x)).toBeLessThanOrEqual(22);expect(z).toBeGreaterThan(-75);expect(z).toBeLessThan(-66);}
+  await f.locator('#lp-view').selectOption('rehearsalSeat');await healthy(f);await capture(f,info,'rehearsal-seated');expect(await f.evaluate(()=>window.__renderAudit.scene.getObjectByName('Porch ceiling').visible)).toBe(true);
+  await f.locator('#lp-view').selectOption('rehearsalBuffet');await healthy(f);await capture(f,info,'rehearsal-buffet-bar');
+  await f.locator('#lp-rehearsal-bar').uncheck();await f.locator('#lp-rehearsal-buffet').uncheck();await healthy(f);expect(await counts()).toEqual({seats:35,tables:6,trays:0,bar:0});
+  await f.locator('#lp-rehearsal-bar').check();await f.locator('#lp-rehearsal-buffet').check();await healthy(f);
+  await f.locator('#lp-rehearsal-walk').click();const h=await healthy(f);expect(h.camera[1]).toBeCloseTo(17.05,1);expect(h.camera[2]).toBeCloseTo(-66,1);
+  await f.locator('#lp-canvas').focus();await page.keyboard.press('w');await healthy(f);
+  const stored=await f.evaluate(()=>window.openai.widgetState.modelContent);expect(stored.rehearsal).toBe(true);expect(stored.rehearsalSeats).toBe(35);
+  await page.reload();const reloaded=await frameOf(page);await expect(reloaded.locator('#lp-loading')).toBeHidden();await healthy(reloaded);expect(await reloaded.evaluate(()=>window.openai.widgetState.modelContent.rehearsal)).toBe(true);
+});

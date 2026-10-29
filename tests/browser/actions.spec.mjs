@@ -13,6 +13,7 @@ const groups={
   rentals:['lp-rental-prev','lp-rental-next','lp-rental-export'],
   studio:['lp-table-closeup','lp-table-overview','lp-place-setting'],
   recovery:['lp-restore-render'],
+  rehearsal:['lp-rehearsal-show','lp-rehearsal-walk'],
   save:['lp-save']
 };
 const source=readFileSync(new URL('../../src/model.html',import.meta.url),'utf8');

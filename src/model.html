@@ -21,7 +21,7 @@
       <select class="form-select" id="lp-layout"><option value="separate">12 separate tables</option><option value="joined">3 joined rows</option></select>
     </label>
     <label class="form-label">View
-      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
+      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet & bar</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
     </label>
     <label class="form-label">Drag action
       <select class="form-select" id="lp-action"><option value="orbit">Rotate view</option><option value="move">Move furniture</option><option value="measure">Measure floor distance</option></select>
@@ -80,6 +80,10 @@
     <button class="nav-link" role="tab" id="lp-tab-save" aria-controls="lp-panel-save" aria-selected="false" type="button">Move, measure & save</button>
   </div>
   <div role="tabpanel" id="lp-panel-layout" aria-labelledby="lp-tab-layout">
+    <section class="lp-details" aria-label="Rehearsal dinner setup"><span class="lp-eyebrow">THE NIGHT BEFORE</span><h3>Rehearsal dinner at the house</h3><p class="text-small">Two banquet rows on the upstairs screened porch, with a central route to the house and stairs. Buffet trays and a staffed drinks station sit just inside.</p>
+      <div class="viz-controls"><label class="form-check"><input class="form-check-input" type="checkbox" id="lp-rehearsal"><span>Show rehearsal setup</span></label><label class="form-label">Porch seats<input class="form-control" id="lp-rehearsal-seats" type="number" min="30" max="35" step="1" value="35"></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-buffet" type="checkbox" checked><span>Tray buffet inside</span></label><label class="form-check"><input class="form-check-input" id="lp-rehearsal-bar" type="checkbox" checked><span>Bartending station inside</span></label></div>
+      <div class="viz-row"><button class="btn btn-primary" id="lp-rehearsal-show" type="button">Preview rehearsal dinner</button><button class="btn" id="lp-rehearsal-walk" type="button">Walk onto the porch</button></div><p class="text-small" id="lp-rehearsal-status" role="status"></p><p class="text-small">Planning concept: six 6 × 2.5 ft banquet tables form two 18 ft rows. Porch footprint, furniture, clearances and bar appearance are estimates. Confirm fit, furniture, occupancy and service arrangements with the venue and bartender; existing house dining chairs are not included in this count.</p>
+    </section>
     <div class="viz-controls" id="lp-layout-tools">
       <label class="form-label">Guest count<input class="form-control" type="number" min="0" max="200" step="1" id="lp-guests" value="100"></label>
       <details class="lp-details" id="lp-row-offsets" open><summary>Dining row offsets</summary><p class="text-small">Shift each entire row toward the couple’s end. Row 1 is house-side; row 3 is lake-side. Individual dragged positions in that row are reset when its offset changes.</p><div class="viz-controls"><label class="form-label">Row 1 · house side (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-1" value="2"></label><label class="form-label">Row 2 · middle (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-2" value="0"></label><label class="form-label">Row 3 · lake side (ft)<input class="form-control" type="number" min="-3" max="6" step="0.5" id="lp-row-3" value="2"></label></div><label class="form-label">Quick outer-row setback (ft)<input class="form-control" type="number" min="0" max="4" step="0.5" id="lp-door-setback" value="2"></label></details>
@@ -473,7 +477,7 @@
   function initialize(){
     const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary;
     let rentalPage=0,rentalFilterTimer=0;
-    const PLAN_DEFAULTS={danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
+    const PLAN_DEFAULTS={rehearsal:false,rehearsalSeats:35,rehearsalBuffet:true,rehearsalBar:true,danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'folded',napkinColor:'#62314c',glassware:'clear',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
     Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'round',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'silver',chargerMaterial:'metal',chargerColor:'#cfad65',chargerRimColor:'#cfad65',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0,coupleBackdrop:'arbor'});
@@ -520,7 +524,7 @@
     const shell=new T.Group(),walls=new T.Group(),roof=new T.Group(),ceilingLights=new T.Group(),furniture=new T.Group(),context=new T.Group(),dimensions=new T.Group(),grid=new T.Group(),ruler=new T.Group(),doorGuides=new T.Group(),powerMarkers=new T.Group();
     scene.add(shell,walls,roof,ceilingLights,furniture,context,dimensions,grid,ruler,doorGuides,powerMarkers);
     const unitBox=new T.BoxGeometry(1,1,1),unitCylinder=new T.CylinderGeometry(1,1,1,16);
-    let materials={},colors={},objects=[],labels=[],selectionBox=null,textures=[],measurementPoints=[],walkSurfaces=[],terrainMesh=null,doorLeaves=[],houseExterior=null,ceremonyGroup=null,decorTextureCache={};
+    let materials={},colors={},objects=[],labels=[],selectionBox=null,textures=[],measurementPoints=[],walkSurfaces=[],terrainMesh=null,doorLeaves=[],houseExterior=null,porchCeiling=null,ceremonyGroup=null,decorTextureCache={};
     const raycaster=new T.Raycaster(),pointer=new T.Vector2(),ground=new T.Plane(new T.Vector3(0,1,0),0),target=new T.Vector3();
     function n(v,d,lo,hi){v=Number(v);return Number.isFinite(v)?Math.max(lo,Math.min(hi,v)):d;}
     function hex(v,d){return typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v)?v:d;}
@@ -555,7 +559,7 @@
       $('lp-style-place-settings').querySelector('summary').textContent='Custom plates, chargers, flatware & chairs';
       $('lp-style-linens').querySelector('summary').textContent='Custom fabric, napkins & glassware';
       const toolbar=document.createElement('div');toolbar.className='lp-view-shortcuts';
-      for(const [label,tab]of [['Style a table','rentals'],['Wedding looks','decor'],['Arrange space','layout']]){const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=label;b.onclick=()=>{$('lp-tab-'+tab).click();if(tab==='rentals'){$('lp-rental-components').querySelector('[data-category=china]').click();view('table');}$('lp-editor').scrollIntoView({block:'nearest',behavior:'auto'});};toolbar.append(b);}viewer.prepend(toolbar);
+      for(const [label,tab]of [['Style a table','rentals'],['Wedding looks','decor'],['Arrange space','layout']]){const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=label;b.onclick=()=>{$('lp-tab-'+tab).click();if(tab==='rentals'){$('lp-rental-components').querySelector('[data-category=china]').click();view('table');}$('lp-editor').scrollIntoView({block:'nearest',behavior:'auto'});};toolbar.append(b);}const rehearsalShortcut=document.createElement('button');rehearsalShortcut.type='button';rehearsalShortcut.className='btn';rehearsalShortcut.textContent='Rehearsal dinner';rehearsalShortcut.onclick=()=>{$('lp-tab-layout').click();view('rehearsal');};toolbar.append(rehearsalShortcut);viewer.prepend(toolbar);
       $('lp-panel-ceremony').querySelector('.viz-controls').prepend($('lp-kitchen').closest('label'));
       for(const id of ['lp-arbor','lp-decor','lp-linens'])$('lp-panel-decor').prepend($(id).closest('label'));
       for(const tab of root.querySelectorAll('#lp-settings-tabs button'))tab.addEventListener('click',()=>{
@@ -570,10 +574,10 @@
     }
     function normalizePlan(raw){
       const out={...PLAN_DEFAULTS};
-      for(const [key,lo,hi] of [['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
-      for(const key of ['targetGuests','benchRows','aislePairs'])out[key]=Math.round(out[key]);
+      for(const [key,lo,hi] of [['rehearsalSeats',30,35],['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
+      for(const key of ['targetGuests','benchRows','aislePairs','rehearsalSeats'])out[key]=Math.round(out[key]);
       for(const [key,choices]of Object.entries({flowerStands:['none','pedestal','plinth','urn'],standPosition:['entry','arbor','both'],barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
-      for(const key of ['dessert','doorGuides','power','houseCutaway'])if(typeof raw[key]==='boolean')out[key]=raw[key];
+      for(const key of ['dessert','doorGuides','power','houseCutaway','rehearsal','rehearsalBuffet','rehearsalBar'])if(typeof raw[key]==='boolean')out[key]=raw[key];
       out.rowOffsets=Array.isArray(raw.rowOffsets)?[0,1,2].map(i=>n(raw.rowOffsets[i],[out.doorSetback,0,out.doorSetback][i],-3,6)):[out.doorSetback,0,out.doorSetback];
       out.cupcakeCount=Math.round(n(raw.cupcakeCount,48,12,96));out.dessertStyle=['tiers','platters','mixed'].includes(raw.dessertStyle)?raw.dessertStyle:'tiers';
       out.aisleColor=hex(raw.aisleColor,out.aisleColor);out.disabledTables=Array.isArray(raw.disabledTables)?[...new Set(raw.disabledTables.filter(id=>/^table-(?:[1-9]|1[0-2])$/.test(id)))]:[];return out;
@@ -1464,7 +1468,7 @@
       for(const x of [-14,0,14])windowHouse(exterior,x,22.8,front+.16,x===0?7.4:8,3.3);
       for(const x of [-14,0,14])windowHouse(exterior,x,12.8,front+.16,x===0?8:6,5.4);
       box(h,50,.40,13,0,7.85,-70.7,materials.darkwood);
-      box(h,50,.35,13,0,17.4,-70.7,materials.frame);
+      porchCeiling=new T.Group();porchCeiling.name='Porch ceiling';h.add(porchCeiling);box(porchCeiling,50,.35,13,0,17.4,-70.7,materials.frame);
       // Stone lower facade and the open lower patio under the screened porch.
       for(const x of [-14,0,14])windowHouse(exterior,x,3.5,front+.35,5.6,6.6);
       for(const x of [-24,-16,-8,0,8,16,24]){
@@ -1485,9 +1489,9 @@
       for(let i=0;i<20;i++)cylinder(h,.09,.06,2+ i*.31,2.75,-60.5+Math.sin(i*2.4)*.36,materials.darkwood);
       // Porch has gray planks, warm wood ceiling and cushioned black rockers.
       for(let z=-76.5;z< -64.8;z+=.55)box(h,49,.045,.52,0,8.08,z,materials.porchFloor);
-      box(h,49,.07,12,0,17.15,-70.7,materials.wood);
-      for(const x of [-17,-6,6,17]){const r=new T.Group();r.position.set(x,8.1,-68.8);h.add(r);box(r,1.7,.16,1.7,0,1.3,0,materials.metal);box(r,1.55,.16,1.55,0,1.45,0,materials.decorLeaf);for(const xx of [-.85,.85]){box(r,.10,2.7,.10,xx,1.35,.70,materials.metal);box(r,.12,.12,2.1,xx,.12,0,materials.metal);box(r,.12,.12,1.7,xx,2,0,materials.metal);}for(let xx=-.65;xx<=.65;xx+=.26)box(r,.045,1.35,.06,xx,2.1,.70,materials.metal);}
-      for(const x of [-12,12]){cylinder(h,.12,.65,x,16.7,-70,materials.frame);for(const a of [0,Math.PI/3,2*Math.PI/3])box(h,3.6,.06,.32,x,16.4,-70,materials.frame,a);}
+      box(porchCeiling,49,.07,12,0,17.15,-70.7,materials.wood);
+      for(const x of config.rehearsal?[]:[-17,-6,6,17]){const r=new T.Group();r.position.set(x,8.1,-68.8);h.add(r);box(r,1.7,.16,1.7,0,1.3,0,materials.metal);box(r,1.55,.16,1.55,0,1.45,0,materials.decorLeaf);for(const xx of [-.85,.85]){box(r,.10,2.7,.10,xx,1.35,.70,materials.metal);box(r,.12,.12,2.1,xx,.12,0,materials.metal);box(r,.12,.12,1.7,xx,2,0,materials.metal);}for(let xx=-.65;xx<=.65;xx+=.26)box(r,.045,1.35,.06,xx,2.1,.70,materials.metal);}
+      for(const x of [-12,12]){cylinder(porchCeiling,.12,.65,x,16.7,-70,materials.frame);for(const a of [0,Math.PI/3,2*Math.PI/3])box(porchCeiling,3.6,.06,.32,x,16.4,-70,materials.frame,a);}
       // Driveway-side chimney, distinct from the lake-facing porch stairs.
       box(exterior,5,23,3.2,-12,11,-104,materials.stone);box(exterior,3.6,7,2.9,-12,26,-104,materials.stone);
       staircase(h);houseInterior(h);
@@ -1504,7 +1508,7 @@
       for(const x of [-12,12]){box(h,.65,18,.65,x,17,-91,materials.wood);beam(h,[x,17,-102],[x,28,-90],.22,materials.wood);beam(h,[x,28,-90],[x,17,-77],.22,materials.wood);}
       for(let z=-101;z< -78;z+=4)box(h,40,.45,.35,0,18,z,materials.wood);
       // Long dining table, black chairs, open kitchen, stone fireplace and seating.
-      const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i<6;i++)chair(dining,-5.7+i*2.25,side*2.6,side>0?0:Math.PI);
+      if(!config.rehearsal||!config.rehearsalBuffet){const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i<6;i++)chair(dining,-5.7+i*2.25,side*2.6,side>0?0:Math.PI);}
       for(let i=0;i<5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.darkwood);}
       box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.darkwood);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
       box(h,5.5,12,1.4,13,14.2,-101.2,materials.stone);box(h,3,3,.2,13,10,-100.42,materials.metal);box(h,6,.20,2.1,13,12,-100.2,materials.darkwood);
@@ -1516,7 +1520,45 @@
       for(let i=0;i<10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.gold);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
       box(h,8,3.1,2,-13,1.55,-100,materials.wood);box(h,8.2,.12,2.2,-13,3.16,-100,materials.darkwood);box(h,5,2.8,.12,12,4.9,-102.2,materials.metal);
       box(h,14,2.35,2.1,-13,1.18,-87,materials.wood);box(h,13.4,.08,1.55,-13,2.4,-87,materials.darkwood);for(let i=0;i<6;i++)cylinder(h,.08,.06,-18+i*.22,2.48,-87,materials.gold);
+      if(config.rehearsal)rehearsalDinner(h);
       tag('House interior · photo-based concept',[0,config.houseRise+16,-89],'context');
+    }
+    function rehearsalDinner(h){
+      const dinner=new T.Group();dinner.name='Rehearsal dinner';dinner.position.y=8.14;h.add(dinner);
+      // Two 18 ft rows leave an 8 ft center route. No end chairs obstruct it.
+      let remaining=config.rehearsalSeats;
+      for(const [row,cx]of [[0,-13],[1,13]]){
+        const rowSeats=Math.ceil(remaining/(2-row));remaining-=rowSeats;
+        for(let i=0;i<3;i++){
+          const t=new T.Group();t.name='Rehearsal banquet table';t.position.set(cx-6+i*6,0,-70.5);dinner.add(t);
+          box(t,6,.18,2.5,0,2.42,0,materials.linen);for(const x of [-2.3,2.3])for(const z of [-.9,.9])box(t,.12,2.3,.12,x,1.15,z,materials.metal);
+          box(t,5.8,.035,.65,0,2.53,0,materials.napkin);
+          cylinder(t,.13,.5,0,2.8,0,materials.vase);for(const dx of [-.17,0,.17]){cylinder(t,.015,.7,dx,3.2,0,materials.decorLeaf);cylinder(t,.13,.12,dx,3.56,0,materials.flowerIvory);}
+        }
+        for(const [side,count]of [[-1,Math.ceil(rowSeats/2)],[1,Math.floor(rowSeats/2)]])for(let i=0;i<count;i++){
+          const x=cx-9+(i+.5)*18/count,z=-70.5+side*2.35;
+          const place=new T.Group();place.name='Rehearsal seat';place.userData.rehearsalSeat=true;dinner.add(place);chair(place,x,z,side>0?0:Math.PI);
+          cylinder(dinner,.37,.04,x,2.55,-70.5+side*.77,materials.china);
+          for(const dx of [-.52,.52])box(dinner,.045,.035,.5,x+dx,2.56,-70.5+side*.77,materials.flatware);
+          cylinder(dinner,.12,.34,x+.4,2.72,-70.5+side*.4,materials.goblet);
+        }
+      }
+      if(config.rehearsalBuffet){
+        const buffet=new T.Group();buffet.name='Rehearsal tray buffet';buffet.position.set(-8,0,-84);dinner.add(buffet);
+        box(buffet,12,.2,2.5,0,2.45,0,materials.linen);for(const x of [-5,5])for(const z of [-.9,.9])box(buffet,.12,2.4,.12,x,1.2,z,materials.metal);
+        for(const x of [-4,-1.4,1.2]){const tray=new T.Group();tray.name='Buffet serving tray';buffet.add(tray);box(tray,2,.13,1.5,x,2.64,0,materials.flatware);box(tray,1.75,.09,1.25,x,2.75,0,materials.gold);for(const dx of [-.85,.85])box(tray,.06,.35,1.3,x+dx,2.4,0,materials.metal);box(tray,.04,.05,1,x,2.85,.2,materials.flatware);}
+        for(let i=0;i<10;i++)cylinder(buffet,.40,.035,4.3,2.58+i*.04,0,materials.china);
+        tag('Tray buffet · serve from porch side',[-8,config.houseRise+12,-84],'context');
+      }
+      if(config.rehearsalBar){
+        const bar=new T.Group();bar.name='Rehearsal bartending station';bar.position.set(15,0,-83);dinner.add(bar);
+        box(bar,6,3.4,2.2,0,1.7,0,materials.rentalBar);box(bar,6.3,.16,2.5,0,3.48,0,materials.darkwood);
+        for(let i=0;i<6;i++){cylinder(bar,.12,.65,-2+i*.38,3.86,.45,materials.goblet);cylinder(bar,.065,.16,-2+i*.38,4.26,.45,materials.metal);}
+        for(let i=0;i<8;i++)cylinder(bar,.12,.35,.7+i%4*.33,3.75,-.5+Math.floor(i/4)*.4,materials.goblet);
+        box(bar,1.5,.5,1,2,3.8,.5,materials.flatware);
+        tag('Bartending station · staffed service',[15,config.houseRise+13,-83],'context');
+      }
+      tag(config.rehearsalSeats+' porch seats · rehearsal dinner',[0,config.houseRise+13,-70.5],'context');
     }
     function staircase(parent){
       // Upper flight runs straight out of the porch. Lower flights split lakeward and houseward.
@@ -1650,6 +1692,7 @@
     }
     function applyAppearance(){
       if(houseExterior)houseExterior.visible=!config.houseCutaway;
+      if(porchCeiling)porchCeiling.visible=activeView!=='rehearsal';
       roof.visible=(config.roof&&activeView!=='plan')||['tour','seat'].includes(activeView);context.visible=config.context||activeView==='tour';walls.visible=config.walls!=='hidden';dimensions.visible=config.measurements&&!['tour','seat'].includes(activeView);grid.visible=config.grid&&!['tour','seat'].includes(activeView);ruler.visible=!['tour','seat'].includes(activeView)&&(config.measurements||$('lp-action').value==='measure');
       doorLeaves.forEach(o=>o.visible=activeView!=='tour');
       doorGuides.visible=config.doorGuides&&!['walk','tour','seat'].includes(activeView);powerMarkers.visible=config.power;
@@ -1812,6 +1855,8 @@
     }
     function syncControls(){
       config.rentals=rentalLibrary.cleanState(config.rentals,config);renderRentalLibrary();
+      $('lp-rehearsal').checked=config.rehearsal;$('lp-rehearsal-seats').value=config.rehearsalSeats;$('lp-rehearsal-buffet').checked=config.rehearsalBuffet;$('lp-rehearsal-bar').checked=config.rehearsalBar;
+      $('lp-rehearsal-status').textContent=(config.rehearsal?'Showing ':'Preview ')+config.rehearsalSeats+' porch seats · 6 banquet tables · 2 rows · approx. 8 ft center aisle. Buffet and bar inside are optional.';
       for(const [id,key]of [['lp-flower-stands','flowerStands'],['lp-stand-position','standPosition'],['lp-door-setback','doorSetback'],['lp-dance-width','danceWidth'],['lp-dance-depth','danceDepth'],['lp-bar-side','barSide'],['lp-guests','targetGuests'],['lp-bench-rows','benchRows'],['lp-bench-length','benchLength'],['lp-deck-width','deckWidth'],['lp-deck-depth','deckDepth'],['lp-aisle-decor','aisleDecor'],['lp-aisle-pairs','aislePairs'],['lp-aisle-color','aisleColor'],['lp-tent-side','tentSide'],['lp-tent-style','tentStyle'],['lp-tent-width','tentWidth'],['lp-tent-depth','tentDepth'],['lp-lighting','lighting'],['lp-ceiling-decor','ceilingDecor']])$(id).value=config[key];
       for(const [id,key]of [['lp-dessert','dessert'],['lp-door-guides','doorGuides'],['lp-power','power']])$(id).checked=config[key];
       const seats=(12-config.disabledTables.length)*8;
@@ -2040,12 +2085,16 @@
         table:{azimuth:.95,polar:1.12,distance:10.5,target:[-7,3.0,-13]},
         measure:{azimuth:.28,polar:.67,distance:115*factor,target:[0,0,0]},
         ceremony:{azimuth:Math.PI,polar:1.43,distance:32*factor,target:[0,gradeHeight(0,105)+3,105]},
+        rehearsal:{azimuth:.32,polar:.63,distance:54,target:[0,config.houseRise+9,-74]},
+        rehearsalSeat:{azimuth:0,polar:Math.PI/2,distance:9.5,target:[-13,config.houseRise+11.94,-77.65]},
+        rehearsalBuffet:{azimuth:.4,polar:1.20,distance:24,target:[1,config.houseRise+11,-84]},
         houseInterior:{azimuth:.7,polar:1.30,distance:18,target:[0,config.houseRise+12,-91]},
         houseLower:{azimuth:.5,polar:1.42,distance:14,target:[0,config.houseRise+3,-92]},
         residence:{azimuth:.12,polar:1.71,distance:66*factor,target:[0,config.houseRise+14,-85]},
         stairs:{azimuth:-.60,polar:1.30,distance:35,target:[-29,config.houseRise+5,-68]},
         kitchen:{azimuth:-.75,polar:.85,distance:70*factor,target:[-20,4,-40]}
       };
+      if(name.startsWith('rehearsal')){config.rehearsal=true;config.houseCutaway=true;config.context=true;rebuild();}
       if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
       else if(!['tour','seat'].includes(name))orbit=presets[name]||presets.perspective;
@@ -2060,7 +2109,7 @@
       applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
       walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;
@@ -2182,6 +2231,9 @@
     $('lp-house-cutaway').onchange=e=>{config.houseCutaway=e.target.checked;applyAppearance();draw();saveState();};
     for(const [id,key]of [['lp-dessert-style','dessertStyle'],['lp-cupcake-count','cupcakeCount']])$(id).onchange=e=>{config[key]=e.target.value;Object.assign(config,normalizePlan(config));refreshDecor();saveState();};
     $('lp-reset-camera').onclick=()=>{stopWalking();pauseTour(false);orbit={azimuth:.35,polar:.67,distance:150,target:[0,1,0]};walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0};seat=normalizeSeat({});tour={time:0,speed:1};view('perspective');};
+    $('lp-rehearsal-show').onclick=()=>view('rehearsal');
+    $('lp-rehearsal-walk').onclick=()=>{config.rehearsal=true;config.context=true;config.houseCutaway=true;rebuild();stopWalking();pauseTour(false);restoreProjection('walk');walk={x:0,y:5.5,z:-66,yaw:0,pitch:0,surface:config.houseRise+8.05};applyAppearance();syncControls();draw();saveState();};
+    for(const [id,key]of [['lp-rehearsal','rehearsal'],['lp-rehearsal-seats','rehearsalSeats'],['lp-rehearsal-buffet','rehearsalBuffet'],['lp-rehearsal-bar','rehearsalBar']])$(id).onchange=e=>{config[key]=e.target.type==='checkbox'?e.target.checked:e.target.value;Object.assign(config,normalizePlan(config));if(config.rehearsal)config.context=true;rebuild();saveState();};
     $('lp-reset-open').onclick=()=>{$('lp-reset-prompt').hidden=false;};$('lp-reset-cancel').onclick=()=>{$('lp-reset-prompt').hidden=true;};
     $('lp-reset-confirm').onclick=()=>{stopWalking();pauseTour(false);clearTimeout(rebuildTimer);resetUndo=JSON.parse(JSON.stringify({config,orbit,walk,seat,tour,navigation,view:activeView}));config=normalize(resetDefaults);navigation={height:680,speed:8,quality:'auto'};stage.style.height='680px';measurementPoints=[];selected='table-1';rebuild();$('lp-reset-camera').click();$('lp-reset-prompt').hidden=true;$('lp-undo-reset').hidden=false;saveState();};
     $('lp-undo-reset').onclick=()=>{if(!resetUndo)return;stopWalking();pauseTour(false);clearTimeout(rebuildTimer);config=normalize(resetUndo.config);orbit=normalizeOrbit(resetUndo.orbit);walk=normalizeWalk(resetUndo.walk);seat=normalizeSeat(resetUndo.seat||{});tour=normalizeTour(resetUndo.tour);restoreNavigation(resetUndo.navigation);restoreProjection(resetUndo.view);rebuild();resetUndo=null;$('lp-undo-reset').hidden=true;saveState();};

@@ -64,6 +64,7 @@ describe('Reviewed rental catalog and supplier provenance',()=>{
     assert.equal(floor.price,396);assert.equal(floor.unit,'listed floor');assert.equal(floor.preview.plan.danceWidth,12);assert.equal(floor.preview.plan.danceDepth,12);
     const sofa=data.items.find(i=>i.name==='ASSIL SOFA – BLUE FAUX LEATHER');assert.equal(sofa.preview.design.sofaLength,5.9167);assert.equal(sofa.preview.design.sofaDepth,2.625);assert.equal(sofa.preview.design.sofaHeight,2.3583);
     const glass=data.items.find(i=>i.name==='10 Oz Mondial Wine Glass');assert.equal(glass.preview.design.glassware,'clear');assert.equal(glass.preview.design.glassColor,'#e4ece8');
+    const flute=data.items.find(i=>i.name==='6.5 Oz Mondial Champagne Flute');assert.equal(flute.preview.design.glassColor,'#e4ece8');
     const silver=data.items.find(i=>i.family==='Votives – Gold & Silver Mercury Glass'&&i.name.endsWith('Silver'));assert.equal(silver.preview.design.metalFinish,'silver');
   });
   it('filters both vendors/categories/search, references and saved products without changing the model',()=>{

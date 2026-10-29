@@ -199,7 +199,11 @@ test('bounded vase edits, new flowers, wood floor and cupcake displays stay rend
   const state=await app.locator('body').evaluate(()=>window.openai.widgetState.modelContent);
   expect(state.dancePattern).toBe('wood');expect(state.cupcakeCount).toBe(72);expect(state.design.vaseCount).toBe(5);
   await app.locator('#lp-view').selectOption('houseInterior');
-  await app.locator('#lp-tab-view').click();await expect(app.locator('#lp-house-cutaway')).toBeChecked();
+  // Room cameras are inside the real envelope now; automatic cutaway made
+  // cabinets float against the sky. Keep walls visible and test the override.
+  await app.locator('#lp-tab-view').click();await expect(app.locator('#lp-house-cutaway')).not.toBeChecked();
+  await app.locator('#lp-house-cutaway').check();await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.houseCutaway)).toBe(true);
+  await app.locator('#lp-house-cutaway').uncheck();await expect.poll(()=>app.locator('body').evaluate(()=>window.openai.widgetState.modelContent.houseCutaway)).toBe(false);
   await app.locator('#lp-view').selectOption('houseLower');
   expect(await app.locator('#lp-canvas').evaluate(c=>!c.getContext('webgl2').isContextLost())).toBe(true);
   expect(consoleErrors).toEqual([]);

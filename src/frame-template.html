@@ -1502,6 +1502,14 @@ html>body{padding:0}</style>
     "codex-visualization-widget-state",
   );
   const initialGlobals = parse(initialStateElement?.textContent ?? "{}");
+  // The frame grows to its content height. Using its own 100vh for panel caps
+  // would feed that height back into itself and create a runaway page.
+  const setHostViewport = (height) => {
+    if (typeof height !== "number" || !Number.isFinite(height)) return;
+    document.body.style.setProperty("--host-viewport-height", Math.max(360, Math.min(1600, height)) + "px");
+  };
+  setHostViewport(initialGlobals.viewportHeight);
+
   initialStateElement?.remove();
   /** @type {Record<string, unknown> | null} */
   let state = initialGlobals.widgetState ?? null;
@@ -1706,6 +1714,7 @@ html>body{padding:0}</style>
           (event) => {
             const data = apply(getMessageData, event, []);
             if (typeof data === "object" && data?.type === "measure") {
+              setHostViewport(data.viewportHeight);
               sendHeight();
             } else if (
               typeof data === "object" &&

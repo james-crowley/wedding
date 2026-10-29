@@ -481,8 +481,8 @@
 #venue-pavilion-3d .lp-event-buttons .btn[aria-pressed=true]{background:#455d42;border-color:#455d42;color:#fff;box-shadow:0 2px 6px #31453720}
 #venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(380px,1fr) 16px var(--editor-width);gap:0;align-items:start}
 #venue-pavilion-3d .lp-viewer{border-radius:12px;box-shadow:0 6px 25px #31453708}
-#venue-pavilion-3d .lp-editor{max-height:calc(100vh - 40px);min-height:600px;padding:16px 18px 24px;border-radius:12px;border-top:1px solid var(--studio-line);position:sticky;top:16px}
-#venue-pavilion-3d #lp-divider{height:calc(100vh - 60px);min-height:600px;cursor:col-resize;touch-action:none;display:grid;place-items:center;position:sticky;top:16px;outline-offset:-3px}
+#venue-pavilion-3d .lp-editor{max-height:calc(var(--host-viewport-height,900px) - 40px);min-height:600px;padding:16px 18px 24px;border-radius:12px;border-top:1px solid var(--studio-line);position:sticky;top:16px}
+#venue-pavilion-3d #lp-divider{height:calc(var(--host-viewport-height,900px) - 60px);min-height:600px;cursor:col-resize;touch-action:none;display:grid;place-items:center;position:sticky;top:16px;outline-offset:-3px}
 #venue-pavilion-3d #lp-divider span{height:58px;width:4px;border-radius:4px;background:#b9c5b1;box-shadow:4px 0 #dce3d5}
 #venue-pavilion-3d #lp-divider:hover span,#venue-pavilion-3d #lp-divider:focus-visible span{background:#586f4c}
 #venue-pavilion-3d.lp-resizing{user-select:none;cursor:col-resize}

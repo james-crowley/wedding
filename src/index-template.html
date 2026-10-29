@@ -122,6 +122,7 @@
   }
   const initialGlobals = {
     widgetState: state,
+    viewportHeight: globalThis.innerHeight,
     statePersistence: storage == null ? "none" : "local",
   };
 
@@ -274,7 +275,7 @@
       frame.style.removeProperty("height");
     }
     viewportHeight = globalThis.innerHeight;
-    channel.port1.postMessage({ type: "measure" });
+    channel.port1.postMessage({ type: "measure", viewportHeight: globalThis.innerHeight });
   });
   frame.addEventListener(
     "load",

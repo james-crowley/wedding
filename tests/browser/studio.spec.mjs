@@ -4,7 +4,15 @@ import {installRenderAudit,renderHealth} from './render-audit.mjs';
 import {makePreviewGif} from '../../scripts/visual-artifacts.mjs';
 const catalog=JSON.parse(readFileSync(new URL('../../data/rental-catalog.json',import.meta.url),'utf8'));
 test.use({video:{mode:'on',size:{width:960,height:720}}});
-async function frameOf(page){return page.frames().find(f=>f.parentFrame()===page.mainFrame());}
+async function frameOf(page){
+  // WebKit can report the outer load before a srcdoc frame commits. Hidden
+  // alone also matches a missing loading element in about:blank. Require the
+  // real model DOM first, then initialization; never retry render failures.
+  await page.frameLocator('#codex-visualization').locator('#lp-canvas').waitFor({state:'attached',timeout:60_000});
+  const frame=page.frames().find(f=>f.parentFrame()===page.mainFrame());
+  await frame.locator('#lp-loading').waitFor({state:'hidden',timeout:60_000});
+  return frame;
+}
 async function healthy(frame){const h=await frame.evaluate(renderHealth);expect(h.errors).toEqual([]);expect(h.lost).toBe(false);expect(h.colors).toBeGreaterThan(3);return h;}
 async function capture(frame,info,name,frames){const path=info.outputPath(name+'.png');await frame.locator('#lp-canvas').screenshot({path});await info.attach(name,{path,contentType:'image/png'});frames?.push(path);}
 test.beforeEach(async({page})=>{
@@ -90,6 +98,7 @@ test('studio: rehearsal porch seats, buffet trays, bar and saved walkthrough',as
 test('studio: resizable inspector, canonical controls and patio equipment',async({page},info)=>{
   test.setTimeout(8*60_000);const f=await frameOf(page),width=page.viewportSize().width;
   if(width>1100){
+    const panel=await f.locator('#lp-editor').boundingBox();expect(panel.height).toBeLessThanOrEqual(page.viewportSize().height);
     const divider=f.locator('#lp-divider');await divider.focus();await divider.press('ArrowLeft');await expect(divider).toHaveAttribute('aria-valuenow','460');
     const bounds=await divider.boundingBox();await page.mouse.move(bounds.x+8,bounds.y+40);await page.mouse.down();await page.mouse.move(bounds.x-100,bounds.y+40,{steps:6});await page.mouse.up();expect(Number(await divider.getAttribute('aria-valuenow'))).toBeGreaterThan(500);
   }else await expect(f.locator('#lp-divider')).toBeHidden();

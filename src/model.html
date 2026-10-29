@@ -505,7 +505,7 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,phonePreview()?1:1.5));renderer.shadowMap.enabled=!phonePreview();renderer.shadowMap.type=T.PCFSoftShadowMap;
     const contextRecovery=renderer.getContext().getExtension('WEBGL_lose_context');
     let graphicsLost=false;
-    canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();graphicsLost=true;stopWalking();pauseTour(false);saveState();$('lp-recovery').hidden=false;});
+    canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();graphicsLost=true;stopWalking();pauseTour(false);saveState();clearTimeout(rebuildTimer);clearScene();Object.values(materials).forEach(material=>material.dispose());materials={};unitBox.dispose();unitCylinder.dispose();if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null;}$('lp-recovery').hidden=false;});
     canvas.addEventListener('webglcontextrestored',()=>{graphicsLost=false;rebuild();$('lp-recovery').hidden=true;});
     $('lp-restore-render').onclick=()=>{navigation.quality='mobile';saveState();if(graphicsLost){if(contextRecovery)contextRecovery.restoreContext();else $('lp-recovery').querySelector('p').textContent='Please reload this page to restore the preview. Your design has been saved.';}else {rebuild();$('lp-recovery').hidden=true;}};
     $('lp-quality').onchange=event=>{navigation.quality=event.target.value;rebuild();saveState();};

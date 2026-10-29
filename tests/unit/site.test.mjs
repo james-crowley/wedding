@@ -91,3 +91,10 @@ test('publication refuses PRs, unverified artifacts and missing credentials', ()
   const lock=JSON.parse(await readFile(join(projectRoot,'package-lock.json'),'utf8'));
   for(const entry of Object.values(lock.packages))if(entry.resolved)assert.ok(entry.resolved.startsWith('https://registry.npmjs.org/'),'Dependencies must not require a local mirror login');
  });
+
+test('CI checks graphics early and gives two browser workers four CPUs',async()=>{
+  const config=parse(await readFile(join(projectRoot,'.circleci/config.yml'),'utf8'));
+  assert.equal(config.jobs['browser-tests'].resource_class,'large');assert.equal(config.jobs['browser-tests'].environment.PW_WORKERS,'2');
+  assert.ok(config.jobs['browser-tests'].steps.some(step=>step.run?.command==='xvfb-run -a node scripts/ci-browser.mjs run'));
+  const runner=await readFile(join(projectRoot,'scripts/check-static.mjs'),'utf8');assert.match(runner,/Firefox software graphics preflight/);assert.match(runner,/check-browser-graphics\.mjs/);
+});

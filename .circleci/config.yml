@@ -7,6 +7,8 @@ executors:
     resource_class: medium
     environment:
       CI: "true"
+      LIBGL_ALWAYS_SOFTWARE: "1"
+      MOZ_WEBRENDER: "1"
 
 jobs:
   build-and-unit:
@@ -32,7 +34,7 @@ jobs:
           name: Classify changes against the published source or PR merge base
           command: node scripts/ci-plan.mjs prepare
       - run:
-          name: Build, unit-test and collect browser inventory concurrently
+          name: Build, unit-test, inventory and check Firefox graphics concurrently
           command: npm run check:static -- --inventory
       - store_test_results:
           path: test-results
@@ -51,7 +53,10 @@ jobs:
 
   browser-tests:
     executor: browser
+    resource_class: large
     parallelism: 8
+    environment:
+      PW_WORKERS: "2"
     steps:
       - checkout
       - attach_workspace:
@@ -60,8 +65,8 @@ jobs:
           name: Skip browsers for verified documentation-only changes
           command: node scripts/ci-plan.mjs halt-if-docs
       - run:
-          name: Run this browser shard with one WebGL worker
-          command: node scripts/ci-browser.mjs run
+          name: Run this browser shard with two workers on four CPUs
+          command: xvfb-run -a node scripts/ci-browser.mjs run
           no_output_timeout: 15m
       - run:
           name: Build a browsable gallery of screenshots, GIFs and recordings

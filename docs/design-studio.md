@@ -23,9 +23,11 @@ Automatic quality caps phone rendering at 1× pixel density, disables shadows an
 ## CI evidence and speed
 
 - Build, unit tests and browser inventory run concurrently after one cached dependency install.
-- Eight browser shards retain exhaustive control and rental-recipe coverage. Validated historical timings rebalance later runs; timing history never skips tests.
+- Eight four-CPU browser shards use two workers each and retain exhaustive control and rental-recipe coverage. Validated historical timings rebalance later runs; timing history never skips tests.
 - Geometry permutations use supported Light mode. Full-resolution studio tests cover Chromium, mobile-sized Firefox and iPhone-sized WebKit with actual WebGL rendering and repeated style changes.
 - Studio tests keep successful videos, screenshots and animated GIF comparisons. Other tests record video/trace on retry and screenshots on failure, keeping routine matrix overhead lower.
 - Each browser job publishes `test-results/visual-gallery.html`, raw media, JUnit and a Playwright report. The merge job verifies exact test/project coverage before deployment. No failed, skipped or flaky results authorize publication.
 
 Local focused run: `npm run build && npm run test:browser -- tests/browser/studio.spec.mjs tests/browser/recovery.spec.mjs`. Install the pinned Firefox/WebKit engines with `npx playwright install firefox webkit` if needed.
+
+Linux Firefox runs with software graphics under Xvfb. A real WebGL pixel-readback preflight runs alongside build/unit/inventory and fails before the full matrix if the CI graphics environment cannot initialize. Mobile browser projects are scheduled first to surface platform-specific failures earlier.

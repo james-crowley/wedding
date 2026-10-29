@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+import {firefoxLaunch} from './scripts/browser-settings.mjs';
 
 export default defineConfig({
   testDir: './tests/browser',
@@ -11,7 +12,7 @@ export default defineConfig({
   globalTimeout: (process.env.CI ? 60 : 180) * 60_000,
   expect: { timeout: 15_000 },
   fullyParallel: true,
-  workers: process.env.CI ? 1 : 2,
+  workers: process.env.CI ? Number(process.env.PW_WORKERS||1) : 2,
   retries: process.env.CI ? 1 : 0,
   // A retry provides a trace for diagnosis, not permission to publish an
   // intermittently broken renderer.
@@ -19,9 +20,9 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   reporter: [['list'], ['junit', { outputFile: 'test-results/browser.xml' }], ['html', { outputFolder: 'playwright-report', open: 'never' }], ...process.env.CI_SHARD_REPORT_DIR ? [['blob', { outputDir: process.env.CI_SHARD_REPORT_DIR }]] : []],
   projects: [
-    {name:'chromium',use:{browserName:'chromium'}},
-    {name:'phone-firefox',testMatch:/studio\.spec\.mjs/,use:{browserName:'firefox',viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,launchOptions:{firefoxUserPrefs:{'webgl.force-enabled':true,'gfx.webrender.software':true}}}},
-    {name:'phone-webkit',testMatch:/studio\.spec\.mjs/,use:{browserName:'webkit',viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,launchOptions:{args:[]}}}
+    {name:'phone-firefox',testMatch:/studio\.spec\.mjs/,use:{browserName:'firefox',viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,launchOptions:firefoxLaunch}},
+    {name:'phone-webkit',testMatch:/studio\.spec\.mjs/,use:{browserName:'webkit',viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,launchOptions:{args:[]}}},
+    {name:'chromium',use:{browserName:'chromium'}}
   ],
   use: {
     browserName: 'chromium',

@@ -36,6 +36,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   await runConcurrent([
     { name: 'Production build', command: 'npm', args: ['run', 'build'] },
     { name: 'Unit tests', command: 'npm', args: ['run', 'test:unit'] },
-    ...args.includes('--inventory') ? [{ name: 'Browser inventory', command: process.execPath, args: ['scripts/ci-browser.mjs', 'list'] }] : []
+    ...args.includes('--inventory') ? [{ name: 'Browser inventory', command: process.execPath, args: ['scripts/ci-browser.mjs', 'list'] },...process.env.CI?[{name:'Firefox software graphics preflight',command:'xvfb-run',args:['-a',process.execPath,'scripts/check-browser-graphics.mjs']}]:[]] : []
   ]);
 }

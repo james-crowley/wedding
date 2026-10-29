@@ -1645,7 +1645,7 @@
     }
     function rebuild(){
       clearTimeout(rebuildTimer);if(graphicsLost)return;renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,phonePreview()?1:1.5));renderer.shadowMap.enabled=!phonePreview();sun.shadow.mapSize.set(phonePreview()?512:1024,phonePreview()?512:1024);if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null;}
-      const old=Object.values(materials);clearScene();palette();old.forEach(m=>m.dispose());floorAndStructure();addFurniture();surroundings();batchSimpleParts(furniture);batchSimpleParts(context);
+      const old=Object.values(materials);clearScene();palette();old.forEach(m=>m.dispose());floorAndStructure();addFurniture();surroundings();for(const group of [shell,walls,roof,ceilingLights,furniture,context])batchSimpleParts(group);
       applyAppearance();fillObjectOptions();selectObject(selected);syncControls();clearance();rebuildRulers();lastDecorShape=decorShape();resize();
     }
     function applyAppearance(){

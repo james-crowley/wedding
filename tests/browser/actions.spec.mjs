@@ -66,7 +66,7 @@ for(const group of Object.keys(groups))test(`action audit: ${group}`,async({page
     for(const id of ['lp-snapshot','lp-brief']){const [download]=await Promise.all([page.waitForEvent('download'),act(id)]);expect(download.suggestedFilename()).toBe(id==='lp-snapshot'?'venue-design.png':'venue-planning-brief.html');}
   }else if(group==='sharing'){
     await act('lp-share-create');await expect(frame.locator('#lp-share-copy')).toBeEnabled();await act('lp-share-copy');await act('lp-share-native');const url=await frame.locator('#lp-share-url').inputValue();
-    await page.goto(url);let shared=await frameOf(page);await Promise.all([page.waitForEvent('load'),shared.locator('#lp-share-original').click()]);seen.add('lp-share-original');shared=await frameOf(page);await healthy(shared,'Reload linked design');
+    await Promise.all([page.waitForEvent('load'),page.goto(url)]);let shared=await frameOf(page);await Promise.all([page.waitForEvent('load'),shared.locator('#lp-share-original').click()]);seen.add('lp-share-original');shared=await frameOf(page);await healthy(shared,'Reload linked design');
     await Promise.all([page.waitForEvent('load'),shared.locator('#lp-share-personal').click()]);seen.add('lp-share-personal');await expect(page).not.toHaveURL(/#design=/);await healthy(await frameOf(page),'Return to personal design');
   }else if(group==='save'){
     const [download]=await Promise.all([page.waitForEvent('download'),act('lp-save')]);expect(download.suggestedFilename()).toBe('venue-pavilion-layout.json');

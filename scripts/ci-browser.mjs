@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
 import { projectRoot } from './build.mjs';
 import { readPlan, SHARDS } from './ci-plan.mjs';
+import {browserInventory,balancedBrowserShards,verifyShardSelection} from './browser-shards.mjs';
 
 export function specs(report) {
   return (report.suites || []).flatMap(suite => [...(suite.specs || []), ...specs(suite)]);
@@ -43,7 +44,7 @@ function playwright(args, options = {}) {
 }
 async function inventory() {
   const plan = await readPlan();
-  const expected = plan.mode === 'docs' ? [] : specs(playwright(['test', '--list', '--reporter=json'], { capture: true })).map(({ id, title, tests }) => ({ id, title, projects: tests.map(test => test.projectId || '') }));
+  const expected = plan.mode === 'docs' ? [] : browserInventory(playwright(['test', '--list', '--reporter=json'], { capture: true }));
   if (plan.mode === 'full' && !expected.length) throw new Error('No browser tests were collected');
   await writeFile(join(projectRoot, '.ci/expected-tests.json'), JSON.stringify(expected, null, 2) + '\n');
   console.log(`Collected ${expected.length} required browser tests.`);
@@ -55,7 +56,12 @@ async function runShard() {
   // with a unique path, so parallel containers never write the same filename.
   if (process.env.CIRCLECI) await rm(join(projectRoot, 'ci-shards'), { recursive: true, force: true });
   const directory = join(projectRoot, 'ci-shards', `${index}-${randomUUID()}`);await mkdir(directory, { recursive: true });
-  playwright(['test', `--shard=${index + 1}/${total}`], { env: { CI_SHARD_REPORT_DIR: join(directory, 'blob') } });
+  const expected=JSON.parse(await readFile(join(projectRoot,'.ci/expected-tests.json'),'utf8'));
+  const assignment=balancedBrowserShards(expected,total)[index],list=join(directory,'test-list.txt');
+  await writeFile(list,assignment.tests.map(test=>test.selector).join('\n')+'\n');
+  verifyShardSelection(specs(playwright(['test','--list','--reporter=json','--test-list',list],{capture:true})),assignment.tests);
+  console.log(`Balanced shard ${index+1}/${total}: ${assignment.tests.length} cases, estimated weight ${assignment.weight}.`);
+  playwright(['test','--test-list',list], { env: { CI_SHARD_REPORT_DIR: join(directory, 'blob') } });
   const manifest = JSON.parse(await readFile(join(projectRoot, 'dist/build-info.json'), 'utf8'));
   if (manifest.commit !== plan.commit) throw new Error('Shard tested the wrong build');
   await writeFile(join(directory, 'result.json'), JSON.stringify({ commit: plan.commit, htmlSha256: manifest.htmlSha256, index, total, completedAt: Date.now() }) + '\n');

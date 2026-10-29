@@ -49,7 +49,7 @@ describe('Reviewed rental catalog and supplier provenance',()=>{
     model=library.apply(library.apply(model,cloth.id),napkin.id);model.design.napkinColor='#010203';
     const state=library.cleanState(model.rentals,model);
     assert.equal(state.applied.cloth,cloth.id);assert.equal(state.applied.napkin,undefined);assert.ok(state.shortlist.includes(napkin.id));
-    const legacy=context.normalize({schema:'venue-pavilion-v8',design:{clothColor:'#829db5'}});assert.equal(legacy.design.clothColor,'#829db5');assert.deepEqual(Object.keys(legacy.rentals.applied),[]);
+    const legacy=context.normalize({schema:'venue-pavilion-v8',design:{clothColor:'#829db5',metalFinish:'silver'}});assert.equal(legacy.design.clothColor,'#829db5');assert.equal(legacy.design.chargerColor,'#c6cbd0');assert.equal(legacy.design.chargerRimColor,'#c6cbd0');assert.deepEqual(Object.keys(legacy.rentals.applied),[]);
   });
   it('rejects foreign or tampered product references and bounds/deduplicates saved state',()=>{
     const context=productionModel(),base=context.normalize({schema:'venue-pavilion-v9'});

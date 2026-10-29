@@ -8,18 +8,32 @@ import { parse } from 'yaml';
 import { projectRoot } from '../../scripts/build.mjs';
 import { SHARDS, classifyChanges, changedFiles } from '../../scripts/ci-plan.mjs';
 import { specs, verifyResults, verifyProof, selectShardReceipts } from '../../scripts/ci-browser.mjs';
+import {browserInventory,balancedBrowserShards,verifyShardSelection} from '../../scripts/browser-shards.mjs';
 import { runConcurrent } from '../../scripts/check-static.mjs';
 
 describe('CI selection and shard integrity', () => {
-const collect = shard => {
-  const args = [join(projectRoot, 'node_modules/playwright/cli.js'), 'test', '--list', '--reporter=json', ...shard ? [`--shard=${shard}/${SHARDS}`] : []];
-  const r = spawnSync(process.execPath, args, { cwd: projectRoot, encoding: 'utf8' });assert.equal(r.status, 0, r.stderr);
-  return specs(JSON.parse(r.stdout));
+const collect = args => {
+  const result=spawnSync(process.execPath,[join(projectRoot,'node_modules/playwright/cli.js'),'test','--list','--reporter=json',...(args||[])],{cwd:projectRoot,encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);return JSON.parse(result.stdout);
 };
-test('native shards partition every browser test exactly once', () => {
-  const all = collect(), ids = all.map(s => s.id).sort(), shards = Array.from({ length: SHARDS }, (_, i) => collect(i + 1));
-  assert.ok(all.length > SHARDS);assert.ok(shards.every(tests => tests.length > 0));
-  const split = shards.flatMap(tests => tests.map(s => s.id));assert.equal(new Set(split).size, ids.length);assert.deepEqual(split.sort(), ids);
+test('balanced test lists partition every browser case exactly once in the actual runner',async()=>{
+  const all=browserInventory(collect()),shards=balancedBrowserShards(all,SHARDS),directory=await mkdtemp(join(tmpdir(),'wedding-shards-'));
+  try{
+    const selected=[];
+    for(let index=0;index<SHARDS;index++){
+      const list=join(directory,index+'.txt');await writeFile(list,shards[index].tests.map(test=>test.selector).join('\n')+'\n');
+      const actual=specs(collect(['--test-list',list]));verifyShardSelection(actual,shards[index].tests);selected.push(...actual.map(test=>test.id));
+    }
+    assert.equal(new Set(selected).size,all.length);assert.deepEqual(selected.sort(),all.map(test=>test.id).sort());
+    const weights=shards.map(s=>s.weight);assert.ok(Math.max(...weights)/Math.min(...weights)<1.1);
+    const batches=shards.map(s=>s.tests.filter(test=>test.title.startsWith('rental preview matrix')).length);assert.ok(batches.every(n=>n>=4&&n<=5),'Heavy catalog batches must reach every worker');
+    assert.deepEqual(balancedBrowserShards(all,SHARDS),shards,'Assignments must be deterministic');
+  }finally{await rm(directory,{recursive:true,force:true});}
+});
+test('shard selection fails closed for missing, duplicate or unexpected tests',()=>{
+  const tests=[{id:'a'},{id:'b'}];assert.throws(()=>verifyShardSelection([{id:'a'}],tests),/exactly match/);
+  assert.throws(()=>verifyShardSelection([{id:'a'},{id:'a'}],tests),/exactly match/);assert.throws(()=>verifyShardSelection([{id:'a'},{id:'c'}],tests),/exactly match/);
+  assert.throws(()=>balancedBrowserShards([{id:'a',weight:0,selector:'x'}],2),/weight/);
 });
 test('documentation-only fast path is strict and fails closed without a baseline', () => {
   const classify = (files, baselineVerified = true, branch = 'main') => classifyChanges({ files, baselineVerified, branch });

@@ -96,9 +96,9 @@
   <div role="tabpanel" id="lp-panel-decor" aria-labelledby="lp-tab-decor" hidden></div>
   <section role="tabpanel" id="lp-panel-rentals" aria-labelledby="lp-tab-rentals" hidden>
     <span class="lp-eyebrow">BUILD YOUR PLACE SETTING</span><h3>Dress the table</h3>
-    <p class="text-small">Pick a piece below, choose a supplier, then apply an item to see it on every dining table. Each part can come from a different company.</p>
+    <p class="text-small">Select a component, then apply a supplier item. Mix vendors freely.</p>
     <div id="lp-rental-components" class="lp-component-grid" role="group" aria-label="Choose a rental component"></div>
-    <div class="lp-table-tools"><button class="btn btn-primary" id="lp-table-closeup" type="button">See table close-up</button><button class="btn" id="lp-table-overview" type="button">See pavilion</button><button class="btn" id="lp-place-setting" type="button">Show complete place settings</button></div>
+    <div class="lp-table-tools"><button class="btn btn-primary" id="lp-table-closeup" type="button">Close-up</button><button class="btn" id="lp-table-overview" type="button">Pavilion</button><button class="btn" id="lp-place-setting" type="button">Show all settings</button></div>
     <p class="text-small" id="lp-table-setting-status" role="status"></p>
     <div id="lp-rental-custom"></div>
     <p class="text-small" id="lp-rental-coverage"></p>
@@ -263,6 +263,7 @@
   <div class="text-small lp-assumptions">House interior furnishings and ceremony dimensions are photo-based approximations. 90 × 40 ft pavilion · Dining left, entertainment right in floor plan · House uphill, lake downhill. Site elevations, distances and unmeasured dimensions are photo-based estimates.</div>
 </div>
 <style id="lp-fonts">/* Bundled studio fonts */
+#venue-pavilion-3d #lp-panel-rentals>.viz-controls>.form-label{flex:1 1 90px}
 /* Design studio: preview first, component selection next, advanced fields last. */
 #venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) minmax(350px,420px);gap:18px}
 #venue-pavilion-3d .lp-editor{padding:0 18px 24px;max-height:1100px;border-radius:12px}
@@ -270,8 +271,8 @@
 #venue-pavilion-3d #lp-settings-tabs{position:sticky;top:0;z-index:3;grid-template-columns:repeat(3,minmax(0,1fr));padding-top:8px;background:#fff;gap:4px;border-top:0}
 #venue-pavilion-3d #lp-settings-tabs button{border-radius:7px;font-size:12px;padding:11px 5px}
 #venue-pavilion-3d .lp-view-shortcuts{display:flex;gap:7px;padding:10px 14px;background:#fff}
-#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0}
-#venue-pavilion-3d .lp-component-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
+#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0}
+#venue-pavilion-3d .lp-component-grid button{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
 #venue-pavilion-3d .lp-component-grid button small{display:none}
 #venue-pavilion-3d .lp-component-grid button[aria-pressed=true]{background:#435a44;color:white;border-color:#435a44}
 #venue-pavilion-3d .lp-table-tools{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:100px;background:#fff;padding:9px 0;z-index:2}
@@ -425,6 +426,7 @@
 #venue-pavilion-3d .lp-seat-heading{flex-wrap:wrap}
 }
 
+#venue-pavilion-3d #lp-panel-rentals>.viz-controls>.form-label{flex:1 1 90px}
 /* Design studio: preview first, component selection next, advanced fields last. */
 #venue-pavilion-3d .lp-workspace{grid-template-columns:minmax(0,1fr) minmax(350px,420px);gap:18px}
 #venue-pavilion-3d .lp-editor{padding:0 18px 24px;max-height:1100px;border-radius:12px}
@@ -432,8 +434,8 @@
 #venue-pavilion-3d #lp-settings-tabs{position:sticky;top:0;z-index:3;grid-template-columns:repeat(3,minmax(0,1fr));padding-top:8px;background:#fff;gap:4px;border-top:0}
 #venue-pavilion-3d #lp-settings-tabs button{border-radius:7px;font-size:12px;padding:11px 5px}
 #venue-pavilion-3d .lp-view-shortcuts{display:flex;gap:7px;padding:10px 14px;background:#fff}
-#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0}
-#venue-pavilion-3d .lp-component-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
+#venue-pavilion-3d .lp-component-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:12px 0}
+#venue-pavilion-3d .lp-component-grid button{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:0;min-height:44px;border-radius:9px;text-align:left;padding:9px 10px;font-size:12px}
 #venue-pavilion-3d .lp-component-grid button small{display:none}
 #venue-pavilion-3d .lp-component-grid button[aria-pressed=true]{background:#435a44;color:white;border-color:#435a44}
 #venue-pavilion-3d .lp-table-tools{display:flex;flex-wrap:wrap;gap:6px;position:sticky;top:100px;background:#fff;padding:9px 0;z-index:2}

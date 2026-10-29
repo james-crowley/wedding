@@ -10,7 +10,7 @@ test('historical timings change balance weights without changing test coverage',
   const cases=[{id:'a',weight:4,selector:'a'},{id:'b',weight:8,selector:'b'}];
   assert.deepEqual(timedInventory(cases,{a:20,b:NaN,c:10}),[{id:'a',weight:20,selector:'a'},cases[1]]);
   assert.equal(timedInventory(cases,{a:Infinity})[0].weight,4);assert.equal(timedInventory(cases,{a:99999})[0].weight,900);
-  assert.deepEqual(reportTimings({suites:[{specs:[{id:'a',tests:[{results:[{duration:1200},{duration:800}]}]}]}]}),{a:2});
+  assert.deepEqual(reportTimings({suites:[{specs:[{id:'a',file:'sample.spec.mjs',title:'example',tests:[{results:[{duration:1200},{duration:800}]}]}]}]}),{'sample.spec.mjs › example':2});
 });
 test('visual artifact encoder produces an animated GIF from PNG screenshots',async()=>{
   const dir=await mkdtemp(join(tmpdir(),'wedding-gif-'));

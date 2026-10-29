@@ -43,8 +43,27 @@ export function verifyShardSelection(actual,assigned){
 
 // Timing history only orders complete coverage. It never selects or skips tests.
 export function timedInventory(inventory,history={}){
-  return inventory.map(test=>({...test,weight:Number.isFinite(history[test.id])&&history[test.id]>0?Math.max(1,Math.min(900,history[test.id])):test.weight}));
+  return inventory.map(test=>{const duration=history[test.selector]??history[test.id];return {...test,weight:Number.isFinite(duration)&&duration>0?Math.max(1,Math.min(900,duration)):test.weight};});
 }
 export function reportTimings(report){
-  const history={};function visit(suite){for(const spec of suite.specs||[]){const duration=(spec.tests||[]).flatMap(t=>t.results||[]).reduce((sum,r)=>sum+(Number.isFinite(r.duration)?r.duration:0),0)/1000;if(duration>0)history[spec.id]=duration;}for(const child of suite.suites||[])visit(child);}for(const suite of report.suites||[])visit(suite);return history;
+  const history={};for(const row of reportedCases(report)){const duration=(row.test.results||[]).reduce((sum,result)=>sum+(Number.isFinite(result.duration)?result.duration:0),0)/1000;if(duration>0)history[row.selector]=duration;}return history;
+}
+
+// Playwright's list report exposes projectId; the merged JSON reporter retains
+// projectName but can omit projectId. Normalize both formats while retaining
+// the exact test ID and full test path for every browser project.
+export function reportedCases(report){
+  const rows=[];
+  function visit(suite,parents=[],top=false){
+    const nested=top?[]:[...parents,suite.title].filter(Boolean);
+    for(const spec of suite.specs||[]){
+      const file=spec.file.replaceAll('\\','/');
+      for(const test of spec.tests||[]){const project=test.projectName||test.projectId||'',selector=[...(project?['['+project+']']:[]),file,...nested,spec.title].join(' › ');
+        if(/[\r\n]/.test(selector)||file.startsWith('/')||file.split('/').includes('..'))throw new Error('Unsupported browser test selector');
+        rows.push({id:spec.id,selector,project,spec,test});
+      }
+    }
+    for(const child of suite.suites||[])visit(child,nested);
+  }
+  for(const suite of report.suites||[])visit(suite,[],true);return rows;
 }

@@ -28,8 +28,8 @@ jobs:
             - ~/.npm
       - restore_cache:
           keys:
-            - v2-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-
-            - v2-browser-timings-{{ checksum "package-lock.json" }}-
+            - v3-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-
+            - v3-browser-timings-{{ checksum "package-lock.json" }}-
       - run:
           name: Classify changes against the published source or PR merge base
           command: node scripts/ci-plan.mjs prepare
@@ -103,9 +103,12 @@ jobs:
           path: playwright-report
           destination: combined-browser-report
       - save_cache:
-          key: v2-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-{{ .Revision }}
+          key: v3-browser-timings-{{ checksum "package-lock.json" }}-{{ .Branch }}-{{ .Revision }}
           paths:
             - .ci/browser-timings.json
+      - store_artifacts:
+          path: .ci/browser-results.json
+          destination: browser-results.json
       - store_artifacts:
           path: .ci/browser-proof.json
           destination: browser-proof.json

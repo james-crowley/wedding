@@ -54,8 +54,8 @@ test('comparison includes application changes earlier in a multi-commit push', a
     const files=changedFiles(published,dir);assert.ok(files.includes('app.html'));assert.equal(classifyChanges({files,baselineVerified:true,branch:'main'}).mode,'full');
   } finally { await rm(dir,{recursive:true,force:true}); }
 });
-const expected = [{ id:'one', projects:[''] },{ id:'two', projects:[''] }];
-const passing = id => ({ id, title:id, tests:[{ projectId:'', expectedStatus:'passed', status:'expected', results:[{status:'passed'}] }] });
+const expected = [{ id:'one', selector:'sample.spec.mjs › one', projects:[''] },{ id:'two', selector:'sample.spec.mjs › two', projects:[''] }];
+const passing = id => ({ id, file:'sample.spec.mjs', title:id, tests:[{ projectId:'', expectedStatus:'passed', status:'expected', results:[{status:'passed'}] }] });
 const report = entries => ({ suites:[{specs:entries}], errors:[] });
 test('merged validation rejects missing, duplicate, skipped, failed and partial-project results', () => {
   assert.equal(verifyResults(report(expected.map(t=>passing(t.id))), expected),2);

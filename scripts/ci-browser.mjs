@@ -5,24 +5,23 @@ import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
 import { projectRoot } from './build.mjs';
 import { readPlan, SHARDS } from './ci-plan.mjs';
-import {browserInventory,balancedBrowserShards,verifyShardSelection,timedInventory,reportTimings} from './browser-shards.mjs';
+import {browserInventory,balancedBrowserShards,verifyShardSelection,timedInventory,reportTimings,reportedCases} from './browser-shards.mjs';
 
 export function specs(report) {
   return (report.suites || []).flatMap(suite => [...(suite.specs || []), ...specs(suite)]);
 }
 export function verifyResults(report, expected) {
-  if (report.errors?.length) throw new Error('Browser runner reported errors');
-  const actual = specs(report), wanted = new Set(expected.map(test => test.id)), expectedById = new Map(expected.map(test => [test.id, test]));
-  if (!wanted.size || wanted.size !== expected.length) throw new Error('Expected test inventory must be nonempty and unique');
-  const seen = new Set();
-  for (const spec of actual) {
-    if (!wanted.has(spec.id) || seen.has(spec.id)) throw new Error('Unexpected or duplicate test in merged report');
-    seen.add(spec.id);
-    const projects = spec.tests?.map(test => test.projectId || '').sort();
-    if (JSON.stringify(projects) !== JSON.stringify([...expectedById.get(spec.id).projects].sort())) throw new Error('Incomplete project coverage');
-    if (!spec.tests?.length || spec.tests.some(test => test.expectedStatus !== 'passed' || test.status !== 'expected' || test.results?.at(-1)?.status !== 'passed')) throw new Error(`Browser test did not pass consistently: ${spec.title}`);
+  if(report.errors?.length)throw new Error('Browser runner reported errors');
+  if(!expected.length||new Set(expected.map(row=>row.id)).size!==expected.length)throw new Error('Expected test inventory must be nonempty and unique');
+  if(expected.some(row=>row.projects?.length!==1))throw new Error('Incomplete project coverage in the collected inventory');
+  const wanted=new Map(expected.map(row=>[row.selector,row])),ids=new Set(expected.map(row=>row.id)),seen=new Set();
+  if(wanted.size!==expected.length||expected.some(row=>!row.selector))throw new Error('Expected test identities must be unique');
+  for(const row of reportedCases(report)){
+    if(!wanted.has(row.selector)||wanted.get(row.selector).id!==row.id||!ids.has(row.id)||seen.has(row.selector))throw new Error('Unexpected or duplicate test/project in merged report');
+    seen.add(row.selector);
+    if(row.test.expectedStatus!=='passed'||row.test.status!=='expected'||row.test.results?.at(-1)?.status!=='passed')throw new Error(`Browser test did not pass consistently: ${row.selector}`);
   }
-  if (seen.size !== wanted.size) throw new Error(`Incomplete browser coverage: ${seen.size}/${wanted.size} tests`);
+  if(seen.size!==wanted.size)throw new Error(`Incomplete browser/project coverage: ${seen.size}/${wanted.size} tests`);
   return seen.size;
 }
 export function selectShardReceipts(candidates, manifest, total = SHARDS) {

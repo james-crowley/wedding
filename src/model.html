@@ -22,7 +22,7 @@
       <select class="form-select" id="lp-layout"><option value="separate">12 separate tables</option><option value="joined">3 joined rows</option></select>
     </label>
     <label class="form-label">View
-      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet inside</option><option value="rehearsalBar">Rehearsal · bartending station</option><option value="patio">Cocktail patio · overview</option><option value="patioInside">Cocktail patio · guest view</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
+      <select class="form-select" id="lp-view"><option value="perspective">Pavilion overview</option><option value="site">Whole property</option><option value="plan">Floor plan</option><option value="lake">From lake / dock</option><option value="house">From house</option><option value="side">Dining end</option><option value="inside">Inside pavilion</option><option value="table">Table settings close-up</option><option value="seat">Seated dining view</option><option value="measure">Interior measurements</option><option value="walk">Walkthrough</option><option value="ceremony">Ceremony deck</option><option value="residence">House detail</option><option value="houseInterior">House · main living space</option><option value="housePorch">House · porch & glazed doors</option><option value="houseKitchen">House · kitchen & dining</option><option value="houseBridal">House · bridal suite concept</option><option value="houseBedroom">House · guest bedroom concept</option><option value="houseLoft">House · catwalk & stairs</option><option value="houseDriveway">House · driveway entrance</option><option value="rehearsal">Rehearsal · porch overview</option><option value="rehearsalSeat">Rehearsal · seated on porch</option><option value="rehearsalBuffet">Rehearsal · buffet inside</option><option value="rehearsalBar">Rehearsal · bartending station</option><option value="patio">Cocktail patio · overview</option><option value="patioInside">Cocktail patio · guest view</option><option value="houseLower">House · lower lounge</option><option value="stairs">Stairs and side path</option><option value="kitchen">Catering tent area</option><option value="arbor">Couple’s arbor detail</option><option value="lounge">Lounge furniture</option></select>
     </label>
     <label class="form-label">Drag action
       <select class="form-select" id="lp-action"><option value="orbit">Rotate view</option><option value="move">Move furniture</option><option value="measure">Measure floor distance</option></select>
@@ -148,7 +148,7 @@
   </div>
   <div role="tabpanel" id="lp-panel-view" aria-labelledby="lp-tab-view" hidden>
     <div class="viz-controls" id="lp-display-tools"><label class="form-check"><input class="form-check-input" id="lp-house-cutaway" type="checkbox"><span class="form-check-label">House cutaway · show interior</span></label>
-      <label class="form-label">Ceiling lighting<select class="form-select" id="lp-lighting"><option value="original">Photo reference: cafe lights + rings</option><option value="strings">Cafe strands only</option><option value="canopy">Dense canopy of lights</option><option value="lanterns">Paper lanterns</option><option value="none">No decorative lights</option></select></label>
+      <label class="form-check"><input class="form-check-input" id="lp-house-doors" type="checkbox"><span class="form-check-label">Open house French doors</span></label><label class="form-label">House glazing opacity<input class="form-control" id="lp-house-glass" type="number" min="0.08" max="0.6" step="0.04" value="0.16"></label><p class="text-small">House furnishings follow the photo study. Bedroom positions, dimensions and stair runs are provisional; the bridal redesign is shown separately from the older guest bedroom.</p><label class="form-label">Ceiling lighting<select class="form-select" id="lp-lighting"><option value="original">Photo reference: cafe lights + rings</option><option value="strings">Cafe strands only</option><option value="canopy">Dense canopy of lights</option><option value="lanterns">Paper lanterns</option><option value="none">No decorative lights</option></select></label>
       <label class="form-label">Overhead dressing<select class="form-select" id="lp-ceiling-decor"><option value="none">None</option><option value="greenery">Hanging greenery</option><option value="fabric">Soft fabric swags</option></select></label>
       <label class="form-label">Graphics quality<select class="form-select" id="lp-quality"><option value="auto">Automatic · lighter on phones</option><option value="mobile">Light · phone / battery saver</option><option value="high">Detailed · desktop</option></select></label><label class="form-label">View height (px)<input class="form-control" id="lp-view-height" type="number" min="360" max="1200" step="40" value="680"></label>
     </div>
@@ -537,7 +537,7 @@
   function initialize(){
     const T=window.THREE,stage=$('lp-stage'),canvas=$('lp-canvas'),rentalLibrary=window.VenueRentalLibrary,planning=window.VenuePlanning;
     let rentalPage=0,rentalFilterTimer=0;
-    const PLAN_DEFAULTS={rehearsal:false,rehearsalSeats:35,rehearsalLayout:'banquet',rehearsalTextile:'runner',rehearsalDecor:'vases',rehearsalTrays:3,rehearsalSide:'right',patioEnabled:true,patioTables:4,patioTableStyle:'linen',patioColor:'#f4eddd',patioDecor:'buds',patioGrazing:true,patioGuestbook:true,patioWelcome:true,patioBar:true,patioFire:true,patioGuides:false,entryDisplay:'none',danceVisible:true,rehearsalBuffet:true,rehearsalBar:true,danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
+    const PLAN_DEFAULTS={rehearsal:false,rehearsalSeats:35,rehearsalLayout:'banquet',rehearsalTextile:'runner',rehearsalDecor:'vases',rehearsalTrays:3,rehearsalSide:'right',patioEnabled:true,patioTables:4,patioTableStyle:'linen',patioColor:'#f4eddd',patioDecor:'buds',patioGrazing:true,patioGuestbook:true,patioWelcome:true,patioBar:true,patioFire:true,patioGuides:false,entryDisplay:'none',danceVisible:true,rehearsalBuffet:true,rehearsalBar:true,danceWidth:20,danceDepth:20,doorSetback:2,barSide:'house',dessert:true,doorGuides:true,power:true,disabledTables:[],targetGuests:100,benchRows:8,benchLength:9.5,deckWidth:28,deckDepth:34,aisleDecor:'none',aislePairs:4,aisleColor:'#eee7d5',tentSide:'right',tentStyle:'frame',tentWidth:20,tentDepth:20,lighting:'original',ceilingDecor:'none',rowOffsets:[2,0,2],houseCutaway:false,houseDoorsOpen:false,houseGlassOpacity:.16,dessertStyle:'tiers',cupcakeCount:48,flowerStands:'none',standPosition:'entry'};
     const DESIGN_DEFAULTS={look:'photo',clothColor:'#c9b09e',clothFinish:'linen',runnerStyle:'lace',runnerColor:'#f4ecd9',runnerWidth:11,greenery:'lush',greeneryColor:'#57684e',flowerStyle:'mixed',flowerDensity:1,flowerA:'#eee7d5',flowerB:'#7f9eaf',flowerC:'#602e46',vaseStyle:'cut',vaseCount:3,vaseHeight:10,vaseColor:'#ecf0e5',candleStyle:'taper',candleCount:3,candleHeight:12,candleColor:'#bd9b56',metalFinish:'gold',chargers:true,indoorArbor:'timber',outdoorArbor:'timber',indoorArborColor:'#6c4d36',outdoorArborColor:'#6c4d36',indoorArborDecor:'bare',outdoorArborDecor:'bare',arborFabricColor:'#f1e9d8',sofaStyle:'classic',sofaColor:'#ece6da',sofaFrameColor:'#704b31',sofaLength:6};
     Object.assign(DESIGN_DEFAULTS,{napkinStyle:'folded',napkinColor:'#62314c',glassware:'clear',glassColor:'#a9b48c',trailingGreenery:false,arrangement:'mixed',stemsPerVase:3,flowerHeight:22,flowerCenter:'#777a53'});
     Object.assign(DESIGN_DEFAULTS,{chairStyle:'venue',chairColor:'#78583c',chairSeatColor:'#e8dfcb',chinaStyle:'round',chinaColor:'#f5f1e7',chinaRim:false,chinaRimColor:'#c4a466',flatwareStyle:'silver',chargerMaterial:'metal',chargerColor:'#cfad65',chargerRimColor:'#cfad65',tableStyle:'original',tableColor:'#a38762',barStyle:'original',barColor:'#f1efe8',barLength:6,sofaDepth:0,sofaHeight:0,coupleBackdrop:'arbor'});
@@ -549,7 +549,7 @@
     let resetUndo=null,rebuildTimer=0;
     let navigation={height:680,speed:8,quality:'auto',editorWidth:440};
     let studio={event:'reception',boards:[],compare:[],trash:null},workflowReady=false;const editHistory={past:[],future:[],current:null,suspended:false};
-    const workflowFields=[['lp-patio-enabled','patioEnabled'],['lp-patio-tables','patioTables'],['lp-patio-table-style','patioTableStyle'],['lp-patio-color','patioColor'],['lp-patio-decor','patioDecor'],['lp-patio-grazing','patioGrazing'],['lp-patio-guestbook','patioGuestbook'],['lp-patio-welcome','patioWelcome'],['lp-patio-bar','patioBar'],['lp-patio-fire','patioFire'],['lp-patio-guides','patioGuides'],['lp-entry-display','entryDisplay'],['lp-rehearsal-layout','rehearsalLayout'],['lp-rehearsal-textile','rehearsalTextile'],['lp-rehearsal-decor','rehearsalDecor'],['lp-rehearsal-trays','rehearsalTrays'],['lp-rehearsal-side','rehearsalSide'],['lp-dance-visible','danceVisible']];
+    const workflowFields=[['lp-house-doors','houseDoorsOpen'],['lp-house-glass','houseGlassOpacity'],['lp-patio-enabled','patioEnabled'],['lp-patio-tables','patioTables'],['lp-patio-table-style','patioTableStyle'],['lp-patio-color','patioColor'],['lp-patio-decor','patioDecor'],['lp-patio-grazing','patioGrazing'],['lp-patio-guestbook','patioGuestbook'],['lp-patio-welcome','patioWelcome'],['lp-patio-bar','patioBar'],['lp-patio-fire','patioFire'],['lp-patio-guides','patioGuides'],['lp-entry-display','entryDisplay'],['lp-rehearsal-layout','rehearsalLayout'],['lp-rehearsal-textile','rehearsalTextile'],['lp-rehearsal-decor','rehearsalDecor'],['lp-rehearsal-trays','rehearsalTrays'],['lp-rehearsal-side','rehearsalSide'],['lp-dance-visible','danceVisible']];
     organizeControls();
     let orbit={azimuth:0.35,polar:0.67,distance:150,target:[0,1,0]}, selected='table-1', activeView='perspective';
     let walk={x:0,y:5.5,z:-16,yaw:Math.PI,pitch:0},seat=normalizeSeat({});
@@ -634,10 +634,10 @@
     }
     function normalizePlan(raw){
       const out={...PLAN_DEFAULTS};
-      for(const [key,lo,hi] of [['patioTables',0,6],['rehearsalTrays',2,5],['rehearsalSeats',12,40],['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
+      for(const [key,lo,hi] of [['houseGlassOpacity',.08,.6],['patioTables',0,6],['rehearsalTrays',2,5],['rehearsalSeats',12,40],['doorSetback',0,4],['danceWidth',8,30],['danceDepth',8,30],['targetGuests',0,200],['benchRows',0,10],['benchLength',6,13],['deckWidth',24,42],['deckDepth',24,48],['aislePairs',2,8],['tentWidth',10,30],['tentDepth',10,30]])out[key]=n(raw[key],out[key],lo,hi);
       for(const key of ['targetGuests','benchRows','aislePairs','rehearsalSeats','rehearsalTrays','patioTables'])out[key]=Math.round(out[key]);
       for(const [key,choices]of Object.entries({entryDisplay:['none','mirror','memory','both'],rehearsalLayout:['banquet','farmhouse','cafe'],rehearsalTextile:['runner','full','bare'],rehearsalDecor:['vases','candles','greenery','none'],rehearsalSide:['right','left'],patioTableStyle:['linen','fitted','wood','metal'],patioDecor:['buds','candles','both','none'],flowerStands:['none','pedestal','plinth','urn'],standPosition:['entry','arbor','both'],barSide:['house','lake'],aisleDecor:['none','ferns','flowers','mixed'],tentSide:['right','left','both'],tentStyle:['frame','clear','peak','popup'],lighting:['original','strings','canopy','lanterns','none'],ceilingDecor:['none','greenery','fabric']}))if(choices.includes(raw[key]))out[key]=raw[key];
-      for(const key of ['dessert','doorGuides','power','houseCutaway','rehearsal','rehearsalBuffet','rehearsalBar','patioEnabled','patioGrazing','patioGuestbook','patioWelcome','patioBar','patioFire','patioGuides','danceVisible'])if(typeof raw[key]==='boolean')out[key]=raw[key];
+      for(const key of ['houseDoorsOpen','dessert','doorGuides','power','houseCutaway','rehearsal','rehearsalBuffet','rehearsalBar','patioEnabled','patioGrazing','patioGuestbook','patioWelcome','patioBar','patioFire','patioGuides','danceVisible'])if(typeof raw[key]==='boolean')out[key]=raw[key];
       out.rowOffsets=Array.isArray(raw.rowOffsets)?[0,1,2].map(i=>n(raw.rowOffsets[i],[out.doorSetback,0,out.doorSetback][i],-3,6)):[out.doorSetback,0,out.doorSetback];
       out.cupcakeCount=Math.round(n(raw.cupcakeCount,48,12,96));out.dessertStyle=['tiers','platters','mixed'].includes(raw.dessertStyle)?raw.dessertStyle:'tiers';
       out.patioColor=hex(raw.patioColor,out.patioColor);out.aisleColor=hex(raw.aisleColor,out.aisleColor);out.disabledTables=Array.isArray(raw.disabledTables)?[...new Set(raw.disabledTables.filter(id=>/^table-(?:[1-9]|1[0-2])$/.test(id)))]:[];return out;
@@ -792,7 +792,7 @@
       const foliageHsl=colors.green.getHSL({});colors.green.setHSL(foliageHsl.h,Math.max(.35,foliageHsl.s),foliageHsl.l*.62);scene.background=color('--blue').lerp(bright,.87);
       const standard=(c,extra={})=>new T.MeshStandardMaterial({color:c,roughness:.8,...extra});
       const concrete=surfaceTexture('concrete'),grain=surfaceTexture('wood'),roofTexture=surfaceTexture('fabric'),paver=surfaceTexture('paver');
-      materials={wood:standard(colors.wood,{map:grain,roughness:.65}),darkwood:standard(colors.wood.clone().lerp(dark,.23),{map:grain}),frame:standard(colors.frame,{roughness:.42,metalness:.18}),floor:standard(colors.concrete,{map:concrete,roughness:.95,bumpMap:concrete,bumpScale:.018}),fabric:standard(colors.fabric),metal:standard(dark.clone().lerp(bright,.10),{roughness:.42,metalness:.45}),green:standard(colors.green,{side:T.DoubleSide}),leaf2:standard(colors.green.clone().lerp(bright,.17),{side:T.DoubleSide}),lawn:standard(colors.green.clone().lerp(bright,.08),{map:concrete}),water:standard(colors.water,{roughness:.17,metalness:.25,transparent:true,opacity:.92}),glass:new T.MeshPhysicalMaterial({color:bright,roughness:.06,metalness:.03,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide,clearcoat:1,clearcoatRoughness:.05}),ghostFrame:standard(colors.frame,{transparent:true,opacity:.14,depthWrite:false,side:T.DoubleSide}),ghost:standard(bright,{transparent:true,opacity:.045,depthWrite:false,side:T.DoubleSide}),roof:standard(colors.frame,{map:roofTexture,side:T.DoubleSide,roughness:.95,emissive:colors.frame,emissiveIntensity:.36}),dance:standard(colors.wood.clone().lerp(bright,.25),{map:grain}),stone:standard(colors.concrete.clone().lerp(colors.wood,.17),{map:concrete}),siding:standard(bright.clone().lerp(dark,.18)),houseRoof:standard(colors.frame,{side:T.DoubleSide,roughness:.5,metalness:.35}),houseGlass:new T.MeshPhysicalMaterial({color:dark.clone().lerp(color('--blue'),.15),roughness:.14,metalness:.3,clearcoat:1}),screen:standard(dark,{transparent:true,opacity:.23,depthWrite:false,side:T.DoubleSide}),rope:standard(bright.clone().lerp(colors.wood,.25)),accent:new T.MeshBasicMaterial({color:color('--viz-series-1'),depthTest:false}),bulb:new T.MeshStandardMaterial({color:color('--yellow').lerp(bright,.55),emissive:color('--orange').lerp(color('--yellow'),.55),emissiveIntensity:2.5}),line:new T.LineBasicMaterial({color:colors.border,transparent:true,opacity:.7}),ruler:new T.LineBasicMaterial({color:color('--viz-series-1'),depthTest:false}),wire:new T.LineBasicMaterial({color:dark})};
+      materials={wood:standard(colors.wood,{map:grain,roughness:.65}),darkwood:standard(colors.wood.clone().lerp(dark,.23),{map:grain}),frame:standard(colors.frame,{roughness:.42,metalness:.18}),floor:standard(colors.concrete,{map:concrete,roughness:.95,bumpMap:concrete,bumpScale:.018}),fabric:standard(colors.fabric),metal:standard(dark.clone().lerp(bright,.10),{roughness:.42,metalness:.45}),green:standard(colors.green,{side:T.DoubleSide}),leaf2:standard(colors.green.clone().lerp(bright,.17),{side:T.DoubleSide}),lawn:standard(colors.green.clone().lerp(bright,.08),{map:concrete}),water:standard(colors.water,{roughness:.17,metalness:.25,transparent:true,opacity:.92}),glass:new T.MeshPhysicalMaterial({color:bright,roughness:.06,metalness:.03,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide,clearcoat:1,clearcoatRoughness:.05}),ghostFrame:standard(colors.frame,{transparent:true,opacity:.14,depthWrite:false,side:T.DoubleSide}),ghost:standard(bright,{transparent:true,opacity:.045,depthWrite:false,side:T.DoubleSide}),roof:standard(colors.frame,{map:roofTexture,side:T.DoubleSide,roughness:.95,emissive:colors.frame,emissiveIntensity:.36}),dance:standard(colors.wood.clone().lerp(bright,.25),{map:grain}),stone:standard(colors.concrete.clone().lerp(colors.wood,.17),{map:concrete}),siding:standard(bright.clone().lerp(dark,.18)),houseRoof:standard(colors.frame,{side:T.DoubleSide,roughness:.5,metalness:.35}),houseGlass:new T.MeshPhysicalMaterial({color:'#ccd9d4',roughness:.06,metalness:0,transparent:true,opacity:config.houseGlassOpacity,depthWrite:false,side:T.DoubleSide,clearcoat:1}),screen:standard(dark,{transparent:true,opacity:.23,depthWrite:false,side:T.DoubleSide}),rope:standard(bright.clone().lerp(colors.wood,.25)),accent:new T.MeshBasicMaterial({color:color('--viz-series-1'),depthTest:false}),bulb:new T.MeshStandardMaterial({color:color('--yellow').lerp(bright,.55),emissive:color('--orange').lerp(color('--yellow'),.55),emissiveIntensity:2.5}),line:new T.LineBasicMaterial({color:colors.border,transparent:true,opacity:.7}),ruler:new T.LineBasicMaterial({color:color('--viz-series-1'),depthTest:false}),wire:new T.LineBasicMaterial({color:dark})};
       materials.paver=standard(colors.concrete.clone().lerp(bright,.19),{map:paver,roughness:.96,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});materials.paverEdge=standard(colors.wood.clone().lerp(colors.concrete,.55),{map:concrete});materials.gravel=standard(bright.clone().lerp(dark,.32),{map:concrete,roughness:1});
       materials.guide=new T.MeshBasicMaterial({color:color('--viz-series-1'),transparent:true,opacity:.10,depthWrite:false,side:T.DoubleSide});
       materials.power=standard(color('--viz-series-1'),{emissive:color('--viz-series-1'),emissiveIntensity:.35});
@@ -804,6 +804,9 @@
       materials.stoneDark=standard(stoneTone.clone().lerp(dark,.23),{roughness:1});
       materials.stoneWarm=standard(stoneTone.clone().lerp(colors.wood,.22),{roughness:1});
       materials.mirror=standard(new T.Color('#b7c3bf'),{metalness:.75,roughness:.18});materials.patioLinen=standard(new T.Color(config.patioColor),{roughness:1,side:T.DoubleSide});materials.houseRug=standard(new T.Color('#8d8070'));materials.houseLeather=standard(new T.Color('#624332'),{roughness:.6});materials.houseCream=standard(new T.Color('#eee5d5'));
+      // Existing house finishes are independent of the wedding rental palette.
+      materials.houseTimber=standard(new T.Color('#b58a52'),{map:grain,roughness:.68});materials.houseBlack=standard(new T.Color('#292b29'),{roughness:.45});materials.houseWhite=standard(new T.Color('#f1eee5'));materials.houseCushion=standard(new T.Color('#a8ad8e'));
+      materials.houseStone=standard(new T.Color('#9b9280'),{map:surfaceTexture('houseStone'),roughness:.92});materials.houseCounter=standard(new T.Color('#45443d'),{map:surfaceTexture('granite'),roughness:.35});materials.houseFloor=standard(new T.Color('#c7ad82'),{map:surfaceTexture('granite'),roughness:.75});materials.houseFelt=standard(new T.Color('#6e774a'));materials.houseBridalRug=standard(new T.Color('#ede6da'),{map:decorTexture('pattern')});materials.houseLinen=standard(new T.Color('#f6f0e5'),{map:decorTexture('linen'),roughness:1});materials.houseBrass=standard(new T.Color('#b49a63'),{metalness:.55,roughness:.35});
       materials.porchFloor=standard(colors.concrete.clone().lerp(bright,.27),{map:concrete,roughness:1});
       materials.deckwood.color.copy(colors.wood).lerp(colors.concrete,.35).lerp(bright,.13);
       // Physical finish colors follow the supplied decor photos, independent of the interface theme.
@@ -847,15 +850,16 @@
       const cv=document.createElement('canvas');cv.width=cv.height=256;const ctx=cv.getContext('2d'),pixels=ctx.createImageData(256,256);let seed=317;
       const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
       for(let y=0;y<256;y++)for(let x=0;x<256;x++){const i=(y*256+x)*4;let k=.88+(rand()-.5)*.11;if(kind==='wood')k=.79+.035*Math.sin(y*.22+Math.sin(x*.025)*1.5)+.02*Math.sin(y*.78+x*.011)+(rand()-.5)*.05;if(kind==='fabric')k=.91+.035*Math.sin(x*.29+Math.sin(y*.03)*2)+.018*Math.sin(x*1.7);const c=colors.bright.clone().multiplyScalar(k);pixels.data[i]=c.r*255;pixels.data[i+1]=c.g*255;pixels.data[i+2]=c.b*255;pixels.data[i+3]=255;}ctx.putImageData(pixels,0,0);if(kind==='paver'){ctx.save();ctx.translate(128,128);ctx.rotate(Math.PI/4);ctx.strokeStyle=colors.dark.clone().lerp(colors.bright,.38).getStyle();ctx.lineWidth=1.7;for(let row=-12;row<=12;row++)for(let col=-8;col<=8;col++)ctx.strokeRect(col*32+(row%2)*16,row*16,32,16);ctx.restore();}
-      if(kind==='stone'){
-        ctx.fillStyle=colors.bright.clone().multiplyScalar(.57).getStyle();ctx.fillRect(0,0,256,256);
+      if(kind==='stone'||kind==='houseStone'){
+        const neutral=kind==='houseStone'?new T.Color('#e5dfd0'):colors.bright;ctx.fillStyle=neutral.clone().multiplyScalar(.57).getStyle();ctx.fillRect(0,0,256,256);
         for(let row=-1;row<9;row++)for(let col=-1;col<8;col++){
           const x=col*40+(row%2)*20,y=row*33,w=34+rand()*8,h=26+rand()*8;
-          ctx.fillStyle=colors.bright.clone().multiplyScalar(.48+rand()*.36).getStyle();ctx.beginPath();
+          ctx.fillStyle=neutral.clone().multiplyScalar(.48+rand()*.36).getStyle();ctx.beginPath();
           ctx.moveTo(x+4,y+2);ctx.lineTo(x+w-6,y);ctx.lineTo(x+w,y+h*.44);ctx.lineTo(x+w-3,y+h-3);ctx.lineTo(x+6,y+h);ctx.lineTo(x,y+h*.38);ctx.closePath();ctx.fill();
         }
       }
-      const texture=new T.CanvasTexture(cv);texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(kind==='wood'?2:kind==='fabric'?4:kind==='paver'?2:kind==='stone'?3:12,kind==='wood'?1:kind==='fabric'?1:kind==='paver'?2:kind==='stone'?2:6);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(texture);return texture;
+      if(kind==='granite'){ctx.fillStyle='#a29f94';ctx.fillRect(0,0,256,256);for(let i=0;i<6500;i++){ctx.fillStyle=['#d0ccbf','#737165','#b7b3a5','#8b887d'][i%4];ctx.fillRect(rand()*256,rand()*256,1+rand()*3,1+rand()*2);}}
+      const texture=new T.CanvasTexture(cv);texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(kind==='wood'?2:kind==='fabric'?4:kind==='paver'?2:['stone','houseStone'].includes(kind)?3:kind==='granite'?1:12,kind==='wood'?1:kind==='fabric'?1:kind==='paver'?2:['stone','houseStone'].includes(kind)?2:kind==='granite'?1:6);texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(texture);return texture;
     }
     function decorTexture(kind){
       if(decorTextureCache[kind])return decorTextureCache[kind];
@@ -1343,11 +1347,22 @@
         box(g,L,1.5,.45,0,1.8,-1.2,m);for(const x of [-L/2+.2,L/2-.2])box(g,.4,1.0,D,x,1.4,0,m);
       }
     }
+    function houseTerrainCutout(source){
+      // Subtract the house footprint from the ground instead of flattening a
+      // larger patch: the basement stays clear and soil reaches the foundation.
+      const pos=source.attributes.position,uv=source.attributes.uv,index=source.index,vertices=[],tex=[];
+      const emit=poly=>{for(let i=1;i<poly.length-1;i++)for(const p of [poly[0],poly[i],poly[i+1]]){vertices.push(p.x,p.y,p.z);tex.push(p.u,p.v);}};
+      const clip=(poly,d,inside)=>{const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],da=d(a),db=d(b);if((inside?da>=0:da<=0))out.push(a);if((da>0&&db<0)||(da<0&&db>0)){const t=da/(da-db);out.push(Object.fromEntries(['x','y','z','u','v'].map(k=>[k,a[k]+(b[k]-a[k])*t])));}}return out;};
+      for(let i=0;i<index.count;i+=3){let remaining=[0,1,2].map(j=>{const k=index.getX(i+j);return {x:pos.getX(k),y:pos.getY(k),z:pos.getZ(k),u:uv.getX(k),v:uv.getY(k)};});
+        for(const boundary of [p=>p.x+22.13,p=>22.13-p.x,p=>p.z+103.13,p=>-76.87-p.z]){if(remaining.length<3)break;emit(clip(remaining,boundary,false));remaining=clip(remaining,boundary,true);}
+      }
+      const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices,3));g.setAttribute('uv',new T.Float32BufferAttribute(tex,2));g.computeVertexNormals();return g;
+    }
     function surroundings(){
       // Grade is estimated from photographs. The pavilion remains on a level slab.
       const terrain=new T.PlaneGeometry(230,280,72,90),tp=terrain.attributes.position;
       for(let i=0;i<tp.count;i++){const x=tp.getX(i),z=-15-tp.getY(i);tp.setXYZ(i,x,gradeHeight(x,z)-.44,z);}terrain.computeVertexNormals();
-      terrainMesh=new T.Mesh(terrain,materials.lawn);terrainMesh.receiveShadow=true;context.add(terrainMesh);walkSurfaces.push(terrainMesh);
+      const cutTerrain=houseTerrainCutout(terrain);terrain.dispose();terrainMesh=new T.Mesh(cutTerrain,materials.lawn);terrainMesh.receiveShadow=true;context.add(terrainMesh);walkSurfaces.push(terrainMesh);
       const waterGeom=new T.PlaneGeometry(260,135,80,45),wp=waterGeom.attributes.position;
       for(let i=0;i<wp.count;i++){const x=wp.getX(i),z=wp.getY(i);wp.setZ(i,.045*Math.sin(x*.8+z*.4)+.025*Math.cos(z*1.2-x*.3));}waterGeom.computeVertexNormals();
       const water=new T.Mesh(waterGeom,materials.water);water.rotation.x=-Math.PI/2;water.position.set(0,-config.lakeDrop-.30,183);water.receiveShadow=true;context.add(water);
@@ -1401,7 +1416,7 @@
     }
     function gradeHeight(x,z){
       let y;
-      if(z< -84)y=config.houseRise+(-84-z)*.025;
+      if(z< -84)y=config.houseRise+Math.min(5.1,(-84-z)*.20);
       else if(z< -59)y=config.houseRise;
       else if(z< -28)y=config.houseRise*(-z-28)/31;
       else if(z<=28)y=0;
@@ -1416,12 +1431,25 @@
       if(x>=-36.8&&x<=-32&&z>=-73&&z<=-67)return config.houseRise+4;
       if(x>=-36.4&&x<=-32.4&&z>=-67&&z<=-60)return config.houseRise+4*(-60-z)/7;
       if(x>=-36.4&&x<=-32.4&&z>=-80&&z<=-73)return config.houseRise+4*(z+80)/7;
+      // Photo-based interior switchback and enclosed upper rooms. Support-height
+      // gates distinguish floors sharing an X/Z footprint; no basement teleport.
+      const previous=Number.isFinite(previousSurface)?previousSurface-config.houseRise:-100;
+      if(previous>=7&&x>=17.3&&x<=20.5&&z>=-99&&z<=-91)return config.houseRise+8.16+5.07*(z+99)/8;
+      if(previous>=12.1&&x>=13.5&&x<=20.5&&z>=-91&&z<=-88.5)return config.houseRise+13.23;
+      if(previous>=12.1&&x>=13.5&&x<=16.7&&z>=-99&&z<=-91)return config.houseRise+13.23+5.18*(-91-z)/8;
+      const hall=Math.abs(x)<=20.5&&z>=-102.75&&z<=-99.25;
+      const catwalk=Math.abs(x)<=2.15&&z>=-101.7&&z<=-79.5;
+      const bridal=x>=-20.5&&x<=-3.5&&z>=-92.2&&z<=-77.8;
+      const bedroom=x>=4.5&&x<=21.5&&z>=-88.3&&z<=-77.3;
+      const roomLinks=(x>=-3.5&&x<=-2&&z>=-86.7&&z<=-83.3)||(x>=2&&x<=4.5&&z>=-84.5&&z<=-81.1);
+      if(previous>=17.2&&(hall||catwalk||bridal||bedroom||roomLinks))return config.houseRise+18.41;
       // Follow the stair exit onto the porch and main living floor. Retain the
       // current support height so walking underneath still uses the lower patio.
       const porch=Math.abs(x)<=25&&z>=-77.25&&z<=-64.2;
       const living=Math.abs(x)<=21.75&&z>=-102.75&&z<=-77.25;
       const upper=config.houseRise+(living?8.16:8.05);
       if((porch||living)&&Number.isFinite(previousSurface)&&previousSurface>=upper-1.1)return upper;
+      if(living)return config.houseRise+.055;
       if(Math.abs(x)<27.5&&z>=-73&&z<=-59)return config.houseRise;
       return gradeHeight(x,z)+.08;
     }
@@ -1604,50 +1632,139 @@
       }
       for(const xx of [x-w/2,x+w/2]){const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute([xx,y,z-d/2,xx,y+rise,z,xx,y,z+d/2],3));g.computeVertexNormals();parent.add(new T.Mesh(g,materials.siding));}
     }
+    function houseWall(parent,w,height,x,y,z,holes,insideSide=1){
+      const wall=new T.Group();wall.name='House envelope wall';wall.position.set(x,y,z);parent.add(wall);
+      for(const p of planning.wallPanels(w,height,holes)){
+        box(wall,p.w,p.h,.26,p.x,p.y,0,p.y<8?materials.houseStone:materials.houseWhite);box(wall,p.w,p.h,.02,p.x,p.y,insideSide*.145,materials.houseWhite);
+        if(p.y>=8)for(let yy=Math.ceil((p.y-p.h/2)/.45)*.45;yy<p.y+p.h/2-.015;yy+=.45)box(wall,p.w,.018,.015,p.x,yy,-insideSide*.141,materials.houseCream);
+      }return wall;
+    }
+    function houseFrenchDoors(parent,x,y,z,w,height,name){
+      const door=new T.Group();door.name=name;door.position.set(x,y,z);parent.add(door);
+      for(const dx of [-w/2,w/2])box(door,.16,height+.16,.3,dx,height/2,0,materials.houseWhite);box(door,w+.2,.17,.3,0,height,0,materials.houseWhite);
+      for(const side of [-1,1]){
+        const leaf=new T.Group();leaf.name='House glazed door leaf';leaf.position.set(side*w/2,0,0);leaf.rotation.y=config.houseDoorsOpen?side*Math.PI*.43:0;door.add(leaf);const cx=-side*w/4,lw=w/2;
+        box(leaf,lw-.18,height-.24,.04,cx,height/2,0,materials.houseGlass).castShadow=false;
+        for(const dx of [-lw/2,lw/2])box(leaf,.11,height,.16,cx+dx,height/2,0,materials.houseBlack);
+        for(const yy of [.13,height*.26,height-.07])box(leaf,lw,.12,.16,cx,yy,0,materials.houseBlack);
+        box(leaf,.045,.65,.10,cx-side*(lw/2-.22),height*.48,.13,materials.houseBrass);
+      }
+      box(door,w,.06,.48,0,.025,0,materials.houseBlack);return door;
+    }
+    function houseLadderChair(parent,x,z,rotation){
+      const g=new T.Group();g.name='House ladder-back chair';g.position.set(x,0,z);g.rotation.y=rotation;parent.add(g);
+      box(g,1.6,.16,1.55,0,1.55,0,materials.houseBlack);for(const xx of [-.69,.69]){for(const zz of [-.63,.63])box(g,.11,1.5,.11,xx,.75,zz,materials.houseBlack);box(g,.11,1.8,.11,xx,2.5,-.66,materials.houseBlack);}for(let y=2;y<=3.25;y+=.4)box(g,1.4,.14,.10,0,y,-.66,materials.houseBlack);
+    }
+    function housePhotoDetails(h){
+      const details=new T.Group();details.name='Photo-based house details';h.add(details);
+      // Kitchen: timber cabinetry, dark stone peninsula, sink, cooktop and fixtures.
+      for(let i=0;i<5;i++){if(i===1||i===2)continue;const x=-17+i*3.4;box(details,3.35,.12,2.35,x,11.36,-100.8,materials.houseCounter);box(details,3.05,1.8,1.15,x,14.1,-102,materials.houseTimber);box(details,.05,.42,.08,x+1.2,14.1,-101.38,materials.houseBlack);}
+      box(details,2.5,.03,1.45,-17,11.45,-100.8,materials.houseBlack);box(details,2.2,.025,1.15,-17,11.47,-100.8,materials.mirror);beam(details,[-17,11.5,-101.3],[-17,12.5,-101.3],.06,materials.houseBrass);beam(details,[-17,12.5,-101.3],[-17,12.5,-100.7],.06,materials.houseBrass);
+      // Round clock and console observed beside the dining area.
+      const clock=new T.Group();clock.name='House round wall clock';clock.position.set(20.6,13,-83);clock.rotation.y=-Math.PI/2;details.add(clock);
+      const rim=cylinder(clock,1.25,.12,0,0,0,materials.houseBlack);rim.rotation.x=Math.PI/2;const face=cylinder(clock,1.14,.13,0,0,.04,materials.houseCream);face.rotation.x=Math.PI/2;
+      for(let i=0;i<12;i++){const a=i*Math.PI/6;box(clock,.035,.13,.025,Math.sin(a),Math.cos(a),.13,materials.houseBlack,-a);}beam(clock,[0,0,.15],[.65,.35,.15],.025,materials.houseBlack);beam(clock,[0,0,.16],[-.15,.7,.16],.025,materials.houseBlack);
+      box(details,1.3,.18,6,20.5,10.7,-83,materials.houseTimber);for(const z of [-85.4,-80.6])box(details,.16,2.5,.16,20.5,9.4,z,materials.houseTimber);
+      // A switchback timber stair links the main floor to the rear landing.
+      const stair=new T.Group();stair.name='House interior switchback staircase';details.add(stair);
+      const flight=(x,z0,z1,y0,y1)=>{for(let i=0;i<16;i++){const t=(i+.5)/16,y=y0+(y1-y0)*(i+1)/16;const tread=box(stair,3.2,.17,Math.abs(z1-z0)/16+.035,x,y-.085,z0+(z1-z0)*t,materials.houseTimber);walkSurfaces.push(tread);for(const xx of [x-1.56,x+1.56])box(stair,.045,2.9,.045,xx,y+1.45,z0+(z1-z0)*t,materials.houseBlack);}for(const xx of [x-1.56,x+1.56])beam(stair,[xx,y0+3,z0],[xx,y1+3,z1],.09,materials.houseTimber);};
+      flight(18.9,-99,-91,8.16,13.23);box(stair,7,.22,2.5,17,13.12,-89.75,materials.houseTimber);flight(15.1,-91,-99,13.23,18.41);box(stair,3.2,.22,3.6,15.1,18.3,-100.8,materials.houseTimber);
+      // Upper rooms are photo-based vignettes. Their position and size are estimates.
+      const bridal=new T.Group();bridal.name='House bridal suite';bridal.position.set(-12,18.42,-85);details.add(bridal);
+      const guest=new T.Group();guest.name='House guest bedroom';guest.position.set(13,18.42,-82.8);details.add(guest);
+      for(const [room,w,d]of [[bridal,17,14.4],[guest,17,11]]){
+        box(room,w,.18,d,0,-.1,0,materials.houseTimber);box(room,w,7.5,.16,0,3.75,-d/2,materials.houseWhite);if(room===guest)box(room,.16,7.5,d,w/2,3.75,0,materials.houseWhite);
+        const partition=new T.Group();partition.position.x=room===bridal?w/2:-w/2;partition.rotation.y=Math.PI/2;room.add(partition);for(const p of planning.wallPanels(d,7.5,[{x:0,y:3.6,w:3.4,h:7.2}]))box(partition,p.w,p.h,.16,p.x,p.y,0,materials.houseWhite);
+        for(const x of [-w/2+.25,w/2-.25]){box(room,.35,7.6,.35,x,3.8,-d/2+.2,materials.houseTimber);beam(room,[x,6.4,-d/2+.2],[x+(x<0?1.8:-1.8),7.5,-d/2+.2],.14,materials.houseTimber);}
+        box(room,w,.13,d,0,7.6,0,materials.houseTimber);
+        // Light curtains flank the existing lake-facing window.
+        for(const x of [-4.9,4.9])for(let i=0;i<5;i++)box(room,.22,5.6,.18,x+i*.15,4, d/2-.3,materials.houseLinen);beam(room,[-5,7,d/2-.3],[5.8,7,d/2-.3],.055,materials.houseBlack);
+      }
+      // Current bridal redesign: cream settee/armchair, pale patterned rug, chandelier.
+      box(bridal,13,.025,10,0,.025,0,materials.houseBridalRug);for(const x of [-5.9,5.9])box(bridal,.08,.02,9.6,x,.05,0,materials.houseRug);for(const z of [-4.7,4.7])box(bridal,11.8,.02,.08,0,.05,z,materials.houseRug);
+
+      const settee=new T.Group();settee.name='Bridal cream settee';settee.position.set(0,0,-4.7);bridal.add(settee);box(settee,6.8,.6,2.7,0,.8,0,materials.houseCream);box(settee,6.8,1.7,.45,0,1.7,-1.15,materials.houseCream);for(const x of [-3.1,3.1])box(settee,.4,1.1,2.7,x,1.35,0,materials.houseCream);for(const x of [-2.8,2.8])box(settee,.12,.45,.12,x,.22,0,materials.houseTimber);for(const x of [-2.15,0,2.15])box(settee,2.05,.17,2.1,x,1.2,0,materials.houseLinen);
+      const arm=new T.Group();arm.position.set(5,.1,.3);arm.rotation.y=-.4;bridal.add(arm);box(arm,2.4,.5,2.5,0,.8,0,materials.houseCream);box(arm,2.4,1.7,.35,0,1.65,-1,materials.houseCream);for(const x of [-1.1,1.1])box(arm,.25,1,2.4,x,1.3,0,materials.houseCream);
+      // Arched floor mirror, a key feature of the getting-ready redesign.
+      const mirror=new T.Group();mirror.name='Bridal arched floor mirror';mirror.position.set(-6.4,0,-4.9);mirror.rotation.y=.25;bridal.add(mirror);box(mirror,2.8,5.3,.13,0,2.7,0,materials.houseBrass);box(mirror,2.55,5,.15,0,2.7,.03,materials.mirror);const arch=new T.Mesh(new T.TorusGeometry(1.4,.08,6,30,Math.PI),materials.houseBrass);arch.position.set(0,5.35,.04);mirror.add(arch);const pane=new T.Mesh(new T.CircleGeometry(1.32,24,0,Math.PI),materials.mirror);pane.position.set(0,5.35,.02);mirror.add(pane);
+      const ch=new T.Group();ch.name='Bridal chandelier';ch.position.set(0,7,0);bridal.add(ch);cylinder(ch,.04,1,0,0,0,materials.houseBrass);for(let i=0;i<6;i++){const a=i*Math.PI/3,x=Math.sin(a)*1.4,z=Math.cos(a)*1.4;beam(ch,[0,-.5,0],[x,-.7,z],.04,materials.houseBrass);cylinder(ch,.06,.4,x,-.45,z,materials.houseCream);cylinder(ch,.08,.09,x,-.2,z,materials.bulb);for(let j=0;j<3;j++)cylinder(ch,.05,.13,x,-.85-j*.17,z,materials.mirror);}
+      // Separate older guest bedroom: dark bed, cream bedding and antique leather chair.
+      const bed=new T.Group();bed.name='House guest bed';guest.add(bed);
+      box(bed,12,.025,8,0,.02,0,materials.houseRug);box(bed,6.3,.65,7,0,.6,-.4,materials.houseBlack);box(bed,6,.62,6.7,0,1.2,-.35,materials.houseLinen);box(bed,6.6,3.3,.3,0,2,-4.05,materials.houseBlack);for(let x=-3;x<=3;x+=.3)box(bed,.025,2.5,.025,x,2.3,-3.88,materials.houseRug);for(const x of [-1.6,1.6]){box(bed,2.6,.42,1.55,x,1.7,-2.7,materials.houseLinen);box(bed,1.3,.34,.75,x,1.95,-2.4,materials.houseCushion);}
+      for(const x of [-5.2,5.2]){box(guest,2.5,2,2,x,1,-3.4,materials.houseTimber);cylinder(guest,.2,1,x,2.5,-3.4,materials.houseBrass);cylinder(guest,.6,.7,x,3.2,-3.4,materials.houseCream);}
+      box(guest,1.6,2.6,4.4,7,1.3,-.3,materials.houseBlack);for(const z of [-1.7,-.3,1.1])box(guest,.06,.12,.6,6.15,1.8,z,materials.houseBrass);
+      const wing=new T.Group();wing.position.set(-5.6,0,2.4);wing.rotation.y=.35;guest.add(wing);box(wing,2.2,.5,2.3,0,.9,0,materials.houseLeather);box(wing,2.2,2.3,.4,0,2,-1,materials.houseLeather);for(const x of [-1,1])box(wing,.3,1.4,2.2,x,1.6,0,materials.houseLeather);
+      // Downstairs knotty timber TV built-in and dark slate entrance threshold.
+      const lower=new T.Group();lower.name='House downstairs timber TV cabinet';lower.position.set(12,0,-101.4);details.add(lower);
+      for(const x of [-3.7,3.7]){box(lower,2.2,7.3,1.6,x,3.65,0,materials.houseTimber);for(const yy of [2.1,5.8])box(lower,1.8,2.6,.06,x,yy,.84,materials.houseTimber);for(const yy of [2.1,5.8])cylinder(lower,.06,.12,x-.65,yy,.92,materials.houseBlack).rotation.x=Math.PI/2;}
+      box(lower,5.4,1.4,1.6,0,.7,0,materials.houseTimber);box(lower,5.4,1.4,1.6,0,6.6,0,materials.houseTimber);box(lower,5,2.8,.1,0,3.8,.45,materials.houseBlack);box(lower,4.6,2.4,.06,0,3.8,.52,materials.houseCounter);
+      box(details,9,.04,4,0,.05,-78.8,materials.houseBlack);for(let x=-4.5;x<=4.5;x+=1.5)box(details,.025,.012,4,x,.08,-78.8,materials.houseRug);for(const z of [-80,-78.5,-77])box(details,9,.012,.025,0,.08,z,materials.houseRug);
+      // Pool drop pockets/cues and visible wooden doors around the games room.
+      for(const x of [-2.05,2.05])for(const z of [-92.75,-89,-85.25])cylinder(details,.21,.3,x,2.45,z,materials.houseBlack);
+      for(let i=0;i<4;i++)beam(details,[-19+i*.27,.3,-96],[-19+i*.27,5.2,-96.7],.035,materials.houseTimber);
+      for(const x of [-16,-8]){box(details,3.4,7,.18,x,3.5,-102.6,materials.houseTimber);for(let xx=-1.35;xx<1.6;xx+=.45)box(details,.018,6.7,.025,x+xx,3.5,-102.48,materials.houseRug);cylinder(details,.08,.14,x+1.1,3.1,-102.4,materials.houseBlack).rotation.x=Math.PI/2;}
+      box(h,43.5,.06,25.5,0,.025,-90,materials.houseFloor);
+    }
     function house(){
       const h=new T.Group();h.position.y=config.houseRise;context.add(h);const front=-77;
       const exterior=new T.Group();h.add(exterior);houseExterior=exterior;
-      box(exterior,44,8,26,0,3.6,-90,materials.stone);
-      box(exterior,44,18,26,0,17,-90,materials.siding);
-      box(exterior,44,1.22,26,0,26.6,-90,materials.siding);
-      // Horizontal siding, standing-seam metal roof and the central dormer.
-      for(let y=8.4;y<26;y+=.45){box(exterior,44,.035,.035,0,y,front+.025,materials.frame);for(const x of [-22,22])box(exterior,.035,.035,26,x,y,-90,materials.frame);}
+      // Real envelope with cutouts: glass must reveal a room, never a solid box.
+      const lakeOpenings=[{x:-14,y:12.8,w:6,h:5.4},{x:14,y:12.8,w:6,h:5.4},{x:0,y:11.96,w:7.4,h:7.6},...[-14,0,14].map(x=>({x,y:22.8,w:x===0?7.4:8,h:3.3})),...[-14,14].map(x=>({x,y:3.5,w:5.6,h:6.6})),{x:0,y:3.5,w:7.4,h:7}];
+      houseWall(exterior,44,26.6,0,0,front,lakeOpenings,-1);
+      const driveOpenings=[{x:-12,y:11.96,w:3.4,h:7.6},...[-18,-5,17].map(x=>({x,y:13,w:3.3,h:4.8})),...[-16,-8,0,8,16].map(x=>({x,y:23,w:4.7,h:2.5}))];
+      houseWall(exterior,44,26.6,0,0,-103,driveOpenings);
+      for(const x of [-22,22]){const side=new T.Group();side.position.set(x,0,-90);side.rotation.y=Math.PI/2;exterior.add(side);houseWall(side,26,26.6,0,0,0,[],x>0?-1:1);}
       pitchedRoof(exterior,48,31,0,26,-90,7.6,materials.houseRoof);
-      box(exterior,14,5.0,7,0,31.0,-84,materials.siding);pitchedRoof(exterior,16,9,0,33.45,-84,1.3,materials.houseRoof);
-      windowHouse(exterior,0,31.4,-80.4,12,2.4);
-      for(const x of [-14,0,14])windowHouse(exterior,x,22.8,front+.16,x===0?7.4:8,3.3);
-      for(const x of [-14,0,14])windowHouse(exterior,x,12.8,front+.16,x===0?8:6,5.4);
-      box(h,50,.40,13,0,7.85,-70.7,materials.darkwood);
+      const dormer=new T.Group();dormer.position.set(0,28.5,-80.4);exterior.add(dormer);houseWall(dormer,14,5,0,0,0,[{x:0,y:2.9,w:12,h:2.4}],-1);
+      box(exterior,14,5,.2,0,31,-87.5,materials.houseWhite);for(const x of [-7,7])box(exterior,.2,5,7,x,31,-84,materials.houseWhite);pitchedRoof(exterior,16,9,0,33.45,-84,1.3,materials.houseRoof);windowHouse(exterior,0,31.4,-80.4,12,2.4);
+      for(const o of lakeOpenings)if(o.x!==0||o.y>18)windowHouse(exterior,o.x,o.y,front+.18,o.w,o.h);
+      for(const o of driveOpenings)if(o.x!==-12||o.y>18){const g=new T.Group();g.position.set(o.x,o.y,-103.18);g.rotation.y=Math.PI;exterior.add(g);windowHouse(g,0,0,0,o.w,o.h);}
+      houseFrenchDoors(h,0,8.16,front,7.4,7.6,'Porch glazed French doors');
+      houseFrenchDoors(h,0,0,front,7.4,7,'Downstairs glazed patio doors');
+      const entry=new T.Group();entry.position.set(-12,8.16,-103);entry.rotation.y=Math.PI;h.add(entry);houseFrenchDoors(entry,0,0,0,3.4,7.6,'Driveway entrance door');
+      box(h,50,.40,13,0,7.85,-70.7,materials.houseTimber);
       porchCeiling=new T.Group();porchCeiling.name='Porch ceiling';h.add(porchCeiling);box(porchCeiling,50,.35,13,0,17.4,-70.7,materials.frame);
       // Stone lower facade and the open lower patio under the screened porch.
-      for(const x of [-14,0,14])windowHouse(exterior,x,3.5,front+.35,5.6,6.6);
+
       for(const x of [-24,-15,-6,6,15,24]){
-        const pier=new T.Group();pier.name='Patio support pier';pier.position.set(x,0,-64.8);h.add(pier);box(pier,1.2,8,1.2,0,3.8,0,materials.stone);
-        box(h,.36,9.4,.36,x,12.5,-64.8,materials.wood);
-        box(h,.11,8.8,.11,x,12.5,-64.65,materials.metal);
+        const pier=new T.Group();pier.name='Patio support pier';pier.position.set(x,0,-64.8);h.add(pier);box(pier,1.2,8,1.2,0,3.8,0,materials.houseStone);
+        box(h,.36,9.4,.36,x,12.5,-64.8,materials.houseTimber);
+        box(h,.11,8.8,.11,x,12.5,-64.65,materials.houseBlack);
       }
       box(h,50,8.8,.035,0,12.5,-64.7,materials.screen).castShadow=false;
-      for(const x of [-24.6,24.6])box(h,.035,8.8,12,x,12.5,-70.6,materials.screen).castShadow=false;
-      for(const y of [8.9,9.5,10.1])box(h,50,.045,.045,0,y,-64.5,materials.metal);
-      box(h,50,.18,.18,0,10.4,-64.5,materials.wood);
+      box(h,.035,8.8,12,24.6,12.5,-70.6,materials.screen).castShadow=false;
+      // Side screen door aligns with the stair, leaving a real opening in the mesh.
+      for(const [z,d]of [[-74.25,4.7],[-66.35,3.5]])box(h,.035,8.8,d,-24.6,12.5,z,materials.screen).castShadow=false;
+      box(h,.035,1.2,3.8,-24.6,16.3,-70,materials.screen).castShadow=false;
+      const screenDoor=new T.Group();screenDoor.name='House porch screen door';screenDoor.position.set(-24.6,8.15,-70);screenDoor.rotation.y=Math.PI/2;h.add(screenDoor);
+      for(const x of [-1.9,1.9])box(screenDoor,.12,7.6,.14,x,3.8,0,materials.houseBlack);box(screenDoor,3.9,.12,.14,0,7.6,0,materials.houseBlack);
+      const screenLeaf=new T.Group();screenLeaf.name='House screen door leaf';screenLeaf.position.x=-1.9;screenLeaf.rotation.y=config.houseDoorsOpen?-Math.PI*.43:0;screenDoor.add(screenLeaf);
+      box(screenLeaf,3.6,7.4,.025,1.9,3.75,0,materials.screen).castShadow=false;for(const x of [.05,3.75])box(screenLeaf,.10,7.5,.10,x,3.75,0,materials.houseBlack);for(const y of [.06,3.1,7.45])box(screenLeaf,3.8,.10,.10,1.9,y,0,materials.houseBlack);box(screenLeaf,.05,.5,.1,3.4,3.8,.13,materials.houseBrass);
+      for(const y of [8.9,9.5,10.1])box(h,50,.045,.045,0,y,-64.5,materials.houseBlack);
+      box(h,50,.18,.18,0,10.4,-64.5,materials.houseTimber);
       box(h,50,.15,12.5,0,.02,-70.5,materials.porchFloor);
-      box(h,50,.14,12.5,0,7.54,-70.5,materials.siding);
+      box(h,50,.14,12.5,0,7.54,-70.5,materials.houseWhite);
       // Six photo-based support piers leave the central approach open.
       // Their exact spacing is unmeasured; avoid duplicated coplanar piers.
       // Fire-table axis follows the two photo angles: toward the pavilion,
       // within the covered terrace, away from the central paver approach.
       const fireSpec=planning.patioPlan(config).fire;
       if(config.patioFire){const fire=new T.Group();fire.name='Venue fire table';fire.position.set(fireSpec.x,0,fireSpec.z);h.add(fire);
-        box(fire,fireSpec.w-.25,2.6,fireSpec.d-.25,0,1.3,0,materials.stone);box(fire,fireSpec.w,.18,fireSpec.d,0,2.69,0,materials.stoneLight);box(fire,2.1,.06,5.6,0,2.81,0,materials.metal);
+        box(fire,fireSpec.w-.25,2.6,fireSpec.d-.25,0,1.3,0,materials.houseStone);box(fire,fireSpec.w,.18,fireSpec.d,0,2.69,0,materials.stoneLight);box(fire,2.1,.06,5.6,0,2.81,0,materials.houseBlack);
         for(let i=0;i<48;i++)cylinder(fire,.10+(i%3)*.025,.08,Math.sin(i*2.4)*.8,2.86,-2.6+(i%16)*.34,materials.stoneDark);
       }
       // Porch has gray planks, warm wood ceiling and cushioned black rockers.
       for(let z=-76.5;z< -64.8;z+=.55)box(h,49,.045,.52,0,8.08,z,materials.porchFloor);
-      box(porchCeiling,49,.07,12,0,17.15,-70.7,materials.wood);
-      for(const x of config.rehearsal?[]:[-17,-6,6,17]){const r=new T.Group();r.position.set(x,8.1,-68.8);h.add(r);box(r,1.7,.16,1.7,0,1.3,0,materials.metal);box(r,1.55,.16,1.55,0,1.45,0,materials.decorLeaf);for(const xx of [-.85,.85]){box(r,.10,2.7,.10,xx,1.35,.70,materials.metal);box(r,.12,.12,2.1,xx,.12,0,materials.metal);box(r,.12,.12,1.7,xx,2,0,materials.metal);}for(let xx=-.65;xx<=.65;xx+=.26)box(r,.045,1.35,.06,xx,2.1,.70,materials.metal);}
+      box(porchCeiling,49,.07,12,0,17.15,-70.7,materials.houseTimber);
+      for(const x of config.rehearsal?[]:[-17,-6,6,17]){const r=new T.Group();r.name='Porch rocker';r.position.set(x,8.1,-68.8);r.rotation.y=Math.PI;h.add(r);box(r,1.7,.16,1.7,0,1.3,0,materials.houseBlack);box(r,1.55,.16,1.55,0,1.45,0,materials.houseCushion);for(const xx of [-.85,.85]){box(r,.10,2.7,.10,xx,1.35,.70,materials.houseBlack);box(r,.12,.12,2.1,xx,.12,0,materials.houseBlack);box(r,.12,.12,1.7,xx,2,0,materials.houseBlack);}for(let xx=-.65;xx<=.65;xx+=.26)box(r,.045,1.35,.06,xx,2.1,.70,materials.houseBlack);}
       for(const x of [-12,12]){cylinder(porchCeiling,.12,.65,x,16.7,-70,materials.frame);for(const a of [0,Math.PI/3,2*Math.PI/3])box(porchCeiling,3.6,.06,.32,x,16.4,-70,materials.frame,a);}
       // Driveway-side chimney, distinct from the lake-facing porch stairs.
-      box(exterior,5,23,3.2,-12,11,-104,materials.stone);box(exterior,3.6,7,2.9,-12,26,-104,materials.stone);
+      const chimney=new T.Group();chimney.name='Driveway stone chimney';exterior.add(chimney);
+      for(let i=0;i<26;i++)box(chimney,6.2-i*.075,1,3.1,7,i+.5,-104.3,materials.houseStone);box(chimney,4.3,4,2.9,7,28,-104.3,materials.houseStone);box(chimney,4.8,.3,3.3,7,30.15,-104.3,materials.houseBlack);
+      const entrySteps=new T.Group();entrySteps.name='Driveway stone entry steps';h.add(entrySteps);
+      for(let i=0;i<5;i++)box(entrySteps,6,5.66+i*.62,1.15,-12,(5.66+i*.62)/2,-109+i*1.15,materials.houseStone);
+      for(const x of [-15, -9]){beam(entrySteps,[x,7.9,-109.6],[x,10.4,-104],.07,materials.houseBlack);for(const z of [-109,-104.4])box(entrySteps,.08,2.7,.08,x,z<-108?6.8:9,z,materials.houseBlack);}
+      box(h,17,.15,6.2,-12,5.05,-112,materials.gravel);for(const x of [-20,-4,17]){const shrub=new T.Mesh(new T.SphereGeometry(1,9,6),materials.green);shrub.position.set(x,5.7,-105);shrub.scale.set(1.6,1.2,1.1);h.add(shrub);}
       staircase(h);houseInterior(h);
       // Patio tables and the strings across the courtyard seen in the photographs.
       if(config.patioEnabled)cocktailPatio(h);
@@ -1656,32 +1773,40 @@
     function houseInterior(h){
       // Furnishing and timber details follow the supplied photos. Room placement is
       // a visual approximation, not a measured architectural floor plan.
-      box(h,43.5,.22,25.5,0,8.05,-90,materials.wood);box(h,43.5,.20,25.5,0,-.08,-90,materials.porchFloor);
-      for(const x of [-20,20])box(h,.18,18,25.5,x,17,-90,materials.siding);
-      box(h,40,18,.18,0,17,-102.5,materials.siding);
-      for(const x of [-12,12]){box(h,.65,18,.65,x,17,-91,materials.wood);beam(h,[x,17,-102],[x,28,-90],.22,materials.wood);beam(h,[x,28,-90],[x,17,-77],.22,materials.wood);}
-      for(let z=-101;z< -78;z+=4)box(h,40,.45,.35,0,18,z,materials.wood);
+      box(h,43.5,.22,25.5,0,8.05,-90,materials.houseTimber);box(h,43.5,.20,25.5,0,-.08,-90,materials.porchFloor);
+      // Perimeter walls belong to the cutaway envelope; no hidden wall behind glazing.
+      for(const x of [-21,21]){box(h,.65,18,.65,x,17,-91,materials.houseTimber);beam(h,[x,26,-102],[x,33.6,-90],.22,materials.houseTimber);beam(h,[x,33.6,-90],[x,26,-77],.22,materials.houseTimber);}
+      for(let z=-101;z< -78;z+=4)box(h,40,.45,.35,0,18,z,materials.houseTimber);
       // Long dining table, black chairs, open kitchen, stone fireplace and seating.
-      if(!config.rehearsal||!config.rehearsalBuffet){const dining=new T.Group();dining.position.set(0,8.2,-84);h.add(dining);box(dining,14,.20,3.6,0,2.5,0,materials.wood);for(const x of [-5,5])box(dining,.35,2.5,2.8,x,1.25,0,materials.darkwood);for(const side of [-1,1])for(let i=0;i<6;i++)chair(dining,-5.7+i*2.25,side*2.6,side>0?0:Math.PI);}
-      for(let i=0;i<5;i++){box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.wood);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.darkwood);}
-      box(h,11,3,3,-11,9.7,-95.4,materials.wood);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.darkwood);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.metal);
-      const couch=new T.Group();couch.position.set(13,8.2,-94.4);h.add(couch);box(couch,6.8,.65,2.9,0,.7,0,materials.houseLeather);box(couch,6.8,1.7,.5,0,1.65,1.2,materials.houseLeather);for(const x of [-3.1,3.1])box(couch,.55,1.4,2.9,x,1.2,0,materials.houseLeather);for(const x of [-2,0,2])box(couch,1.9,.3,2.3,x,1.2,-.1,materials.houseLeather);box(h,4.4,.18,2.5,13,9.6,-97.6,materials.wood);
+      if(!config.rehearsal||!config.rehearsalBuffet){const dining=new T.Group();dining.name='House trestle dining table';dining.position.set(0,8.2,-84);h.add(dining);
+        box(dining,11,.025,7.5,0,.012,0,materials.houseCream);for(const w of [10.8,10.2])for(const z of [-1,1])box(dining,w,.012,.06,0,.03,z*(w===10.8?3.5:3.2),materials.houseBlack);for(const x of [-5.25,5.25])box(dining,.06,.014,7,x,.031,0,materials.houseBlack);
+        box(dining,8.5,.22,3.4,0,2.5,0,materials.houseTimber);for(const x of [-2.9,2.9]){box(dining,.32,2.4,.5,x,1.2,0,materials.houseTimber);box(dining,.6,.25,2.8,x,.18,0,materials.houseTimber);}box(dining,5.8,.22,.24,0,.85,0,materials.houseTimber);
+        for(const side of [-1,1])for(const x of [-2.8,0,2.8])houseLadderChair(dining,x,side*2.55,side>0?Math.PI:0);
+      }
+      for(let i=0;i<5;i++){if(i===1||i===2)continue;box(h,3.3,3,2.2,-17+i*3.4,9.7,-100.9,materials.houseTimber);box(h,3.35,.12,2.35,-17+i*3.4,11.27,-100.8,materials.houseTimber);}
+      box(h,11,3,3,-11,9.7,-95.4,materials.houseTimber);box(h,11.3,.15,3.3,-11,11.3,-95.4,materials.houseCounter);box(h,2.7,.04,1.7,-11,11.4,-95.4,materials.houseBlack);for(const x of [-11.7,-10.3])for(const z of [-95.9,-94.9])cylinder(h,.35,.025,x,11.44,z,materials.houseCounter);box(h,2.8,6.4,2.5,-19,11.4,-97.5,materials.houseBlack);
+      const couch=new T.Group();couch.name='House leather sofa';couch.position.set(7,8.2,-94.4);h.add(couch);box(couch,6.8,.65,2.9,0,.7,0,materials.houseLeather);box(couch,6.8,1.7,.5,0,1.65,1.2,materials.houseLeather);for(const x of [-3.1,3.1])box(couch,.55,1.4,2.9,x,1.2,0,materials.houseLeather);for(const x of [-2,0,2])box(couch,1.9,.3,2.3,x,1.2,-.1,materials.houseLeather);box(h,4.4,.18,2.5,7,9.6,-97.6,materials.houseTimber);
       // The photos show one narrow central catwalk, not two broad side lofts.
       // Span, orientation and stair connection remain architectural estimates.
       const catwalk=new T.Group();catwalk.name='House central catwalk';h.add(catwalk);
-      box(catwalk,4,.22,21,0,18.3,-90,materials.wood);box(catwalk,40,.22,3.5,0,18.3,-101,materials.wood);
-      for(const side of [-1,1]){for(let z=-99.5;z<=-79.5;z+=.45)box(catwalk,.055,2.8,.055,side*2,19.8,z,materials.metal);box(catwalk,.16,.16,20.5,side*2,21.25,-89.7,materials.darkwood);box(catwalk,.10,.10,20.5,side*2,18.6,-89.7,materials.metal);}
+      box(catwalk,4,.22,21,0,18.3,-90,materials.houseTimber);box(catwalk,40,.22,3.5,0,18.3,-101,materials.houseTimber);
+      for(const side of [-1,1])for(const [a,b]of (side<0?[[-99.5,-86.7],[-83.3,-79.5]]:[[-99.5,-84.5],[-81.1,-79.5]])){
+        for(let z=a;z<=b;z+=.45)box(catwalk,.055,2.8,.055,side*2,19.8,z,materials.houseBlack);box(catwalk,.16,.16,b-a,side*2,21.25,(a+b)/2,materials.houseTimber);box(catwalk,.10,.10,b-a,side*2,18.6,(a+b)/2,materials.houseBlack);
+      }
+      for(const [x,z,w]of [[-2.75,-85,1.5],[3.25,-82.8,2.5]]){box(catwalk,w,.22,3.4,x,18.3,z,materials.houseTimber);for(const side of [-1,1]){box(catwalk,w,.12,.12,x,21.25,z+side*1.7,materials.houseTimber);for(let xx=x-w/2;xx<=x+w/2;xx+=.4)box(catwalk,.045,2.8,.045,xx,19.8,z+side*1.7,materials.houseBlack);}}
+
       // Room details observed in the house tour; room boundaries are provisional.
-      for(const x of [-14,-10,-6]){cylinder(h,.65,.14,x,10.1,-92.8,materials.wood);for(const dx of [-.4,.4])for(const dz of [-.4,.4])box(h,.09,1.8,.09,x+dx,9.1,-92.8+dz,materials.darkwood);cylinder(h,.045,2.2,x,16.9,-95.4,materials.metal);cylinder(h,.65,.38,x,15.65,-95.4,materials.metal);cylinder(h,.25,.06,x,15.43,-95.4,materials.bulb);}
-      for(let i=0;i<5;i++){const x=-17+i*3.4;box(h,3.0,2.5,.045,x,9.75,-99.76,materials.darkwood);box(h,.06,.3,.07,x+1.1,10,-99.7,materials.gold);}
-      box(h,10,.2,3,13,8.3,-100.2,materials.stoneLight);box(h,9,10,1.35,13,13.2,-101.15,materials.stone);box(h,4.6,3.1,.12,13,10.1,-100.4,materials.metal);box(h,9.5,.27,1.9,13,12.2,-100.1,materials.darkwood);
-      box(h,3.2,2.7,.09,13,15,-100.4,materials.darkwood);box(h,2.8,2.3,.10,13,15,-100.3,materials.houseCream);
-      box(h,12,.025,8,13,8.18,-94.5,materials.houseRug);for(let i=0;i<7;i++)box(h,.09,.026,7.8,7.5+i*1.8,8.205,-94.5,materials.houseCream);for(let i=0;i<5;i++)box(h,11.8,.026,.09,13,8.21,-98+i*1.7,materials.houseCream);
+      for(const x of [-14,-10,-6]){cylinder(h,.65,.14,x,10.1,-92.8,materials.houseTimber);for(const dx of [-.4,.4])for(const dz of [-.4,.4])box(h,.09,1.8,.09,x+dx,9.1,-92.8+dz,materials.houseTimber);cylinder(h,.045,2.2,x,16.9,-95.4,materials.houseBlack);cylinder(h,.65,.38,x,15.65,-95.4,materials.houseBlack);cylinder(h,.25,.06,x,15.43,-95.4,materials.bulb);}
+      for(let i=0;i<5;i++){if(i===1||i===2)continue;const x=-17+i*3.4;box(h,3.0,2.5,.045,x,9.75,-99.76,materials.houseTimber);box(h,.06,.3,.07,x+1.1,10,-99.7,materials.houseBrass);}
+      box(h,10,.2,3,7,8.3,-100.2,materials.stoneLight);box(h,9,10,1.35,7,13.2,-101.15,materials.houseStone);box(h,4.6,3.1,.12,7,10.1,-100.4,materials.houseBlack);box(h,9.5,.27,1.9,7,12.2,-100.1,materials.houseTimber);
+      box(h,3.2,2.7,.09,7,15,-100.4,materials.houseTimber);box(h,2.8,2.3,.10,7,15,-100.3,materials.houseCream);
+      box(h,12,.025,8,7,8.18,-94.5,materials.houseRug);for(let i=0;i<7;i++)box(h,.09,.026,7.8,1.5+i*1.8,8.205,-94.5,materials.houseCream);for(let i=0;i<5;i++)box(h,11.8,.026,.09,7,8.21,-98+i*1.7,materials.houseCream);
       // Ground-level pool table, shuffleboard, TV and bar visible in the reference album.
-      box(h,4.7,2.3,8.3,0,1.25,-89,materials.darkwood);box(h,4.3,.10,7.8,0,2.46,-89,materials.decorLeaf);for(const x of [-2.3,2.3])box(h,.2,.3,8.3,x,2.6,-89,materials.wood);for(const z of [-93.1,-84.9])box(h,4.8,.3,.22,0,2.6,z,materials.wood);
-      for(let i=0;i<10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.gold);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
-      box(h,8,3.1,2,-13,1.55,-100,materials.wood);box(h,8.2,.12,2.2,-13,3.16,-100,materials.darkwood);box(h,5,2.8,.12,12,4.9,-102.2,materials.metal);
-      box(h,14,2.35,2.1,-13,1.18,-87,materials.wood);box(h,13.4,.08,1.55,-13,2.4,-87,materials.darkwood);for(let i=0;i<6;i++)cylinder(h,.08,.06,-18+i*.22,2.48,-87,materials.gold);
+      box(h,4.7,.65,8.3,0,2.1,-89,materials.houseTimber);for(const x of [-1.9,1.9])for(const z of [-92.5,-85.5]){cylinder(h,.23,1.7,x,.9,z,materials.houseTimber);cylinder(h,.36,.22,x,.15,z,materials.houseTimber);}box(h,4.3,.10,7.8,0,2.46,-89,materials.houseFelt);for(const x of [-2.3,2.3])box(h,.2,.3,8.3,x,2.6,-89,materials.houseTimber);for(const z of [-93.1,-84.9])box(h,4.8,.3,.22,0,2.6,z,materials.houseTimber);
+      for(let i=0;i<10;i++){const ball=new T.Mesh(new T.SphereGeometry(.08,8,5),i%2?materials.flowerIvory:materials.houseBrass);ball.position.set(Math.sin(i*2.4)*1.8,2.58,-89+Math.cos(i)*3.1);h.add(ball);}
+      box(h,8,3.1,2,-13,1.55,-100,materials.houseTimber);box(h,8.2,.12,2.2,-13,3.16,-100,materials.houseTimber);box(h,5,2.8,.12,12,4.9,-102.2,materials.houseBlack);
+      box(h,14,2.35,2.1,-13,1.18,-87,materials.houseTimber);box(h,13.4,.08,1.55,-13,2.4,-87,materials.houseTimber);for(let i=0;i<6;i++)cylinder(h,.08,.06,-18+i*.22,2.48,-87,materials.houseBrass);
+      housePhotoDetails(h);
       if(config.rehearsal)rehearsalDinner(h);
       tag('House interior · photo-based concept',[0,config.houseRise+16,-89],'context');
     }
@@ -1782,10 +1907,9 @@
       for(const [a,b]of [[-73,-71.9],[-68.1,-67]])for(const height of [.8,1.55,2.3,3.0])beam(parent,[-32,4+height,a],[-32,4+height,b],height>2.9?.06:.035,materials.metal);
     }
     function windowHouse(parent,x,y,z,w,h){
-      box(parent,w+.3,h+.3,.14,x,y,z,materials.metal);
-      box(parent,w,h,.06,x,y,z+.1,materials.houseGlass).castShadow=false;
-      for(const dx of [-w/2,0,w/2])box(parent,.10,h+.1,.15,x+dx,y,z+.16,materials.frame);
-      for(const dy of [-h/2,h/2])box(parent,w,.1,.15,x,y+dy,z+.16,materials.frame);
+      box(parent,w,h,.035,x,y,z+.1,materials.houseGlass).castShadow=false;
+      for(const dx of [-w/2,0,w/2])box(parent,.10,h+.1,.15,x+dx,y,z+.16,materials.houseBlack);
+      for(const dy of [-h/2,h/2])box(parent,w,.1,.15,x,y+dy,z+.16,materials.houseBlack);
     }
     function ceremonySpec(){const depth=config.deckDepth,width=config.deckWidth;return {depth,width,start:119-depth,rows:Math.min(config.benchRows,Math.max(0,Math.floor((depth-12)/3)+1)),bench:Math.min(config.benchLength,(width-6)/2-1)};}
     function aislePlant(parent,x,z,flowers){
@@ -2262,6 +2386,7 @@
         if(l.kind==='power')enabled=config.power&&!['walk','tour','seat','table'].includes(activeView);
         if(l.kind==='door')enabled=config.doorGuides&&!['walk','tour','seat','table','site'].includes(activeView);
         if(activeView.startsWith('patio')&&!isMeasure&&!(l.kind==='context'&&l.pos.z< -55&&l.pos.y<config.houseRise+8))enabled=false;
+        if((activeView.startsWith('house')&&activeView!=='house')||activeView==='residence')enabled=false;
         const visible=enabled&&(l.kind!=='context'||config.context)&&pos.z>-1&&pos.z<1&&x>20&&x<rect.width-20&&y>15&&y<rect.height-15;
         l.el.style.display=visible?'block':'none';if(!visible)return;
         const w=l.el.offsetWidth,h=l.el.offsetHeight,xx=Math.max(w/2+5,Math.min(rect.width-w/2-5,x));let chosen=null;
@@ -2269,7 +2394,7 @@
         if(!chosen){l.el.style.display='none';return;}occupied.push(chosen.b);l.el.style.left=xx+'px';l.el.style.top=chosen.yy+'px';
       });
     }
-    function adaptHouseLens(){perspectiveCamera.fov=['rehearsalBuffet','rehearsalBar'].includes(activeView)?Math.atan(Math.tan(43*Math.PI/360)/Math.min(1,stage.clientWidth/stage.clientHeight))*360/Math.PI:43;}
+    function adaptHouseLens(){const interior=activeView.startsWith('house')&&!['house','houseDriveway'].includes(activeView),base=interior?60:43;perspectiveCamera.fov=['rehearsalBuffet','rehearsalBar','houseInterior','houseLower','housePorch','houseKitchen','houseBridal','houseBedroom','houseLoft'].includes(activeView)?Math.atan(Math.tan(base*Math.PI/360)/Math.min(1,stage.clientWidth/stage.clientHeight))*360/Math.PI:43;}
     function resize(){const w=stage.clientWidth,h=stage.clientHeight;adaptHouseLens();renderer.setSize(w,h,false);for(const c of [perspectiveCamera,walkCamera]){c.aspect=w/h;c.updateProjectionMatrix();}draw();}
     function view(name,remember=true){
       stopWalking();pauseTour(false);activeView=name;restoreProjection(name);const factor=Math.max(1,1.35/(stage.clientWidth/stage.clientHeight));
@@ -2291,7 +2416,13 @@
         rehearsalBuffet:{azimuth:.35,polar:Math.PI/2,distance:20,target:[config.rehearsalSide==='left'?8:-8,config.houseRise+13,-84]},
         rehearsalBar:{azimuth:-.25,polar:Math.PI/2,distance:20,target:[config.rehearsalSide==='left'?-15:15,config.houseRise+13,-83]},
         houseInterior:{azimuth:.7,polar:1.30,distance:18,target:[0,config.houseRise+12,-91]},
-        houseLower:{azimuth:.5,polar:1.42,distance:14,target:[0,config.houseRise+3,-92]},
+        housePorch:{azimuth:0,polar:Math.PI/2,distance:10,target:[0,config.houseRise+12,-79]},
+        houseKitchen:{azimuth:.45,polar:1.48,distance:15,target:[-11,config.houseRise+11.5,-96]},
+        houseBridal:{azimuth:0,polar:1.48,distance:8,target:[-12,config.houseRise+22,-87.5]},
+        houseBedroom:{azimuth:.18,polar:1.48,distance:8,target:[13,config.houseRise+22,-86]},
+        houseLoft:{azimuth:Math.PI,polar:1.55,distance:13,target:[0,config.houseRise+22,-86]},
+        houseDriveway:{azimuth:Math.PI+.2,polar:1.58,distance:63*factor,target:[0,config.houseRise+15,-99]},
+        houseLower:{azimuth:.2,polar:1.42,distance:14,target:[4.5,config.houseRise+3.2,-94]},
         patio:{azimuth:.35,polar:1.20,distance:56*factor,target:[0,config.houseRise+1.2,-67]},
         patioInside:{azimuth:.10,polar:Math.PI/2,distance:16,target:[0,config.houseRise+4.6,-76]},
         residence:{azimuth:.12,polar:1.71,distance:66*factor,target:[0,config.houseRise+14,-85]},
@@ -2300,7 +2431,8 @@
       };
       if(name.startsWith('patio')){config.patioEnabled=true;config.context=true;rebuild();}
       if(name.startsWith('rehearsal')){config.rehearsal=true;config.houseCutaway=true;config.context=true;config.roof=false;rebuild();}
-      if(['houseInterior','houseLower'].includes(name)){config.houseCutaway=true;config.context=true;}
+      if(['houseInterior','houseLower','houseKitchen','houseBridal','houseBedroom','houseLoft'].includes(name)){config.houseCutaway=false;config.context=true;}
+      if(['housePorch','houseDriveway','residence'].includes(name)){config.houseCutaway=false;config.context=true;}
       if(name==='walk'){config.roof=true;roof.visible=true;walk={x:0,y:walk.y,z:-16,yaw:Math.PI,pitch:0};}
       else if(!['tour','seat'].includes(name))orbit=presets[name]||presets.perspective;
       if(name==='measure'){config.measurements=true;config.measureScope='sections';config.walls='hidden';config.roof=false;rebuild();}
@@ -2314,7 +2446,7 @@
       applyAppearance();syncControls();if(selectionBox)selectionBox.visible=$('lp-action').value==='move'&&!['walk','tour','seat'].includes(name);selectionText();draw();if(remember)saveState();
     }
     function restoreProjection(name){
-      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar','patio','patioInside','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
+      activeView=['perspective','site','plan','lake','house','side','inside','table','seat','measure','walk','tour','ceremony','residence','houseInterior','houseLower','housePorch','houseKitchen','houseBridal','houseBedroom','houseLoft','houseDriveway','rehearsal','rehearsalSeat','rehearsalBuffet','rehearsalBar','patio','patioInside','stairs','kitchen','arbor','lounge'].includes(name)?name:'perspective';camera=['walk','tour','seat'].includes(activeView)?walkCamera:activeView==='plan'?planCamera:perspectiveCamera;
       adaptHouseLens();walkCamera.fov=activeView==='seat'?60:66;walkCamera.updateProjectionMatrix();
       ceilingLights.visible=activeView!=='plan';
       for(const c of [perspectiveCamera,walkCamera]){c.aspect=stage.clientWidth/stage.clientHeight;c.updateProjectionMatrix();}$('lp-view').value=activeView;

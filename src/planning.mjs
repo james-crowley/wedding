@@ -38,3 +38,15 @@ export function planningFacts(model){
   return [['Reception guests',String(model.targetGuests)],['Reception seats',String(tables*8)+' + couple'],['Reception tables',String(tables)+' · '+model.layout],['Dance floor',model.danceVisible===false?'No rented floor':model.danceWidth+' × '+model.danceDepth+' ft · '+model.dancePattern],['Napkin color',model.design.napkinColor],['Flowers',[model.design.flowerA,model.design.flowerB,model.design.flowerC].join(' / ')],['Rehearsal seats',r.shown+' / '+r.requested+' requested'],['Rehearsal layout',r.style+' · '+r.tables.length+' tables'],['Patio cocktail tables',String(model.patioEnabled?p.shown:0)],['Patio service stations',model.patioEnabled?p.services.map(s=>s.id).join(', ')||'None':'Hidden']];
 }
 export function cleanDesignName(value){return String(value||'').replace(/[\u0000-\u001f]/g,'').replace(/\s+/g,' ').trim().slice(0,56);}
+
+// Non-overlapping rectangles tessellate the solid wall around door/window holes.
+// Openings use wall-local centers; clipping also handles holes at a wall edge.
+export function wallPanels(width,height,openings=[]){
+  if(!Number.isFinite(width)||!Number.isFinite(height)||width<=0||height<=0)return [];
+  const holes=openings.filter(o=>[o.x,o.y,o.w,o.h].every(Number.isFinite)&&o.w>0&&o.h>0).map(o=>({left:Math.max(-width/2,o.x-o.w/2),right:Math.min(width/2,o.x+o.w/2),bottom:Math.max(0,o.y-o.h/2),top:Math.min(height,o.y+o.h/2)})).filter(o=>o.left<o.right&&o.bottom<o.top);
+  const xs=[...new Set([-width/2,width/2,...holes.flatMap(o=>[o.left,o.right])])].sort((a,b)=>a-b),ys=[...new Set([0,height,...holes.flatMap(o=>[o.bottom,o.top])])].sort((a,b)=>a-b),panels=[];
+  for(let i=1;i<xs.length;i++)for(let j=1;j<ys.length;j++){
+    const x=(xs[i-1]+xs[i])/2,y=(ys[j-1]+ys[j])/2;
+    if(!holes.some(o=>x>o.left&&x<o.right&&y>o.bottom&&y<o.top))panels.push({x,y,w:xs[i]-xs[i-1],h:ys[j]-ys[j-1]});
+  }return panels;
+}

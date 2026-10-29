@@ -1,7 +1,7 @@
 {
   "title": "Venue photo research and model improvements",
   "reviewed": "2026-10-29",
-  "scope": "Retains the earlier selected-post study. This follow-up rechecked both fire-table photos, a fire-table reel frame, all three wide-reception carousel images and the central-catwalk photo. It is not an exhaustive review of the account. Public photos support appearances and relationships; they do not establish exact room dimensions or a complete wedding floor plan.",
+  "scope": "Selected-post study with a fresh review of all seven house-tour photos, all four downstairs games-room photos and the bridal-redesign reel, alongside the earlier venue study. These references now inform the rendered house. This is not an exhaustive account review or an architectural survey; room sizes, upper-room positions and stair runs remain estimates. Public photos cannot establish exact room dimensions.",
   "sources": [
     {
       "id": "DfCzm2rFBBs",
@@ -65,7 +65,7 @@
       "kind": "photo",
       "imagesReviewed": 4,
       "url": "https://www.instagram.com/p/DbLynH7kxcT/",
-      "observed": "Pool table; separate shuffleboard; knotty wood TV cabinet; slate-like entrance tile; glazed black double doors."
+      "observed": "Rechecked all four images: olive-felt pool table with drop pockets, separate shuffleboard, knotty-timber TV built-in, paneled doors and dark tiled threshold at glazed patio doors."
     },
     {
       "id": "DbvpJCujfpx",
@@ -161,7 +161,7 @@
       "kind": "photo",
       "imagesReviewed": 7,
       "url": "https://www.instagram.com/p/DSx495EE95Q/",
-      "observed": "Porch; dining; bedroom; opposite bedroom angle; kitchen; fireplace lounge and stair; driveway facade."
+      "observed": "Rechecked all seven images: outward-facing porch rockers, glazed French doors, trestle dining table/ladder-back chairs and clock, dark guest bedroom, timber kitchen with stone peninsula, fireplace and switchback stairs, driveway chimney/entry steps."
     },
     {
       "id": "DOJvtnkkgBT",
@@ -241,8 +241,8 @@
         "DaYpz5dE3HS",
         "DSx495EE95Q"
       ],
-      "status": "partial",
-      "currentModel": "Replaced the two broad side loft strips with a central narrow catwalk and dark spindle rails. The internal stair route, landing and measured room boundaries remain unresolved."
+      "status": "modeled",
+      "currentModel": "A narrow central catwalk, rear landing and two timber stair flights with dark spindle rails are modeled, including walking support. Enclosed upper-room vignettes are distinct from the open catwalk. Stair position, room adjacency and dimensions are provisional."
     },
     {
       "area": "House interior",
@@ -254,8 +254,8 @@
         "DSx495EE95Q",
         "Dbgazs8E8dJ"
       ],
-      "status": "partial",
-      "currentModel": "House leather, rug, counters and stone use fixed house materials. A few pre-existing house/game-room accents still share generic materials; review separately from rental decor."
+      "status": "modeled",
+      "currentModel": "Fixed honey timber, white walls, dark balusters, leather, cabinetry, cream upholstery and olive pool felt use house materials independent of wedding rental choices."
     },
     {
       "area": "House interior",
@@ -267,8 +267,8 @@
         "DSx495EE95Q",
         "DfCzm2rFBBs"
       ],
-      "status": "partial",
-      "currentModel": "Dark counters, cabinet fronts/handles, island stools and three pendant shades are modeled. Exact kitchen/dining placement, table length, room limits and remaining clock/rug details need confirmation."
+      "status": "modeled",
+      "currentModel": "Dark mottled stone counters, timber cabinet faces/handles, sink, cooktop, stools and three pendants are modeled. The trestle table has six black ladder-back chairs, a pale bordered rug and a round clock/console. Table size and room placement are estimates."
     },
     {
       "area": "House interior",
@@ -280,8 +280,8 @@
         "DSx495EE95Q",
         "DV9iZ3FEqjG"
       ],
-      "status": "partial",
-      "currentModel": "Wider stone surround, raised hearth, dark mantel, framed art, brown leather seating and checked rug are modeled. Their location remains a room-layout approximation."
+      "status": "modeled",
+      "currentModel": "The broad stone surround, raised hearth, mantel, framed art and brown leather seating align with the driveway chimney. The adjacent stair and room dimensions remain estimated."
     },
     {
       "area": "House interior",
@@ -294,8 +294,8 @@
         "DcM1oyRm-tA",
         "DSx495EE95Q"
       ],
-      "status": "open",
-      "currentModel": "Current bridal-suite furnishings are documented but not yet reconstructed; older bedroom references must not be silently combined with the newer redesign."
+      "status": "modeled",
+      "currentModel": "A separate upper-room vignette follows the redesign: cream settee and armchair, pale patterned rug, curtains, arched floor mirror and small chandelier. A different guest-bedroom vignette has the older dark bed/dresser and leather chair; these are not merged into the bridal design. Exact floor and room positions are unconfirmed."
     },
     {
       "area": "House interior",
@@ -307,8 +307,8 @@
         "DbLynH7kxcT",
         "DNinV9zMJQD"
       ],
-      "status": "partial",
-      "currentModel": "Pool table and a distinct shuffleboard are modeled. Built-in cabinetry, threshold and room connection details are incomplete."
+      "status": "modeled",
+      "currentModel": "The downstairs room includes timber TV cabinetry, separate pool/shuffleboard tables, pool pockets and cues, paneled doors, a dark tiled threshold and glazed double doors to the patio. Room dimensions and layout remain estimates."
     },
     {
       "area": "House exterior",
@@ -321,7 +321,7 @@
         "DSx495EE95Q"
       ],
       "status": "modeled",
-      "currentModel": "Gray porch boards, timber ceiling, fans and dark cushioned rockers are modeled. Rehearsal mode replaces rockers with configurable seating; porch dimensions remain estimates."
+      "currentModel": "Gray porch boards, timber ceiling, fans and pale-green-cushioned black rockers facing out toward the lake are modeled. Glazed French doors have real wall openings, adjustable opacity and an opening toggle. Rehearsal mode substitutes the planned dining layout."
     },
     {
       "area": "House exterior",
@@ -335,8 +335,8 @@
         "DSx495EE95Q",
         "DWHyPRLk1Wz"
       ],
-      "status": "partial",
-      "currentModel": "White horizontal siding, metal roof, clerestory and driveway-side chimney are modeled. Exact facade dimensions and front entrance detailing remain approximate."
+      "status": "modeled",
+      "currentModel": "The driveway view now includes segmented white siding, dark-framed windows, a glazed front entrance, short stone entry steps, tapered stone chimney, gray roof/clerestory, gravel forecourt and foundation planting. Entrance height and footprint remain estimates."
     },
     {
       "area": "Patio and paths",
@@ -350,14 +350,14 @@
         "DNinV9zMJQD"
       ],
       "status": "partial",
-      "currentModel": "Corrected the island from 12 ft sideways across the route to an estimated 3.6 × 8.4 ft footprint with its long axis toward the pavilion. It is placed off the central approach in the covered terrace, with a gray counter and recessed stone burner. Coordinates and dimensions need a measurement. Six photo-based support piers replace the duplicated seven-pier pattern, leaving the modeled central approach open. Exact pier spacing remains estimated."
+      "currentModel": "Corrected the island from 12 ft sideways across the route to an estimated 3.6 \u00d7 8.4 ft footprint with its long axis toward the pavilion. It is placed off the central approach in the covered terrace, with a gray counter and recessed stone burner. Coordinates and dimensions need a measurement. Six photo-based support piers replace the duplicated seven-pier pattern, leaving the modeled central approach open. Exact pier spacing remains estimated."
     },
     {
       "area": "Patio and paths",
       "priority": "First",
       "title": "Broader paver terrace with connected side route",
       "observed": "The cocktail-hour walkthrough follows a curved tan/gray interlocking-paver path beside the house into a broad gathering terrace along the stone-columned lower patio. The covered floor differs from the exterior pavers.",
-      "modelChange": "courtyardPaving() currently gives the exterior terrace a 56 × 5.5 ft rectangular strip. Rework its footprint into a broader continuous terrace with the side path joining at the patio, preserve the covered-floor cutout, and keep all joins on one non-overlapping surface. Exact terrace bounds remain estimated.",
+      "modelChange": "courtyardPaving() currently gives the exterior terrace a 56 \u00d7 5.5 ft rectangular strip. Rework its footprint into a broader continuous terrace with the side path joining at the patio, preserve the covered-floor cutout, and keep all joins on one non-overlapping surface. Exact terrace bounds remain estimated.",
       "sources": [
         "DW7RJYKlOt-",
         "DNinV9zMJQD",
@@ -440,7 +440,7 @@
       "priority": "First",
       "title": "Deck footprint and backless benches",
       "observed": "Several clear empty-aisle images show a narrow boardwalk opening into a wider deck with a central aisle and closely spaced backless wood benches. A straight-on image appears to show roughly twelve rows on each side, but crops and occlusion prevent a reliable inventory count.",
-      "modelChange": "ceremony() already has backless benches, which should remain. Do not assert the current default eight rows or 28 × 34 ft footprint matches the venue. Add a photo-matched layout separately from the chosen guest-count layout only after confirming bench count/deck size; do not enlarge the deck solely to fit an inferred count.",
+      "modelChange": "ceremony() already has backless benches, which should remain. Do not assert the current default eight rows or 28 \u00d7 34 ft footprint matches the venue. Add a photo-matched layout separately from the chosen guest-count layout only after confirming bench count/deck size; do not enlarge the deck solely to fit an inferred count.",
       "sources": [
         "DdKoRUBFQDm",
         "DcWwjtcIDMw"
@@ -480,7 +480,7 @@
       "area": "Patio and paths",
       "priority": "First",
       "title": "Cocktail-hour setup as a separate event",
-      "observed": "The terrace photos show movable high-top tables, gray stone/pavers, covered stone piers and a fire island. They do not establish the couple’s final catering layout.",
+      "observed": "The terrace photos show movable high-top tables, gray stone/pavers, covered stone piers and a fire island. They do not establish the couple\u2019s final catering layout.",
       "modelChange": "Add separately configured cocktail tables, table coverings, flowers/candles, grazing, guest book, welcome drinks and a staffed bar; reserve the center route.",
       "sources": [
         "DdpLfMuDaPF",
@@ -504,12 +504,12 @@
     }
   ],
   "limits": [
-    "90 × 40 ft pavilion and 8 ft venue-table length come from earlier supplied contract context; this report does not reproduce the private contract.",
+    "90 \u00d7 40 ft pavilion and 8 ft venue-table length come from earlier supplied contract context; this report does not reproduce the private contract.",
     "Photo-based house, porch, patio, terrain, ceremony deck and furniture dimensions remain estimates.",
     "A photo crop without a dance floor or DJ is not evidence that the wedding had none.",
     "Supplier colors and preview meshes are schematic. Multiple preview swatches represent components, not selectable variants.",
     "No private album links, guest information or downloaded Instagram media are included."
   ],
-  "implementationReview": "Current working refinement; the source model is checked against the observations below. Implemented means a photo-based model feature exists, not that its dimensions are certified.",
+  "implementationReview": "The rendered house now uses the room and facade findings below, with real glazed openings and separate photo-based room views. Modeled means a visual concept has been implemented; it does not establish a measured architectural reconstruction.",
   "baselineRelease": "37f95b937c040f268b9b27a37fde2b04cb708de4"
 }

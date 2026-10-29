@@ -61,3 +61,24 @@ describe('Production keyboard movement and sprint',()=>{
     const h=keyboardHarness();h.event('keydown','w',{target:{tagName:'INPUT'}});h.tick();assert.equal(h.distance(),0);
   });
 });
+
+describe('Photo-based interior stair support',()=>{
+  for(const rise of [1.5,3.5,20])it(`switchback, landing, catwalk and rooms at rise ${rise}`,()=>{
+    const context=vm.createContext({config:{houseRise:rise,lakeDrop:7.5}});vm.runInContext(source.slice(source.indexOf('    function gradeHeight('),source.indexOf('    function ribbon(')),context);const h=context.walkingHeight;
+    let surface=rise+8.16;for(let z=-99;z<=-91;z+=.125)surface=h(18.9,z,surface);assert.equal(surface,rise+13.23);
+    for(let x=18.9;x>=15.1;x-=.2)surface=h(x,-90,surface);assert.equal(surface,rise+13.23);
+    for(let z=-91;z>=-99;z-=.125)surface=h(15.1,z,surface);assert.ok(Math.abs(surface-(rise+18.41))<1e-9);
+    for(const [x,z]of [[15.1,-100],[0,-101],[0,-85],[-12,-84],[13,-84]])surface=h(x,z,surface);assert.ok(Math.abs(surface-(rise+18.41))<1e-9);
+    for(let x=0;x>=-12;x-=.25)assert.ok(Math.abs(h(x,-85,rise+18.41)-(rise+18.41))<1e-9,'Bridal room connects to the catwalk');for(let x=0;x<=13;x+=.25)assert.ok(Math.abs(h(x,-82.8,rise+18.41)-(rise+18.41))<1e-9,'Guest room connects to the catwalk');
+    assert.equal(h(13,-84,rise+8.16),rise+8.16,'Main living space below room keeps its own floor');assert.ok(h(18.9,-95,rise)<rise+2,'Ground-floor guest cannot jump onto the stair');
+  });
+});
+
+it('terrain subtraction clears the basement without a floating ground patch outside',()=>{
+  class Attribute{constructor(array,size){this.array=array;this.itemSize=size;this.count=array.length/size;}getX(i){return this.array[i*this.itemSize];}getY(i){return this.array[i*this.itemSize+1];}getZ(i){return this.array[i*this.itemSize+2];}}
+  class Geometry{attributes={};setAttribute(k,v){this.attributes[k]=v;}computeVertexNormals(){}}
+  const context=vm.createContext({T:{BufferGeometry:Geometry,Float32BufferAttribute:Attribute}});vm.runInContext(source.slice(source.indexOf('    function houseTerrainCutout('),source.indexOf('    function surroundings(')),context);
+  const g=context.houseTerrainCutout({attributes:{position:new Attribute([-50,0,-120,50,0,-120,-50,0,-50,50,0,-50],3),uv:new Attribute([0,0,1,0,0,1,1,1],2)},index:new Attribute([0,2,1,1,2,3],1)}),a=g.attributes.position.array;
+  let area=0;for(let i=0;i<a.length;i+=9){const x=(a[i]+a[i+3]+a[i+6])/3,z=(a[i+2]+a[i+5]+a[i+8])/3;assert.ok(!(x>-22.13&&x<22.13&&z>-103.13&&z< -76.87),'No triangle remains in the house');area+=Math.abs((a[i+3]-a[i])*(a[i+8]-a[i+2])-(a[i+6]-a[i])*(a[i+5]-a[i+2]))/2;}
+  assert.ok(Math.abs(area-(7000-44.26*26.26))<1e-7);assert.ok(a.every(Number.isFinite));
+});

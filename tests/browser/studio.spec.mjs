@@ -156,3 +156,23 @@ test('studio: recovers a prior-release browser save without discarding its legac
   expect(await f.evaluate(()=>window.openai.widgetState.modelContent.patioTables)).toBe(3);expect(await f.evaluate(()=>window.openai.widgetState.modelContent.targetGuests)).toBe(88);
   expect(await page.evaluate(()=>Object.keys(localStorage).some(k=>k.includes('?v=previous-release')))).toBe(true);
 });
+
+test('studio: photo-based house rooms, outward rockers and actual transparent door openings',async({page},info)=>{
+  test.setTimeout(8*60_000);const f=await frameOf(page),houseFrames=[];
+  await f.locator('#lp-view').selectOption('housePorch');await healthy(f);
+  const facts=await f.evaluate(()=>{const {scene}=window.__renderAudit;scene.updateMatrixWorld(true);const rockers=[],doors=[];scene.traverse(o=>{if(o.name==='Porch rocker')rockers.push(o.rotation.y);if(o.name==='House glazed door leaf')doors.push(o);});const door=scene.getObjectByName('Porch glazed French doors');const glass=doors[0].children.find(o=>o.material?.transparent);const p=door.localToWorld(new THREE.Vector3(1,4,0)),ray=new THREE.Raycaster(p.clone().add(new THREE.Vector3(0,0,1)),new THREE.Vector3(0,0,-1),0,2);const opaque=ray.intersectObjects(scene.children,true).filter(hit=>{let o=hit.object;while(o){if(!o.visible)return false;o=o.parent;}return hit.object.material&&!hit.object.material.transparent;});return {rockers,opacity:glass.material.opacity,openingBlocked:opaque.length,names:['House porch screen door','House bridal suite','House guest bedroom','House central catwalk','House interior switchback staircase','House downstairs timber TV cabinet','House trestle dining table','Driveway stone entry steps'].map(name=>Boolean(scene.getObjectByName(name)))};});
+  expect(facts.rockers).toHaveLength(4);for(const angle of facts.rockers)expect(angle).toBeCloseTo(Math.PI);expect(facts.opacity).toBeCloseTo(.16);expect(facts.openingBlocked).toBe(0);expect(facts.names.every(Boolean)).toBe(true);await capture(f,info,'house-porch-glass');
+  for(const view of ['residence','houseDriveway','houseKitchen','houseInterior','houseLoft','houseBridal','houseBedroom','houseLower']){await f.locator('#lp-view').selectOption(view);await healthy(f);await capture(f,info,view,houseFrames);}
+  // Check actual sightlines, not just the existence of room objects. This
+  // catches old diagonal braces crossing through a newly furnished room.
+  for(const [view,name,p]of [['houseBridal','Bridal cream settee',[0,1.7,0]],['houseBedroom','House guest bed',[0,1.4,-.4]]]){
+    await f.locator('#lp-view').selectOption(view);await healthy(f);
+    const visible=await f.evaluate(({name,p})=>{const {scene,camera}=window.__renderAudit;scene.updateMatrixWorld(true);const group=scene.getObjectByName(name),point=group.localToWorld(new THREE.Vector3(...p)),ray=new THREE.Raycaster(camera.position,point.clone().sub(camera.position).normalize());const hits=ray.intersectObjects(scene.children,true).filter(hit=>{let o=hit.object;while(o){if(!o.visible)return false;o=o.parent;}return hit.object.material&&!hit.object.material.transparent;});let o=hits[0]?.object;while(o){if(o===group)return true;o=o.parent;}return false;},{name,p});expect(visible,view+' has a clear view of its furniture').toBe(true);
+  }
+  const gif=info.outputPath('house-photo-study.gif');await makePreviewGif(houseFrames,gif);await info.attach('Photo-based house views',{path:gif,contentType:'image/gif'});
+  await f.locator('#lp-tab-view').click();await f.locator('#lp-house-doors').check();await f.locator('#lp-house-glass').fill('.32');await f.locator('#lp-house-glass').press('Tab');await healthy(f);
+  expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseDoorsOpen)).toBe(true);expect(await f.evaluate(()=>window.openai.widgetState.modelContent.houseGlassOpacity)).toBeCloseTo(.32);
+  const angle=await f.evaluate(()=>window.__renderAudit.scene.getObjectByName('House glazed door leaf').rotation.y);expect(Math.abs(angle)).toBeCloseTo(Math.PI*.43);
+  await page.reload();const restored=await frameOf(page);await healthy(restored);expect(await restored.evaluate(()=>window.openai.widgetState.modelContent.houseGlassOpacity)).toBeCloseTo(.32);
+  const fixed=()=>restored.evaluate(()=>{const colors=[];window.__renderAudit.scene.getObjectByName('House bridal suite').traverse(o=>{if(o.material?.color)colors.push(o.material.color.getHexString());});return colors;});const before=await fixed();await restored.locator('#lp-tab-decor').click();await restored.locator('[data-photo-look="cassidyAustin"][data-part="all"]').click();await healthy(restored);expect(await fixed()).toEqual(before);
+});
